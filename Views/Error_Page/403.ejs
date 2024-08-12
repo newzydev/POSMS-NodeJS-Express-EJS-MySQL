@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <!-- Head -->
+    <%- include('../Include/Head.ejs') %>
+    <!-- Head End -->
+</head>
+
+<body class="hold-transition login-page">
+    
+    <!-- Preloader -->
+    <%- include('../Include/Preloader.ejs') %>
+    <!-- Preloader End -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="login-box">
+        <div class="card">
+            <div class="card-header text-center">
+                <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
+            </div>
+            <div class="card-body login-card-body text-center">
+                <p class="login-box-msg p-0"><h1>403</h1>Forbidden Access Denied<br>(คุณไม่มีสิทธิเข้าถึงระบบส่วนนี้)</p>
+
+                <hr class="mt-0">
+                <div class="row">
+                    <div class="col-12 mb-3 login_submit_check">
+                        <div class="btn btn-custom-one btn-anti btn-block" onclick="location.href='/';">กลับหน้าหลัก</div>
+                    </div>
+                    <div class="col-12 text-center text-muted">
+                        <i class="far fa-copyright"></i> <b><span id="copyright-year"></span> - <a style="cursor: pointer;" onclick="location.href='/';">POSMS</a></b>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper. Contains page content End -->
+
+    <!-- Javascript -->
+    <%- include('../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+
+</html>

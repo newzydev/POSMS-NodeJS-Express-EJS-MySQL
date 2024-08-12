@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Cashier/Cashier_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>ข้อมูลหมวดหมู่สินค้า</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories';">ปรับปรุงหมวดหมู่สินค้า</a></li>
+                                <li class="breadcrumb-item active">ข้อมูลหมวดหมู่สินค้า</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" class="form-horizontal" method="POST">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">รหัสหมวดหมู่</label>
+                                            <div class="col-sm-10">
+                                                <svg class="barcode" 
+                                                    jsbarcode-format="CODE128" 
+                                                    jsbarcode-value="<%= product_cat.cat_id %>" 
+                                                    jsbarcode-textmargin="5" 
+                                                    jsbarcode-fontoptions="normal" 
+                                                    jsbarcode-fontsize="14" 
+                                                    jsbarcode-width="1" 
+                                                    jsbarcode-height="50">
+                                                </svg>
+                                                <img src="/qrcode-gen?text=<%= product_cat.cat_id %>" alt="QR Code">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="cat_name_main" class="col-sm-2 col-form-label">หมวดหมู่หลัก</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="cat_name_main" id="cat_name_main" placeholder="หมวดหมู่หลัก" value="<%= product_cat.cat_name_main %>" disabled required autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="cat_name_sub" class="col-sm-2 col-form-label">หมวดหมู่ย่อย</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" value="<%= product_cat.cat_name_sub %>" disabled required autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories';" class="btn btn-custom-one">ย้อนกลับ</div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>

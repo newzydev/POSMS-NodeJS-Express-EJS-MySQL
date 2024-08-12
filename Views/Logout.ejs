@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <!-- Head -->
+    <%- include('Include/Head.ejs') %>
+    <!-- Head End -->
+</head>
+
+<body class="hold-transition login-page">
+    
+    <!-- Preloader -->
+    <%- include('Include/Preloader.ejs') %>
+    <!-- Preloader End -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="login-box">
+        <div class="card">
+            <div class="card-header text-center">
+                <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
+            </div>
+            <div class="card-body login-card-body">
+                <p class="login-box-msg p-0">ออกจากระบบเพื่อจบเซสชั่นของคุณ<br>ขอบคุณที่ใช้งานระบบ</p>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="btn btn-custom-one btn-anti btn-block" onclick="location.href='/';">(คลิก) กลับหน้าแรก</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper. Contains page content End -->
+
+    <!-- Javascript -->
+    <%- include('Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+
+</html>

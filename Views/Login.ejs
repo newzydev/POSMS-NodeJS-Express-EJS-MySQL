@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <%- include('Include/Head.ejs') %>
+</head>
+
+<body class="hold-transition login-page">
+    <%- include('Include/Preloader.ejs') %>
+    <div class="login-box">
+        <div class="card">
+            <div class="card-header text-center">
+                <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
+            </div>
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b></p>
+                
+                <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                
+                <form id="login_form" method="POST" action="/Login">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="username" class="required">ชื่อผู้ใช้</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autofocus autocomplete="off">
+                        </div>
+                        <div class="col-12">
+                            <label for="password" class="required">รหัสผ่าน</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autofocus autocomplete="off">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 mb-3 login_submit_check">
+                            <button type="submit" id="login_submit" class="btn btn-custom-one btn-anti btn-block">ล็อกอิน</button>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="btn btn-custom-two btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกสำหรับลูกค้า</div>
+                        </div>
+                    </div>
+                    <div class="text-center btn-anti" style="cursor: pointer;" onclick="location.href='/Forgot_Password';">ลืมรหัสผ่าน ?</div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <%- include('Include/Javascript.ejs') %>
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <!-- Head -->
+    <%- include('Include/Head.ejs') %>
+    <!-- Head End -->
+</head>
+
+<body class="hold-transition login-page">
+    
+    <!-- Preloader -->
+    <%- include('Include/Preloader.ejs') %>
+    <!-- Preloader End -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="login-box">
+        <div class="card">
+            <div class="card-header text-center">
+                <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
+            </div>
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b></p>
+
+                <% if (typeof error !== 'undefined') { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <%= error %>
+                </div>
+                <% } %>
+                
+                <form class="needs-validation" novalidate id="login_form" method="POST">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="first_name" class="required">ชื่อจริง</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= formData ? formData.first_name : '' %>" autofocus autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกชื่อจริงถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อจริงให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="last_name" class="required">นามสกุล</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= formData ? formData.last_name : '' %>" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกนามสกุลถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกนามสกุลให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="username" class="required">ชื่อผู้ใช้</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกชื่อผู้ใช้ถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="password" class="required">รหัสผ่าน</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกรหัสผ่านถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกรหัสผ่านให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="confirm_password" class="required">ยืนยันรหัสผ่าน</label>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกยืนยันรหัสผ่านถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกยืนยันรหัสผ่านให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="phone_number" class="required">หมายเลขโทรศัพท์มือถือ 10 หลัก</label>
+                            <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์มือถือ 10 หลัก" value="<%= formData ? formData.phone_number : '' %>" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกหมายเลขโทรศัพท์มือถือถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกหมายเลขโทรศัพท์มือถือให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group form-check m-0 p-0 icheck-primary">
+                                <input type="checkbox" class="form-check-input" id="accept_check" required>
+                                <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 login_submit_check mb-3">
+                            <button type="submit" id="btn_submit" class="btn btn-custom-one btn-block">สมัครสมาชิก</button>
+                        </div>
+                    </div>
+                    <div class="text-center btn btn-custom-two btn-block btn-anti" style="cursor: pointer;" onclick="location.href='/Login';">ย้อนกลับ</div>
+                </form>                
+
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper. Contains page content End -->
+
+    <!-- Javascript -->
+    <%- include('Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>

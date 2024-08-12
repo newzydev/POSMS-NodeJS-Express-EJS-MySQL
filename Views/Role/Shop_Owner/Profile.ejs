@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>โปรใฟล์</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Dashbord';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">โปรใฟล์</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-md-3">
+        
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle" src="/assets/images/logo/Logo_Point_of_Sale_Management_System_w.png" alt="User profile picture">
+                                    </div>
+        
+                                    <h3 class="profile-username text-center"><%= user.member_firstname %> <%= user.member_lastname %></h3>
+        
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="text-center">
+                                                <svg class="barcode" 
+                                                     jsbarcode-format="CODE128" 
+                                                     jsbarcode-value="<%= user.member_id %>" 
+                                                     jsbarcode-textmargin="5" 
+                                                     jsbarcode-fontoptions="normal" 
+                                                     jsbarcode-fontsize="14" 
+                                                     jsbarcode-width="1" 
+                                                     jsbarcode-height="50">
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="text-center mb-2">
+                                                <img src="/qrcode-gen?text=<%= user.member_id %>" alt="QR Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <b>สมัครสมาชิกเมื่อ</b> <a class="float-right"><%= user.member_time_register %></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>เข้าสู่ระบบล่าสุดเมื่อ</b> <a class="float-right"><%= user.member_time_login %></a>
+                                        </li>
+                                    </ul>
+        
+                                    <div class="btn btn-custom-one btn-block"><b><%= user.role_name %></b></div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+        
+                        </div>
+        
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab"><i class="fas fa-user-cog"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#change_password" data-toggle="tab"><i class="fas fa-key"></i></a></li>
+                                    </ul>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <% if (typeof error !== 'undefined') { %>
+                                    <div class="alert alert-danger text-center mb-3" role="alert">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
+                                    <div class="tab-content">
+
+                                        <!-- Account Settings Form -->
+                                        <div class="active tab-pane" id="settings">
+                                            <form class="form-horizontal" method="POST" action="/Role/Shop_Owner/Page/Profile/Update">
+                                                <input type="hidden" name="member_id" value="<%= user.member_id %>">
+                                                <div class="form-group row">
+                                                    <label for="firstname" class="col-sm-2 col-form-label required">ชื่อจริง</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="ชื่อจริง" value="<%= user.member_firstname %>" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="lastname" class="col-sm-2 col-form-label required">นามสกุล</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="นามสกุล" value="<%= user.member_lastname %>" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้" value="<%= user.member_username %>" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= user.member_tel %>" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <div class="form-group form-check m-0 p-0 icheck-primary">
+                                                            <input type="checkbox" class="form-check-input" id="accept_check_1" required>
+                                                            <label class="form-check-label" for="accept_check_1">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Account Settings Form -->
+
+                                        <!-- Change Password Form -->
+                                        <div class="tab-pane" id="change_password">
+                                            <form class="form-horizontal" method="POST" action="/Role/Shop_Owner/Page/Profile/ChangePassword">
+                                                <input type="hidden" name="member_id" value="<%= user.member_id %>">
+                                                <div class="form-group row">
+                                                    <label for="old_password" class="col-sm-2 col-form-label required">รหัสผ่านเดิม</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control" id="old_password" name="old_password" placeholder="รหัสผ่านเดิม" value="" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="new_password" class="col-sm-2 col-form-label required">รหัสผ่านใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="รหัสผ่านใหม่" value="" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="confirm_new_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่านใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="ยืนยันรหัสผ่านใหม่" value="" required autocomplete="off">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <div class="form-group form-check m-0 p-0 icheck-primary">
+                                                            <input type="checkbox" class="form-check-input" id="accept_check_2" required>
+                                                            <label class="form-check-label" for="accept_check_2">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Change Password Form End -->
+                                        
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>

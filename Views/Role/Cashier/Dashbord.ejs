@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Cashier/Cashier_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>แดชบอร์ด</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Dashbord';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">แดชบอร์ด</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <!-- Row 1 -->
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><span><%= totalProducts %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p>สินค้าทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-1"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <div style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Products';" class="small-box-footer">ข้อมูลเพิ่มเติม <i class="fas fa-arrow-circle-right"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><span><%= totalEmployees %></span><sup style="font-size: 20px" class="ml-2">บัญชี</sup></h3>
+                                    <p>พนักงานทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-2"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Employee_Users';" class="small-box-footer">ข้อมูลเพิ่มเติม <i class="fas fa-arrow-circle-right"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><span><%= totalCustomers %></span><sup style="font-size: 20px" class="ml-2">บัญชี</sup></h3>
+                                    <p>ลูกค้าทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-3"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Customer_Users';" class="small-box-footer">ข้อมูลเพิ่มเติม <i class="fas fa-arrow-circle-right"></i></div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><span><%= totalOrders %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p>ออเดอร์สินค้าทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-4"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-stats-bars"></i>
+                                </div>
+                                <div style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Sale_Report';" class="small-box-footer">ข้อมูลเพิ่มเติม <i class="fas fa-arrow-circle-right"></i></div>
+                            </div>
+                        </div>
+                        <!-- Row 1 End -->
+
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดบัญชีลูกค้า ประจำปี 2567</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart1" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงขอยขายสินค้า ประจำปี 2567</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart2" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>

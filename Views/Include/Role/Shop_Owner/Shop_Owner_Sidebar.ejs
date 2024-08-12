@@ -1,0 +1,74 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <div style="cursor: pointer;" onclick="location.href='/';" class="brand-link">
+        <img src="/assets/images/logo/logo_long_w.png" alt="Logo Point of Sale Management System" class="brand-image">
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-header">โปรไฟล์ผู้ใช้</li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Profile';" class="nav-link <% var your_page_active = "Profile"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p><%= user.member_firstname %> <%= user.member_lastname %></p>
+                    </div>
+                </li>
+                <li class="nav-header">เมนูการใช้งาน</li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Dashbord';" class="nav-link <% var your_page_active = "Dashbord"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>แดชบอร์ด</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users';" class="nav-link <% var your_page_active = "Manage_Employee_Users"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ปรับปรุงบัญชีพนักงาน</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';" class="nav-link <% var your_page_active = "Manage_Customer_Users"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ปรับปรุงบัญชีลูกค้า</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods';" class="nav-link <% var your_page_active = "Manage_Payment_Methods"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ปรับปรุงรูปแบบชำระเงิน</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports';" class="nav-link <% var your_page_active = "Sale_Reports"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ดูรายงานการซื้อขาย</p>
+                    </div>
+                </li>
+                <li class="nav-header">เมนูผู้ใช้งาน</li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Privacy_Policy';" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>นโยบายความเป็นส่วนตัว</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Terms_and_Conditions';" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ข้อกำหนด และ เงื่อนไข</p>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div style="cursor: pointer;" onclick="location.href='/Logout';" class="nav-link <% var your_page_active = "Logout"; if (your_page_active === your_page) { %> active <% } %>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>ออกจากระบบ</p>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

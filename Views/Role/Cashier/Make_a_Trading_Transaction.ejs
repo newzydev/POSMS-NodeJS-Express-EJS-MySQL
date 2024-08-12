@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+    <style>
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .input-group input {
+            flex: 1;
+        }
+        .input-group button {
+            flex: 0 0 auto;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Cashier/Cashier_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>ทำรายการซื้อขายสินค้า</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">ทำรายการซื้อขายสินค้า</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-12 col-lg-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    
+                                    <% if (typeof error !== 'undefined') { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <%= error %>
+                                    </div>
+                                    <% } %>
+                                    
+                                    <form class="form-horizontal" action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart" method="post">
+                                        
+                                        <div class="form-row">
+                                            <input type="hidden" name="cashier_id" value="<%= user.member_id %>">
+                                            <input type="hidden" name="cart_product_qty" value="1">
+                                            <div class="col-sm-12 col-md-8 col-lg-10 mb-3">
+                                                <input type="text" class="form-control form-control-lg" name="product_id" placeholder="รหัสสินค้า หรือ สแกน Bar Code" title="กรอกรหัสสินค้า หรือ สแกน Bar Code" required autofocus autocomplete="off">
+                                            </div>
+                                            <div class="col-sm-12 col-md-4 col-lg-2 mb-3">
+                                                <button type="submit" class="btn btn-lg btn-block btn-custom-one" title="เพิ่มสินค้าในตะกร้า"><i class="fas fa-cart-plus mr-2"></i>เพิ่มสินค้า</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <!-- Description -->
+                                    <p class="text-danger m-0">* Quantity - สามารถปรับเปลี่ยนแบบ Manual ได้ (ไม่น้อยกว่า x1 และไม่มากกว่า x99)</p>
+                                    <p class="text-danger m-0">* รหัสลูกค้า - สำหรับลูกค้าที่มีบัญชี เพื่อดูประวัติการซื้อสินค้า ใบเสร็จอิเล็กทรอนิกส์ และสามารถรับส่วนลดพิเศษเฉพาะสมาชิก</p>
+                                    <p class="text-danger">* เลือกประเภทการชำระเงิน - 1. OPT1 = ชำระเงินสด, 2. OPT2 = ชำระบัญชีธนาคาร และ 3. OPT3 = ชำระคิวอาร์พร้อมเพย์</p>
+                                    <!-- Description End -->
+                                    <div class="table-responsive">
+                                        <table class="mb-0 table table-hover text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-1 text-center" scope="col">#</th>
+                                                    <th class="col-2" scope="col">รหัสสินค้า</th>
+                                                    <th class="col-4" scope="col">รายการ</th>
+                                                    <th class="col-1 text-center" scope="col">Qty.</th>
+                                                    <th class="col-2 text-right" scope="col">ราคา</th>
+                                                    <th class="col-2 text-center" scope="col">ดำเนินการ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (carts.length === 0) { %>
+                                                    <td class="text-center" colspan="6">ไม่มีสินค้าในตะกร้า</td>
+                                                <% } else { %>
+                                                    <% carts.forEach((cart, index) => { %>
+                                                    <tr>
+                                                        <th class="text-middle text-center"><%= index + 1 %></th>
+                                                        <td class="text-middle"><%= cart.product_id %></td>
+                                                        <td class="text-middle"><%= cart.product_name %></td>
+                                                        <td class="text-middle">
+                                                            <input type="hidden" name="cart_id" value="<%= cart.cart_id %>">
+                                                            <input type="text" class="form-control form-control-sm text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
+                                                        </td>
+                                                        <td class="text-middle text-right">฿<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                                        <td class="text-middle text-center">
+                                                            <div class="btn-group">
+                                                                <div class="btn btn-custom-two rounded-circle btn-sm" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% }) %>
+                                                <% } %>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td class="text-center">ยอดรวม</td>
+                                                    <td colspan="2"></td>
+                                                    <td class="text-center">x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %></td>
+                                                    <td class="text-right">฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                                    <td colspan="1"></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    
+                                    <h4>สรุปรายการ</h4>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <span>ทำรายการโดย : </span>
+                                        <% if (cashierFirstName || cashierLastName) { %>
+                                        <span><%= cashierFirstName %> <%= cashierLastName %></span>
+                                        <% } else { %>
+                                        <span><%= user.member_firstname %> <%= user.member_lastname %></span>
+                                        <% } %>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>วันที่ทำรายการ : </span>
+                                        <span><span id="date-today-1"></span></span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between">
+                                        <span>ยอดรวม (สินค้า x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>) : </span>
+                                        <span>฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>ส่วนลดพิเศษ (เฉพาะสมาชิก) : </span>
+                                        <span>฿<%= memberDis.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>ยอดสุทธิ : </span>
+                                        <span>฿<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+                                    </div>
+                                    
+                                    <form class="form-horizontal" action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order" method="post">
+                                        
+                                        <!-- Insert to table Orders -->
+                                        <hr>
+                                        <input type="hidden" name="cashier_id" id="cashier_id" value="<%= user.member_id %>">
+                                        <div>
+                                            <input type="text" name="customer_id" class="form-control form-control-lg mb-3" placeholder="รหัสลูกค้า (ถ้ามี)" autocomplete="off">
+                                            <select class="form-control form-control-lg" name="pay_id" id="pay_id" required>
+                                                <option selected disabled>เลือกประเภทการชำระเงิน</option>
+                                                <% paymentOptions.forEach((paymentOption) => { %>
+                                                    <% if (paymentOption.pay_status === "1") { %>
+                                                        <option value="<%= paymentOption.pay_id %>">(<%= paymentOption.pay_cat_name %>) <%= paymentOption.pay_bank_name %></option>
+                                                    <% } %>
+                                                <% }) %>
+                                            </select>
+                                        </div>
+                                        <hr>
+                                        <input type="hidden" name="total_unit" value="<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>">
+                                        <input type="hidden" name="total_amount" value="<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <input type="hidden" name="member_discount" value="<%= memberDis.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <input type="hidden" name="net_total" value="<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <!-- Insert to table Orders End -->
+                                        
+                                        <!-- Insert to table Order_Product_Lists -->
+                                        <% carts.forEach((cart, index) => { %>
+                                        <input type="hidden" name="product_name[]" value="<%= cart.product_name %>">
+                                        <input type="hidden" name="cart_product_qty[]" value="<%= cart.cart_product_qty %>">
+                                        <input type="hidden" name="product_price[]" value="<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <% }) %>
+                                        <!-- Insert to table Order_Product_Lists End -->
+                                        
+                                        <div class="form-group form-check m-0 p-0 mb-3 icheck-primary">
+                                            <input type="checkbox" class="form-check-input" id="accept_check" required>
+                                            <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-custom-one btn-lg btn-block"><i class="fas fa-check-circle mr-2"></i>ทำรายการชำระเงิน</button>
+                                    
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>  
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+    
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', (event) => {
+                    const inputElement = event.target;
+                    const cartId = inputElement.dataset.cartId;
+                    let quantity = parseInt(inputElement.value, 10);
+    
+                    // Validate quantity
+                    if (quantity < 1 || isNaN(quantity)) {
+                        // Set the value to 1 if invalid
+                        inputElement.value = 1;
+                        quantity = 1;
+    
+                        // Optionally, notify the user about the invalid quantity
+                        alert('จำนวนสินค้าต้องมีอย่างน้อย x1 หน่วย');
+                    } else if (quantity > 99 || isNaN(quantity)) {
+                        // Set the value to 1 if invalid
+                        inputElement.value = 99;
+                        quantity = 99;
+    
+                        // Optionally, notify the user about the invalid quantity
+                        alert('จำนวนสินค้าต้องไม่เกิน x99 หน่วย');
+                    }
+    
+                    fetch('/Role/Cashier/Page/Make_a_Trading_Transaction/Update_Product_Quantity', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({
+                            cart_id: cartId,
+                            cart_product_qty: quantity
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Quantity updated successfully');
+                            // Reload the page
+                            location.reload();
+                        } else {
+                            console.error('Failed to update quantity');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>    
+    <!-- Javascript End -->
+</body>
+</html>

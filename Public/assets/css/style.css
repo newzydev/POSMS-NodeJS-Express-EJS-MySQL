@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+label.required:after {
+  content: "\00a0*";
+  color: #dc3545;
+}
+
+.card {
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+.btn,
+.form-control,
+.page-link {
+  border-radius: 0;
+  box-shadow: none !important;
+}
+
+.form-control {
+  border: 1px solid #E7E7E7;
+}
+
+.small-box,
+.nav-link {
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+.login-box, .register-box {
+  width: 500px;
+}
+@media (max-width: 576px) {
+  .login-box, .register-box {
+      margin-top: .5rem;
+      width: 95%;
+  }
+}
+
+body {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+body {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+}
+
+.bai-jamjuree-extralight {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.bai-jamjuree-light {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.bai-jamjuree-regular {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bai-jamjuree-medium {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.bai-jamjuree-semibold {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.bai-jamjuree-bold {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.bai-jamjuree-extralight-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.bai-jamjuree-light-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.bai-jamjuree-regular-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.bai-jamjuree-medium-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.bai-jamjuree-semibold-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.bai-jamjuree-bold-italic {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+img,
+svg {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  pointer-events: none;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+  transition: .3s;
+  color: #ffffff !important;
+  border-radius: 1.5rem !important;
+}
+
+.nav-sidebar .nav-item > .active {
+  background-color: #ffffff !important;
+  color: #0F1975 !important;
+  overflow: hidden !important;
+}
+.nav-sidebar .nav-item > .nav-link:hover {
+  background-color: #ffffff !important;
+  color: #0F1975 !important;
+  overflow: hidden !important;
+}
+
+.bg-warning {
+  color: #ffffff !important;
+}
+
+.bg-warning a {
+  color: #ffffff !important;
+}
+
+.login-page {
+  background-image: url("../images/background/form-login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.btn-warning, .btn-warning:hover, .btn-warning:focus {
+  color: #ffffff !important;
+}
+
+.btn-custom-one {
+  background-image: linear-gradient(90deg, #0F1975, #0B21ED);
+  color: #ffffff !important;
+  border: 1px solid #333333;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.btn-custom-one:hover {
+  background-image: linear-gradient(90deg, #0F1975, #0B21ED);
+  color: #ffffff;
+  border: 1px solid #333333;
+  opacity: 0.9;
+}
+
+.btn-custom-two {
+  background-color: #ffffff;
+  color: #333333 !important;
+  border: 1px solid #E7E7E7;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.btn-custom-two:hover {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #E7E7E7;
+  opacity: 0.9;
+}
+
+table tbody tr {
+  transition: .3s;
+}
+table tbody tr:hover {
+  background-color: #E7E7E7 !important;
+}
+
+.text-middle {
+  vertical-align: middle !important;
+}
+
+[class*=sidebar-dark-] {
+  background-image: linear-gradient(90deg, #0F1975, #0B21ED);
+}
+
+.layout-navbar-fixed .wrapper .sidebar-dark-primary .brand-link:not([class*=navbar]) {
+  background-image: linear-gradient(90deg, #0F1975, #0B21ED);
+}
+
+[class*=sidebar-dark] .brand-link {
+  border-bottom: 1px solid #0F1975;
+}
+
+[class*=sidebar-dark-] .nav-header {
+  color: #ffffff;
+}
+
+.barcode {
+  border-radius: 0;
+}
+
+.modal-content {
+  border-radius: 0.5rem !important;
+  box-shadow: 0 !important;
+}
+
+.prev-page-custom {
+  margin-right: 10px;
+  transition: .3s;
+  opacity: 1;
+  transition: opacity .3s;
+}
+.prev-page-custom:hover {
+  opacity: 0.9;
+}
+
+.next-page-custom {
+  margin-left: 10px;
+  transition: .3s;
+  opacity: 1;
+  transition: opacity .3s;
+}
+.next-page-custom:hover {
+  opacity: 0.9;
+}
+
+.page-link, .page-number-custom {
+  border-radius: 0 !important;
+  transition: .3s;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.small-box-footer {
+  transition: .3s;
+  margin: 8px;
+}
+
+.timeline>.time-label>span {
+  border-radius: 0;
+}
+
+.timeline>div {
+  margin-right: 0;
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>แดชบอร์ด</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Dashbord';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">แดชบอร์ด</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <!-- Row 1 -->
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery1Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">บัญชี</sup></h3>
+                                    <p>พนักงานทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-1"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery2Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">บัญชี</sup></h3>
+                                    <p>ลูกค้าทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-2"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery3Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รูปแบบ</sup></h3>
+                                    <p>รูปแบบชำระเงินทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-3"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="far fa-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery4Re || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span><sup style="font-size: 20px" class="ml-2">บาท</sup></h3>
+                                    <p>ยอดขายรวมทั้งสิ้น<br>ข้อมูล ณ วันที่ <span id="date-info-4"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 1 End -->
+
+                        <!-- Row 2 -->
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery5Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p>ออเดอร์ทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-5"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery6Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p>สินค้าทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-6"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="far fa-folder-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><span><%= (dashQuery7Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p>หมวดหมู่ทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-7"></span></p></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="far fa-folder-open"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-3 col-sm-12">
+                            <div class="small-box bg-light">
+                                <div class="inner">
+                                    <h3>แดชบอร์ด</h3>
+                                    <p>ข้อมูลรายงานสรุป<br>ข้อมูล ณ วันที่ <span id="date-info-8"></span></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 2 End -->
+
+                        <!-- Row 3 -->
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart1" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดรูปแบบชำเงินยอดนิยม</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart2" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 3 End -->
+
+                        <!-- Row 4 -->
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดสินค้ายอดนิยม 10 รายการ</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart3" style="min-height: 400px; height: 400px; max-height: 400px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 4 End -->
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <script>
+        // Chart 1
+        const ctx1 = document.getElementById('myChart1');
+
+        new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['พนักงาน', 'ลูกค้า'],
+                datasets: [{
+                    label: ' รายงานแสดงยอดบัญชี ',
+                    data: [<%= dashQuery1Re %>, <%= dashQuery2Re %>],
+                    borderWidth: 2,
+                    borderColor: ['#ffffff', '#ffffff'],
+                    backgroundColor: ['#ff6384', '#36A2EB'],
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงาน บัญชีพนักงาน และ ลูกค้า',
+                    }
+                }
+            }
+        });
+        // Chart 1 End
+    </script>
+    <script>
+        // Chart 2
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+    
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['เงินสด', 'บัญชีธนาคาร', 'พร้อมเพย์'],
+                datasets: [{
+                    label: ' รูปแบบชำเงินยอดนิยม ',
+                    data: <%- paymentData %>,
+                    borderWidth: 2,
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    backgroundColor: ['#ff6384', '#36A2EB', '#ff9020'],
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'กราฟรายรายงานแสดงรูปแบบชำเงินยอดนิยม',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงานแสดงรูปแบบชำเงินยอดนิยม',
+                    }
+                }
+            }
+        });
+        // Chart 2 End
+    </script>
+    <script>
+        // Chart 3
+        const ctx3 = document.getElementById('myChart3');
+
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: <%- topProductLabels %>,
+                datasets: [{
+                    label: ' สินค้ายอดนิยม ',
+                    data: <%- topProductData %>,
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 10 รายการ',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงาน สินค้ายอดนิยม 10 รายการ',
+                    }
+                }
+            }
+        });
+        // Chart 3 End
+    </script>
+    <!-- Javascript End -->
+</body>
+</html>

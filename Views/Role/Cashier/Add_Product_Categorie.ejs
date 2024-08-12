@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Cashier/Cashier_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>เพิ่มหมวดหมู่สินค้า</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories';">ปรับปรุงหมวดหมู่สินค้า</a></li>
+                                <li class="breadcrumb-item active">เพิ่มหมวดหมู่สินค้า</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="" class="form-horizontal" method="POST">
+                                        <div class="form-group row">
+                                            <label for="cat_name_main" class="col-sm-2 col-form-label required">หมวดหมู่หลัก</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" name="cat_name_main" id="cat_name_main" required>
+                                                    <option selected disabled>เลือกหมวดหมู่หลัก</option>
+                                                    <option value="เครื่องดื่ม">เครื่องดื่ม</option>
+                                                    <option value="อาหารแห้งและอาหารสำเร็จรูป">อาหารแห้งและอาหารสำเร็จรูป</option>
+                                                    <option value="ผลิตภัณฑ์นม">ผลิตภัณฑ์นม</option>
+                                                    <option value="ผลไม้และผักสด">ผลไม้และผักสด</option>
+                                                    <option value="เนื้อสัตว์และอาหารทะเล">เนื้อสัตว์และอาหารทะเล</option>
+                                                    <option value="ขนมและของหวาน">ขนมและของหวาน</option>
+                                                    <option value="เครื่องใช้ในครัวเรือน">เครื่องใช้ในครัวเรือน</option>
+                                                    <option value="ผลิตภัณฑ์เพื่อสุขภาพและความงาม">ผลิตภัณฑ์เพื่อสุขภาพและความงาม</option>
+                                                    <option value="ของใช้ส่วนตัว">ของใช้ส่วนตัว</option>
+                                                    <option value="สินค้าประเภทอื่น">สินค้าประเภทอื่น ๆ</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="cat_name_sub" class="col-sm-2 col-form-label required">หมวดหมู่ย่อย</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" required autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <div class="form-group form-check m-0 p-0 icheck-primary">
+                                                    <input type="checkbox" class="form-check-input" id="accept_check" required>
+                                                    <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-2 col-sm-10">
+                                                <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
+                                                <button type="reset" class="btn btn-custom-two">รีเซ็ตฟอร์ม</button>
+                                                <div onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories';" class="btn btn-custom-two">ย้อนกลับ</div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>

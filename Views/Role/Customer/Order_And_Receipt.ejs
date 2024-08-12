@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Customer/Customer_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>รายการออเดอร์</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Customer/Page/Profile';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">รายการออเดอร์</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-md-3">
+        
+                            <!-- Profile Image -->
+                            <div class="card card-primary card-outline">
+                                <div class="card-body box-profile">
+                                    <div class="text-center">
+                                        <img class="profile-user-img img-fluid img-circle" src="/assets/images/logo/Logo_Point_of_Sale_Management_System_w.png" alt="User profile picture">
+                                    </div>
+        
+                                    <h3 class="profile-username text-center"><%= user.member_firstname %> <%= user.member_lastname %></h3>
+        
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="text-center">
+                                                <svg class="barcode" 
+                                                     jsbarcode-format="CODE128" 
+                                                     jsbarcode-value="<%= user.member_id %>" 
+                                                     jsbarcode-textmargin="5" 
+                                                     jsbarcode-fontoptions="normal" 
+                                                     jsbarcode-fontsize="14" 
+                                                     jsbarcode-width="1" 
+                                                     jsbarcode-height="40">
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="text-center mb-2">
+                                                <img src="/qrcode-gen?text=<%= user.member_id %>" alt="QR Code">
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <ul class="list-group list-group-unbordered mb-3">
+                                        <li class="list-group-item">
+                                            <b>สมัครสมาชิกเมื่อ</b> <a class="float-right"><%= user.member_time_register %></a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>เข้าสู่ระบบล่าสุดเมื่อ</b> <a class="float-right"><%= user.member_time_login %></a>
+                                        </li>
+                                    </ul>
+        
+                                    <div class="btn btn-custom-one btn-block"><b><%= user.role_name %></b></div>
+                                </div>
+                            </div>
+        
+                        </div>
+        
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form method="GET" action="">
+                                        <div class="form-row">
+                                            <div class="col-md-9 mb-3">
+                                                <div class="btn-group">
+                                                    <div class="btn btn-secondary btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt/Download/Excel';"><i class="fas fa-download mr-2"></i>ใฟล์ Excel</div>
+                                                    <div class="btn btn-secondary btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt/Print';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์</div>
+                                                </div>
+                                                <% if (search) { %>
+                                                <div class="btn btn-info btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
+                                                <% } %>
+                                            </div>
+                                            <div class="col-md-2 mb-3">
+                                                <input type="text" class="form-control input-anti input-search" name="search" placeholder="หมายเลขออเดอร์" required autocomplete="off" autofocus value="<%= search %>">
+                                            </div>
+                                            <div class="col-md-1 mb-3">
+                                                <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <hr class="mt-0">
+                                    
+                                    <% if (orders.length === 0) { %>
+                                        <% if (search) { %>
+                                        <span class="text-center">ไม่เจอข้อมูลที่ค้นหา</span>
+                                        <% } else { %>
+                                        <span class="text-center">ไม่มีข้อมูลในฐานข้อมูล</span>
+                                        <% } %>
+                                    <% } else { %>
+                                    <div class="timeline timeline-inverse">
+                                        <!-- Item -->
+                                            <% orders.forEach((order, index) => { %>
+                                            <div class="time-label">
+                                                <span class="bg-danger">
+                                                    <%= order.order_time_transaction %>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-shopping-basket bg-primary"></i>
+                                                <div class="timeline-item">
+                                                    <h3 class="timeline-header"><a class="text-primary" style="cursor: pointer;"><%= user.member_firstname %> <%= user.member_lastname %></a> รายการออเดอร์ หมายเลข <b>#<%= order.order_id %></b></h3>
+                                                    <div class="timeline-body">
+                                                        ซื้อสินค้าออเดอร์ หมายเลข #<%= order.order_id %> ทำรายการเมื่อวันที่ <%= order.order_time_transaction %> ชำระเงินเมื่อวันที่ <%= order.order_time_payment %> ยอดสุทธิ ฿<%= order.net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %> บาท
+                                                    </div>
+                                                    <div class="timeline-footer">
+                                                        <div class="btn btn-primary btn-sm" onclick="location.href='/Role/Customer/Page/Order_And_Receipt/Order/<%= order.order_id %>';">ใบเสร็จรับเงิน</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% }) %>
+                                            <!-- Item -->
+                                            
+                                        <div>
+                                            <i class="far fa-clock bg-gray"></i>
+                                        </div>
+                                        <% } %>
+                                    </div>
+
+                                    <% if (orders.length > 0) { %>
+                                    <nav class="col-12" aria-label="Page navigation mt-3">
+                                        <div class="justify-content-center text-center mt-2 mb-2">
+                                            <span>ข้อมูลทั้งหมด <%= totalRecords.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %> เรคคอร์ด</span><br>
+                                            <span id="total-pages">หน้า <%= currentPage.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %> ของทั้งหมด <%= totalPages.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span>
+                                        </div>
+                                        
+                                        <% if (totalPages > 1) { %>
+                                        <ul class="pagination justify-content-center m-0" id="pagination">
+                                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                                <a class="page-link prev-page-custom" href="?page=1<%= search ? '&search=' + search : '' %>"><i class="fas fa-angle-double-left"></i></a>
+                                            </li>
+                                            <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+                                                <a class="page-link prev-page-custom" href="?page=<%= currentPage - 1 %><%= search ? '&search=' + search : '' %>"><i class="fas fa-angle-left"></i></a>
+                                            </li>
+                                            <% 
+                                            let startPage = Math.max(currentPage - 1, 1);
+                                            let endPage = Math.min(startPage + 2, totalPages);
+                                            if (endPage - startPage < 2 && startPage > 1) {
+                                                startPage = endPage - 2;
+                                            }
+                                            for (let i = startPage; i <= endPage; i++) { 
+                                            %>
+                                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                    <a class="page-link page-number-custom" href="?page=<%= i %><%= search ? '&search=' + search : '' %>"><%= i %></a>
+                                                </li>
+                                            <% } %>
+                                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                <a class="page-link next-page-custom" href="?page=<%= currentPage + 1 %><%= search ? '&search=' + search : '' %>"><i class="fas fa-angle-right"></i></a>
+                                            </li>
+                                            <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+                                                <a class="page-link next-page-custom" href="?page=<%= totalPages %><%= search ? '&search=' + search : '' %>"><i class="fas fa-angle-double-right"></i></a>
+                                            </li>
+                                        </ul>
+                                        <% } %>
+                                    
+                                    </nav>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>
