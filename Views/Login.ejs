@@ -21,15 +21,27 @@
                 </div>
                 <% } %>
                 
-                <form id="login_form" method="POST" action="/Login">
+                <form class="needs-validation" novalidate id="login_form" method="POST">
                     <div class="row">
                         <div class="col-12 mb-3">
                             <label for="username" class="required">ชื่อผู้ใช้</label>
-                            <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autofocus autocomplete="off">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autofocus autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกชื่อผู้ใช้ถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                            </div>
                         </div>
                         <div class="col-12">
                             <label for="password" class="required">รหัสผ่าน</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autofocus autocomplete="off">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autofocus autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกรหัสผ่านถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกรหัสผ่านให้ถูกต้อง
+                            </div>
                         </div>
                     </div>
                     <hr>

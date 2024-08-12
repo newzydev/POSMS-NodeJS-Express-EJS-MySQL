@@ -47,7 +47,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="GET" action="">
+                                    <form class="needs-validation" novalidate method="GET" action="">
                                         <div class="form-row">
                                             <div class="col-md-9 mb-3">
                                                 <div class="btn-group">
@@ -61,6 +61,12 @@
                                             </div>
                                             <div class="col-md-2 mb-3">
                                                 <input type="text" class="form-control input-anti input-search" name="search" placeholder="ค้นหาจาก ชื่อ / นามสกุล" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="valid-feedback">
+                                                    กรอกข้อมูลค้นหาถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกข้อมูลค้นหาให้ถูกต้อง
+                                                </div>
                                             </div>
                                             <div class="col-md-1 mb-3">
                                                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>

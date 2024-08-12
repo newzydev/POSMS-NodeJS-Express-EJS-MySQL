@@ -48,7 +48,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="" class="form-horizontal" method="POST">
+                                    <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label for="pay_cat_name" class="col-sm-2 col-form-label required">ประเภทการชำระเงิน</label>
                                             <div class="col-sm-10">
@@ -58,24 +58,48 @@
                                                     <option <%= pay_method.pay_cat_name === 'OPT2' ? 'selected' : '' %> value="OPT2">บัญชีธนาคาร / Bank Account</option>
                                                     <option <%= pay_method.pay_cat_name === 'OPT3' ? 'selected' : '' %> value="OPT3">คิวอาร์พร้อมเพย์ / QR Prompt Pay</option>
                                                 </select>
+                                                <div class="valid-feedback">
+                                                    เลือกประเภทการชำระเงินถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกประเภทการชำระเงินให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="pay_bank_name" class="col-sm-2 col-form-label required">ชื่อธนาคาร</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= pay_method.pay_bank_name %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกชื่อธนาคารถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกชื่อธนาคารให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="pay_bank_account_name" class="col-sm-2 col-form-label required">ชื่อบัญชีธนาคาร</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= pay_method.pay_bank_account_name %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกชื่อบัญชีธนาคารถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกชื่อบัญชีธนาคารให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="pay_bank_number" class="col-sm-2 col-form-label required">หมายเลขบัญชี</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<%= pay_method.pay_bank_number %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกหมายเลขบัญชีถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกหมายเลขบัญชีให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -86,6 +110,12 @@
                                                     <option <%= pay_method.pay_status === '1' ? 'selected' : '' %> value="1">เปิด</option>
                                                     <option <%= pay_method.pay_status === '0' ? 'selected' : '' %> value="0">ปิด</option>
                                                 </select>
+                                                <div class="valid-feedback">
+                                                    เลือกสถานะถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกสถานะให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -93,6 +123,12 @@
                                                 <div class="form-group form-check m-0 p-0 icheck-primary">
                                                     <input type="checkbox" class="form-check-input" id="accept_check" required>
                                                     <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไชการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                    <div class="valid-feedback">
+                                                        ข้าพเจ้าได้อ่านและยอมรับ
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
