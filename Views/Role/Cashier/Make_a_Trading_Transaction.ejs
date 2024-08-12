@@ -67,24 +67,33 @@
                                     </div>
                                     <% } %>
                                     
-                                    <form class="form-horizontal" action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart" method="post">
-                                        
+                                    <form class="needs-validation" novalidate action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart" method="post">
                                         <div class="form-row">
                                             <input type="hidden" name="cashier_id" value="<%= user.member_id %>">
                                             <input type="hidden" name="cart_product_qty" value="1">
                                             <div class="col-sm-12 col-md-8 col-lg-10 mb-3">
                                                 <input type="text" class="form-control form-control-lg" name="product_id" placeholder="รหัสสินค้า หรือ สแกน Bar Code" title="กรอกรหัสสินค้า หรือ สแกน Bar Code" required autofocus autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกรหัส หรือ สแกนรหัสสินค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกรหัส หรือ สแกนรหัสสินค้าให้ถูกต้อง
+                                                </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4 col-lg-2 mb-3">
                                                 <button type="submit" class="btn btn-lg btn-block btn-custom-one" title="เพิ่มสินค้าในตะกร้า"><i class="fas fa-cart-plus mr-2"></i>เพิ่มสินค้า</button>
                                             </div>
                                         </div>
-
                                     </form>
                                     <!-- Description -->
-                                    <p class="text-danger m-0">* Quantity - สามารถปรับเปลี่ยนแบบ Manual ได้ (ไม่น้อยกว่า x1 และไม่มากกว่า x99)</p>
-                                    <p class="text-danger m-0">* รหัสลูกค้า - สำหรับลูกค้าที่มีบัญชี เพื่อดูประวัติการซื้อสินค้า ใบเสร็จอิเล็กทรอนิกส์ และสามารถรับส่วนลดพิเศษเฉพาะสมาชิก</p>
-                                    <p class="text-danger">* เลือกประเภทการชำระเงิน - 1. OPT1 = ชำระเงินสด, 2. OPT2 = ชำระบัญชีธนาคาร และ 3. OPT3 = ชำระคิวอาร์พร้อมเพย์</p>
+                                    <div class="btn btn-custom-two btn-block mb-3" data-toggle="collapse" data-target="#HelpInformation" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำข้อมูลเพิ่มเติม (คลิ้ก)</div>
+                                    <div class="collapse" id="HelpInformation">
+                                        <div class="card card-body">
+                                            <p class="m-0">* Quantity - สามารถปรับเปลี่ยนแบบ Manual ได้ (ไม่น้อยกว่า x1 และไม่มากกว่า x99)</p>
+                                            <p class="m-0">* รหัสลูกค้า - สำหรับลูกค้าที่มีบัญชี เพื่อดูประวัติการซื้อสินค้า ใบเสร็จอิเล็กทรอนิกส์ และสามารถรับส่วนลดพิเศษเฉพาะสมาชิก</p>
+                                            <p class="m-0">* เลือกประเภทการชำระเงิน - 1. OPT1 = ชำระเงินสด, 2. OPT2 = ชำระบัญชีธนาคาร และ 3. OPT3 = ชำระคิวอาร์พร้อมเพย์</p>
+                                        </div>
+                                    </div>
                                     <!-- Description End -->
                                     <div class="table-responsive">
                                         <table class="mb-0 table table-hover text-nowrap">
@@ -169,21 +178,33 @@
                                         <span>฿<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
                                     </div>
                                     
-                                    <form class="form-horizontal" action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order" method="post">
-                                        
+                                    <form class="needs-validation" novalidate action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order" method="post">
                                         <!-- Insert to table Orders -->
                                         <hr>
                                         <input type="hidden" name="cashier_id" id="cashier_id" value="<%= user.member_id %>">
                                         <div>
-                                            <input type="text" name="customer_id" class="form-control form-control-lg mb-3" placeholder="รหัสลูกค้า (ถ้ามี)" autocomplete="off">
-                                            <select class="form-control form-control-lg" name="pay_id" id="pay_id" required>
-                                                <option selected disabled>เลือกประเภทการชำระเงิน</option>
-                                                <% paymentOptions.forEach((paymentOption) => { %>
-                                                    <% if (paymentOption.pay_status === "1") { %>
-                                                        <option value="<%= paymentOption.pay_id %>">(<%= paymentOption.pay_cat_name %>) <%= paymentOption.pay_bank_name %></option>
-                                                    <% } %>
-                                                <% }) %>
-                                            </select>
+                                            <div class="mb-3">
+                                                <input type="text" name="customer_id" class="form-control form-control-lg" placeholder="รหัสลูกค้า (ถ้ามี)" autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกรหัสลูกค้าถูกต้อง
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <select class="form-control form-control-lg" name="pay_id" id="pay_id" required>
+                                                    <option selected disabled>เลือกประเภทการชำระเงิน</option>
+                                                    <% paymentOptions.forEach((paymentOption) => { %>
+                                                        <% if (paymentOption.pay_status === "1") { %>
+                                                            <option value="<%= paymentOption.pay_id %>">(<%= paymentOption.pay_cat_name %>) <%= paymentOption.pay_bank_name %></option>
+                                                        <% } %>
+                                                    <% }) %>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกประเภทการชำระเงิน
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกประเภทการชำระเงินให้ถูกต้อง
+                                                </div>
+                                            </div>
                                         </div>
                                         <hr>
                                         <input type="hidden" name="total_unit" value="<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>">
@@ -203,9 +224,14 @@
                                         <div class="form-group form-check m-0 p-0 mb-3 icheck-primary">
                                             <input type="checkbox" class="form-check-input" id="accept_check" required>
                                             <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                            <div class="valid-feedback">
+                                                ข้าพเจ้าได้อ่านและยอมรับ
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-custom-one btn-lg btn-block"><i class="fas fa-check-circle mr-2"></i>ทำรายการชำระเงิน</button>
-                                    
                                     </form>
 
                                 </div>

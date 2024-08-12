@@ -51,10 +51,15 @@
                                     <h4>สรุปรายการ</h4>
                                     <hr>
                                     <!-- Description -->
-                                    <p class="text-danger m-0">* ชำระเงินสด - ระบบจะให้แคชเชียร์บันทึกจำนวนเงินที่ได้รับจากลูกค้า</p>
-                                    <p class="text-danger m-0">* ชำระด้วย โอนเงินผ่านบัญชีธนาคาร - ระบบจะแสดงหมายเลขบัญชี เพื่อให้ลูกค้าสามารถโอนเงินได้ได้</p>
-                                    <p class="text-danger m-0">* ชำระด้วย QR Prompt Pay - ระบบจะสร้าง QR Code มาให้อัติโนมัติ เพื่อให้ลูกค้าสามารถสแกนได้</p>
-                                    <p class="text-danger m-0 mb-3">* เมื่อลูกค้าชำระเงินแล้วให้ลูกค้าแสดงหลักฐานการชำระเงินแก่พนักงานแคชเชียร์ สำหรับช่องทางที่ไม่ใช่เงินสด</p>
+                                    <div class="btn btn-custom-two btn-block mb-3" data-toggle="collapse" data-target="#HelpInformation" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำข้อมูลเพิ่มเติม (คลิ้ก)</div>
+                                    <div class="collapse" id="HelpInformation">
+                                        <div class="card card-body">
+                                            <p class="m-0">* ชำระเงินสด - ระบบจะให้แคชเชียร์บันทึกจำนวนเงินที่ได้รับจากลูกค้า</p>
+                                            <p class="m-0">* ชำระด้วย โอนเงินผ่านบัญชีธนาคาร - ระบบจะแสดงหมายเลขบัญชี เพื่อให้ลูกค้าสามารถโอนเงินได้ได้</p>
+                                            <p class="m-0">* ชำระด้วย QR Prompt Pay - ระบบจะสร้าง QR Code มาให้อัติโนมัติ เพื่อให้ลูกค้าสามารถสแกนได้</p>
+                                            <p class="m-0">* เมื่อลูกค้าชำระเงินแล้วให้ลูกค้าแสดงหลักฐานการชำระเงินแก่พนักงานแคชเชียร์ สำหรับช่องทางที่ไม่ใช่เงินสด</p>
+                                        </div>
+                                    </div>
                                     <!-- Description End -->
                                     <h5 class="mb-3"><b>รายการออเดอร์ หมายเลข : <span>#<%= OrderPayment[0].order_id %></span></b></h5>
                                     <div class="row">
@@ -152,7 +157,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form-horizontal" action="" method="post">
+                                    <form class="needs-validation" novalidate action="" method="post">
                                         <h4>ชำระเงิน</h4>
                                         <hr>
                                         <div class="d-flex justify-content-between mb-1">
@@ -180,6 +185,12 @@
                                                 </div>
                                                 <div class="col-sm-12 text-center mt-3 mb-3">
                                                     <input type="text" class="form-control form-control-lg" name="get_money" id="get_money" placeholder="จำนวนเงินที่รับจากลูกค้า" autofocus required autocomplete="off">
+                                                    <div class="valid-feedback">
+                                                        กรอกจำนวนเงินที่รับจากลูกค้าถูกต้อง
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        กรุณากรอกจำนวนเงินที่รับจากลูกค้าให้ถูกต้อง
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-12 text-center">
                                                     <b>จำนวนเงินที่ต้องชำระ : ฿<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %> บาท</b>
@@ -231,6 +242,12 @@
                                         <div class="form-group form-check m-0 p-0 mb-3 icheck-primary">
                                             <input type="checkbox" class="form-check-input" id="accept_check" required>
                                             <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                            <div class="valid-feedback">
+                                                ข้าพเจ้าได้อ่านและยอมรับ
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-custom-one btn-lg btn-block"><i class="fas fa-check-circle mr-2"></i>ยืนยันชำระเงิน</button>
                                     </form>
