@@ -1,10 +1,10 @@
 const express = require('express'); // "express": Framework for building web applications
 const bodyParser = require('body-parser'); // "bodyParser": Middleware for parsing incoming request bodies
 const path = require('path'); // "path": Utility for working with file and directory paths
+const QRCode = require('qrcode');
 const cookieParser = require('cookie-parser'); // "cookie-parser"
 const connectDB = require('./Config/db'); // Import the connectDB function
 const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth'); // Import the authentication
-const QRCode = require('qrcode');
 const app = express(); // "app": Initializes the Express application
 const port = 5000; // "port": Defines the port on which the server will run
 const db = connectDB(); // Create and use the database connection
