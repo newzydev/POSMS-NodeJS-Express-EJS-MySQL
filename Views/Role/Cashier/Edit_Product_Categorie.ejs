@@ -48,7 +48,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="" class="form-horizontal" method="POST">
+                                    <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">รหัสหมวดหมู่</label>
                                             <div class="col-sm-10">
@@ -80,12 +80,24 @@
                                                     <option <%= product_cat.cat_name_main === 'ของใช้ส่วนตัว' ? 'selected' : '' %> value="ของใช้ส่วนตัว">ของใช้ส่วนตัว</option>
                                                     <option <%= product_cat.cat_name_main === 'สินค้าประเภทอื่น' ? 'selected' : '' %> value="สินค้าประเภทอื่น">สินค้าประเภทอื่น ๆ</option>
                                                 </select>
+                                                <div class="valid-feedback">
+                                                    เลือกหมวดหมู่หลักถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกหมวดหมู่หลักให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="cat_name_sub" class="col-sm-2 col-form-label required">หมวดหมู่ย่อย</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" value="<%= product_cat.cat_name_sub %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกหมวดหมู่ย่อยถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกหมวดหมู่ย่อยให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -93,6 +105,12 @@
                                                 <div class="form-group form-check m-0 p-0 icheck-primary">
                                                     <input type="checkbox" class="form-check-input" id="accept_check" required>
                                                     <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                    <div class="valid-feedback">
+                                                        ข้าพเจ้าได้อ่านและยอมรับ
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

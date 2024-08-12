@@ -48,7 +48,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="" class="form-horizontal" method="POST">
+                                    <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">รหัสสินค้า</label>
                                             <div class="col-sm-10">
@@ -68,12 +68,24 @@
                                             <label for="product_name" class="col-sm-2 col-form-label required">ชื่อสินค้า</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="product_name" id="product_name" placeholder="ชื่อสินค้า" required autocomplete="off" value="<%= product[0].product_name %>">
+                                                <div class="valid-feedback">
+                                                    กรอกชื่อสินค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกชื่อสินค้าให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="product_price" class="col-sm-2 col-form-label required">ราคาสินค้า</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="product_price" id="product_price" placeholder="0.00" required autocomplete="off" value="<%= product[0].product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                                <div class="valid-feedback">
+                                                    กรอกราคาสินค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกราคาสินค้าให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -85,6 +97,12 @@
                                                         <option value="<%= product_cat.cat_id %>" <%= product_cat.cat_id === product[0].cat_id ? 'selected' : '' %>>(<%= product_cat.cat_name_main %>) : <%= product_cat.cat_name_sub %></option>
                                                     <% }) %>
                                                 </select>
+                                                <div class="valid-feedback">
+                                                    เลือกหมวดหมู่สินค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกหมวดหมู่สินค้าให้ถูกต้อง
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -92,6 +110,12 @@
                                                 <div class="form-group form-check m-0 p-0 icheck-primary">
                                                     <input type="checkbox" class="form-check-input" id="accept_check" required>
                                                     <label class="form-check-label" for="accept_check">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                    <div class="valid-feedback">
+                                                        ข้าพเจ้าได้อ่านและยอมรับ
+                                                    </div>
+                                                    <div class="invalid-feedback">
+                                                        กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
