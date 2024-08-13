@@ -1,14 +1,16 @@
-const express = require('express'); // "express": Framework for building web applications
-const bodyParser = require('body-parser'); // "bodyParser": Middleware for parsing incoming request bodies
-const path = require('path'); // "path": Utility for working with file and directory paths
+const express = require('express');
+const bodyParser = require('body-parser');
+const path = require('path');
 const QRCode = require('qrcode');
-const cookieParser = require('cookie-parser'); // "cookie-parser"
-const connectDB = require('./Config/db'); // Import the connectDB function
-const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth'); // Import the authentication
-const app = express(); // "app": Initializes the Express application
-const port = 5000; // "port": Defines the port on which the server will run
-const db = connectDB(); // Create and use the database connection
-global.db = db; // Make the database connection globally accessible
+const cookieParser = require('cookie-parser');
+const connectDB = require('./Config/db');
+const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth');
+const app = express();
+const port = 5000;
+const db = connectDB();
+
+global.db = db; 
+app.use(cookieParser('ADMIN-DEV-POSMS'));
 app.set('port', process.env.port || port); // Sets the port for the application
 // Configures the "views" directory and the view engine (ejs)
 app.set('views', path.join(__dirname, 'views'));
@@ -16,7 +18,6 @@ app.set('view engine', 'ejs');
 // Uses "bodyParser" middleware to parse URL-encoded and JSON request bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser()); // Uses "cookieParser"
 // Serves static files from the "public" directory and "public/assets" directory for /assets
 app.use(express.static(path.join(__dirname, 'Public')));
 app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));

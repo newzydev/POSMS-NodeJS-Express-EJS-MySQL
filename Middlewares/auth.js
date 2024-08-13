@@ -1,6 +1,7 @@
 // Authentication Middlewares
 const authenticateUser = (db) => (req, res, next) => {
-    if (!req.cookies.member_id) {
+    // Use signedCookies to access the signed cookie
+    if (!req.signedCookies.MEMBER_TOKEN) {
         return res.redirect('/Login');
     }
 
@@ -25,14 +26,14 @@ const authenticateUser = (db) => (req, res, next) => {
         WHERE Users.member_id = ?
     `;
     
-    db.query(dataQuery, [req.cookies.member_id], (err, results) => {
+    db.query(dataQuery, [req.signedCookies.MEMBER_TOKEN], (err, results) => {
         if (err) {
             return res.status(500).send('Internal Server Error');
         }
 
         if (results.length === 0) {
-            res.clearCookie('member_id');
-            res.clearCookie('role_id');
+            res.clearCookie('MEMBER_TOKEN');
+            res.clearCookie('ROLE_TOKEN');
             return res.redirect('/Login');
         }
 

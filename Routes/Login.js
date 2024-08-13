@@ -1,7 +1,7 @@
 // ฟังก์ชันแสดงหน้า Login
 exports.getLoginPage = (req, res) => {
-    if (req.cookies.member_id && req.cookies.role_id) {
-        switch (req.cookies.role_id) {
+    if (req.signedCookies.MEMBER_TOKEN && req.signedCookies.ROLE_TOKEN) {
+        switch (req.signedCookies.ROLE_TOKEN) {
             case 'ROLE001':
                 return res.redirect('/Role/Shop_Owner/Page/Dashbord');
             case 'ROLE002':
@@ -9,8 +9,8 @@ exports.getLoginPage = (req, res) => {
             case 'ROLE003':
                 return res.redirect('/Role/Customer/Page/Order_And_Receipt');
             default:
-                res.clearCookie('member_id');
-                res.clearCookie('role_id');
+                res.clearCookie('MEMBER_TOKEN');
+                res.clearCookie('ROLE_TOKEN');
                 return res.redirect('/Login');
         }
     } else {
@@ -78,8 +78,19 @@ exports.postLogin = (req, res) => {
                 });
             }
 
-            res.cookie('member_id', user.member_id, { maxAge: 2592000000, httpOnly: true });
-            res.cookie('role_id', user.role_id, { maxAge: 2592000000, httpOnly: true });
+            const max_age_cookie = 1 * 24 * 60 * 60 * 1000; // 1 day
+            res.cookie('MEMBER_TOKEN', user.member_id, { 
+                maxAge: max_age_cookie, 
+                httpOnly: true, // ป้องกันการเข้าถึงจาก JavaScript
+                path: '/', // ใช้ได้ทั่วทั้งไซต์
+                signed: true // ลงชื่อ cookie
+            });
+            res.cookie('ROLE_TOKEN', user.role_id, { 
+                maxAge: max_age_cookie, 
+                httpOnly: true, // ป้องกันการเข้าถึงจาก JavaScript
+                path: '/', // ใช้ได้ทั่วทั้งไซต์
+                signed: true // ลงชื่อ cookie
+            });
 
             switch (user.role_id) {
                 case 'ROLE001':
@@ -89,8 +100,8 @@ exports.postLogin = (req, res) => {
                 case 'ROLE003':
                     return res.redirect('/Role/Customer/Page/Order_And_Receipt');
                 default:
-                    res.clearCookie('member_id');
-                    res.clearCookie('role_id');
+                    res.clearCookie('MEMBER_TOKEN');
+                    res.clearCookie('ROLE_TOKEN');
                     return res.redirect('/Login');
             }
         });

@@ -80,7 +80,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
 };
 
 exports.postAddProductCart = (req, res) => {
-    const { cashier_id, product_id, cart_product_qty } = req.body;
+    const { cashier_id, product_id } = req.body;
 
     // Function to generate a unique cart ID
     const generateCartId = () => {
@@ -183,15 +183,39 @@ exports.postAddProductCart = (req, res) => {
             return;
         }
 
-        // Proceed to add the product to the cart
-        const query = 'INSERT INTO Cart_Orders (cart_id, cashier_id, product_id, cart_product_qty) VALUES (?, ?, ?, ?)';
-        
-        db.query(query, [cart_id, cashier_id, product_id, cart_product_qty], (err, result) => {
+        // Query to check if the product is already in the cart
+        const checkCartQuery = 'SELECT * FROM Cart_Orders WHERE cashier_id = ? AND product_id = ?';
+
+        db.query(checkCartQuery, [cashier_id, product_id], (err, result) => {
             if (err) {
                 console.error(err);
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
-            res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+
+            if (result.length > 0) {
+                // Product is already in the cart, increment the quantity by 1
+                const newQuantity = result[0].cart_product_qty + 1;
+                const updateQuery = 'UPDATE Cart_Orders SET cart_product_qty = ? WHERE cashier_id = ? AND product_id = ?';
+
+                db.query(updateQuery, [newQuantity, cashier_id, product_id], (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                    }
+                    res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                });
+            } else {
+                // Product is not in the cart, insert a new entry with quantity 1
+                const insertQuery = 'INSERT INTO Cart_Orders (cart_id, cashier_id, product_id, cart_product_qty) VALUES (?, ?, ?, ?)';
+
+                db.query(insertQuery, [cart_id, cashier_id, product_id, 1], (err, result) => {
+                    if (err) {
+                        console.error(err);
+                        return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                    }
+                    res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                });
+            }
         });
     });
 };

@@ -21,7 +21,7 @@ CREATE TABLE Users (
     member_lastname VARCHAR(255) NOT NULL,
     member_username VARCHAR(255) NOT NULL,
     member_password VARCHAR(255) NOT NULL,
-    member_tel VARCHAR(10) NOT NULL,
+    member_tel VARCHAR(255) NOT NULL,
     member_time_register VARCHAR(255) NOT NULL,
     member_time_login VARCHAR(255) NOT NULL,
     time_order DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
