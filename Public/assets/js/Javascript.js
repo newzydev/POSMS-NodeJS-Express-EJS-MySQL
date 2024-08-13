@@ -62,3 +62,20 @@ $(document).ready(function () {
     });
 });
 // Date and Time End
+
+// Copy data info
+function copyDataInfo(dataInfo) {
+    // Create a temporary textarea element
+    var tempInput = document.createElement("input");
+    // Set its value to the dataInfo
+    tempInput.value = dataInfo;
+    // Append the textarea to the body
+    document.body.appendChild(tempInput);
+    // Select the text
+    tempInput.select();
+    // Copy the text to the clipboard
+    document.execCommand("copy");
+    // Remove the textarea
+    document.body.removeChild(tempInput);
+}
+// Copy data info End

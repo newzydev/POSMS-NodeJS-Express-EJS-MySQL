@@ -114,6 +114,7 @@
                                                         <td class="text-middle"><%= emp_user.member_time_login %><br><span class="text-success">เข้าใช้ล่าสุดเมื่อ</span></td>
                                                         <td class="text-middle text-center">
                                                             <div class="btn-group">
+                                                                <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= emp_user.member_id %>');"><i class="fas fa-copy"></i></div>
                                                                 <div class="btn btn-success btn-sm" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/View/<%= emp_user.member_id %>';"><i class="fas fa-eye"></i></div>
                                                                 <div class="btn btn-warning btn-sm" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/Edit/<%= emp_user.member_id %>';"><i class="fas fa-edit"></i></div>
                                                                 <div class="btn btn-danger btn-sm" data-toggle="modal" data-target="#<%= emp_user.member_id %>"><i class="fas fa-trash-alt"></i></div>

@@ -128,6 +128,7 @@
                                                             <br><span class="text-success">วันชำระเงิน</span>
                                                         </td>
                                                         <td class="text-middle text-center">
+                                                            <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= order.order_id %>');"><i class="fas fa-copy"></i></div>
                                                             <div class="btn btn-success btn-sm" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';">E-Receipt</div>
                                                         </td>
                                                     </tr>

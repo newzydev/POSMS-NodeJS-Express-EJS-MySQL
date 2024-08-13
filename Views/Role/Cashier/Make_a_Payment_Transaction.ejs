@@ -271,6 +271,15 @@
 
     <!-- Javascript -->
     <%- include('../../Include/Javascript.ejs') %>
+    <script>
+        // Add a new state to the browser history
+        history.pushState(null, null, location.href);
+    
+        // Handle the popstate event to prevent going back
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, location.href);
+        });
+    </script>
     <!-- Javascript End -->
 </body>
 </html>

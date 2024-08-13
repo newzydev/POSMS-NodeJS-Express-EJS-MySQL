@@ -145,7 +145,7 @@
                                             <div>
                                                 <i class="fas fa-shopping-basket bg-primary"></i>
                                                 <div class="timeline-item">
-                                                    <h3 class="timeline-header"><a class="text-primary" style="cursor: pointer;"><%= user.member_firstname %> <%= user.member_lastname %></a> รายการออเดอร์ หมายเลข <b>#<%= order.order_id %></b></h3>
+                                                    <h3 class="timeline-header"><a class="text-primary" style="cursor: pointer;"><%= user.member_firstname %> <%= user.member_lastname %></a> รายการออเดอร์ หมายเลข <b style="cursor: pointer;" onclick="copyDataInfo('<%= order.order_id %>');" title="คัดลอกหมายเลขออเดอร์">#<%= order.order_id %><i class="fas fa-copy ml-2"></i></b></h3>
                                                     <div class="timeline-body">
                                                         ซื้อสินค้าออเดอร์ หมายเลข #<%= order.order_id %> ทำรายการเมื่อวันที่ <%= order.order_time_transaction %> ชำระเงินเมื่อวันที่ <%= order.order_time_payment %> ยอดสุทธิ ฿<%= order.net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %> บาท
                                                     </div>
