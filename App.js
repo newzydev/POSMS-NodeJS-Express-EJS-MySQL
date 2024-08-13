@@ -44,10 +44,6 @@ const { getLoginPage, postLogin } = require('./Routes/Login');
 const { getLogoutPage } = require('./Routes/Logout');
 // Register Page
 const { getRegisterPage, postRegister } = require('./Routes/Register');
-// Forgot Password Page
-const { getForgotPasswordPage } = require('./Routes/Forgot_Password');
-// Change Password Page
-const { getChangePasswordPage } = require('./Routes/Change_Password');
 
 // ==================================================
 // Role Shop_Owner
@@ -127,10 +123,6 @@ app.get('/Logout', getLogoutPage);
 // Register Page
 app.get('/Register', getRegisterPage);
 app.post('/Register', postRegister);
-// Forgot Password Page
-app.get('/Forgot_Password', getForgotPasswordPage);
-// Change Password Page
-app.get('/Change_Password', getChangePasswordPage);
 
 // ==================================================
 // Role Shop_Owner
