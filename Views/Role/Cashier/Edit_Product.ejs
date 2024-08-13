@@ -92,7 +92,7 @@
                                             <label for="cat_id" class="col-sm-2 col-form-label required">หมวดหมู่สินค้า</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="cat_id" id="cat_id" required>
-                                                    <option disabled>เลือกหมวดหมู่สินค้า</option>
+                                                    <option value="" disabled>เลือกหมวดหมู่สินค้า</option>
                                                     <% product_cats.forEach((product_cat) => { %>
                                                         <option value="<%= product_cat.cat_id %>" <%= product_cat.cat_id === product[0].cat_id ? 'selected' : '' %>>(<%= product_cat.cat_name_main %>) : <%= product_cat.cat_name_sub %></option>
                                                     <% }) %>

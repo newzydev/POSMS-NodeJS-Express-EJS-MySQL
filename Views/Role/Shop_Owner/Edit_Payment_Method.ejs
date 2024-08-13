@@ -106,7 +106,7 @@
                                             <label for="pay_status" class="col-sm-2 col-form-label required">สถานะ</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="pay_status" id="pay_status" required>
-                                                    <option selected disabled>เลือกสถานะ</option>
+                                                    <option value="" selected disabled>เลือกสถานะ</option>
                                                     <option <%= pay_method.pay_status === '1' ? 'selected' : '' %> value="1">เปิด</option>
                                                     <option <%= pay_method.pay_status === '0' ? 'selected' : '' %> value="0">ปิด</option>
                                                 </select>

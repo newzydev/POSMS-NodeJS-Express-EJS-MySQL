@@ -140,7 +140,7 @@
                                             <label for="role_id" class="col-sm-2 col-form-label required">ระดับผู้ใช้งานบัญชี</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="role_id" id="role_id">
-                                                    <option disabled>เลือกระดับผู้ใช้งาน</option>
+                                                    <option value="" disabled>เลือกระดับผู้ใช้งาน</option>
                                                     <option <%= employee.role_id === 'ROLE001' ? 'selected' : '' %> value="ROLE001">เจ้าของร้าน / Shop Owner</option>
                                                     <option <%= employee.role_id === 'ROLE002' ? 'selected' : '' %> value="ROLE002">แคชเชียร์ / Cashier</option>
                                                 </select>

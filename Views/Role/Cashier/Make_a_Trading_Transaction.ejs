@@ -191,7 +191,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <select class="form-control form-control-lg" name="pay_id" id="pay_id" required>
-                                                    <option selected disabled>เลือกประเภทการชำระเงิน</option>
+                                                    <option value="" selected disabled>เลือกประเภทการชำระเงิน</option>
                                                     <% paymentOptions.forEach((paymentOption) => { %>
                                                         <% if (paymentOption.pay_status === "1") { %>
                                                             <option value="<%= paymentOption.pay_id %>">(<%= paymentOption.pay_cat_name %>) <%= paymentOption.pay_bank_name %></option>
@@ -199,7 +199,7 @@
                                                     <% }) %>
                                                 </select>
                                                 <div class="valid-feedback">
-                                                    เลือกประเภทการชำระเงิน
+                                                    เลือกประเภทการชำระเงินถูกต้อง    
                                                 </div>
                                                 <div class="invalid-feedback">
                                                     กรุณาเลือกประเภทการชำระเงินให้ถูกต้อง

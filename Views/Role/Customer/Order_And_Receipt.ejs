@@ -94,21 +94,33 @@
                         <div class="col-md-9">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="GET" action="">
+                                    <form class="needs-validation" novalidate method="GET" action="">
                                         <div class="form-row">
-                                            <div class="col-md-9 mb-3">
-                                                <div class="btn-group">
-                                                    <div class="btn btn-secondary btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt/Download/Excel';"><i class="fas fa-download mr-2"></i>ใฟล์ Excel</div>
-                                                    <div class="btn btn-secondary btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt/Print';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์</div>
+                                            <% if (search) { %>
+                                            <div class="col-md-8 mb-3">
+                                                <input type="text" class="form-control input-anti input-search" name="search" placeholder="หมายเลขออเดอร์" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="valid-feedback">
+                                                    กรอกข้อมูลค้นหาถูกต้อง
                                                 </div>
-                                                <% if (search) { %>
-                                                <div class="btn btn-info btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
-                                                <% } %>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกข้อมูลค้นหาให้ถูกต้อง
+                                                </div>
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <input type="text" class="form-control input-anti input-search" name="search" placeholder="หมายเลขออเดอร์" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="btn btn-info btn-block btn-anti" onclick="location.href='/Role/Customer/Page/Order_And_Receipt';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
                                             </div>
-                                            <div class="col-md-1 mb-3">
+                                            <% } else { %>
+                                            <div class="col-md-10 mb-3">
+                                                <input type="text" class="form-control input-anti input-search" name="search" placeholder="หมายเลขออเดอร์" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="valid-feedback">
+                                                    กรอกข้อมูลค้นหาถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกข้อมูลค้นหาให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                            <div class="col-md-2 mb-3">
                                                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>
                                             </div>
                                         </div>

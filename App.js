@@ -85,8 +85,6 @@ const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order
 // Profile Page
 const { getCashierProfilePage, postCashierChangeProfile } = require('./Routes/Role/Cashier/Profile');
 const { postCashierChangePassword } = require('./Routes/Role/Cashier/Profile');
-// Dashbord Page
-const { getCashierDashbordPage } = require('./Routes/Role/Cashier/Dashbord');
 // Manage Products Page
 const { getManageProductsPage } = require('./Routes/Role/Cashier/Manage_Products');
 const { getAddProductPage, postAddProduct } = require('./Routes/Role/Cashier/Add_Product');
@@ -178,8 +176,6 @@ app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(d
 app.get('/Role/Cashier/Page/Profile', authenticateUser(db), checkRole002, getCashierProfilePage);
 app.post('/Role/Cashier/Page/Profile/Update', authenticateUser(db), checkRole002, postCashierChangeProfile);
 app.post('/Role/Cashier/Page/Profile/ChangePassword', authenticateUser(db), checkRole002, postCashierChangePassword);
-// Dashbord Page
-app.get('/Role/Cashier/Page/Dashbord', authenticateUser(db), checkRole002, getCashierDashbordPage);
 // Manage Products Page
 app.get('/Role/Cashier/Page/Manage_Products', authenticateUser(db), checkRole002, getManageProductsPage);
 app.get('/Role/Cashier/Page/Manage_Products/Add_Product', authenticateUser(db), checkRole002, getAddProductPage);
