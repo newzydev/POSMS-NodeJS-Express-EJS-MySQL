@@ -228,13 +228,13 @@
         new Chart(ctx1, {
             type: 'pie',
             data: {
-                labels: ['พนักงาน', 'ลูกค้า'],
+                labels: ['เจ้าของร้าน', 'พนักงาน', 'ลูกค้า'],
                 datasets: [{
-                    label: ' รายงานแสดงยอดบัญชี ',
-                    data: [<%= dashQuery1Re %>, <%= dashQuery2Re %>],
+                    label: ' ยอดบัญชีผู้ใช้ ',
+                    data: [<%= dashQuery0Re %>, <%= dashQuery1Re %>, <%= dashQuery2Re %>],
                     borderWidth: 2,
-                    borderColor: ['#ffffff', '#ffffff'],
-                    backgroundColor: ['#ff6384', '#36A2EB'],
+                    borderColor: ['#ffffff', '#ffffff', '#ffffff'],
+                    backgroundColor: ['#ff6384', '#36A2EB', '#ff9020'],
                     hidden: false
                 }],
             },
