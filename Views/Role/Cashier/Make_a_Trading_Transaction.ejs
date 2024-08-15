@@ -2,19 +2,6 @@
 <html lang="en">
 <head>
     <%- include('../../Include/Head.ejs') %>
-    <style>
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .input-group input {
-            flex: 1;
-        }
-        .input-group button {
-            flex: 0 0 auto;
-        }
-    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <!-- Wrapper -->
@@ -61,9 +48,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     
-                                    <% if (typeof error !== 'undefined') { %>
+                                    <% if (error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
                                     </div>
                                     <% } %>
                                     

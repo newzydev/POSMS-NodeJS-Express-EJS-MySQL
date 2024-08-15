@@ -15,9 +15,14 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b></p>
                 
-                <% if (typeof error !== 'undefined') { %>
+                <% if (error) { %>
                 <div class="alert alert-danger text-center" role="alert">
-                    <%= error %>
+                    <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                </div>
+                <% } %>
+                <% if (success) { %>
+                <div class="alert alert-success text-center" role="alert">
+                    <span><i class="fas fa-check-circle mr-2"></i><%= success %>
                 </div>
                 <% } %>
                 

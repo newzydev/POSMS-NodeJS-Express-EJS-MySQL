@@ -1,6 +1,8 @@
 exports.getMakeaTradingTransactionPage = (req, res) => {
     const title = 'Make a Trading Transaction | Point Of Sale Management System';
     const your_page = 'Make_a_Trading_Transaction';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const user = res.locals.user;
 
     if (!user || !user.member_id) {
@@ -48,17 +50,18 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
     db.query(dataQuery, [cashierId], (err, cartResult) => {
         if (err) {
             console.error(err);
+            req.flash('error', 'เกิดข้อผิดพลาดในการดึงข้อมูลตะกร้าสินค้า');
             return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
         db.query(dataQueryPay, (err, paymentOptions) => {
             if (err) {
                 console.error(err);
+                req.flash('error', 'เกิดข้อผิดพลาดในการดึงข้อมูลตัวเลือกการชำระเงิน');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
 
             // Calculate totals
-            const cashier = cartResult[0] || {};
             const totalAmount = cartResult.reduce((acc, cart) => acc + (cart.product_price * cart.cart_product_qty), 0);
             const memberDisRate = 0.01; // 1% Discount
             const memberDis = totalAmount * memberDisRate;
@@ -67,13 +70,15 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
             res.render('Role/Cashier/Make_a_Trading_Transaction', { 
                 title, 
                 your_page, 
+                error: error[0],
+                success: success[0],
                 carts: cartResult,
                 paymentOptions,
                 totalAmount,
                 memberDis,
                 netTotal,
-                cashierFirstName: cashier.member_firstname,
-                cashierLastName: cashier.member_lastname
+                cashierFirstName: cartResult[0]?.member_firstname || '',
+                cashierLastName: cartResult[0]?.member_lastname || ''
             });
         });
     });
@@ -94,6 +99,7 @@ exports.postAddProductCart = (req, res) => {
     db.query(checkProductQuery, [product_id], (err, result) => {
         if (err) {
             console.error(err);
+            req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบสินค้า');
             return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
@@ -101,86 +107,8 @@ exports.postAddProductCart = (req, res) => {
         const productExists = result[0].count > 0;
 
         if (!productExists) {
-            // Product does not exist, fetch existing carts data to display
-            const title = 'Make a Trading Transaction | Point Of Sale Management System';
-            const your_page = 'Make_a_Trading_Transaction';
-            const user = res.locals.user;
-
-            if (!user || !user.member_id) {
-                console.error('User not authenticated or user ID not found');
-                return res.redirect('/Login');
-            }
-
-            const cashierId = user.member_id;
-            
-            const dataQueryPay = `
-                SELECT 
-                    pay_id,
-                    pay_cat_name,
-                    pay_bank_name,
-                    pay_bank_number,
-                    pay_status
-                FROM 
-                    Payment_Options
-                ORDER BY 
-                    time_order ASC
-            `;
-
-            const dataQuery = `
-                SELECT 
-                    Cart_Orders.cart_id,
-                    Cart_Orders.cashier_id,
-                    Users.member_firstname,
-                    Users.member_lastname,
-                    Products.product_id,
-                    Products.product_name,
-                    Products.product_price,
-                    Cart_Orders.cart_product_qty,
-                    Cart_Orders.time_order
-                FROM 
-                    Cart_Orders
-                INNER JOIN 
-                    Users ON Cart_Orders.cashier_id = Users.member_id
-                INNER JOIN 
-                    Products ON Cart_Orders.product_id = Products.product_id
-                WHERE Cart_Orders.cashier_id = ?
-                ORDER BY 
-                    Cart_Orders.time_order DESC
-            `;
-
-            db.query(dataQuery, [cashierId], (err, cartResult) => {
-                if (err) {
-                    console.error(err);
-                    return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
-                }
-        
-                db.query(dataQueryPay, (err, paymentOptions) => {
-                    if (err) {
-                        console.error(err);
-                        return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
-                    }
-        
-                    // Calculate totals
-                    const cashier = cartResult[0] || {};
-                    const totalAmount = cartResult.reduce((acc, cart) => acc + (cart.product_price * cart.cart_product_qty), 0);
-                    const memberDisRate = 0.01; // 1% Discount
-                    const memberDis = totalAmount * memberDisRate;
-                    const netTotal = totalAmount - memberDis;
-        
-                    res.render('Role/Cashier/Make_a_Trading_Transaction', { 
-                        title, 
-                        your_page, 
-                        carts: cartResult,
-                        paymentOptions,
-                        totalAmount,
-                        memberDis,
-                        netTotal,
-                        cashierFirstName: cashier.member_firstname,
-                        cashierLastName: cashier.member_lastname
-                    });
-                });
-            });
-            return;
+            req.flash('error', 'ไม่พบรหัสสินค้ารายการนี้ หรือไม่มีรายการสินค้านี้ในฐานข้อมูล');
+            return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
         // Query to check if the product is already in the cart
@@ -189,6 +117,7 @@ exports.postAddProductCart = (req, res) => {
         db.query(checkCartQuery, [cashier_id, product_id], (err, result) => {
             if (err) {
                 console.error(err);
+                req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบสินค้าในตะกร้า');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
 
@@ -200,9 +129,11 @@ exports.postAddProductCart = (req, res) => {
                 db.query(updateQuery, [newQuantity, cashier_id, product_id], (err, result) => {
                     if (err) {
                         console.error(err);
+                        req.flash('error', 'เกิดข้อผิดพลาดในการอัพเดทปริมาณสินค้าในตะกร้า');
                         return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                     }
-                    res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                    req.flash('success', 'อัพเดทปริมาณสินค้าในตะกร้าเรียบร้อย');
+                    return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 });
             } else {
                 // Product is not in the cart, insert a new entry with quantity 1
@@ -211,9 +142,11 @@ exports.postAddProductCart = (req, res) => {
                 db.query(insertQuery, [cart_id, cashier_id, product_id, 1], (err, result) => {
                     if (err) {
                         console.error(err);
+                        req.flash('error', 'เกิดข้อผิดพลาดในการเพิ่มสินค้าใหม่ในตะกร้า');
                         return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                     }
-                    res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                    req.flash('success', 'เพิ่มสินค้าใหม่ในตะกร้าเรียบร้อย');
+                    return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 });
             }
         });
@@ -223,7 +156,7 @@ exports.postAddProductCart = (req, res) => {
 exports.updateProductQuantity = (req, res) => {
     const { cart_id, cart_product_qty } = req.body;
 
-    // Query to update the cart product quantity
+    // คำสั่ง SQL เพื่ออัปเดตปริมาณสินค้าของตะกร้า
     const updateQuery = `
         UPDATE Cart_Orders 
         SET cart_product_qty = ? 
@@ -232,25 +165,29 @@ exports.updateProductQuantity = (req, res) => {
 
     db.query(updateQuery, [cart_product_qty, cart_id], (err, result) => {
         if (err) {
-            console.error(err);
-            return res.status(500).json({ success: false, message: 'Failed to update quantity' });
+            console.error('ข้อผิดพลาดในการอัปเดตปริมาณสินค้า:', err);
+            req.flash('error', 'ข้อผิดพลาดในการอัปเดตปริมาณสินค้า');
+            return res.status(500).json({ success: false, message: 'ไม่สามารถอัปเดตปริมาณได้' });
         }
 
-        // Return success response
-        res.json({ success: true });
+        // ส่งคำตอบความสำเร็จ
+        req.flash('success', 'อัปเดตปริมาณสินค้าสำเร็จ');
+        res.json({ success: true, message: 'อัปเดตปริมาณสินค้าสำเร็จ' });
     });
 };
 
 exports.getDeleteProductCartPage = (req, res) => {
     const cart_id = req.params.cart_id;
     const query = 'DELETE FROM Cart_Orders WHERE cart_id = ?';
-    
+
     db.query(query, [cart_id], (err, result) => {
         if (err) {
-            res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+            console.error('ข้อผิดพลาดในการลบสินค้าจากตะกร้า:', err);
+            req.flash('error', 'ไม่สามารถลบสินค้าจากตะกร้าได้');
         } else {
-            res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+            req.flash('success', 'ลบสินค้าจากตะกร้าสำเร็จ');
         }
+        res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
     });
 };
 
@@ -270,13 +207,13 @@ exports.postAddOrder = (req, res) => {
         'product_price[]': productPrices
     } = req.body;
 
-    // Generate Order ID
+    // สร้าง Order ID
     const generateOrderId = () => {
         return 'OD' + Math.floor(1000000000 + Math.random() * 9000000000).toString();
-    }
+    };
     const order_id = generateOrderId();
 
-    // Default values
+    // ค่าปริยาย
     const finalCustomerId = customer_id || "N/A";
     const finalGetMoney = get_money || 0.00;
     const finalChangeMoney = change_money || 0.00;
@@ -289,7 +226,7 @@ exports.postAddOrder = (req, res) => {
         finalNetTotal = total_amount - finalMemberDiscount;
     }    
 
-    // Set Date and Time Order
+    // กำหนดวันและเวลาในการสั่งซื้อ
     const now = new Date();
     const options_date = {
         timeZone: 'Asia/Bangkok',
@@ -308,7 +245,7 @@ exports.postAddOrder = (req, res) => {
     const order_time_transaction = formattedDate + ' ' + formattedTime;
     const order_time_payment = "N/A";
 
-    // Parse Arrays from Form Data if they are strings
+    // แปลง Arrays จากข้อมูลฟอร์มหากเป็นสตริง
     const parseArray = (data) => {
         if (Array.isArray(data)) return data;
         if (typeof data === 'string') return data.split(',').map(item => item.trim());
@@ -319,13 +256,14 @@ exports.postAddOrder = (req, res) => {
     let cartProductQtysArray = parseArray(cartProductQtys).map(Number);
     let productPricesArray = parseArray(productPrices).map(Number);
 
-    // Check for length mismatch
+    // ตรวจสอบการไม่ตรงกันของความยาว
     if (productNamesArray.length !== cartProductQtysArray.length || productNamesArray.length !== productPricesArray.length) {
-        console.error('Mismatch in product details length');
+        console.error('ความยาวของรายละเอียดสินค้าไม่ตรงกัน');
+        req.flash('error', 'ความยาวของรายละเอียดสินค้าผิดพลาด');
         return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
     }
 
-    // Insert Order
+    // แทรก Order
     const insertOrderQuery = `
         INSERT INTO Orders (order_id, cashier_id, customer_id, pay_id, total_unit, total_amount, member_discount, net_total, get_money, change_money, order_time_transaction, order_time_payment) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -337,11 +275,12 @@ exports.postAddOrder = (req, res) => {
         finalChangeMoney, order_time_transaction, order_time_payment
     ], (err, result) => {
         if (err) {
-            console.error('Error inserting order:', err);
+            console.error('ข้อผิดพลาดในการเพิ่มคำสั่งซื้อ:', err);
+            req.flash('error', 'ไม่สามารถสร้างคำสั่งซื้อได้');
             return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
-        // Insert Order_Product_Lists
+        // แทรก Order_Product_Lists
         if (productNamesArray.length > 0) {
             const productListQuery = `
                 INSERT INTO Order_Product_Lists (order_id, product_name, cart_product_qty, product_price) 
@@ -357,34 +296,39 @@ exports.postAddOrder = (req, res) => {
             
             db.query(productListQuery, [productListValues], (err) => {
                 if (err) {
-                    console.error('Error inserting products:', err);
+                    console.error('ข้อผิดพลาดในการเพิ่มผลิตภัณฑ์:', err);
+                    req.flash('error', 'ไม่สามารถเพิ่มผลิตภัณฑ์ในคำสั่งซื้อได้');
                     return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 }
 
-                // Delete from Cart_Orders
+                // ลบจาก Cart_Orders
                 const deleteCartQuery = `DELETE FROM Cart_Orders WHERE cashier_id = ?`;
                 
                 db.query(deleteCartQuery, [cashier_id], (err) => {
                     if (err) {
-                        console.error('Error deleting cart:', err);
+                        console.error('ข้อผิดพลาดในการลบตะกร้า:', err);
+                        req.flash('error', 'ไม่สามารถล้างตะกร้าได้');
                         return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                     }
 
-                    // Redirect to the payment transaction page
+                    // เปลี่ยนเส้นทางไปยังหน้าการชำระเงิน
+                    req.flash('success', 'คำสั่งซื้อสำเร็จ');
                     res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
                 });
             });
         } else {
-            // Delete from Cart_Orders
+            // ลบจาก Cart_Orders
             const deleteCartQuery = `DELETE FROM Cart_Orders WHERE cashier_id = ?`;
             
             db.query(deleteCartQuery, [cashier_id], (err) => {
                 if (err) {
-                    console.error('Error deleting cart:', err);
+                    console.error('ข้อผิดพลาดในการลบตะกร้า:', err);
+                    req.flash('error', 'ไม่สามารถล้างตะกร้าได้');
                     return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 }
 
-                // Redirect to the payment transaction page
+                // เปลี่ยนเส้นทางไปยังหน้าการชำระเงิน
+                req.flash('success', 'คำสั่งซื้อสำเร็จ');
                 res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
             });
         }

@@ -102,11 +102,18 @@
                                     </ul>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
-                                    <% if (typeof error !== 'undefined') { %>
-                                    <div class="alert alert-danger text-center mb-3" role="alert">
-                                        <%= error %>
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
                                     </div>
                                     <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+                                    
                                     <div class="tab-content">
 
                                         <!-- Account Settings Form -->
@@ -191,7 +198,7 @@
                                                 <div class="form-group row">
                                                     <label for="old_password" class="col-sm-2 col-form-label required">รหัสผ่านเดิม</label>
                                                     <div class="col-sm-10">
-                                                        <input type="password" class="form-control" id="old_password" name="old_password" placeholder="รหัสผ่านเดิม" value="" required autocomplete="off">
+                                                        <input type="password" class="form-control" id="old_password" name="old_password" placeholder="รหัสผ่านเดิม" value="<%= formData ? formData.old_password : '' %>" required autocomplete="off">
                                                         <div class="valid-feedback">
                                                             กรอกรหัสผ่านเดิมถูกต้อง
                                                         </div>
@@ -203,7 +210,7 @@
                                                 <div class="form-group row">
                                                     <label for="new_password" class="col-sm-2 col-form-label required">รหัสผ่านใหม่</label>
                                                     <div class="col-sm-10">
-                                                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="รหัสผ่านใหม่" value="" required autocomplete="off">
+                                                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="รหัสผ่านใหม่" value="<%= formData ? formData.new_password : '' %>" required autocomplete="off">
                                                         <div class="valid-feedback">
                                                             กรอกรหัสผ่านใหม่ถูกต้อง
                                                         </div>
@@ -215,7 +222,7 @@
                                                 <div class="form-group row">
                                                     <label for="confirm_new_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่านใหม่</label>
                                                     <div class="col-sm-10">
-                                                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="ยืนยันรหัสผ่านใหม่" value="" required autocomplete="off">
+                                                        <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password" placeholder="ยืนยันรหัสผ่านใหม่" value="<%= formData ? formData.confirm_new_password : '' %>" required autocomplete="off">
                                                         <div class="valid-feedback">
                                                             กรอกยืนยันรหัสผ่านใหม่ถูกต้อง
                                                         </div>

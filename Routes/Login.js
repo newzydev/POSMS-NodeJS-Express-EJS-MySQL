@@ -15,7 +15,10 @@ exports.getLoginPage = (req, res) => {
         }
     } else {
         const title = 'Login | Point Of Sale Management System';
-        return res.render('Login', { title, formData: {} });
+        const error = req.flash('error');
+        const formData = req.flash('formData')[0] || {};
+        const success = req.flash('success');
+        return res.render('Login', { title, error: error[0], formData, success: success[0] });
     }
 };
 
@@ -42,28 +45,22 @@ exports.postLogin = (req, res) => {
     const member_time_login = formattedDate + ' ' + formattedTime;
 
     if (!username || !password) {
-        return res.render('Login', { 
-            title: 'Login | Point Of Sale Management System', 
-            error: 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง',
-            formData: { username, password }
-        });
+        req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
+        req.flash('formData', { username, password });
+        return res.redirect('/Login');
     }
 
     db.query('SELECT * FROM Users WHERE member_username = ? AND member_password = ?', [username, password], (err, results) => {
         if (err) {
-            return res.status(500).render('Login', { 
-                title: 'Login | Point Of Sale Management System', 
-                error: 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล',
-                formData: { username, password }
-            });
+            req.flash('error', 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล');
+            req.flash('formData', { username, password });
+            return res.redirect('/Login');
         }
 
         if (results.length === 0) {
-            return res.render('Login', { 
-                title: 'Login | Point Of Sale Management System', 
-                error: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง',
-                formData: { username, password }
-            });
+            req.flash('error', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+            req.flash('formData', { username, password });
+            return res.redirect('/Login');
         }
 
         const user = results[0];
@@ -71,11 +68,9 @@ exports.postLogin = (req, res) => {
         // Update member_time_login
         db.query('UPDATE Users SET member_time_login = ? WHERE member_id = ?', [member_time_login, user.member_id], (updateErr) => {
             if (updateErr) {
-                return res.render('Login', { 
-                    title: 'Login | Point Of Sale Management System', 
-                    error: 'เกิดข้อผิดพลาดในการอัปเดตเวลาเข้าสู่ระบบ',
-                    formData: { username, password }
-                });
+                req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตเวลาเข้าสู่ระบบ');
+                req.flash('formData', { username, password });
+                return res.redirect('/Login');
             }
 
             const max_age_cookie = 7 * 24 * 60 * 60 * 1000; // 7 วัน
@@ -94,10 +89,13 @@ exports.postLogin = (req, res) => {
 
             switch (user.role_id) {
                 case 'ROLE001':
+                    req.flash('success', 'เข้าสู่ระบบสำเร็จ');
                     return res.redirect('/Role/Shop_Owner/Page/Dashbord');
                 case 'ROLE002':
+                    req.flash('success', 'เข้าสู่ระบบสำเร็จ');
                     return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 case 'ROLE003':
+                    req.flash('success', 'เข้าสู่ระบบสำเร็จ');
                     return res.redirect('/Role/Customer/Page/Order_And_Receipt');
                 default:
                     res.clearCookie('MEMBER_TOKEN');

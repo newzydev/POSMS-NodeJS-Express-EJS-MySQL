@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const QRCode = require('qrcode');
+const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const connectDB = require('./Config/db');
 const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth');
 const app = express();
@@ -10,6 +12,18 @@ const port = 5000;
 const db = connectDB();
 global.db = db; 
 
+// Configure session middleware
+app.use(session({
+    secret: 'ADMIN-DEV-POSMS',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        name: 'SESSION_TOKEN',
+        secure: false
+    } 
+}));
+
+app.use(flash('ADMIN-DEV-POSMS'));
 app.use(cookieParser('ADMIN-DEV-POSMS'));
 app.set('port', process.env.port || port);
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +32,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'Public')));
 app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
-
 app.get('/qrcode-gen', (req, res) => {
     const text = req.query.text;
     if (!text) return res.status(400).send('Text query parameter is required');

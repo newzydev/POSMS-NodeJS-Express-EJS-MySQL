@@ -22,9 +22,14 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b></p>
 
-                <% if (typeof error !== 'undefined') { %>
+                <% if (error) { %>
                 <div class="alert alert-danger text-center" role="alert">
-                    <%= error %>
+                    <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                </div>
+                <% } %>
+                <% if (success) { %>
+                <div class="alert alert-success text-center" role="alert">
+                    <span><i class="fas fa-check-circle mr-2"></i><%= success %>
                 </div>
                 <% } %>
                 
@@ -62,7 +67,7 @@
                         </div>
                         <div class="col-6 mb-3">
                             <label for="password" class="required">รหัสผ่าน</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" autocomplete="off" required>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
                                 กรอกรหัสผ่านถูกต้อง
                             </div>
@@ -72,7 +77,7 @@
                         </div>
                         <div class="col-6 mb-3">
                             <label for="confirm_password" class="required">ยืนยันรหัสผ่าน</label>
-                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" autocomplete="off" required>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" value="<%= formData ? formData.confirm_password : '' %>" placeholder="ยืนยันรหัสผ่าน" value="<%= formData ? formData.first_name : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
                                 กรอกยืนยันรหัสผ่านถูกต้อง
                             </div>
