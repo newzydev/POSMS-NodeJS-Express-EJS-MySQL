@@ -8,17 +8,14 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const app = express();
 const port = 5000;
 const db = connectDB();
-
 global.db = db; 
+
 app.use(cookieParser('ADMIN-DEV-POSMS'));
-app.set('port', process.env.port || port); // Sets the port for the application
-// Configures the "views" directory and the view engine (ejs)
+app.set('port', process.env.port || port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// Uses "bodyParser" middleware to parse URL-encoded and JSON request bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// Serves static files from the "public" directory and "public/assets" directory for /assets
 app.use(express.static(path.join(__dirname, 'Public')));
 app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
 
