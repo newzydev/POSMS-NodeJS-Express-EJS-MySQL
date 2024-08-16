@@ -20,13 +20,13 @@ exports.getShopOwnerDashbordPage = (req, res) => {
         GROUP BY p.pay_cat_name;
     `;
 
-    // Query for top 10 products
+    // Query for top 12 products
     const topProductsQuery = `
         SELECT product_name, SUM(cart_product_qty) AS total_qty
         FROM Order_Product_Lists
         GROUP BY product_name
         ORDER BY total_qty DESC
-        LIMIT 10;
+        LIMIT 12;
     `;
 
     db.query(dashQuery0, (err, dashQuery0Results) => {
