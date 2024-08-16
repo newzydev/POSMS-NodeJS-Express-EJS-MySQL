@@ -1,6 +1,8 @@
 exports.getManagePaymentMethodsPage = (req, res) => {
     const title = 'Manage Payment Methods | Point Of Sale Management System';
     const your_page = 'Manage_Payment_Methods';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
@@ -45,6 +47,8 @@ exports.getManagePaymentMethodsPage = (req, res) => {
                     res.render('Role/Shop_Owner/Manage_Payment_Methods', {
                         title, 
                         your_page,
+                        error: error[0],
+                        success: success[0],
                         pay_methods: result,
                         currentPage: page,
                         totalRecords,

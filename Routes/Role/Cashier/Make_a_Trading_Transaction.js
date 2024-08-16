@@ -170,8 +170,15 @@ exports.updateProductQuantity = (req, res) => {
             return res.status(500).json({ success: false, message: 'ไม่สามารถอัปเดตปริมาณได้' });
         }
 
+        if (cart_product_qty < 1) {
+            req.flash('error', 'จำนวนสินค้าจะต้องมีอย่างน้อย x1 หน่วย');
+        } else if (cart_product_qty > 99) {
+            req.flash('error', 'จำนวนสินค้าจะต้องไม่เกิน x99 หน่วย');
+        } else {
+            req.flash('success', 'อัปเดตปริมาณสินค้าสำเร็จ');
+        }
+
         // ส่งคำตอบความสำเร็จ
-        req.flash('success', 'อัปเดตปริมาณสินค้าสำเร็จ');
         res.json({ success: true, message: 'อัปเดตปริมาณสินค้าสำเร็จ' });
     });
 };
@@ -328,7 +335,7 @@ exports.postAddOrder = (req, res) => {
                 }
 
                 // เปลี่ยนเส้นทางไปยังหน้าการชำระเงิน
-                req.flash('success', 'คำสั่งซื้อสำเร็จ');
+                req.flash('success', 'สร้างรายการออเดอร์สำเร็จ');
                 res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
             });
         }

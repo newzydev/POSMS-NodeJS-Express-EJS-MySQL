@@ -115,7 +115,7 @@
                                                         <td class="text-middle text-right">฿<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                         <td class="text-middle text-center">
                                                             <div class="btn-group">
-                                                                <div class="btn btn-custom-two rounded-circle btn-sm" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
+                                                                <div class="btn btn-custom-two btn-sm" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -258,19 +258,11 @@
     
                     // Validate quantity
                     if (quantity < 1 || isNaN(quantity)) {
-                        // Set the value to 1 if invalid
                         inputElement.value = 1;
                         quantity = 1;
-    
-                        // Optionally, notify the user about the invalid quantity
-                        alert('จำนวนสินค้าต้องมีอย่างน้อย x1 หน่วย');
                     } else if (quantity > 99 || isNaN(quantity)) {
-                        // Set the value to 1 if invalid
                         inputElement.value = 99;
                         quantity = 99;
-    
-                        // Optionally, notify the user about the invalid quantity
-                        alert('จำนวนสินค้าต้องไม่เกิน x99 หน่วย');
                     }
     
                     fetch('/Role/Cashier/Page/Make_a_Trading_Transaction/Update_Product_Quantity', {

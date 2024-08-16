@@ -47,6 +47,17 @@
                         <div class="col-sm-12 col-md-12 col-lg-8">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
                                     
                                     <h4>สรุปรายการ</h4>
                                     <hr>

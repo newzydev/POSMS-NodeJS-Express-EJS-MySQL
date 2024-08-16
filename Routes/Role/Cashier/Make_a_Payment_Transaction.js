@@ -9,6 +9,8 @@ const fs = require('fs');
 exports.getMakeaPaymentTransactionOrder = (req, res) => {
     const title = 'Make a Payment Transaction | Point Of Sale Management System';
     const your_page = 'Make_a_Payment_Transaction';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const order_id = req.params.order_id;
 
     // SQL Queries
@@ -52,17 +54,20 @@ exports.getMakeaPaymentTransactionOrder = (req, res) => {
     db.query(dataQueryProductList, [order_id], (err1, OrderProductListResult) => {
         if (err1) {
             console.error('Error fetching product list:', err1);
+            req.flash('error', 'เกิดข้อผิดพลาดในการดึงรายการสินค้า');
             return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
         db.query(dataQuery, [order_id], (err2, OrderPaymentResult) => {
             if (err2) {
                 console.error('Error fetching payment details:', err2);
+                req.flash('error', 'เกิดข้อผิดพลาดในการดึงข้อมูลการชำระเงิน');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
 
             if (OrderPaymentResult.length === 0) {
                 console.log('No order payment results found');
+                req.flash('error', 'ไม่พบผลลัพธ์การชำระเงินของคำสั่งซื้อ');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
 
@@ -80,14 +85,18 @@ exports.getMakeaPaymentTransactionOrder = (req, res) => {
             qrcode.toString(payload, options, (err, svg) => {
                 if (err) {
                     console.error('Error generating QR code:', err);
+                    req.flash('error', 'เกิดข้อผิดพลาดในการสร้าง QR code');
                     return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 }
                 fs.writeFileSync('./public/qr-prompt-pay-gen/qr-prompt-pay-gen.svg', svg);
                 // console.log('QR code saved');
+                req.flash('success', 'สร้าง QR code สำเร็จ');
 
                 res.render('Role/Cashier/Make_a_Payment_Transaction', { 
                     title, 
                     your_page,
+                    error: error[0],
+                    success: success[0],
                     OrderProductLists: OrderProductListResult,
                     OrderPayment: OrderPaymentResult
                 });
@@ -123,8 +132,10 @@ exports.postMakeaPaymentTransactionOrder = (req, res) => {
     
     db.query(query, [get_money, change_money, order_time_payment, order_id], (err, result) => {
         if (err) {
+            req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตคำสั่งซื้อ');
             res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
         } else {
+            req.flash('success', 'ทำรายการชำระเงินสำเร็จ');
             res.redirect('/Role/Cashier/Page/Electronic_Reciept/Order/' + order_id);
         }
     });

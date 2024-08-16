@@ -5,6 +5,8 @@ exports.getElectronicRecieptPage = (req, res) => {
 exports.getElectronicRecieptOrder = (req, res) => {
     const title = 'Electronic Reciept | Point Of Sale Management System';
     const your_page = 'Electronic_Reciept';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const order_id = req.params.order_id;
 
     // SQL Queries
@@ -49,6 +51,7 @@ exports.getElectronicRecieptOrder = (req, res) => {
     db.query(dataQueryProductList, [order_id], (err1, OrderProductListResult) => {
         if (err1) {
             console.error('Error fetching product list:', err1);
+            req.flash('error', 'เกิดข้อผิดพลาดในการดึงรายการสินค้า');
             return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
         }
 
@@ -60,12 +63,15 @@ exports.getElectronicRecieptOrder = (req, res) => {
 
             if (OrderPaymentResult.length === 0) {
                 console.log('No order payment results found');
+                req.flash('error', 'เกิดข้อผิดพลาดในการดึงข้อมูลการชำระเงิน');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             }
 
             res.render('Role/Cashier/Electronic_Reciept', { 
                 title, 
                 your_page,
+                error: error[0],
+                success: success[0],
                 OrderProductLists: OrderProductListResult,
                 OrderPayment: OrderPaymentResult
             });
