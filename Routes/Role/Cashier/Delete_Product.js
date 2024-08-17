@@ -4,8 +4,10 @@ exports.getDeleteProductPage = (req, res) => {
     
     db.query(query, [product_id], (err, result) => {
         if (err) {
+            req.flash('error', 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล');
             res.redirect('/Role/Cashier/Page/Manage_Products');
         } else {
+            req.flash('success', 'ลบข้อมูลสินค้าสำเร็จ');
             res.redirect('/Role/Cashier/Page/Manage_Products');
         }
     });

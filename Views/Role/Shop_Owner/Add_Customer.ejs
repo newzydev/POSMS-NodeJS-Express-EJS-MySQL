@@ -48,11 +48,23 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label for="first_name" class="col-sm-2 col-form-label required">ชื่อจริง</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="ชื่อจริง" required autocomplete="off">
+                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= formData ? formData.first_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อจริงถูกต้อง
                                                 </div>
@@ -64,7 +76,7 @@
                                         <div class="form-group row">
                                             <label for="last_name" class="col-sm-2 col-form-label required">นามสกุล</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="นามสกุล" required autocomplete="off">
+                                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= formData ? formData.last_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกนามสกุลถูกต้อง
                                                 </div>
@@ -76,7 +88,7 @@
                                         <div class="form-group row">
                                             <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" required autocomplete="off">
+                                                <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อผู้ใช้ถูกต้อง
                                                 </div>
@@ -88,7 +100,7 @@
                                         <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label required">รหัสผ่าน</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" required autocomplete="off">
+                                                <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกรหัสผ่านถูกต้อง
                                                 </div>
@@ -100,7 +112,7 @@
                                         <div class="form-group row">
                                             <label for="confirm_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่าน</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" required autocomplete="off">
+                                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" value="<%= formData ? formData.confirm_password : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกยืนยันรหัสผ่านถูกต้อง
                                                 </div>
@@ -112,7 +124,7 @@
                                         <div class="form-group row">
                                             <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
                                             <div class="col-sm-10">
-                                                <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" required autocomplete="off">
+                                                <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= formData ? formData.phone_number : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมายเลขโทรศัพท์ถูกต้อง
                                                 </div>

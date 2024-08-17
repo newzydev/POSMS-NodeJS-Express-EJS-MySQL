@@ -1,6 +1,8 @@
 exports.getEditProductPage = (req, res) => {
     const title = 'Edit Product | Point Of Sale Management System';
     const your_page = 'Manage_Products';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const product_id = req.params.product_id;
 
     const dataQueryCats = `
@@ -33,6 +35,8 @@ exports.getEditProductPage = (req, res) => {
                     res.render('Role/Cashier/Edit_Product', { 
                         title, 
                         your_page,
+                        error: error[0],
+                        success: success[0],
                         product_cats: resultCats,
                         product: resultProduct
                     });
@@ -49,8 +53,10 @@ exports.postEditProduct = (req, res) => {
     
     db.query(query, [cat_id, product_name, product_price, product_id], (err, result) => {
         if (err) {
+            req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขสินค้า');
             res.redirect('/Role/Cashier/Page/Manage_Products/Edit_Product/Edit/' + product_id);
         } else {
+            req.flash('success', 'แก้ไขสินค้าสำเร็จ');
             res.redirect('/Role/Cashier/Page/Manage_Products');
         }
     });

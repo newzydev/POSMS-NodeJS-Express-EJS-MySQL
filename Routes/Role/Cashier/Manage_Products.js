@@ -1,6 +1,8 @@
 exports.getManageProductsPage = (req, res) => {
     const title = 'Manage Products | Point Of Sale Management System';
     const your_page = 'Manage_Products';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
@@ -57,6 +59,8 @@ exports.getManageProductsPage = (req, res) => {
                     res.render('Role/Cashier/Manage_Products', {
                         title, 
                         your_page,
+                        error: error[0], 
+                        success: success[0],
                         products: result,
                         currentPage: page,
                         totalRecords,

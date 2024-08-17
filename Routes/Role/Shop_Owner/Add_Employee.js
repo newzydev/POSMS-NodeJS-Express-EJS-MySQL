@@ -19,14 +19,14 @@ exports.postAddEmployee = (req, res) => {
 
     if (!first_name || !last_name || !username || !password || !confirm_password || !phone_number) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { first_name, last_name, username, phone_number });
-        return res.redirect('/Register');
+        req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+        return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
     }
 
     if (password !== confirm_password) {
         req.flash('error', 'รหัสผ่าน และการยืนยันรหัสผ่านไม่ตรงกัน');
-        req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
-        return res.redirect('/Register');
+        req.flash('formData', { first_name, last_name, username, phone_number });
+        return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
     }
     
     // Generate Member ID
@@ -68,7 +68,7 @@ exports.postAddEmployee = (req, res) => {
 
         if (results[0].count > 0) {
             req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
-            req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+            req.flash('formData', { first_name, last_name, username, password, confirm_password });
             return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
         }
 

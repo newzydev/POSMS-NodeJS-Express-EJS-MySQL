@@ -1,6 +1,9 @@
 exports.getAddProductPage = (req, res) => {
     const title = 'Add Product | Point Of Sale Management System';
     const your_page = 'Manage_Products';
+    const error = req.flash('error');
+    const formData = req.flash('formData')[0] || {};
+    const success = req.flash('success');
 
     const dataQuery = `
         SELECT 
@@ -21,6 +24,9 @@ exports.getAddProductPage = (req, res) => {
             res.render('Role/Cashier/Add_Product', { 
                 title, 
                 your_page,
+                error: error[0], 
+                formData, 
+                success: success[0],
                 product_cats: result
             });
         }
@@ -30,6 +36,12 @@ exports.getAddProductPage = (req, res) => {
 exports.postAddProduct = (req, res) => {
     // Get variables
     let { Product_id, cat_id, product_name, product_price } = req.body;
+
+    if (!cat_id || !product_name || !product_price) {
+        req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
+        req.flash('formData', { Product_id, cat_id, product_name, product_price });
+        return res.redirect('/Role/Cashier/Page/Manage_Products/Add_Product');
+    }
     
     // Generate Product ID
     const generateProductId = () => {
@@ -47,8 +59,10 @@ exports.postAddProduct = (req, res) => {
     db.query(query, [Product_id, cat_id, product_name, product_price], (err, result) => {
         if (err) {
             console.error(err);
+            req.flash('error', 'เกิดข้อผิดพลาดในเพิ่มสินค้า');
             res.redirect('/Role/Cashier/Page/Manage_Products/Add_Product');
         } else {
+            req.flash('success', 'เพิ่มข้อมูลสินค้าสำเร็จ');
             res.redirect('/Role/Cashier/Page/Manage_Products');
         }
     });

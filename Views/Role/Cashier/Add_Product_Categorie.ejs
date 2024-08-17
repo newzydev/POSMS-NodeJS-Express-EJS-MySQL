@@ -48,6 +48,18 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label for="cat_name_main" class="col-sm-2 col-form-label required">หมวดหมู่หลัก</label>
@@ -76,7 +88,7 @@
                                         <div class="form-group row">
                                             <label for="cat_name_sub" class="col-sm-2 col-form-label required">หมวดหมู่ย่อย</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" required autocomplete="off">
+                                                <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" value="<%= formData ? formData.cat_name_sub : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมวดหมู่ย่อยถูกต้อง
                                                 </div>

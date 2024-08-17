@@ -1,6 +1,8 @@
 exports.getManageProductCategoriesPage = (req, res) => {
     const title = 'Manage Product Categories | Point Of Sale Management System';
     const your_page = 'Manage_Product_Categories';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
@@ -44,6 +46,8 @@ exports.getManageProductCategoriesPage = (req, res) => {
                     res.render('Role/Cashier/Manage_Product_Categories', {
                         title, 
                         your_page,
+                        error: error[0], 
+                        success: success[0],
                         product_cats: result,
                         currentPage: page,
                         totalRecords,
