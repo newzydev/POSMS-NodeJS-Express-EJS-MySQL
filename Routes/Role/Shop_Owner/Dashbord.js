@@ -31,6 +31,34 @@ exports.getShopOwnerDashbordPage = (req, res) => {
         LIMIT 12;
     `;
 
+    const monthlySalesQuery = `
+        SELECT 
+            m.month_name,
+            IFNULL(SUM(o.net_total), 0) AS total_sales
+        FROM 
+            (SELECT 
+                1 AS month_num, 'มกราคม' AS month_name 
+            UNION ALL SELECT 2, 'กุมภาพันธ์'
+            UNION ALL SELECT 3, 'มีนาคม'
+            UNION ALL SELECT 4, 'เมษายน'
+            UNION ALL SELECT 5, 'พฤษภาคม'
+            UNION ALL SELECT 6, 'มิถุนายน'
+            UNION ALL SELECT 7, 'กรกฎาคม'
+            UNION ALL SELECT 8, 'สิงหาคม'
+            UNION ALL SELECT 9, 'กันยายน'
+            UNION ALL SELECT 10, 'ตุลาคม'
+            UNION ALL SELECT 11, 'พฤศจิกายน'
+            UNION ALL SELECT 12, 'ธันวาคม') m
+        LEFT JOIN 
+            Orders o 
+            ON m.month_num = MONTH(o.time_order) 
+            AND YEAR(o.time_order) = YEAR(CURDATE())
+        GROUP BY 
+            m.month_num, m.month_name
+        ORDER BY 
+            m.month_num;
+    `;
+
     db.query(dashQuery0, (err, dashQuery0Results) => {
         if (err) throw err;
 
@@ -61,40 +89,50 @@ exports.getShopOwnerDashbordPage = (req, res) => {
                                         db.query(topProductsQuery, (err, topProductsResults) => {
                                             if (err) throw err;
     
-                                            const dashQuery0Re = dashQuery0Results[0].total_shop_owner;
-                                            const dashQuery1Re = dashQuery1Results[0].total_employees;
-                                            const dashQuery2Re = dashQuery2Results[0].total_customers;
-                                            const dashQuery3Re = dashQuery3Results[0].total_payments;
-                                            const dashQuery4Re = dashQuery4Results[0].total_net_amount;
-                                            const dashQuery5Re = dashQuery5Results[0].total_orders;
-                                            const dashQuery6Re = dashQuery6Results[0].total_products;
-                                            const dashQuery7Re = dashQuery7Results[0].total_categories;
-    
-                                            // Process payment methods data
-                                            const paymentLabels = paymentMethodsResults.map(row => row.payment_method);
-                                            const paymentData = paymentMethodsResults.map(row => row.count);
-    
-                                            // Process top products data
-                                            const topProductLabels = topProductsResults.map(row => row.product_name);
-                                            const topProductData = topProductsResults.map(row => row.total_qty);
-    
-                                            res.render('Role/Shop_Owner/Dashbord', { 
-                                                title, 
-                                                your_page,
-                                                error: error[0],
-                                                success: success[0],
-                                                dashQuery0Re,
-                                                dashQuery1Re,
-                                                dashQuery2Re,
-                                                dashQuery3Re,
-                                                dashQuery4Re,
-                                                dashQuery5Re,
-                                                dashQuery6Re,
-                                                dashQuery7Re,
-                                                paymentLabels: JSON.stringify(paymentLabels),
-                                                paymentData: JSON.stringify(paymentData),
-                                                topProductLabels: JSON.stringify(topProductLabels),
-                                                topProductData: JSON.stringify(topProductData)
+                                            db.query(monthlySalesQuery, (err, monthlySalesResults) => {
+                                                if (err) throw err;
+                                            
+                                                const dashQuery0Re = dashQuery0Results[0].total_shop_owner;
+                                                const dashQuery1Re = dashQuery1Results[0].total_employees;
+                                                const dashQuery2Re = dashQuery2Results[0].total_customers;
+                                                const dashQuery3Re = dashQuery3Results[0].total_payments;
+                                                const dashQuery4Re = dashQuery4Results[0].total_net_amount;
+                                                const dashQuery5Re = dashQuery5Results[0].total_orders;
+                                                const dashQuery6Re = dashQuery6Results[0].total_products;
+                                                const dashQuery7Re = dashQuery7Results[0].total_categories;
+        
+                                                // Process payment methods data
+                                                const paymentLabels = paymentMethodsResults.map(row => row.payment_method);
+                                                const paymentData = paymentMethodsResults.map(row => row.count);
+        
+                                                // Process top products data
+                                                const topProductLabels = topProductsResults.map(row => row.product_name);
+                                                const topProductData = topProductsResults.map(row => row.total_qty);
+
+                                                // Process monthly sales data
+                                                const monthlyLabels = monthlySalesResults.map(row => row.month_name);
+                                                const monthlyData = monthlySalesResults.map(row => row.total_sales);
+        
+                                                res.render('Role/Shop_Owner/Dashbord', { 
+                                                    title, 
+                                                    your_page,
+                                                    error: error[0],
+                                                    success: success[0],
+                                                    dashQuery0Re,
+                                                    dashQuery1Re,
+                                                    dashQuery2Re,
+                                                    dashQuery3Re,
+                                                    dashQuery4Re,
+                                                    dashQuery5Re,
+                                                    dashQuery6Re,
+                                                    dashQuery7Re,
+                                                    paymentLabels: JSON.stringify(paymentLabels),
+                                                    paymentData: JSON.stringify(paymentData),
+                                                    topProductLabels: JSON.stringify(topProductLabels),
+                                                    topProductData: JSON.stringify(topProductData),
+                                                    monthlyLabels: JSON.stringify(monthlyLabels),
+                                                    monthlyData: JSON.stringify(monthlyData)
+                                                });
                                             });
                                         });
                                     });

@@ -1,6 +1,8 @@
 exports.getOrderAndReciept = (req, res) => {
     const title = 'Order Reciept | Point Of Sale Management System';
     const your_page = 'Order_And_Receipt';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const order_id = req.params.order_id;
 
     // SQL Queries
@@ -62,6 +64,8 @@ exports.getOrderAndReciept = (req, res) => {
             res.render('Role/Customer/View_Order_Receipt', { 
                 title, 
                 your_page,
+                error: error[0],
+                success: success[0],
                 OrderProductLists: OrderProductListResult,
                 OrderReceipt: OrderReceiptResult
             });

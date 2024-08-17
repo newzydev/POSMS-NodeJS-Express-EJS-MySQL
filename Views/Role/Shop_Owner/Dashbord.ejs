@@ -218,7 +218,7 @@
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <div class="card-header">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม</div>
+                                <div class="card-header">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม ประจำปี</div>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -324,82 +324,90 @@
         });
         // Chart 2 End
     </script>
-    <script>
-        // Chart 3
-        const ctx3 = document.getElementById('myChart3');
-
-        new Chart(ctx3, {
-            type: 'bar',
-            data: {
-                labels: <%- topProductLabels %>,
-                datasets: [{
-                    label: ' สินค้ายอดนิยม ',
-                    data: <%- topProductData %>,
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+        <script>
+            // Chart 3
+            const ctx3 = document.getElementById('myChart3').getContext('2d');
+        
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: <%- topProductLabels %>,
+                    datasets: [{
+                        label: ' สินค้ายอดนิยม ',
+                        data: <%- topProductData %>,
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
+                        }
                     }
                 }
-            }
-        });
-        // Chart 3 End
-    </script>
-    <script>
-        // Chart 4
-        const ctx4 = document.getElementById('myChart4');
-
-        new Chart(ctx4, {
-            type: 'bar',
-            data: {
-                labels: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
-                datasets: [{
-                    label: ' สินค้ายอดนิยม ',
-                    data: <%- topProductData %>,
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+            });
+            // Chart 3 End
+        </script>        
+        <script>
+            // Chart 4
+            const ctx4 = document.getElementById('myChart4').getContext('2d');
+        
+            new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: <%- monthlyLabels %>,
+                    datasets: [{
+                        label: ' ยอดขายรายเดือนประจำปี ',
+                        data: <%- monthlyData %>,
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'รายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม',
+                options: {
+                    responsive: true,
+                    indexAxis: 'x',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงาน ยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'รายงานแสดงยอดขายสินค้ารายเดือน มกราคม - ธันวาคม',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงานยอดขายสินค้ารายเดือน',
+                        }
                     }
                 }
-            }
-        });
-        // Chart 4 End
-    </script>
+            });
+            // Chart 4 End
+        </script>          
     <!-- Javascript End -->
 </body>
 </html>

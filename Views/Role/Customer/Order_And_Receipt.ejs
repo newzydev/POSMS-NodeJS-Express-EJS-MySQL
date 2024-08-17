@@ -44,6 +44,19 @@
                 <div class="container-fluid">
                     <div class="row">
         
+                        <div class="col-sm-12">
+                            <% if (error) { %>
+                            <div class="alert alert-danger text-center" role="alert">
+                                <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                            </div>
+                            <% } %>
+                            <% if (success) { %>
+                            <div class="alert alert-success text-center" role="alert">
+                                <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                            </div>
+                            <% } %>
+                        </div>
+                        
                         <div class="col-md-3">
         
                             <!-- Profile Image -->

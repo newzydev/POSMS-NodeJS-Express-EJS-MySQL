@@ -1,6 +1,8 @@
 exports.getOrderAndRecieptPage = (req, res) => {
     const title = 'Order And Receipt | Point Of Sale Management System';
     const your_page = 'Order_And_Receipt';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
@@ -59,6 +61,8 @@ exports.getOrderAndRecieptPage = (req, res) => {
             res.render('Role/Customer/Order_And_Receipt', {
                 title, 
                 your_page,
+                error: error[0],
+                success: success[0],
                 orders: result,
                 currentPage: page,
                 totalRecords,
