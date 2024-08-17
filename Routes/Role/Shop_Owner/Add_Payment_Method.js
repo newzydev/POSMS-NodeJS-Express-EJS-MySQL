@@ -13,7 +13,7 @@ exports.postAddPaymentMethod = (req, res) => {
     
     if (!pay_cat_name || !pay_bank_name || !pay_bank_account_name || !pay_bank_number || !pay_status) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { pay_cat_name, pay_bank_name, pay_bank_account_name, pay_bank_number, pay_status });
+        req.flash('formData', { pay_bank_name, pay_bank_account_name, pay_bank_number });
         return res.redirect('/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method');
     }
     // Generate Member ID
@@ -29,7 +29,6 @@ exports.postAddPaymentMethod = (req, res) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการเชื่อมต่อฐานข้อมูล');
-            req.flash('formData', { pay_cat_name, pay_bank_name, pay_bank_account_name, pay_bank_number, pay_status });
             res.redirect('/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method');
         } else {
             req.flash('success', 'บันทึกข้อมูลรูปแบบชำระเงินสำเร็จ');

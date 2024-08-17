@@ -1,6 +1,8 @@
 exports.getSaleReportsPage = (req, res) => {
     const title = 'Sale Reports | Point Of Sale Management System';
     const your_page = 'Sale_Reports';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
     const limit = 5;
     const offset = (page - 1) * limit;
@@ -58,6 +60,8 @@ exports.getSaleReportsPage = (req, res) => {
                     res.render('Role/Shop_Owner/Sale_Reports', {
                         title, 
                         your_page,
+                        error: error[0],
+                        success: success[0],
                         orders: result,
                         currentPage: page,
                         totalRecords,

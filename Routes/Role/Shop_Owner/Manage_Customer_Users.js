@@ -1,6 +1,8 @@
 exports.getManageCustomerPage = (req, res) => {
     const title = 'Manage Customer Users | Point Of Sale Management System';
     const your_page = 'Manage_Customer_Users';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const allowed_roles = ["ROLE003"];
     const roles_placeholder = allowed_roles.map(role => `'${role}'`).join(", ");
     const page = parseInt(req.query.page) || 1;
@@ -58,6 +60,8 @@ exports.getManageCustomerPage = (req, res) => {
                     res.render('Role/Shop_Owner/Manage_Customer_Users', {
                         title, 
                         your_page,
+                        error: error[0],
+                        success: success[0],
                         cus_users: result,
                         totalRecords,
                         currentPage: page,

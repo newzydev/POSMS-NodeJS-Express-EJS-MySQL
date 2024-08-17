@@ -1,6 +1,8 @@
 exports.getShopOwnerDashbordPage = (req, res) => {
     const title = 'Dashbord | Point Of Sale Management System';
     const your_page = 'Dashbord';
+    const error = req.flash('error');
+    const success = req.flash('success');
 
     // Existing queries
     const dashQuery0 = "SELECT COUNT(*) AS total_shop_owner FROM Users WHERE role_id = 'ROLE001';";
@@ -78,7 +80,9 @@ exports.getShopOwnerDashbordPage = (req, res) => {
     
                                             res.render('Role/Shop_Owner/Dashbord', { 
                                                 title, 
-                                                your_page, 
+                                                your_page,
+                                                error: error[0],
+                                                success: success[0],
                                                 dashQuery0Re,
                                                 dashQuery1Re,
                                                 dashQuery2Re,

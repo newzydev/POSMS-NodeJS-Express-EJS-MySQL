@@ -81,7 +81,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_name" class="col-sm-2 col-form-label required">ชื่อธนาคาร</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" required autocomplete="off">
+                                                <input type="text" class="form-control" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= formData ? formData.pay_bank_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อธนาคารถูกต้อง
                                                 </div>
@@ -93,7 +93,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_account_name" class="col-sm-2 col-form-label required">ชื่อบัญชีธนาคาร</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" required autocomplete="off">
+                                                <input type="text" class="form-control" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= formData ? formData.pay_bank_account_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อบัญชีธนาคารถูกต้อง
                                                 </div>
@@ -105,7 +105,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_number" class="col-sm-2 col-form-label required">หมายเลขบัญชี</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" required autocomplete="off">
+                                                <input type="text" class="form-control" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<%= formData ? formData.pay_bank_number : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมายเลขบัญชีถูกต้อง
                                                 </div>

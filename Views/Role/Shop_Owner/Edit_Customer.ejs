@@ -48,6 +48,18 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+                                    
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">รหัสลูกค้า</label>

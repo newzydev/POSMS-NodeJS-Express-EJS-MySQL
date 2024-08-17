@@ -1,8 +1,6 @@
 exports.getDeletePaymentMethodPage = (req, res) => {
     const pay_id = req.params.pay_id;
     const query = 'DELETE FROM Payment_Options WHERE pay_id = ?';
-    const error = req.flash('error');
-    const success = req.flash('success');
     
     db.query(query, [pay_id], (err, result) => {
         if (err) {

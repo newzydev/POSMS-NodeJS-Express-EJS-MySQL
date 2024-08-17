@@ -1,12 +1,33 @@
 exports.getAddEmployeePage = (req, res) => {
     const title = 'Add Employee | Point Of Sale Management System';
     const your_page = 'Manage_Employee_Users';
-    res.render('Role/Shop_Owner/Add_Employee', { title, your_page });
+    const error = req.flash('error');
+    const formData = req.flash('formData')[0] || {};
+    const success = req.flash('success');
+    res.render('Role/Shop_Owner/Add_Employee', { 
+        title, 
+        your_page,
+        error: error[0], 
+        formData, 
+        success: success[0]
+    });
 };
 
 exports.postAddEmployee = (req, res) => {
     // Get variable
-    const { first_name, last_name, username, password, phone_number, role_id } = req.body;
+    const { first_name, last_name, username, password, confirm_password, phone_number, role_id } = req.body;
+
+    if (!first_name || !last_name || !username || !password || !confirm_password || !phone_number) {
+        req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
+        req.flash('formData', { first_name, last_name, username, phone_number });
+        return res.redirect('/Register');
+    }
+
+    if (password !== confirm_password) {
+        req.flash('error', 'รหัสผ่าน และการยืนยันรหัสผ่านไม่ตรงกัน');
+        req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+        return res.redirect('/Register');
+    }
     
     // Generate Member ID
     const generateMemberId = () => {
@@ -34,14 +55,32 @@ exports.postAddEmployee = (req, res) => {
     const member_time_login = formattedDate + ' ' + formattedTime;
 
     // Query SQL
+    const checkPhoneNumberQuery = 'SELECT COUNT(*) AS count FROM Users WHERE member_tel = ?';
     const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_username, member_password, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
     
-    db.query(query, [member_id, first_name, last_name, username, password, phone_number, role_id, member_time_register, member_time_login], (err, result) => {
+    db.query(checkPhoneNumberQuery, [phone_number], (err, results) => {
         if (err) {
             console.error(err);
-            res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
-        } else {
-            res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users');
+            req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์');
+            req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+            return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
         }
+
+        if (results[0].count > 0) {
+            req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
+            req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+            return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
+        }
+
+        db.query(query, [member_id, first_name, last_name, username, password, phone_number, role_id, member_time_register, member_time_login], (err, result) => {
+            if (err) {
+                console.error(err);
+                req.flash('error', 'เกิดข้อผิดพลาดในการเพิ่มบัญชีพนักงาน');
+                res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
+            } else {
+                req.flash('success', 'เพิ่มข้อมูลบัญชีพนักงานสำเร็จ');
+                res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users');
+            }
+        });
     });
 };

@@ -1,6 +1,8 @@
 exports.getManageEmployeePage = (req, res) => {
     const title = 'Manage Employee Users | Point Of Sale Management System';
     const your_page = 'Manage_Employee_Users';
+    const error = req.flash('error');
+    const success = req.flash('success');
     const allowed_roles = ["ROLE001", "ROLE002"];
     const roles_placeholder = allowed_roles.map(role => `'${role}'`).join(", ");
     const page = parseInt(req.query.page) || 1;
@@ -58,6 +60,8 @@ exports.getManageEmployeePage = (req, res) => {
                     res.render('Role/Shop_Owner/Manage_Employee_Users', {
                         title, 
                         your_page,
+                        error: error[0],
+                        success: success[0],
                         emp_users: result,
                         currentPage: page,
                         totalRecords,
