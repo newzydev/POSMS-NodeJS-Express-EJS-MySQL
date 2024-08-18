@@ -319,7 +319,7 @@ exports.postAddOrder = (req, res) => {
                     }
 
                     // เปลี่ยนเส้นทางไปยังหน้าการชำระเงิน
-                    req.flash('success', 'คำสั่งซื้อสำเร็จ');
+                    req.flash('success', 'ทำรายการคำสั่งซื้อสำเร็จ');
                     res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
                 });
             });

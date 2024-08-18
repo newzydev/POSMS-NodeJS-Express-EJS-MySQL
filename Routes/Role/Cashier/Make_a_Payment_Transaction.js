@@ -135,16 +135,6 @@ exports.postMakeaPaymentTransactionOrder = (req, res) => {
             res.redirect('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/' + order_id);
         } else {
             req.flash('success', 'ทำรายการชำระเงินสำเร็จ');
-
-            // Delete the QR code file after the transaction is successful
-            const qrFilePath = './public/qr-prompt-pay-gen/qr-prompt-pay-gen.svg';
-            try {
-                fs.unlinkSync(qrFilePath);
-                // console.log('QR code file deleted successfully');
-            } catch (deleteErr) {
-                console.error('Error deleting QR code file:', deleteErr);
-            }
-
             res.redirect('/Role/Cashier/Page/Electronic_Reciept/Order/' + order_id);
         }
     });
