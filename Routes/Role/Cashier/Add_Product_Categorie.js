@@ -23,7 +23,7 @@ exports.postAddProductCategorie = (req, res) => {
         return res.redirect('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie');
     }
     
-    // Generate Member ID
+    // Generate Categorie ID
     const generateCatId = () => {
         return 'CT' + Math.floor(1000000000 + Math.random() * 9000000000).toString();
     };
