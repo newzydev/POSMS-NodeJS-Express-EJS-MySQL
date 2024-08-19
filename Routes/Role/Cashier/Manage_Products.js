@@ -38,13 +38,6 @@ exports.getManageProductsPage = (req, res) => {
 
     const searchQuery = `%${search}%`;
 
-    function numberFormat(number, decimals) {
-        return number.toLocaleString('en-US', {
-            minimumFractionDigits: decimals,
-            maximumFractionDigits: decimals
-        });
-    }
-
     db.query(countQuery, [searchQuery, searchQuery, searchQuery], (err, countResult) => {
         if (err) {
             res.redirect('/');

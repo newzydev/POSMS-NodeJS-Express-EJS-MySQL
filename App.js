@@ -98,6 +98,8 @@ const { getAddProductPage, postAddProduct } = require('./Routes/Role/Cashier/Add
 const { getViewProductPage } = require('./Routes/Role/Cashier/View_Product');
 const { getEditProductPage, postEditProduct } = require('./Routes/Role/Cashier/Edit_Product');
 const { getDeleteProductPage } = require('./Routes/Role/Cashier/Delete_Product');
+const { getProductPrintLabelPage } = require('./Routes/Role/Cashier/Print_Product_Label');
+const { getProductPrintReportPage } = require('./Routes/Role/Cashier/Print_Product_Report');
 // Manage Product Categories Page
 const { getManageProductCategoriesPage } = require('./Routes/Role/Cashier/Manage_Product_Categories');
 const { getAddProductCategoriePage, postAddProductCategorie } = require('./Routes/Role/Cashier/Add_Product_Categorie');
@@ -187,6 +189,8 @@ app.get('/Role/Cashier/Page/Manage_Products/View/:product_id', authenticateUser(
 app.get('/Role/Cashier/Page/Manage_Products/Edit/:product_id', authenticateUser(db), checkRole002, getEditProductPage);
 app.post('/Role/Cashier/Page/Manage_Products/Edit/:product_id', authenticateUser(db), checkRole002, postEditProduct);
 app.get('/Role/Cashier/Page/Manage_Products/Delete/:product_id', authenticateUser(db), checkRole002, getDeleteProductPage);
+app.get('/Role/Cashier/Page/Manage_Products/Print/Label', authenticateUser(db), checkRole002, getProductPrintLabelPage);
+app.get('/Role/Cashier/Page/Manage_Products/Print/Report', authenticateUser(db), checkRole002, getProductPrintReportPage);
 // Manage Product Categories Page
 app.get('/Role/Cashier/Page/Manage_Product_Categories', authenticateUser(db), checkRole002, getManageProductCategoriesPage);
 app.get('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie', authenticateUser(db), checkRole002, getAddProductCategoriePage);
