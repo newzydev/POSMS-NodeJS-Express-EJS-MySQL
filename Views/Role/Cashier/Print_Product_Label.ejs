@@ -156,10 +156,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="card d-print-none">
+                                    <div class="card d-print-none d-none d-xl-block">
                                         <div class="card-body">
                                             <div>* ระบบจะทำการสั่งพิมพ์ อัติโนมัติ ใน 3 วินาที หากยังไม่เริ่มสามารถกด <b onclick="window.print();" style="cursor: pointer;"><u>สั่งพิมพ์ทันที</u></b></div>
                                             <div>* สั่งพิมพ์สินค้าบางรายการ <b>คลิกที่สินค้าที่ต้องการพิมพ์</b></div>
+                                        </div>
+                                    </div>
+                                    <div class="d-print-none d-block d-xl-none">
+                                        <div class="alert alert-warning text-center" role="alert">
+                                            <div><i class="fas fa-exclamation-triangle mr-2"></i>ระบบสั่งพิมพ์ไม่รองรับในอุปกรณ์ <b>โทรศัพท์มือถือ</b> และ <b>แท็บเล็ต</b> ขออภัยในความไม่สะดวก</div>
                                         </div>
                                     </div>
 
@@ -209,13 +214,16 @@
     <!-- Javascript -->
     <%- include('../../Include/Javascript.ejs') %>
     <!-- Trigger Print on Page Load -->
-    <!-- <script>
-        window.onload = function() {
-            setTimeout(function() {
-                window.print();
-            }, 3000); // 3 second delay
-        };
-    </script> -->
+    <script>
+        window.addEventListener('load', function() {
+            var isDesktop = !/Mobi|Android/i.test(navigator.userAgent); // ตรวจสอบว่าเป็นคอมพิวเตอร์หรือไม่
+            if (isDesktop) {
+                setTimeout(function() {
+                    window.print();
+                }, 3000); // 3 วินาที
+            }
+        });
+    </script>    
     <!-- Javascript End -->
 </body>
 </html>
