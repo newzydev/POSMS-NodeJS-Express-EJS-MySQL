@@ -12,7 +12,6 @@ const port = 5000;
 const db = connectDB();
 global.db = db; 
 
-// Configure session middleware
 app.use(session({
     secret: 'ADMIN-DEV-POSMS',
     resave: false,
@@ -22,7 +21,6 @@ app.use(session({
         secure: false
     } 
 }));
-
 app.use(flash('ADMIN-DEV-POSMS'));
 app.use(cookieParser('ADMIN-DEV-POSMS'));
 app.set('port', process.env.port || port);
