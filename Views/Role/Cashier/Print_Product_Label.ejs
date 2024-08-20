@@ -13,6 +13,14 @@
             text-overflow: ellipsis;
         }
 
+        .product-label {
+            transition: .3s ease-in-out;
+        }
+
+        .product-label:hover {
+            box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
         @page {
             size: A4;
             margin: 10mm; /* Set margins as needed */
@@ -102,13 +110,13 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>สั่งพิมพ์ฉลากสินค้า</h1>
+                            <h1>สั่งพิมพ์ฉลากสินค้าทั้งหมด</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
                                 <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Products';">ปรับปรุงสินค้า</a></li>
-                                <li class="breadcrumb-item active">สั่งพิมพ์ฉลากสินค้า</li>
+                                <li class="breadcrumb-item active">สั่งพิมพ์ฉลากสินค้าทั้งหมด</li>
                             </ol>
                         </div>
                     </div>
@@ -148,11 +156,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-print-none">
-                                        <hr>
-                                        <span>* ระบบจะทำการสั่งพิมพ์ อัติโนมัติ ใน 3 วินาที หากยังไม่เริ่มสามารถกด <b onclick="window.print();" style="cursor: pointer;">สั่งพิมพ์ทันที</b></span>
-                                        <hr>
+                                    <div class="card d-print-none">
+                                        <div class="card-body">
+                                            <div>* ระบบจะทำการสั่งพิมพ์ อัติโนมัติ ใน 3 วินาที หากยังไม่เริ่มสามารถกด <b onclick="window.print();" style="cursor: pointer;"><u>สั่งพิมพ์ทันที</u></b></div>
+                                            <div>* สั่งพิมพ์สินค้าบางรายการ <b>คลิกที่สินค้าที่ต้องการพิมพ์</b></div>
+                                        </div>
                                     </div>
+
                                     <div class="row">
                                         <% if (products.length === 0) { %>
                                             <div class="col-sm-12">
@@ -161,7 +171,7 @@
                                         <% } else { %>
                                             <% products.forEach((product, index) => { %>
                                             <div class="col-sm-3">
-                                                <div class="text-center border p-3 mb-3">
+                                                <div class="product-label text-center border p-3 mb-3" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Manage_Products/Print/Label/Custom/<%= product.product_id %>';" title="ต้องการพิมพ์สินค้า <%= product.product_id %> รายการนี้ คลิก">
                                                     <div>
                                                         <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= product.product_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
                                                     </div>
@@ -199,13 +209,13 @@
     <!-- Javascript -->
     <%- include('../../Include/Javascript.ejs') %>
     <!-- Trigger Print on Page Load -->
-    <script>
+    <!-- <script>
         window.onload = function() {
             setTimeout(function() {
                 window.print();
             }, 3000); // 3 second delay
         };
-    </script>
+    </script> -->
     <!-- Javascript End -->
 </body>
 </html>

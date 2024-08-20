@@ -1,5 +1,5 @@
 exports.getProductPrintLabelPage = (req, res) => {
-    const title = 'Print Product Label | Point Of Sale Management System';
+    const title = 'สั่งพิมพ์ฉลากสินค้า - Print Product Label | Point Of Sale Management System';
     const your_page = 'Manage_Products';
     const error = req.flash('error');
     const success = req.flash('success');
