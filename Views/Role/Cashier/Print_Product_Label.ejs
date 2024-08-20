@@ -23,7 +23,7 @@
 
         @page {
             size: A4;
-            margin: 10mm; /* Set margins as needed */
+            margin: 10mm;
         }
         
         @media print {
@@ -33,7 +33,6 @@
                 margin: 0;
                 padding: 0;
                 background: none;
-                -webkit-print-color-adjust: exact;
             }
     
             .content-wrapper {
@@ -156,13 +155,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="card d-print-none d-none d-xl-block">
+                                    <div class="card d-print-none d-none d-md-block">
                                         <div class="card-body">
                                             <div>* ระบบจะทำการสั่งพิมพ์ อัติโนมัติ ใน 3 วินาที หากยังไม่เริ่มสามารถกด <b onclick="window.print();" style="cursor: pointer;"><u>สั่งพิมพ์ทันที</u></b></div>
                                             <div>* สั่งพิมพ์สินค้าบางรายการ <b>คลิกที่สินค้าที่ต้องการพิมพ์</b></div>
                                         </div>
                                     </div>
-                                    <div class="d-print-none d-block d-xl-none">
+                                    <div class="d-print-none d-block d-md-none">
                                         <div class="alert alert-warning text-center" role="alert">
                                             <div><i class="fas fa-exclamation-triangle mr-2"></i>ระบบสั่งพิมพ์ไม่รองรับในอุปกรณ์ <b>โทรศัพท์มือถือ</b> และ <b>แท็บเล็ต</b> ขออภัยในความไม่สะดวก</div>
                                         </div>
