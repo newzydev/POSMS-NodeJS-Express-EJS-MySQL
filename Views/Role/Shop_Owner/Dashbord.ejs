@@ -136,7 +136,7 @@
                             <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3><span><%= (dashQuery7Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
-                                    <p>หมวดหมู่ทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-7"></span></p></p>
+                                    <p>หมวดหมู่หลักทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-7"></span></p></p>
                                 </div>
                                 <div class="icon">
                                     <i class="far fa-folder-open"></i>
@@ -158,46 +158,6 @@
                         <!-- Row 2 End -->
 
                         <!-- Row 3 -->
-                        <div class="col-sm-12 col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header">กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด</div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <div class="chartjs-size-monitor">
-                                            <div class="chartjs-size-monitor-expand">
-                                                <div class=""></div>
-                                            </div>
-                                            <div class="chartjs-size-monitor-shrink">
-                                                <div class=""></div>
-                                            </div>
-                                        </div>
-                                        <canvas id="myChart1" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-sm-12 col-md-12 col-lg-6">
-                            <div class="card">
-                                <div class="card-header">กราฟรายงานแสดงยอดรูปแบบชำเงินยอดนิยม</div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <div class="chartjs-size-monitor">
-                                            <div class="chartjs-size-monitor-expand">
-                                                <div class=""></div>
-                                            </div>
-                                            <div class="chartjs-size-monitor-shrink">
-                                                <div class=""></div>
-                                            </div>
-                                        </div>
-                                        <canvas id="myChart2" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Row 3 End -->
-
-                        <!-- Row 4 -->
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
                                 <div class="card-header">กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ</div>
@@ -230,6 +190,45 @@
                                             </div>
                                         </div>
                                         <canvas id="myChart4" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 3 End -->
+
+                        <!-- Row 4 -->
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart1" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">กราฟรายงานแสดงยอดรูปแบบชำเงินยอดนิยม</div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart2" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -343,6 +342,7 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     indexAxis: 'y',
                     scales: {
                         x: {
@@ -364,6 +364,18 @@
                     }
                 }
             });
+
+            // Adjust the canvas height based on the chart content
+            function adjustCanvasHeight() {
+                const canvas = document.getElementById('myChart4');
+                const chartArea = myChart.chartArea;
+                if (chartArea) {
+                    canvas.style.height = `${chartArea.bottom - chartArea.top}px`;
+                }
+            }
+
+            // Call this function to adjust height after rendering
+            myChart.options.animation.onComplete = adjustCanvasHeight;
             // Chart 3 End
         </script>        
         <script>

@@ -2,7 +2,7 @@
 const authenticateUser = (db) => (req, res, next) => {
     // Use signedCookies to access the signed cookie
     if (!req.signedCookies.MEMBER_TOKEN) {
-        return res.redirect('/Login');
+        return res.redirect('/');
     }
 
     const dataQuery = `
@@ -34,7 +34,7 @@ const authenticateUser = (db) => (req, res, next) => {
         if (results.length === 0) {
             res.clearCookie('MEMBER_TOKEN');
             res.clearCookie('ROLE_TOKEN');
-            return res.redirect('/Login');
+            return res.redirect('/');
         }
 
         res.locals.user = results[0];

@@ -45,10 +45,8 @@ app.get('/qrcode-gen', (req, res) => {
 });
 
 // Route Imports
-// Home Page
-const { getHomePage } = require('./Routes/Index');
 // Login Page
-const { getLoginPage, postLogin } = require('./Routes/Login');
+const { getLoginPage, postLogin } = require('./Routes/Index');
 // Logout Page
 const { getLogoutPage } = require('./Routes/Logout');
 // Register Page
@@ -126,11 +124,9 @@ const { getOrderAndRecieptPage } = require('./Routes/Role/Customer/Order_And_Rec
 const { getOrderAndReciept } = require('./Routes/Role/Customer/View_Order_Receipt');
 
 // Route Definitions
-// Home Page
-app.get('/', getHomePage);
 // Login Page
-app.get('/Login', getLoginPage);
-app.post('/Login', postLogin);
+app.get('/', getLoginPage);
+app.post('/', postLogin);
 // Logout Page
 app.get('/Logout', getLogoutPage);
 // Register Page

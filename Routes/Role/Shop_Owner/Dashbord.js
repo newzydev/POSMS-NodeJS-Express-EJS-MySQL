@@ -12,7 +12,7 @@ exports.getShopOwnerDashbordPage = (req, res) => {
     const dashQuery4 = "SELECT SUM(net_total) AS total_net_amount FROM Orders;";
     const dashQuery5 = "SELECT COUNT(*) AS total_orders FROM Orders;";
     const dashQuery6 = "SELECT COUNT(*) AS total_products FROM Products;";
-    const dashQuery7 = "SELECT COUNT(*) AS total_categories FROM Categories;";
+    const dashQuery7 = "SELECT COUNT(DISTINCT cat_name_main) AS total_categories FROM Categories;";
 
     // Updated query for payment methods
     const paymentMethodsQuery = `
@@ -23,10 +23,18 @@ exports.getShopOwnerDashbordPage = (req, res) => {
     `;
 
     // Query for top 12 products
+    // const topProductsQuery = `
+    //     SELECT product_name, SUM(cart_product_qty) AS total_qty
+    //     FROM Order_Product_Lists
+    //     GROUP BY product_name
+    //     ORDER BY total_qty DESC
+    //     LIMIT 12;
+    // `;
     const topProductsQuery = `
-        SELECT product_name, SUM(cart_product_qty) AS total_qty
-        FROM Order_Product_Lists
-        GROUP BY product_name
+        SELECT p.product_name, SUM(opl.cart_product_qty) AS total_qty, p.product_price
+        FROM Order_Product_Lists opl
+        JOIN Products p ON opl.product_name = p.product_name
+        GROUP BY p.product_name, p.product_price
         ORDER BY total_qty DESC
         LIMIT 12;
     `;
