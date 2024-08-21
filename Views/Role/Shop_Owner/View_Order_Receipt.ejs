@@ -2,21 +2,73 @@
 <html lang="en">
 <head>
     <%- include('../../Include/Head.ejs') %>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        
+        @media print {
+            body, html {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                background: none;
+            }
+    
+            .content-wrapper {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                background: none;
+            }
+    
+            .card {
+                background: none;
+            }
+    
+            .card-body {
+                page-break-inside: avoid;
+                background: none;
+            }
+    
+            .row {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+    
+            .content-wrapper::after {
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+                page-break-after: auto;
+            }
+        }
+    </style> 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <!-- Wrapper -->
     <div class="wrapper">
 
         <!-- Preloader -->
-        <%- include('../../Include/Preloader.ejs') %>
+        <div class="d-print-none">
+            <%- include('../../Include/Preloader.ejs') %>
+        </div>
         <!-- Preloader End -->
 
         <!-- Navbar -->
-        <%- include('../../Include/Navbar.ejs') %>
+        <div class="d-print-none">
+            <%- include('../../Include/Navbar.ejs') %>
+        </div>
         <!-- Navbar End -->
 
         <!-- Main Sidebar -->
-        <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        <div class="d-print-none">
+            <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        </div>
         <!-- Main Sidebar End -->
 
         <!-- Content Wrapper. Contains page content -->
@@ -170,6 +222,7 @@
                                     </div>
 
                                     <hr>
+                                    <div class="d-print-none">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="text-center">
@@ -191,11 +244,20 @@
                                                 </div>
                                             </div>
                                         </div>    
-                                    <hr>
+                                        <hr>
+                                    </div>
 
-                                    <div class="row">
+                                    <div class="row d-print-none">
+                                        <div class="col-sm-12 mb-3 d-none d-md-block">
+                                            <button onclick="window.print();" class="btn btn-custom-one btn-lg btn-block"><i class="fas fa-print mr-2"></i>สั่งพิมพ์ใบเสร็จ</button>
+                                        </div>
+                                        <div class="col-sm-12 d-block d-md-none">
+                                            <div class="alert alert-warning text-center" role="alert">
+                                                <div><i class="fas fa-exclamation-triangle mr-2"></i>ระบบสั่งพิมพ์ไม่รองรับในอุปกรณ์ <b>โทรศัพท์มือถือ</b> และ <b>แท็บเล็ต</b> ขออภัยในความไม่สะดวก</div>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-12">
-                                            <button onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports';" class="btn btn-custom-one btn-lg btn-block">ย้อนกลับ</button>
+                                            <button onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</button>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +272,9 @@
         <!-- Content Wrapper. Contains page content End -->
 
         <!-- Footer -->
-        <%- include('../../Include/Footer.ejs') %>
+        <div class="d-print-none">
+            <%- include('../../Include/Footer.ejs') %>
+        </div>
         <!-- Footer End -->
 
     </div>
