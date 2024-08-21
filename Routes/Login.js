@@ -76,7 +76,7 @@ exports.postLogin = (req, res) => {
                 return res.redirect('/Login');
             }
 
-            const max_age_cookie = 7 * 24 * 60 * 60 * 1000; // 7 วัน
+            const max_age_cookie = 30 * 24 * 60 * 60 * 1000; // 30 วัน
             res.cookie('MEMBER_TOKEN', user.member_id, { 
                 maxAge: max_age_cookie, 
                 httpOnly: true, // ป้องกันการเข้าถึงจาก JavaScript
