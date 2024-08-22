@@ -62,6 +62,18 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
+                                            <label for="store_date_buid" class="col-sm-2 col-form-label required">วัน / เดือน / ปี เวลาก่อตั้งร้าน</label>
+                                            <div class="col-sm-10">
+                                                <input type="datetime-local" class="form-control" name="store_date_buid" id="store_date_buid" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอก วัน เดือน ปี และเวลา ก่อตั้งร้านถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอก วัน เดือน ปี และเวลา ก่อตั้งร้านให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="store_name" class="col-sm-2 col-form-label required">ชื่อร้านค้า</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="" required autocomplete="off">
@@ -147,6 +159,293 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">ส่วนช่วงเวลาเปิดทำการของร้านค้า</div>
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <!-- วันจันทร์ -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันจันทร์ :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันจันทร์ -->
+                                        <!-- วันอังคาร -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอังคาร :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันอังคาร -->
+                                        <!-- วันพุธ -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพุธ :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันพุธ -->
+                                        <!-- วันพฤหัสบดี -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพฤหัสบดี :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันพฤหัสบดี -->
+                                        <!-- วันศุกร์ -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันศุกร์ :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันศุกร์ -->
+                                        <!-- วันเสาร์ -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันเสาร์ :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันเสาร์ -->
+                                        <!-- วันอาทิตย์ -->
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอาทิตย์ :</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control" name="" id="" required>
+                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
+                                                    <option value="1">เปิดทำการ</option>
+                                                    <option value="0">ปิดทำการ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกวันเปิดทำการถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกวันเปิดทำการให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาเปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาเปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <div class="col-sm-2">
+                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    เลือกเวลาปิดถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเวลาปิดให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- วันอาทิตย์ -->
                                     </form>
                                 </div>
                             </div>

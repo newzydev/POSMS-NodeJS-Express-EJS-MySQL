@@ -13,7 +13,11 @@
                 <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
             </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b></p>
+                <div class="login-box-msg">
+                    ยินดีต้อนรับ เข้าสู่ร้าน <b>เกมส์มินิมาร์ท</b><br>
+                    ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
+                    ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b>
+                </div>
                 
                 <% if (error) { %>
                 <div class="alert alert-danger text-center" role="alert">
@@ -51,11 +55,14 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-12 mb-3 login_submit_check">
+                        <div class="col-12 mb-3">
                             <button type="submit" id="login_submit" class="btn btn-custom-one btn-anti btn-block">ลงชื่อเข้าใช้</button>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mb-3">
                             <div class="btn btn-custom-two btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกสำหรับลูกค้า</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="btn btn-block"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า</div>
                         </div>
                     </div>
                 </form>
