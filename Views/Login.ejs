@@ -14,7 +14,7 @@
             </div>
             <div class="card-body login-card-body">
                 <div class="login-box-msg">
-                    ยินดีต้อนรับ เข้าสู่ร้าน <b>เกมส์มินิมาร์ท</b><br>
+                    ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
                     ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
                     ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b>
                 </div>
@@ -62,7 +62,7 @@
                             <div class="btn btn-custom-two btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกสำหรับลูกค้า</div>
                         </div>
                         <div class="col-12">
-                            <div class="btn btn-block"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า</div>
+                            <div class="btn btn-block" data-toggle="modal" data-target="#Store_Information"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า</div>
                         </div>
                     </div>
                 </form>

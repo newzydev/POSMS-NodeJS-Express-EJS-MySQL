@@ -344,9 +344,9 @@ CREATE TABLE Systen_Settings (
     time_close_7 VARCHAR(255) NOT NULL,
     map_iframe_api TEXT NOT NULL,
     customer_discount VARCHAR(255) NOT NULL,
-    privacy_policy VARCHAR(255) NOT NULL,
-    terms_and_conditions VARCHAR(255) NOT NULL,
-    cookie VARCHAR(255) NOT NULL
+    privacy_policy TEXT NOT NULL,
+    terms_and_conditions TEXT NOT NULL,
+    cookie TEXT NOT NULL
 );
 
 INSERT INTO `systen_settings` (`store_name`, `store_description`, `store_categorie`, `day_open_1`, `time_open_1`, `time_close_1`, `day_open_2`, `time_open_2`, `time_close_2`, `day_open_3`, `time_open_3`, `time_close_3`, `day_open_4`, `time_open_4`, `time_close_4`, `day_open_5`, `time_open_5`, `time_close_5`, `day_open_6`, `time_open_6`, `time_close_6`, `day_open_7`, `time_open_7`, `time_close_7`, `map_iframe_api`, `customer_discount`, `privacy_policy`, `terms_and_conditions`, `cookie`) VALUES
