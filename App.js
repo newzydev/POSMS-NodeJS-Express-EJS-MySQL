@@ -81,6 +81,8 @@ const { getDeletePaymentMethodPage } = require('./Routes/Role/Shop_Owner/Delete_
 // Sale Reports Page
 const { getSaleReportsPage } = require('./Routes/Role/Shop_Owner/Sale_Reports');
 const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order_Receipt');
+// System Settings Page
+const { getSystemSettingPage } = require('./Routes/Role/Shop_Owner/System_Settings');
 
 // ==================================================
 // Role Cashier
@@ -169,6 +171,8 @@ app.get('/Role/Shop_Owner/Page/Manage_Payment_Methods/Delete/:pay_id', authentic
 // Sale Reports Page
 app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001, getSaleReportsPage);
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
+// System Settings Page
+app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
 
 // ==================================================
 // Role Cashier

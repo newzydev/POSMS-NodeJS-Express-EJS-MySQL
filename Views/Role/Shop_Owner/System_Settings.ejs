@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <%- include('../../Include/Navbar.ejs') %>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>ตั้งค่าระบบ</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item active">ตั้งค่าระบบ</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">ส่วนข้อมูลร้านค้า</div>
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="store_name" class="col-sm-2 col-form-label required">ชื่อร้านค้า</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกชื่อร้านค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกชื่อร้านค้าให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="store_description" class="col-sm-2 col-form-label required">คำอธิบายร้านค้า</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="store_description" id="store_description" rows="5" placeholder="คำอธิบายร้านค้า" required autocomplete="off"></textarea>
+                                                <div class="valid-feedback">
+                                                    กรอกคำอธิบายร้านค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกคำอธิบายร้านค้าให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="store_categorie" class="col-sm-2 col-form-label required">ประเภทร้านค้า</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control" name="store_categorie" id="store_categorie" required>
+                                                    <option value="" selected disabled>เลือกประเภทร้านค้า</option>
+                                                    <option value="ร้านค้าปลีก (Retail Store)">ร้านค้าปลีก (Retail Store)</option>
+                                                    <option value="ร้านค้าส่ง (Wholesale Store)">ร้านค้าส่ง (Wholesale Store)</option>
+                                                    <option value="ร้านค้าออนไลน์ (Online Store)">ร้านค้าออนไลน์ (Online Store)</option>
+                                                    <option value="ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)">ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)</option>
+                                                    <option value="ร้านค้าพิเศษ (Specialty Store)">ร้านค้าพิเศษ (Specialty Store)</option>
+                                                    <option value="ร้านสะดวกซื้อ (Convenience Store)">ร้านสะดวกซื้อ (Convenience Store)</option>
+                                                    <option value="ร้านค้าชุมชน (Community Store)">ร้านค้าชุมชน (Community Store)</option>
+                                                    <option value="ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)">ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)</option>
+                                                    <option value="ไม่ระบุ">ไม่ระบุ</option>
+                                                </select>
+                                                <div class="valid-feedback">
+                                                    เลือกประเภทร้านค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกประเภทร้านค้าให้ถูกต้อง
+                                                </div>
+                                                <div class="btn btn-custom-two btn-block mt-3" data-toggle="collapse" data-target="#HelpInformation" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำประเภทร้านค้า (คลิก)</div>
+                                                <div class="collapse mt-3" id="HelpInformation">
+                                                    <div class="card card-body">
+                                                        <ol class="pl-3 pr-3 pt-0 pb-0 m-0">
+                                                            <li>
+                                                                <b>ร้านค้าปลีก (Retail Store)</b><br>
+                                                                <span>ร้านค้าที่จำหน่ายสินค้าให้แก่ผู้บริโภคโดยตรง</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านค้าส่ง (Wholesale Store)</b><br>
+                                                                <span>ร้านค้าที่จำหน่ายสินค้าจำนวนมากให้แก่ร้านค้าปลีกหรือธุรกิจอื่น ๆ</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านค้าออนไลน์ (Online Store)</b><br>
+                                                                <span>ร้านค้าที่จำหน่ายสินค้าและบริการผ่านทางอินเทอร์เน็ต</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)</b><br>
+                                                                <span>ร้านค้าที่เน้นการจำหน่ายอาหารและเครื่องดื่ม</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านค้าพิเศษ (Specialty Store)</b><br>
+                                                                <span>ร้านค้าที่จำหน่ายสินค้าประเภทใดประเภทหนึ่งโดยเฉพาะ</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านสะดวกซื้อ (Convenience Store)</b><br>
+                                                                <span>ร้านค้าที่เปิดให้บริการตลอด 24 ชั่วโมง และจำหน่ายสินค้าจำเป็นในชีวิตประจำวัน</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านค้าชุมชน (Community Store)</b><br>
+                                                                <span>ร้านค้าที่เน้นการจำหน่ายสินค้าในชุมชน</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)</b><br>
+                                                                <span>ร้านค้าที่เปิดเป็นการชั่วคราวในงานเทศกาลหรืองานอีเวนต์ต่าง ๆ</span>
+                                                            </li>
+                                                        </ol>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">ส่วนข้อมูลสมาชิกร้านค้า</div>
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="customer_discount" class="col-sm-2 col-form-label required">ส่วนลดสำหรับสมาชิก</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="customer_discount" id="customer_discount" placeholder="ส่วนลดสำหรับสมาชิก" value="" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกส่วนลดสำหรับสมาชิกถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกส่วนลดสำหรับสมาชิกให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">ส่วนนโยบายความเป็นส่วนตัว ข้อกำหนดและเงื่อนไข นโยบายการใช้คุกกี้</div>
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="privacy_policy" class="col-sm-2 col-form-label required">นโยบายความเป็นส่วนตัว</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="privacy_policy" id="privacy_policy" rows="5" placeholder="นโยบายความเป็นส่วนตัว" required autocomplete="off"></textarea>
+                                                <div class="valid-feedback">
+                                                    กรอกนโยบายความเป็นส่วนตัวถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกนโยบายความเป็นส่วนตัวให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="terms_and_conditions" class="col-sm-2 col-form-label required">ข้อกำหนดและเงื่อนไขการใช้งาน</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="terms_and_conditions" id="terms_and_conditions" rows="5" placeholder="ข้อกำหนดและเงื่อนไขการใช้งาน" required autocomplete="off"></textarea>
+                                                <div class="valid-feedback">
+                                                    กรอกข้อกำหนดและเงื่อนไขการใช้งานถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกข้อกำหนดและเงื่อนไขการใช้งานให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="cookie" class="col-sm-2 col-form-label required">นโยบายการใช้คุกกี้</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="cookie" id="cookie" rows="5" placeholder="นโยบายการใช้คุกกี้" required autocomplete="off"></textarea>
+                                                <div class="valid-feedback">
+                                                    กรอกข้อกำหนดและเงื่อนไขการใช้งานถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกข้อกำหนดและเงื่อนไขการใช้งานให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <%- include('../../Include/Footer.ejs') %>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Javascript End -->
+</body>
+</html>
