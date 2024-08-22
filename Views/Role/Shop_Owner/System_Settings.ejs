@@ -62,21 +62,9 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
-                                            <label for="store_date_buid" class="col-sm-2 col-form-label required">วัน / เดือน / ปี เวลาก่อตั้งร้าน</label>
+                                            <label for="store_name" class="col-sm-2 col-form-label required">ชื่อร้านค้า :</label>
                                             <div class="col-sm-10">
-                                                <input type="datetime-local" class="form-control" name="store_date_buid" id="store_date_buid" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอก วัน เดือน ปี และเวลา ก่อตั้งร้านถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอก วัน เดือน ปี และเวลา ก่อตั้งร้านให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="store_name" class="col-sm-2 col-form-label required">ชื่อร้านค้า</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="" required autocomplete="off">
+                                                <input type="text" class="form-control" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="<%= settings.store_name %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อร้านค้าถูกต้อง
                                                 </div>
@@ -86,9 +74,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="store_description" class="col-sm-2 col-form-label required">คำอธิบายร้านค้า</label>
+                                            <label for="store_description" class="col-sm-2 col-form-label required">คำอธิบายร้านค้า :</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="store_description" id="store_description" rows="5" placeholder="คำอธิบายร้านค้า" required autocomplete="off"></textarea>
+                                                <textarea class="form-control" name="store_description" id="store_description" rows="5" placeholder="คำอธิบายร้านค้า" required autocomplete="off"><%= settings.store_description %></textarea>
                                                 <div class="valid-feedback">
                                                     กรอกคำอธิบายร้านค้าถูกต้อง
                                                 </div>
@@ -98,19 +86,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="store_categorie" class="col-sm-2 col-form-label required">ประเภทร้านค้า</label>
+                                            <label for="store_categorie" class="col-sm-2 col-form-label required">ประเภทร้านค้า :</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control" name="store_categorie" id="store_categorie" required>
                                                     <option value="" selected disabled>เลือกประเภทร้านค้า</option>
-                                                    <option value="ร้านค้าปลีก (Retail Store)">ร้านค้าปลีก (Retail Store)</option>
-                                                    <option value="ร้านค้าส่ง (Wholesale Store)">ร้านค้าส่ง (Wholesale Store)</option>
-                                                    <option value="ร้านค้าออนไลน์ (Online Store)">ร้านค้าออนไลน์ (Online Store)</option>
-                                                    <option value="ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)">ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)</option>
-                                                    <option value="ร้านค้าพิเศษ (Specialty Store)">ร้านค้าพิเศษ (Specialty Store)</option>
-                                                    <option value="ร้านสะดวกซื้อ (Convenience Store)">ร้านสะดวกซื้อ (Convenience Store)</option>
-                                                    <option value="ร้านค้าชุมชน (Community Store)">ร้านค้าชุมชน (Community Store)</option>
-                                                    <option value="ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)">ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)</option>
-                                                    <option value="ไม่ระบุ">ไม่ระบุ</option>
+                                                    <option <%= settings.store_categorie === 'ร้านค้าปลีก (Retail Store)' ? 'selected' : '' %> value="ร้านค้าปลีก (Retail Store)">ร้านค้าปลีก (Retail Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านค้าส่ง (Wholesale Store)' ? 'selected' : '' %> value="ร้านค้าส่ง (Wholesale Store)">ร้านค้าส่ง (Wholesale Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านค้าออนไลน์ (Online Store)' ? 'selected' : '' %> value="ร้านค้าออนไลน์ (Online Store)">ร้านค้าออนไลน์ (Online Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)' ? 'selected' : '' %> value="ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)">ร้านอาหารและเครื่องดื่ม (Food and Beverage Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านค้าพิเศษ (Specialty Store)' ? 'selected' : '' %> value="ร้านค้าพิเศษ (Specialty Store)">ร้านค้าพิเศษ (Specialty Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านสะดวกซื้อ (Convenience Store)' ? 'selected' : '' %> value="ร้านสะดวกซื้อ (Convenience Store)">ร้านสะดวกซื้อ (Convenience Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านค้าชุมชน (Community Store)' ? 'selected' : '' %> value="ร้านค้าชุมชน (Community Store)">ร้านค้าชุมชน (Community Store)</option>
+                                                    <option <%= settings.store_categorie === 'ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)' ? 'selected' : '' %> value="ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)">ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)</option>
+                                                    <option <%= settings.store_categorie === 'ไม่ระบุ' ? 'selected' : '' %> value="ไม่ระบุ">ไม่ระบุ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกประเภทร้านค้าถูกต้อง
@@ -182,12 +170,11 @@
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <!-- วันจันทร์ -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันจันทร์ :</label>
+                                            <label for="day_open_1" class="col-sm-2 col-form-label required">วันเปิดทำการ วันจันทร์ :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_1" id="day_open_1" required>
+                                                    <option <%= settings.day_open_1 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_1 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -196,9 +183,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_1" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_1" id="time_open_1" value="<%= settings.time_open_1 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -206,9 +193,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_1" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_1" id="time_close_1" value="<%= settings.time_open_1 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -220,12 +207,11 @@
                                         <!-- วันจันทร์ -->
                                         <!-- วันอังคาร -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอังคาร :</label>
+                                            <label for="day_open_2" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอังคาร :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_2" id="day_open_2" required>
+                                                    <option <%= settings.day_open_2 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_2 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -234,9 +220,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_2" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_2" id="time_open_2" value="<%= settings.time_open_2 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -244,9 +230,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_2" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_2" id="time_close_2" value="<%= settings.time_close_2 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -258,12 +244,11 @@
                                         <!-- วันอังคาร -->
                                         <!-- วันพุธ -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพุธ :</label>
+                                            <label for="day_open_3" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพุธ :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_3" id="day_open_3" required>
+                                                    <option <%= settings.day_open_3 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_3 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -272,9 +257,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_3" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_3" id="time_open_3" value="<%= settings.time_open_3 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -282,9 +267,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_3" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_3" id="time_close_3" value="<%= settings.time_close_3 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -296,12 +281,11 @@
                                         <!-- วันพุธ -->
                                         <!-- วันพฤหัสบดี -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพฤหัสบดี :</label>
+                                            <label for="day_open_4" class="col-sm-2 col-form-label required">วันเปิดทำการ วันพฤหัสบดี :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_4" id="day_open_4" required>
+                                                    <option <%= settings.day_open_4 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_4 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -310,9 +294,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_4" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_4" id="time_open_4" value="<%= settings.time_open_4 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -320,9 +304,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_4" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_4" id="time_close_4" value="<%= settings.time_close_4 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -334,12 +318,11 @@
                                         <!-- วันพฤหัสบดี -->
                                         <!-- วันศุกร์ -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันศุกร์ :</label>
+                                            <label for="day_open_5" class="col-sm-2 col-form-label required">วันเปิดทำการ วันศุกร์ :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_5" id="day_open_5" required>
+                                                    <option <%= settings.day_open_5 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_5 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -348,9 +331,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_5" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_5" id="time_open_5" value="<%= settings.time_open_5 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -358,9 +341,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_5" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_5" id="time_close_5" value="<%= settings.time_close_5 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -372,12 +355,11 @@
                                         <!-- วันศุกร์ -->
                                         <!-- วันเสาร์ -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันเสาร์ :</label>
+                                            <label for="day_open_6" class="col-sm-2 col-form-label required">วันเปิดทำการ วันเสาร์ :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_6" id="day_open_6" required>
+                                                    <option <%= settings.day_open_6 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_6 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -386,9 +368,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_6" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_6" id="time_open_6" value="<%= settings.time_open_6 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -396,9 +378,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_6" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_6" id="time_close_6" value="<%= settings.time_close_6 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -410,12 +392,11 @@
                                         <!-- วันเสาร์ -->
                                         <!-- วันอาทิตย์ -->
                                         <div class="form-group row">
-                                            <label for="" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอาทิตย์ :</label>
+                                            <label for="day_open_7" class="col-sm-2 col-form-label required">วันเปิดทำการ วันอาทิตย์ :</label>
                                             <div class="col-sm-4">
-                                                <select class="form-control" name="" id="" required>
-                                                    <option value="" selected disabled>เลือก "เปิด" หรือ "ปิด"</option>
-                                                    <option value="1">เปิดทำการ</option>
-                                                    <option value="0">ปิดทำการ</option>
+                                                <select class="form-control" name="day_open_7" id="day_open_7" required>
+                                                    <option <%= settings.day_open_7 === 'เปิดทำการ' ? 'selected' : '' %> value="เปิดทำการ">เปิดทำการ</option>
+                                                    <option <%= settings.day_open_7 === 'ปิดทำการ' ? 'selected' : '' %> value="ปิดทำการ">ปิดทำการ</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกวันเปิดทำการถูกต้อง
@@ -424,9 +405,9 @@
                                                     กรุณาเลือกวันเปิดทำการให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
+                                            <label for="time_open_7" class="col-sm-1 col-form-label required">เวลาเปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_open_7" id="time_open_7" value="<%= settings.time_open_7 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาเปิดถูกต้อง
                                                 </div>
@@ -434,9 +415,9 @@
                                                     กรุณาเลือกเวลาเปิดให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <label for="" class="col-sm-1 col-form-label required">เวลาปิด :</label>
+                                            <label for="time_close_7" class="col-sm-1 col-form-label required">เวลาปิด :</label>
                                             <div class="col-sm-2">
-                                                <input type="time" class="form-control" name="" id="" value="" required autocomplete="off">
+                                                <input type="time" class="form-control" name="time_close_7" id="time_close_7" value="<%= settings.time_close_7 %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     เลือกเวลาปิดถูกต้อง
                                                 </div>
@@ -446,6 +427,63 @@
                                             </div>
                                         </div>
                                         <!-- วันอาทิตย์ -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">ส่วนแผนที่ร้านค้า</div>
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="map_iframe_api" class="col-sm-2 col-form-label required">วาง Iframe จาก Google Map :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control mb-2" name="map_iframe_api" id="map_iframe_api" placeholder="คัดลอกและวางฝังแผนที่จาก Iframe Google Map" value="<%= settings.map_iframe_api %>" required autocomplete="off">
+                                                <span class="text-muted">(ระบบจะตัดส่วน iframe ที่ไม่เกี่ยวข้องให้เหลือเฉพาะข้อมูลใน src ให้โดยอัติโนมัติ)</span>
+                                                <div class="valid-feedback">
+                                                    กรอกฝังแผนที่จาก Google Map ถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกฝังแผนที่จาก Google Map ให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            // script ตัดข้อมูลที่ไม่เกี่ยวข้อง เอาเฉพาะ url google map api ใน src
+                                            document.getElementById('map_iframe_api').addEventListener('input', updateIframeSrc);
+                                            document.getElementById('map_iframe_api').addEventListener('paste', function(e) {
+                                                setTimeout(updateIframeSrc.bind(this), 0);
+                                            });
+                                        
+                                            function updateIframeSrc() {
+                                                let inputValue = this.value;
+                                                let srcPattern = /src="([^"]*)"/;
+                                                let match = inputValue.match(srcPattern);
+                                                
+                                                if (match) {
+                                                    this.value = match[1];
+                                                }
+                                            }
+                                        </script>                                        
+                                        <div class="form-group row">
+                                            <label for="map_iframe_api_preview" class="col-sm-2 col-form-label">Preview Iframe จาก Google Map :</label>
+                                            <div class="col-sm-10">
+                                                <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450" style="border: 1px solid #e7e7e7;"></iframe>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -468,9 +506,9 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
-                                            <label for="customer_discount" class="col-sm-2 col-form-label required">ส่วนลดสำหรับสมาชิก</label>
+                                            <label for="customer_discount" class="col-sm-2 col-form-label required">ส่วนลดสำหรับสมาชิก (กี่ %) :</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="customer_discount" id="customer_discount" placeholder="ส่วนลดสำหรับสมาชิก" value="" required autocomplete="off">
+                                                <input type="text" class="form-control" name="customer_discount" id="customer_discount" placeholder="ส่วนลดสำหรับสมาชิก" value="<%= settings.customer_discount %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกส่วนลดสำหรับสมาชิกถูกต้อง
                                                 </div>
@@ -503,7 +541,7 @@
                                         <div class="form-group row">
                                             <label for="privacy_policy" class="col-sm-2 col-form-label required">นโยบายความเป็นส่วนตัว</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="privacy_policy" id="privacy_policy" rows="5" placeholder="นโยบายความเป็นส่วนตัว" required autocomplete="off"></textarea>
+                                                <textarea class="form-control" name="privacy_policy" id="privacy_policy" rows="5" placeholder="นโยบายความเป็นส่วนตัว" required autocomplete="off"><%= settings.privacy_policy %></textarea>
                                                 <div class="valid-feedback">
                                                     กรอกนโยบายความเป็นส่วนตัวถูกต้อง
                                                 </div>
@@ -515,7 +553,7 @@
                                         <div class="form-group row">
                                             <label for="terms_and_conditions" class="col-sm-2 col-form-label required">ข้อกำหนดและเงื่อนไขการใช้งาน</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="terms_and_conditions" id="terms_and_conditions" rows="5" placeholder="ข้อกำหนดและเงื่อนไขการใช้งาน" required autocomplete="off"></textarea>
+                                                <textarea class="form-control" name="terms_and_conditions" id="terms_and_conditions" rows="5" placeholder="ข้อกำหนดและเงื่อนไขการใช้งาน" required autocomplete="off"><%= settings.terms_and_conditions %></textarea>
                                                 <div class="valid-feedback">
                                                     กรอกข้อกำหนดและเงื่อนไขการใช้งานถูกต้อง
                                                 </div>
@@ -527,7 +565,7 @@
                                         <div class="form-group row">
                                             <label for="cookie" class="col-sm-2 col-form-label required">นโยบายการใช้คุกกี้</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="cookie" id="cookie" rows="5" placeholder="นโยบายการใช้คุกกี้" required autocomplete="off"></textarea>
+                                                <textarea class="form-control" name="cookie" id="cookie" rows="5" placeholder="นโยบายการใช้คุกกี้" required autocomplete="off"><%= settings.cookie %></textarea>
                                                 <div class="valid-feedback">
                                                     กรอกข้อกำหนดและเงื่อนไขการใช้งานถูกต้อง
                                                 </div>
