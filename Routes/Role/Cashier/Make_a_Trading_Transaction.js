@@ -4,6 +4,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
     const error = req.flash('error');
     const success = req.flash('success');
     const user = res.locals.user;
+    const settings = res.locals.settings;
 
     if (!user || !user.member_id) {
         console.error('User not authenticated or user ID not found');
@@ -63,7 +64,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
 
             // Calculate totals
             const totalAmount = cartResult.reduce((acc, cart) => acc + (cart.product_price * cart.cart_product_qty), 0);
-            const memberDisRate = 0.01; // 1% Discount
+            const memberDisRate = settings.customer_discount;
             const memberDis = totalAmount * memberDisRate;
             const netTotal = totalAmount - memberDis;
 

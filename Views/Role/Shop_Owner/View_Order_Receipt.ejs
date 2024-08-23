@@ -202,10 +202,12 @@
                                         <b>ยอดรวม (สินค้า x<%= OrderReceipt[0].total_unit %>) : </b>
                                         <span>฿<%= OrderReceipt[0].total_amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
                                     </div>
-                                    <div class="d-flex justify-content-between mb-1">
-                                        <b>ส่วนลดพิเศษ (เฉพาะสมาชิก) : </b>
-                                        <span>฿<%= OrderReceipt[0].member_discount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
-                                    </div>
+                                    <% if (OrderReceipt[0].member_discount !== "0") { %>
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <b>ส่วนลดพิเศษ (เฉพาะสมาชิก) : </b>
+                                            <span>฿<%= OrderReceipt[0].member_discount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+                                        </div>
+                                    <% } %>
                                     <div class="d-flex justify-content-between mb-1">
                                         <b>ยอดสุทธิ : </b>
                                         <span>฿<%= OrderReceipt[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
