@@ -150,15 +150,15 @@
                                     </form>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {
-                                            const storeNameInput = document.getElementById('store_name');
-                                            const storeDescriptionInput = document.getElementById('store_description');
-                                            const storeCategorieSelect = document.getElementById('store_categorie');
-                                    
+                                            const Store_Name_Input = document.getElementById('store_name');
+                                            const Store_Description_Input = document.getElementById('store_description');
+                                            const Store_Categorie_Select = document.getElementById('store_categorie');
+
                                             function updateSettings() {
-                                                const store_Name = storeNameInput.value;
-                                                const store_Description = storeDescriptionInput.value;
-                                                const store_Categorie = storeCategorieSelect.value;
-                                    
+                                                const Store_Name = Store_Name_Input.value;
+                                                const Store_Description = Store_Description_Input.value;
+                                                const Store_Categorie = Store_Categorie_Select.value;
+
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', {
                                                     method: 'POST',
                                                     headers: {
@@ -166,9 +166,9 @@
                                                         'X-Requested-With': 'XMLHttpRequest'
                                                     },
                                                     body: JSON.stringify({
-                                                        store_name: store_Name,
-                                                        store_description: store_Description,
-                                                        store_categorie: store_Categorie
+                                                        store_name: Store_Name,
+                                                        store_description: Store_Description,
+                                                        store_categorie: Store_Categorie
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -183,10 +183,22 @@
                                                 })
                                                 .catch(error => console.error('Error:', error));
                                             }
-                                    
-                                            storeNameInput.addEventListener('change', updateSettings);
-                                            storeDescriptionInput.addEventListener('change', updateSettings);
-                                            storeCategorieSelect.addEventListener('change', updateSettings);
+
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Store_Name_Input.addEventListener('keydown', preventEnterKey);
+                                            Store_Description_Input.addEventListener('keydown', preventEnterKey);
+                                            Store_Categorie_Select.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
+                                            Store_Name_Input.addEventListener('change', updateSettings);
+                                            Store_Description_Input.addEventListener('change', updateSettings);
+                                            Store_Categorie_Select.addEventListener('change', updateSettings);
                                         });
                                     </script>
                                 </div>
@@ -580,6 +592,13 @@
                                                 .catch(error => console.error('Error:', error));
                                             }
                                     
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+                                            
+                                            // ใช้ change event เพื่อ update
                                             // วันจันทร์
                                             Day_Open_1_Select.addEventListener('change', updateSettings);
                                             Time_Open_1_Input.addEventListener('change', updateSettings);
@@ -697,6 +716,16 @@
                                                 .catch(error => console.error('Error:', error));
                                             }
                                     
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Map_Iframe_Api_Input.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
                                             Map_Iframe_Api_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>
@@ -724,7 +753,7 @@
                                             <label for="customer_discount" class="col-sm-2 col-form-label required">ส่วนลดสำหรับสมาชิก (ร้อยละ) :</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control mb-2" name="customer_discount" id="customer_discount" placeholder="ส่วนลดสำหรับสมาชิก" value="<%= settings.customer_discount %>" required autocomplete="off">
-                                                <span class="text-muted">(กรุณากรอกเฉพาะค่า <b>"<u>ร้อยละ</u>"</b> ระบบรองรับเฉพาะค่า <b>"<u>ร้อยละ</u>"</b> เท่านั้น)</span>
+                                                <span class="text-muted">(กรุณากรอกเฉพาะค่า <b>"<u>ร้อยละ</u>"</b> ระบบรองรับเฉพาะค่า <b>"<u>ร้อยละ</u>"</b> เท่านั้น และถ้ากรอกจำนวน <b>"<u>0</u>"</b> เป็นการปิดระบบส่วนลดสำหรับลูกค้าสมาชิก)</span>
                                                 <div class="valid-feedback">
                                                     กรอกส่วนลดสำหรับสมาชิกถูกต้อง
                                                 </div>
@@ -732,7 +761,7 @@
                                                     กรุณากรอกส่วนลดสำหรับสมาชิกให้ถูกต้อง
                                                 </div>
                                                 <div class="btn btn-custom-two btn-block mt-3" data-toggle="collapse" data-target="#HelpInformationDiscount" aria-expanded="false" aria-controls="HelpInformationDiscount"><i class="fas fa-info-circle mr-2"></i>คำแนะนำการกำหนดส่วนลด (คลิก)</div>
-                                                <div class="collapse show mt-3" id="HelpInformationDiscount">
+                                                <div class="collapse mt-3" id="HelpInformationDiscount">
                                                     <div class="card card-body">
                                                         <ul class="pl-3 pr-3 pt-0 pb-0 m-0">
                                                             <li>
@@ -742,6 +771,10 @@
                                                             <li>
                                                                 <b>สูตรในการแปลงตัวเลขเปอร์เซ็นต์ ให้เป็นค่าตัวเลขร้อยละ คือ :</b><br>
                                                                 <span>ค่าเปอร์เซ็น ÷ 100 (ยกตัวอย่างเช่น 1.5% ÷ 100 เท่ากับ 0.015)</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>การกำหนดค่าขั้นต่ำ หรือ ค่าสูงสุด :</b><br>
+                                                                <span>ค่าขั้นต่ำ คือ 0.01 ค่าสูงสุด คือ 0.10</span>
                                                             </li>
                                                             <li>
                                                                 <b>ถ้าไม่ต้องการระบบส่วนลดสำหรับลูกค้าสมาชิก :</b><br>
@@ -772,8 +805,17 @@
                                             const Customer_Discount_Input = document.getElementById('customer_discount');
                                     
                                             function updateSettings() {
-                                                const Customer_Discount = Customer_Discount_Input.value;
-                                    
+                                                let Customer_Discount = parseFloat(Customer_Discount_Input.value);
+
+                                                // Validate Customer Discount
+                                                if (isNaN(Customer_Discount)) {
+                                                    Customer_Discount = 0.01;
+                                                } else if (Customer_Discount < 0) {
+                                                    Customer_Discount = 0.01;
+                                                } else if (Customer_Discount > 0.10) {
+                                                    Customer_Discount = 0.10;
+                                                }
+
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_4', {
                                                     method: 'POST',
                                                     headers: {
@@ -797,6 +839,16 @@
                                                 .catch(error => console.error('Error:', error));
                                             }
                                     
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Customer_Discount_Input.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
                                             Customer_Discount_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>
@@ -892,7 +944,19 @@
                                                 })
                                                 .catch(error => console.error('Error:', error));
                                             }
-                                    
+
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Privacy_Policy_Input.addEventListener('keydown', preventEnterKey);
+                                            Terms_And_Conditions_Input.addEventListener('keydown', preventEnterKey);
+                                            Cookie_Input.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
                                             Privacy_Policy_Input.addEventListener('change', updateSettings);
                                             Terms_And_Conditions_Input.addEventListener('change', updateSettings);
                                             Cookie_Input.addEventListener('change', updateSettings);
