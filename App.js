@@ -86,7 +86,7 @@ const { getDeletePaymentMethodPage } = require('./Routes/Role/Shop_Owner/Delete_
 const { getSaleReportsPage } = require('./Routes/Role/Shop_Owner/Sale_Reports');
 const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order_Receipt');
 // System Settings Page
-const { getSystemSettingPage } = require('./Routes/Role/Shop_Owner/System_Settings');
+const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5 } = require('./Routes/Role/Shop_Owner/System_Settings');
 
 // ==================================================
 // Role Cashier
@@ -177,6 +177,11 @@ app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
 // System Settings Page
 app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', authenticateUser(db), checkRole001, postUpdateSettingsForm1);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_2', authenticateUser(db), checkRole001, postUpdateSettingsForm2);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', authenticateUser(db), checkRole001, postUpdateSettingsForm3);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_4', authenticateUser(db), checkRole001, postUpdateSettingsForm4);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_5', authenticateUser(db), checkRole001, postUpdateSettingsForm5);
 
 // ==================================================
 // Role Cashier

@@ -49,22 +49,22 @@
                                 <div class="card-header">ส่วนข้อมูลร้านค้า</div>
                                 <div class="card-body">
 
-                                    <% if (error) { %>
+                                    <% if (settings_form_1_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_1_error %>
                                     </div>
                                     <% } %>
-                                    <% if (success) { %>
+                                    <% if (settings_form_1_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_1_success %>
                                     </div>
                                     <% } %>
 
-                                    <form action="" class="needs-validation" novalidate method="POST">
+                                    <form action="" method="POST">
                                         <div class="form-group row">
                                             <label for="store_name" class="col-sm-2 col-form-label required">ชื่อร้านค้า :</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="<%= settings.store_name %>" required autocomplete="off">
+                                                <input type="text" class="form-control store_name" name="store_name" id="store_name" placeholder="ชื่อร้านค้า" value="<%= settings.store_name %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อร้านค้าถูกต้อง
                                                 </div>
@@ -76,7 +76,7 @@
                                         <div class="form-group row">
                                             <label for="store_description" class="col-sm-2 col-form-label required">คำอธิบายร้านค้า :</label>
                                             <div class="col-sm-10">
-                                                <textarea class="form-control" name="store_description" id="store_description" rows="5" placeholder="คำอธิบายร้านค้า" required autocomplete="off"><%= settings.store_description %></textarea>
+                                                <textarea class="form-control store_description" name="store_description" id="store_description" rows="5" placeholder="คำอธิบายร้านค้า" required autocomplete="off"><%= settings.store_description %></textarea>
                                                 <div class="valid-feedback">
                                                     กรอกคำอธิบายร้านค้าถูกต้อง
                                                 </div>
@@ -88,7 +88,7 @@
                                         <div class="form-group row">
                                             <label for="store_categorie" class="col-sm-2 col-form-label required">ประเภทร้านค้า :</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" name="store_categorie" id="store_categorie" required>
+                                                <select class="form-control store_categorie" name="store_categorie" id="store_categorie" required>
                                                     <option value="" selected disabled>เลือกประเภทร้านค้า</option>
                                                     <option <%= settings.store_categorie === 'ร้านค้าปลีก (Retail Store)' ? 'selected' : '' %> value="ร้านค้าปลีก (Retail Store)">ร้านค้าปลีก (Retail Store)</option>
                                                     <option <%= settings.store_categorie === 'ร้านค้าส่ง (Wholesale Store)' ? 'selected' : '' %> value="ร้านค้าส่ง (Wholesale Store)">ร้านค้าส่ง (Wholesale Store)</option>
@@ -148,6 +148,47 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const storeNameInput = document.getElementById('store_name');
+                                            const storeDescriptionInput = document.getElementById('store_description');
+                                            const storeCategorieSelect = document.getElementById('store_categorie');
+                                    
+                                            function updateSettings() {
+                                                const store_Name = storeNameInput.value;
+                                                const store_Description = storeDescriptionInput.value;
+                                                const store_Categorie = storeCategorieSelect.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        store_name: store_Name,
+                                                        store_description: store_Description,
+                                                        store_categorie: store_Categorie
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            storeNameInput.addEventListener('change', updateSettings);
+                                            storeDescriptionInput.addEventListener('change', updateSettings);
+                                            storeCategorieSelect.addEventListener('change', updateSettings);
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -156,14 +197,14 @@
                                 <div class="card-header">ส่วนช่วงเวลาเปิดทำการของร้านค้า</div>
                                 <div class="card-body">
 
-                                    <% if (error) { %>
+                                    <% if (settings_form_2_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_2_error %>
                                     </div>
                                     <% } %>
-                                    <% if (success) { %>
+                                    <% if (settings_form_2_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_2_success %>
                                     </div>
                                     <% } %>
 
@@ -428,6 +469,147 @@
                                         </div>
                                         <!-- วันอาทิตย์ -->
                                     </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            // วันจันทร์
+                                            const Day_Open_1_Select = document.getElementById('day_open_1');
+                                            const Time_Open_1_Input = document.getElementById('time_open_1');
+                                            const Time_Close_1_Input = document.getElementById('time_close_1');
+                                            // วันอังคาร
+                                            const Day_Open_2_Select = document.getElementById('day_open_2');
+                                            const Time_Open_2_Input = document.getElementById('time_open_2');
+                                            const Time_Close_2_Input = document.getElementById('time_close_2');
+                                            // วันพุธ
+                                            const Day_Open_3_Select = document.getElementById('day_open_3');
+                                            const Time_Open_3_Input = document.getElementById('time_open_3');
+                                            const Time_Close_3_Input = document.getElementById('time_close_3');
+                                            // วันพฤหัสบดี
+                                            const Day_Open_4_Select = document.getElementById('day_open_4');
+                                            const Time_Open_4_Input = document.getElementById('time_open_4');
+                                            const Time_Close_4_Input = document.getElementById('time_close_4');
+                                            // วันศุกร์
+                                            const Day_Open_5_Select = document.getElementById('day_open_5');
+                                            const Time_Open_5_Input = document.getElementById('time_open_5');
+                                            const Time_Close_5_Input = document.getElementById('time_close_5');
+                                            // วันเสาร์
+                                            const Day_Open_6_Select = document.getElementById('day_open_6');
+                                            const Time_Open_6_Input = document.getElementById('time_open_6');
+                                            const Time_Close_6_Input = document.getElementById('time_close_6');
+                                            // วันอาทิตย์
+                                            const Day_Open_7_Select = document.getElementById('day_open_7');
+                                            const Time_Open_7_Input = document.getElementById('time_open_7');
+                                            const Time_Close_7_Input = document.getElementById('time_close_7');
+                                    
+                                            function updateSettings() {
+                                                // วันจันทร์
+                                                const Day_Open_1 = Day_Open_1_Select.value;
+                                                const Time_Open_1 = Time_Open_1_Input.value;
+                                                const Time_Close_1 = Time_Close_1_Input.value;
+                                                // วันอังคาร
+                                                const Day_Open_2 = Day_Open_2_Select.value;
+                                                const Time_Open_2 = Time_Open_2_Input.value;
+                                                const Time_Close_2 = Time_Close_2_Input.value;
+                                                // วันพุธ
+                                                const Day_Open_3 = Day_Open_3_Select.value;
+                                                const Time_Open_3 = Time_Open_3_Input.value;
+                                                const Time_Close_3 = Time_Close_3_Input.value;
+                                                // วันพฤหัสบดี
+                                                const Day_Open_4 = Day_Open_4_Select.value;
+                                                const Time_Open_4 = Time_Open_4_Input.value;
+                                                const Time_Close_4 = Time_Close_4_Input.value;
+                                                // วันศุกร์
+                                                const Day_Open_5 = Day_Open_5_Select.value;
+                                                const Time_Open_5 = Time_Open_5_Input.value;
+                                                const Time_Close_5 = Time_Close_5_Input.value;
+                                                // วันเสาร์
+                                                const Day_Open_6 = Day_Open_6_Select.value;
+                                                const Time_Open_6 = Time_Open_6_Input.value;
+                                                const Time_Close_6 = Time_Close_6_Input.value;
+                                                // วันอาทิตย์
+                                                const Day_Open_7 = Day_Open_7_Select.value;
+                                                const Time_Open_7 = Time_Open_7_Input.value;
+                                                const Time_Close_7 = Time_Close_7_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_2', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        // วันจันทร์
+                                                        day_open_1: Day_Open_1,
+                                                        time_open_1: Time_Open_1,
+                                                        time_close_1: Time_Close_1,
+                                                        // วันอังคาร
+                                                        day_open_2: Day_Open_2,
+                                                        time_open_2: Time_Open_2,
+                                                        time_close_2: Time_Close_2,
+                                                        // วันพุธ
+                                                        day_open_3: Day_Open_3,
+                                                        time_open_3: Time_Open_3,
+                                                        time_close_3: Time_Close_3,
+                                                        // วันพฤหัสบดี
+                                                        day_open_4: Day_Open_4,
+                                                        time_open_4: Time_Open_4,
+                                                        time_close_4: Time_Close_4,
+                                                        // วันศุกร์
+                                                        day_open_5: Day_Open_5,
+                                                        time_open_5: Time_Open_5,
+                                                        time_close_5: Time_Close_5,
+                                                        // วันเสาร์
+                                                        day_open_6: Day_Open_6,
+                                                        time_open_6: Time_Open_6,
+                                                        time_close_6: Time_Close_6,
+                                                        // วันอาทิตย์
+                                                        day_open_7: Day_Open_7,
+                                                        time_open_7: Time_Open_7,
+                                                        time_close_7: Time_Close_7
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            // วันจันทร์
+                                            Day_Open_1_Select.addEventListener('change', updateSettings);
+                                            Time_Open_1_Input.addEventListener('change', updateSettings);
+                                            Time_Close_1_Input.addEventListener('change', updateSettings);
+                                            // วันอังคาร
+                                            Day_Open_2_Select.addEventListener('change', updateSettings);
+                                            Time_Open_2_Input.addEventListener('change', updateSettings);
+                                            Time_Close_2_Input.addEventListener('change', updateSettings);
+                                            // วันพุธ
+                                            Day_Open_3_Select.addEventListener('change', updateSettings);
+                                            Time_Open_3_Input.addEventListener('change', updateSettings);
+                                            Time_Close_3_Input.addEventListener('change', updateSettings);
+                                            // วันพฤหัสบดี
+                                            Day_Open_4_Select.addEventListener('change', updateSettings);
+                                            Time_Open_4_Input.addEventListener('change', updateSettings);
+                                            Time_Close_4_Input.addEventListener('change', updateSettings);
+                                            // วันศุกร์
+                                            Day_Open_5_Select.addEventListener('change', updateSettings);
+                                            Time_Open_5_Input.addEventListener('change', updateSettings);
+                                            Time_Close_5_Input.addEventListener('change', updateSettings);
+                                            // วันเสาร์
+                                            Day_Open_6_Select.addEventListener('change', updateSettings);
+                                            Time_Open_6_Input.addEventListener('change', updateSettings);
+                                            Time_Close_6_Input.addEventListener('change', updateSettings);
+                                            // วันอาทิตย์
+                                            Day_Open_7_Select.addEventListener('change', updateSettings);
+                                            Time_Open_7_Input.addEventListener('change', updateSettings);
+                                            Time_Close_7_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -436,14 +618,14 @@
                                 <div class="card-header">ส่วนแผนที่ร้านค้า</div>
                                 <div class="card-body">
 
-                                    <% if (error) { %>
+                                    <% if (settings_form_3_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_3_error %>
                                     </div>
                                     <% } %>
-                                    <% if (success) { %>
+                                    <% if (settings_form_3_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_3_success %>
                                     </div>
                                     <% } %>
 
@@ -485,6 +667,39 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const Map_Iframe_Api_Input = document.getElementById('map_iframe_api');
+                                    
+                                            function updateSettings() {
+                                                const Map_Iframe_Api = Map_Iframe_Api_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        map_iframe_api: Map_Iframe_Api,
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            Map_Iframe_Api_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -493,14 +708,14 @@
                                 <div class="card-header">ส่วนข้อมูลสมาชิกร้านค้า</div>
                                 <div class="card-body">
 
-                                    <% if (error) { %>
+                                    <% if (settings_form_4_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_4_error %>
                                     </div>
                                     <% } %>
-                                    <% if (success) { %>
+                                    <% if (settings_form_4_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_4_success %>
                                     </div>
                                     <% } %>
 
@@ -518,6 +733,39 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const Customer_Discount_Input = document.getElementById('customer_discount');
+                                    
+                                            function updateSettings() {
+                                                const Customer_Discount = Customer_Discount_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_4', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        customer_discount: Customer_Discount,
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            Customer_Discount_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -526,14 +774,14 @@
                                 <div class="card-header">ส่วนนโยบายความเป็นส่วนตัว ข้อกำหนดและเงื่อนไข นโยบายการใช้คุกกี้</div>
                                 <div class="card-body">
 
-                                    <% if (error) { %>
+                                    <% if (settings_form_5_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_5_error %>
                                     </div>
                                     <% } %>
-                                    <% if (success) { %>
+                                    <% if (settings_form_5_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_5_success %>
                                     </div>
                                     <% } %>
 
@@ -575,6 +823,47 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const Privacy_Policy_Input = document.getElementById('privacy_policy');
+                                            const Terms_And_Conditions_Input = document.getElementById('terms_and_conditions');
+                                            const Cookie_Input = document.getElementById('cookie');
+                                    
+                                            function updateSettings() {
+                                                const Privacy_Policy = Privacy_Policy_Input.value;
+                                                const Terms_And_Conditions = Terms_And_Conditions_Input.value;
+                                                const Cookie = Cookie_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_5', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        privacy_policy: Privacy_Policy,
+                                                        terms_and_conditions: Terms_And_Conditions,
+                                                        cookie: Cookie,
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            Privacy_Policy_Input.addEventListener('change', updateSettings);
+                                            Terms_And_Conditions_Input.addEventListener('change', updateSettings);
+                                            Cookie_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
