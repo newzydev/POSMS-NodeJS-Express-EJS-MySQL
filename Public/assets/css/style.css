@@ -45,6 +45,10 @@ label.required:after {
   }
 }
 
+.list-group {
+  border-radius: 0 !important;
+}
+
 body {
   background-color: #ffffff;
   color: #333333;

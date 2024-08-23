@@ -8,11 +8,13 @@ const session = require('express-session');
 const connectDB = require('./Config/db');
 const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth');
 const System_Settings = require('./Middlewares/setting');
+const os = require('./Middlewares/os');
 const app = express();
 const port = 5000;
 const db = connectDB();
 global.db = db; 
 
+app.use(os);
 app.use(System_Settings);
 app.use(session({
     secret: 'ADMIN-DEV-POSMS',

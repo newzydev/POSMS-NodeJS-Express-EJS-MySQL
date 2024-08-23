@@ -21,21 +21,33 @@
                             <div class="card-header">ร้านค้า</div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">ชื่อร้านค้า :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">ชื่อร้านค้า :</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<%= settings.store_name %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.store_name %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">คำอธิบายร้านค้า :</label>
                                     <div class="col-sm-10">
-                                        <textarea class="form-control" rows="5" disabled><%= settings.store_description %></textarea>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.store_description %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">ประเภทร้านค้า :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">ประเภทร้านค้า :</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<%= settings.store_categorie %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.store_categorie %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,107 +60,191 @@
                             <div class="card-body">
 
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันจันทร์ :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันจันทร์ :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_1 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_1 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" name="time_open_1" value="<%= settings.time_open_1 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_1 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" name="time_close_1" value="<%= settings.time_close_1 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_1 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันอังคาร :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันอังคาร :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_2 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_2 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_2 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_2 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_2 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_2 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันพุธ :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันพุธ :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_3 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_3 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_3 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_3 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_3 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_3 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันพฤหัสบดี :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันพฤหัสบดี :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_4 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_4 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_4 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_4 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_4 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_4 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันศุกร์ :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันศุกร์ :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_5 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_5 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_5 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_5 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_5 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_5 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันเสาร์ :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันเสาร์ :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_6 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_6 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_6 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_6 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_6 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_6 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">วันอาทิตย์ :</label>
+                                    <label class="col-sm-2 col-form-label align-self-center">วันอาทิตย์ :</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" value="<%= settings.day_open_7 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.day_open_7 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาเปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาเปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_open_7 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_open_7 %>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-sm-1 col-form-label">เวลาปิด :</label>
+                                    <label class="col-sm-1 col-form-label align-self-center">เวลาปิด :</label>
                                     <div class="col-sm-2">
-                                        <input type="text" class="form-control" value="<%= settings.time_close_7 %>" disabled>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.time_close_7 %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -177,19 +273,31 @@
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">นโยบายความเป็นส่วนตัว :</label>
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" rows="5" disabled><%= settings.privacy_policy %></textarea>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.privacy_policy %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">ข้อกำหนดและเงื่อนไขการใช้งาน :</label>
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" rows="5" disabled><%= settings.terms_and_conditions %></textarea>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.terms_and_conditions %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-12 col-form-label">นโยบายการใช้คุกกี้ :</label>
                                     <div class="col-sm-12">
-                                        <textarea class="form-control" rows="5" disabled><%= settings.cookie %></textarea>
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <%= settings.cookie %>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
