@@ -266,6 +266,26 @@
                         </div>
                     </div>
 
+                    <% if (settings.customer_discount !== "0") { %>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">สำหรับลูกค้าสมาชิก</div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">ส่วนลดสมาชิก :</label>
+                                        <div class="col-sm-10">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= (settings.customer_discount * 100) %>% แต่ละออเดอร์
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">นโยบายความเป็นส่วนตัว ข้อกำหนดและเงื่อนไข นโยบายการใช้คุกกี้</div>
