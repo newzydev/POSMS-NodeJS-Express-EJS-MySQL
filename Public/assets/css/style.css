@@ -49,6 +49,37 @@ label.required:after {
   border-radius: 0 !important;
 }
 
+.note-editor {
+  box-shadow: none !important;
+  border: 1px solid #E7E7E7 !important;
+}
+
+.note-btn {
+  background-color: #ffffff !important;
+}
+
+.note-btn:hover {
+  background-color: #f2f2f2 !important;
+}
+
+/* .note-editor .dropdown-toggle::after {
+  all: unset;
+} */
+
+.note-editor .note-dropdown-menu,
+.note-editor .note-modal-footer {
+  box-sizing: content-box;
+}
+
+.note-toolbar {
+  background: #ffffff;
+}
+
+/* .note-editor .note-editing-area .note-editable {
+  background: #ffffff;
+  color: #333333;
+} */
+
 body {
   background-color: #ffffff;
   color: #333333;
