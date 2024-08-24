@@ -54,17 +54,16 @@ label.required:after {
   border: 1px solid #E7E7E7 !important;
 }
 
-.note-btn {
+.btn-light {
   background-color: #ffffff !important;
+  color: #000000;
 }
 
 .note-btn:hover {
   background-color: #f2f2f2 !important;
+  color: #000000;
 }
 
-/* .note-editor .dropdown-toggle::after {
-  all: unset;
-} */
 
 .note-editor .note-dropdown-menu,
 .note-editor .note-modal-footer {

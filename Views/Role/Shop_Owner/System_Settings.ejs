@@ -27,12 +27,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>ตั้งค่าระบบ</h1>
+                            <h1>ตั้งค่าระบบร้านค้า</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/';">หน้าหลัก</a></li>
-                                <li class="breadcrumb-item active">ตั้งค่าระบบ</li>
+                                <li class="breadcrumb-item active">ตั้งค่าระบบร้านค้า</li>
                             </ol>
                         </div>
                     </div>
@@ -207,13 +207,14 @@
                                             const Store_Name_Input = document.getElementById('store_name');
                                             const Store_Description_Input = document.getElementById('store_description');
                                             const Store_Categorie_Select = document.getElementById('store_categorie');
-                                    
+
                                             var ConfirmButton = function(context) {
                                                 var ui = $.summernote.ui;
                                                 var button = ui.button({
-                                                    contents: '<i class="fas fa-save mr-1"></i>บันทึกแก้ไข',
-                                                    tooltip: 'บันทึกแก้ไข',
+                                                    contents: '<i class="fas fa-save mr-1"></i>บันทึกข้อมูล',
+                                                    tooltip: 'Save to Database',
                                                     click: function() {
+                                                        console.log('Confirm button clicked');
                                                         updateSettings();
                                                     }
                                                 });
@@ -228,12 +229,12 @@
                                                 fontNames: ['Bai Jamjuree'],
                                                 fontNamesIgnoreCheck: ['Bai Jamjuree'],
                                                 toolbar: [
-                                                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                                                    ['style', ['style']],
+                                                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
                                                     ['color', ['color']],
-                                                    ['table', ['table']],
-                                                    ['insert', ['link']],
-                                                    ['view', ['fullscreen', 'undo', 'redo']],
-                                                    ['mybutton', ['confirm']]
+                                                    ['para', ['ul', 'ol', 'paragraph', 'height']],
+                                                    ['insert', ['link', 'hr']],
+                                                    ['view_and_save', ['fullscreen', 'codeview', 'undo', 'redo', 'confirm']]
                                                 ],
                                                 buttons: {
                                                     confirm: ConfirmButton
@@ -241,10 +242,6 @@
                                                 popover: {
                                                     link: [
                                                         ['link', ['linkDialogShow', 'unlink']]
-                                                    ],
-                                                    table: [
-                                                        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                                                        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
                                                     ]
                                                 }
                                             });
@@ -253,7 +250,7 @@
                                                 const Store_Name = Store_Name_Input.value;
                                                 const Store_Description = $('#store_description').summernote('code');
                                                 const Store_Categorie = Store_Categorie_Select.value;
-                                    
+
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', {
                                                     method: 'POST',
                                                     headers: {
@@ -270,22 +267,20 @@
                                                 .then(data => {
                                                     if (data.success) {
                                                         console.log('Setting updated successfully');
-                                                        // Reload the page
                                                         location.reload();
                                                     } else {
-                                                        console.error('Failed to update setting');
+                                                        console.error('Failed to update setting:', data.error);
                                                     }
                                                 })
                                                 .catch(error => console.error('Error:', error));
                                             }
-                                    
+
                                             function preventEnterKey(event) {
                                                 if (event.key === 'Enter') {
                                                     event.preventDefault();
                                                 }
                                             }
-                                    
-                                            // Prevent Enter key from submitting the form
+
                                             Store_Name_Input.addEventListener('keydown', preventEnterKey);
                                             Store_Categorie_Select.addEventListener('keydown', preventEnterKey);
 
@@ -1006,8 +1001,8 @@
                                             var ConfirmButton = function(context) {
                                                 var ui = $.summernote.ui;
                                                 var button = ui.button({
-                                                    contents: '<i class="fas fa-save mr-1"></i>บันทึกแก้ไข',
-                                                    tooltip: 'บันทึกแก้ไข',
+                                                    contents: '<i class="fas fa-save mr-1"></i>บันทึกข้อมูล',
+                                                    tooltip: 'Save to Database',
                                                     click: function() {
                                                         updateSettings();
                                                     }
@@ -1023,12 +1018,12 @@
                                                 fontNames: ['Bai Jamjuree'],
                                                 fontNamesIgnoreCheck: ['Bai Jamjuree'],
                                                 toolbar: [
-                                                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                                                    ['style', ['style']],
+                                                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
                                                     ['color', ['color']],
-                                                    ['table', ['table']],
-                                                    ['insert', ['link']],
-                                                    ['view', ['fullscreen', 'undo', 'redo']],
-                                                    ['mybutton', ['confirm']]
+                                                    ['para', ['ul', 'ol', 'paragraph', 'height']],
+                                                    ['insert', ['link', 'hr']],
+                                                    ['view_and_save', ['fullscreen', 'codeview', 'undo', 'redo', 'confirm']]
                                                 ],
                                                 buttons: {
                                                     confirm: ConfirmButton
@@ -1036,10 +1031,6 @@
                                                 popover: {
                                                     link: [
                                                         ['link', ['linkDialogShow', 'unlink']]
-                                                    ],
-                                                    table: [
-                                                        ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                                                        ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
                                                     ]
                                                 }
                                             });

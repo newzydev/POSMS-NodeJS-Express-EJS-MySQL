@@ -1,6 +1,6 @@
 <h1 align="center">Point Of Sale Menagement System</h1>
 
-<h3 align="center">🛠️ Develop with language :</h2>
+<h3 align="center">Develop with language :</h2>
 <p align="center">
   <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
   <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express">
