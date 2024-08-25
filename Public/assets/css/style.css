@@ -160,6 +160,11 @@ iframe {
   border-radius: 0.5rem !important;
 }
 
+.small-box {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
 .card {
   border-radius: 0.5rem !important;
   overflow: hidden;
@@ -190,7 +195,6 @@ iframe {
   border-radius: 0.5rem !important;
 }
 
-.small-box,
 .nav-link {
   border-radius: 0 !important;
   overflow: hidden;
@@ -261,6 +265,25 @@ iframe {
   color: #333333;
   border: 1px solid #E7E7E7;
   opacity: 0.9;
+}
+
+input[type="time"] {
+  text-align: center;
+  pointer-events: none;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  pointer-events: auto;
+  background-color: #ffffff;
+  border: 1px solid #E7E7E7;
+  border-radius: 0.5rem;
+  padding: 5px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  background-color: #f2f2f2;
 }
 
 /* Ripple Effect */
