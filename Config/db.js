@@ -1,7 +1,7 @@
-// Config/db.js
+// Database Config
 const mysql = require('mysql');
 
-// Function to create and return the database connection
+// Function ในการสร้าง return การเชื่อมต่อฐานข้อมูล
 const connectDB = () => {
     const db = mysql.createConnection({
         host: 'localhost',
@@ -10,7 +10,7 @@ const connectDB = () => {
         database: 'point_of_sale_management_system'
     });
 
-    // Connect to the database
+    // เชื่อมต่อ database
     db.connect((err) => {
         if (err) {
             console.error('Database connection error:', err);
@@ -22,5 +22,5 @@ const connectDB = () => {
     return db;
 };
 
-// Export the connection function
+// Export the connectDB function
 module.exports = connectDB;

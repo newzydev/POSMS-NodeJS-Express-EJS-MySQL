@@ -62,7 +62,7 @@
                                     <form class="needs-validation" novalidate method="GET" action="">
                                         <div class="form-row">
                                             <div class="col-md-9 mb-3">
-                                                <div class="btn-group">
+                                                <div class="btn-group btn-group-radius">
                                                     <div class="btn btn-secondary" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/Print/Report';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์รายงานหมวดหมู่สินค้า</div>
                                                 </div>
                                                 <div class="btn btn-success btn-anti" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มหมวดหมู่สินค้า</div>
@@ -116,7 +116,7 @@
                                                         <td class="text-middle"><%= product_cat.cat_name_main %><br><span class="text-success">หมวดหลัก</span></td>
                                                         <td class="text-middle"><%= product_cat.cat_name_sub %><br><span class="text-success">หมวดย่อย</span></td>
                                                         <td class="text-middle text-center">
-                                                            <div class="btn-group">
+                                                            <div class="btn-group btn-group-radius">
                                                                 <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= product_cat.cat_id %>');"><i class="fas fa-copy"></i></div>
                                                                 <div class="btn btn-success btn-sm" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/View/<%= product_cat.cat_id %>';"><i class="fas fa-eye"></i></div>
                                                                 <div class="btn btn-warning btn-sm" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/Edit/<%= product_cat.cat_id %>';"><i class="fas fa-edit"></i></div>

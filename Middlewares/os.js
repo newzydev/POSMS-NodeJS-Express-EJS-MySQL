@@ -1,3 +1,4 @@
+// OS Middlewares
 const os = require('os');
 
 // ฟังก์ชันเพื่อดึง IP Address ของเครื่องเซิร์ฟเวอร์
@@ -42,5 +43,5 @@ module.exports = (req, res, next) => {
     res.locals.type = os.type() || 'N/A'; // System Type: ชนิดของระบบปฏิบัติการ
     res.locals.version = os.version() || 'N/A'; // Version: ชื่อและเวอร์ชันของระบบปฏิบัติการ
     
-    next(); // เรียกใช้งาน middleware ถัดไป
+    next();
 };

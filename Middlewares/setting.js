@@ -1,3 +1,4 @@
+// System Setting Middlewares
 const System_Settings = (req, res, next) => {
     const query = 'SELECT * FROM Systen_Settings';
 
@@ -6,10 +7,10 @@ const System_Settings = (req, res, next) => {
             return next(err); // Pass the error to the next middleware
         }
 
-        // Store the settings in res.locals to make them available to all views
+        // ตั้งค่าเป็น res.locals เพื่อให้เรียกใช้ได้กับทุกหน้าและทุกใฟล์
         res.locals.settings = results.length ? results[0] : {};
 
-        next(); // Proceed to the next middleware or route handler
+        next();
     });
 };
 

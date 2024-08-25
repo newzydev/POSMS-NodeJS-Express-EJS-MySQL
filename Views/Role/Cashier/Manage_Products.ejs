@@ -62,7 +62,7 @@
                                         <form class="needs-validation" novalidate method="GET" action="">
                                             <div class="form-row">
                                                 <div class="col-md-9 mb-3">
-                                                    <div class="btn-group">
+                                                    <div class="btn-group btn-group-radius">
                                                         <div class="btn btn-secondary" onclick="location.href='/Role/Cashier/Page/Manage_Products/Print/Label';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์ฉลาก หรือ รายงานสินค้า</div>
                                                     </div>
                                                     <div class="btn btn-success" onclick="location.href='/Role/Cashier/Page/Manage_Products/Add_Product';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มสินค้า</div>
@@ -120,7 +120,7 @@
                                                             <td class="text-middle"><%= product.product_name %><br><span class="text-success">สินค้า</span></td>
                                                             <td class="text-middle">฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">ราคา</span></td>
                                                             <td class="text-middle text-center">
-                                                                <div class="btn-group">
+                                                                <div class="btn-group btn-group-radius">
                                                                     <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= product.product_id %>');"><i class="fas fa-copy"></i></div>
                                                                     <div class="btn btn-success btn-sm" onclick="location.href='/Role/Cashier/Page/Manage_Products/View/<%= product.product_id %>';"><i class="fas fa-eye"></i></div>
                                                                     <div class="btn btn-warning btn-sm" onclick="location.href='/Role/Cashier/Page/Manage_Products/Edit/<%= product.product_id %>';"><i class="fas fa-edit"></i></div>
