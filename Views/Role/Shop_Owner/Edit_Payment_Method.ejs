@@ -64,7 +64,7 @@
                                         <div class="form-group row">
                                             <label for="pay_cat_name" class="col-sm-2 col-form-label required">ประเภทการชำระเงิน</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" name="pay_cat_name" id="pay_cat_name" required>
+                                                <select class="form-control form-control-lg" name="pay_cat_name" id="pay_cat_name" required>
                                                     <option selected disabled>เลือกประเภทการชำระเงิน</option>
                                                     <option <%= pay_method.pay_cat_name === 'OPT1' ? 'selected' : '' %> value="OPT1">เงินสด / Cash Pay</option>
                                                     <option <%= pay_method.pay_cat_name === 'OPT2' ? 'selected' : '' %> value="OPT2">บัญชีธนาคาร / Bank Account</option>
@@ -81,7 +81,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_name" class="col-sm-2 col-form-label required">ชื่อธนาคาร</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= pay_method.pay_bank_name %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= pay_method.pay_bank_name %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อธนาคารถูกต้อง
                                                 </div>
@@ -93,7 +93,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_account_name" class="col-sm-2 col-form-label required">ชื่อบัญชีธนาคาร</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= pay_method.pay_bank_account_name %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= pay_method.pay_bank_account_name %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อบัญชีธนาคารถูกต้อง
                                                 </div>
@@ -105,7 +105,7 @@
                                         <div class="form-group row">
                                             <label for="pay_bank_number" class="col-sm-2 col-form-label required">หมายเลขบัญชี</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<%= pay_method.pay_bank_number %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<%= pay_method.pay_bank_number %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมายเลขบัญชีถูกต้อง
                                                 </div>
@@ -117,7 +117,7 @@
                                         <div class="form-group row">
                                             <label for="pay_status" class="col-sm-2 col-form-label required">สถานะ</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" name="pay_status" id="pay_status" required>
+                                                <select class="form-control form-control-lg" name="pay_status" id="pay_status" required>
                                                     <option value="" selected disabled>เลือกสถานะ</option>
                                                     <option <%= pay_method.pay_status === '1' ? 'selected' : '' %> value="1">เปิด</option>
                                                     <option <%= pay_method.pay_status === '0' ? 'selected' : '' %> value="0">ปิด</option>

@@ -79,7 +79,7 @@
                                         <div class="form-group row">
                                             <label for="cat_name_main" class="col-sm-2 col-form-label required">หมวดหมู่หลัก</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" name="cat_name_main" id="cat_name_main" required>
+                                                <select class="form-control form-control-lg" name="cat_name_main" id="cat_name_main" required>
                                                     <option value="" selected disabled>เลือกหมวดหมู่หลัก</option>
                                                     <option <%= product_cat.cat_name_main === 'เครื่องดื่ม' ? 'selected' : '' %> value="เครื่องดื่ม">เครื่องดื่ม</option>
                                                     <option <%= product_cat.cat_name_main === 'อาหารแห้งและอาหารสำเร็จรูป' ? 'selected' : '' %> value="อาหารแห้งและอาหารสำเร็จรูป">อาหารแห้งและอาหารสำเร็จรูป</option>
@@ -103,7 +103,7 @@
                                         <div class="form-group row">
                                             <label for="cat_name_sub" class="col-sm-2 col-form-label required">หมวดหมู่ย่อย</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" value="<%= product_cat.cat_name_sub %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่ย่อย" value="<%= product_cat.cat_name_sub %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมวดหมู่ย่อยถูกต้อง
                                                 </div>

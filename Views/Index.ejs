@@ -2,47 +2,74 @@
 <html lang="th">
 
 <head>
-    <!-- Head -->
     <%- include('Include/Head.ejs') %>
-    <!-- Head End -->
 </head>
 
 <body class="hold-transition login-page">
-    
-    <!-- Preloader -->
     <%- include('Include/Preloader.ejs') %>
-    <!-- Preloader End -->
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="login-box">
         <div class="card">
             <div class="card-header text-center">
                 <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
             </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Point Of Sale Management System</p>
-
-                <hr class="mt-0">
-                <div class="row">
-                    <div class="col-12 mb-3 login_submit_check">
-                        <div class="btn btn-custom-one btn-anti btn-block" onclick="location.href='/Login';">ลงชื่อเข้าใช้ระบบ</div>
-                    </div>
-                    <div class="col-12 mb-3 d-none">
-                        <div class="btn btn-custom-two btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกสำหรับลูกค้า</div>
-                    </div>
-                    <div class="col-12 text-center text-muted">
-                        <i class="far fa-copyright"></i> <b><span id="copyright-year"></span> - <a style="cursor: pointer;" onclick="location.href='/';">POSMS</a></b>
-                    </div>
+                <div class="login-box-msg">
+                    ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
+                    ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
+                    ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b>
                 </div>
-
+                
+                <% if (error) { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                </div>
+                <% } %>
+                <% if (success) { %>
+                <div class="alert alert-success text-center" role="alert">
+                    <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                </div>
+                <% } %>
+                
+                <form class="needs-validation" novalidate id="login_form" method="POST">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="username" class="required">ชื่อผู้ใช้</label>
+                            <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autofocus autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกชื่อผู้ใช้ถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="password" class="required">รหัสผ่าน</label>
+                            <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autofocus autocomplete="off" required>
+                            <div class="valid-feedback">
+                                กรอกรหัสผ่านถูกต้อง
+                            </div>
+                            <div class="invalid-feedback">
+                                กรุณากรอกรหัสผ่านให้ถูกต้อง
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <button type="submit" id="login_submit" class="btn btn-custom-one btn-anti btn-block">ลงชื่อเข้าใช้</button>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="btn btn-custom-two btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกสำหรับลูกค้า</div>
+                        </div>
+                        <div class="col-12">
+                            <div class="btn btn-block" data-toggle="modal" data-target="#Store_Information"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า</div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Content Wrapper. Contains page content End -->
-
-    <!-- Javascript -->
     <%- include('Include/Javascript.ejs') %>
-    <!-- Javascript End -->
 </body>
 
 </html>

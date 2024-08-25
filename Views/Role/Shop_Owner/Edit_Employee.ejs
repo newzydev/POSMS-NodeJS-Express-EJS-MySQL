@@ -79,7 +79,7 @@
                                         <div class="form-group row">
                                             <label for="first_name" class="col-sm-2 col-form-label required">ชื่อจริง</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= employee.member_firstname %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= employee.member_firstname %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อจริงถูกต้อง
                                                 </div>
@@ -91,7 +91,7 @@
                                         <div class="form-group row">
                                             <label for="last_name" class="col-sm-2 col-form-label required">นามสกุล</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= employee.member_lastname %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= employee.member_lastname %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกนามสกุลถูกต้อง
                                                 </div>
@@ -103,7 +103,7 @@
                                         <div class="form-group row">
                                             <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= employee.member_username %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= employee.member_username %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อผู้ใช้ถูกต้อง
                                                 </div>
@@ -115,7 +115,7 @@
                                         <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label required">รหัสผ่าน</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="รหัสผ่าน" value="<%= employee.member_password %>" required autocomplete="off">
+                                                <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= employee.member_password %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกรหัสผ่านถูกต้อง
                                                 </div>
@@ -127,7 +127,7 @@
                                         <div class="form-group row">
                                             <label for="confirm_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่าน</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" value="<%= employee.member_password %>" required autocomplete="off">
+                                                <input type="password" class="form-control form-control-lg" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" value="<%= employee.member_password %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกยืนยันรหัสผ่านถูกต้อง
                                                 </div>
@@ -139,7 +139,7 @@
                                         <div class="form-group row">
                                             <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
                                             <div class="col-sm-10">
-                                                <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= employee.member_tel%>" required autocomplete="off">
+                                                <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= employee.member_tel%>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมายเลขโทรศัพท์ถูกต้อง
                                                 </div>
@@ -151,7 +151,7 @@
                                         <div class="form-group row">
                                             <label for="role_id" class="col-sm-2 col-form-label required">ระดับผู้ใช้งานบัญชี</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control" name="role_id" id="role_id">
+                                                <select class="form-control form-control-lg" name="role_id" id="role_id">
                                                     <option value="" disabled>เลือกระดับผู้ใช้งาน</option>
                                                     <option <%= employee.role_id === 'ROLE001' ? 'selected' : '' %> value="ROLE001">เจ้าของร้าน / Shop Owner</option>
                                                     <option <%= employee.role_id === 'ROLE002' ? 'selected' : '' %> value="ROLE002">แคชเชียร์ / Cashier</option>

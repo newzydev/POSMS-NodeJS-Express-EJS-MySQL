@@ -21,7 +21,7 @@ exports.getLoginPage = (req, res) => {
         const error = req.flash('error');
         const formData = req.flash('formData')[0] || {};
         const success = req.flash('success');
-        return res.render('Login', { 
+        return res.render('Index', { 
             title, 
             error: error[0], 
             formData, 

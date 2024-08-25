@@ -66,7 +66,7 @@
                                     <div class="form-group row">
                                         <label for="pay_cat_name" class="col-sm-2 col-form-label">ประเภทการชำระเงิน</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="pay_cat_name" id="pay_cat_name" disabled required>
+                                            <select class="form-control form-control-lg" name="pay_cat_name" id="pay_cat_name" disabled required>
                                                 <option selected disabled>เลือกประเภทการชำระเงิน</option>
                                                 <option <%= pay_method.pay_cat_name === 'OPT1' ? 'selected' : '' %> value="OPT1">เงินสด / Cash Pay</option>
                                                 <option <%= pay_method.pay_cat_name === 'OPT2' ? 'selected' : '' %> value="OPT2">บัญชีธนาคาร / Bank Account</option>
@@ -77,25 +77,25 @@
                                     <div class="form-group row">
                                         <label for="pay_bank_name" class="col-sm-2 col-form-label">ชื่อธนาคาร</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= pay_method.pay_bank_name %>" disabled required autocomplete="off">
+                                            <input type="text" class="form-control form-control-lg" name="pay_bank_name" id="pay_bank_name" placeholder="ชื่อธนาคาร" value="<%= pay_method.pay_bank_name %>" disabled required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="pay_bank_account_name" class="col-sm-2 col-form-label">ชื่อบัญชีธนาคาร</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= pay_method.pay_bank_account_name %>" disabled required autocomplete="off">
+                                            <input type="text" class="form-control form-control-lg" name="pay_bank_account_name" id="pay_bank_account_name" placeholder="ชื่อบัญชีธนาคาร" value="<%= pay_method.pay_bank_account_name %>" disabled required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="pay_bank_number" class="col-sm-2 col-form-label">หมายเลขบัญชี</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<% if (pay_method.pay_bank_number.length === 10) { %><%= pay_method.pay_bank_number.substring(0, 2) %>X-XXX-<%= pay_method.pay_bank_number.substring(6) %><% } else { %><%= pay_method.pay_bank_number %><% } %>" disabled required autocomplete="off">
+                                            <input type="text" class="form-control form-control-lg" name="pay_bank_number" id="pay_bank_number" placeholder="หมายเลขบัญชี" value="<% if (pay_method.pay_bank_number.length === 10) { %><%= pay_method.pay_bank_number.substring(0, 2) %>X-XXX-<%= pay_method.pay_bank_number.substring(6) %><% } else { %><%= pay_method.pay_bank_number %><% } %>" disabled required autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="pay_status" class="col-sm-2 col-form-label">สถานะ</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="pay_status" id="pay_status" disabled required>
+                                            <select class="form-control form-control-lg" name="pay_status" id="pay_status" disabled required>
                                                 <option selected disabled>เลือกสถานะ</option>
                                                 <option <%= pay_method.pay_status === '1' ? 'selected' : '' %> value="1">เปิด</option>
                                                 <option <%= pay_method.pay_status === '0' ? 'selected' : '' %> value="0">ปิด</option>
