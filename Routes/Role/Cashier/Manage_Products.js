@@ -9,10 +9,14 @@ exports.getManageProductsPage = (req, res) => {
     const search = req.query.search || '';
 
     const countQuery = `
-        SELECT COUNT(*) as total
+        SELECT COUNT(*) AS total
         FROM Products
         INNER JOIN Categories ON Products.cat_id = Categories.cat_id
-        WHERE (Categories.cat_name_main LIKE ? OR Categories.cat_name_sub LIKE ? OR Products.product_name LIKE ?)
+        WHERE 
+            Products.product_id LIKE ? 
+            OR Products.product_name LIKE ? 
+            OR Categories.cat_name_main LIKE ? 
+            OR Categories.cat_name_sub LIKE ?;
     `;
 
     const dataQuery = `
@@ -30,23 +34,29 @@ exports.getManageProductsPage = (req, res) => {
         ON 
             Products.cat_id = Categories.cat_id 
         WHERE
-            (Categories.cat_name_main LIKE ? OR Categories.cat_name_sub LIKE ? OR Products.product_name LIKE ?)
+            Products.product_id LIKE ? 
+            OR Products.product_name LIKE ? 
+            OR Categories.cat_name_main LIKE ? 
+            OR Categories.cat_name_sub LIKE ?
         ORDER BY 
-            Categories.cat_name_main ASC, Products.time_order DESC
-        LIMIT ? OFFSET ?
+            Categories.cat_name_main ASC, 
+            Products.time_order DESC
+        LIMIT ? OFFSET ?;
     `;
 
     const searchQuery = `%${search}%`;
 
-    db.query(countQuery, [searchQuery, searchQuery, searchQuery], (err, countResult) => {
+    db.query(countQuery, [searchQuery, searchQuery, searchQuery, searchQuery], (err, countResult) => {
         if (err) {
+            console.error('Count Query Error:', err);
             res.redirect('/');
         } else {
             const totalRecords = countResult[0].total;
             const totalPages = Math.ceil(totalRecords / limit);
 
-            db.query(dataQuery, [searchQuery, searchQuery, searchQuery, limit, offset], (err, result) => {
+            db.query(dataQuery, [searchQuery, searchQuery, searchQuery, searchQuery, limit, offset], (err, result) => {
                 if (err) {
+                    console.error('Data Query Error:', err);
                     res.redirect('/');
                 } else {
                     res.render('Role/Cashier/Manage_Products', {

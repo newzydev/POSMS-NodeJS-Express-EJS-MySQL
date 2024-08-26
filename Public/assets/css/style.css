@@ -156,6 +156,16 @@ iframe {
   border-radius: 0.5rem !important;
 }
 
+select {
+  cursor: pointer !important;
+}
+
+.txt_cut {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 .list-group {
   border-radius: 0.5rem !important;
 }
@@ -178,6 +188,8 @@ iframe {
 .btn-group-radius {
   border-radius: 0.5rem !important;
   overflow: hidden !important;
+  outline: 1px solid #6c757d; /* เพิ่มความหนาและสีของเส้นขอบ */
+  outline-offset: -1px; /* ปรับตำแหน่งของ outline */
 }
 
 .btn-group .btn {
@@ -196,7 +208,7 @@ iframe {
 }
 
 .nav-link {
-  border-radius: 0 !important;
+  border-radius: 0.5rem !important;
   overflow: hidden;
 }
 

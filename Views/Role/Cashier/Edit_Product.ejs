@@ -79,7 +79,7 @@
                                         <div class="form-group row">
                                             <label for="product_name" class="col-sm-2 col-form-label required">ชื่อสินค้า</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="product_name" id="product_name" placeholder="ชื่อสินค้า" required autocomplete="off" value="<%= product[0].product_name %>">
+                                                <input type="text" class="form-control form-control-lg form-control form-control-lg-lg" name="product_name" id="product_name" placeholder="ชื่อสินค้า" required autocomplete="off" value="<%= product[0].product_name %>">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อสินค้าถูกต้อง
                                                 </div>
@@ -91,7 +91,7 @@
                                         <div class="form-group row">
                                             <label for="product_price" class="col-sm-2 col-form-label required">ราคาสินค้า</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="product_price" id="product_price" placeholder="0.00" required autocomplete="off" value="<%= product[0].product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                                <input type="text" class="form-control form-control-lg form-control form-control-lg-lg" name="product_price" id="product_price" placeholder="0.00" required autocomplete="off" value="<%= product[0].product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
                                                 <div class="valid-feedback">
                                                     กรอกราคาสินค้าถูกต้อง
                                                 </div>
@@ -103,7 +103,7 @@
                                         <div class="form-group row">
                                             <label for="cat_id" class="col-sm-2 col-form-label required">หมวดหมู่สินค้า</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control form-control-lg" name="cat_id" id="cat_id" required>
+                                                <select class="form-control form-control-lg form-control form-control-lg-lg" name="cat_id" id="cat_id" required>
                                                     <option value="" disabled>เลือกหมวดหมู่สินค้า</option>
                                                     <% product_cats.forEach((product_cat) => { %>
                                                         <option value="<%= product_cat.cat_id %>" <%= product_cat.cat_id === product[0].cat_id ? 'selected' : '' %>>(<%= product_cat.cat_name_main %>) : <%= product_cat.cat_name_sub %></option>
@@ -119,9 +119,17 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
-                                                <button type="reset" class="btn btn-custom-two">รีเซ็ตฟอร์ม</button>
-                                                <div onclick="location.href='/Role/Cashier/Page/Manage_Products';" class="btn btn-custom-two">ย้อนกลับ</div>
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="submit" class="btn btn-custom-one btn-lg btn-block">บันทึกข้อมูล</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="reset" class="btn btn-custom-two btn-lg btn-block">รีเซ็ตฟอร์ม</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <div onclick="location.href='/Role/Cashier/Page/Manage_Products';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

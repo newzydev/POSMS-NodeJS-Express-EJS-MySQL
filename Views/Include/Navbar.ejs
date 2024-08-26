@@ -14,17 +14,18 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item d-none d-lg-block">
+        <li class="nav-item d-none align-self-center d-lg-block">
             <div class="nav-link">
                 <span id="greeting"></span> คุณ 
                 <span><%= user.member_firstname %> <%= user.member_lastname %></span>
             </div>
         </li>
         <li class="nav-item d-none d-lg-block">
-            <select id="inputState" class="nav-link btn-anti form-control form-control-sm" style="cursor: pointer;">
-                <option disabled>บทบาทการใช้งาน</option>
-                <option selected><%= user.role_name %></option>
-            </select>
+            <div class="list-group">
+                <div class="list-group-item">
+                    <%= user.role_name %>
+                </div>
+            </div>
         </li>
     </ul>
 </nav>

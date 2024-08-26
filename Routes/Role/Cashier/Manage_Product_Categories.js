@@ -11,7 +11,10 @@ exports.getManageProductCategoriesPage = (req, res) => {
     const countQuery = `
         SELECT COUNT(*) as total
         FROM Categories
-        WHERE cat_name_main LIKE ? OR cat_name_sub LIKE ?
+        WHERE 
+            cat_id LIKE ? 
+            OR cat_name_main LIKE ? 
+            OR cat_name_sub LIKE ?
     `;
 
     const dataQuery = `
@@ -22,15 +25,18 @@ exports.getManageProductCategoriesPage = (req, res) => {
         FROM 
             Categories 
         WHERE
-            cat_name_main LIKE ? OR cat_name_sub LIKE ?
+            cat_id LIKE ?
+            OR cat_name_main LIKE ?
+            OR cat_name_sub LIKE ?
         ORDER BY 
-            cat_name_main ASC, time_order DESC
-        LIMIT ${limit} OFFSET ${offset}
+            cat_name_main ASC,
+            time_order DESC
+        LIMIT ? OFFSET ?
     `;
 
     const searchQuery = `%${search}%`;
 
-    db.query(countQuery, [searchQuery, searchQuery], (err, countResult) => {
+    db.query(countQuery, [searchQuery, searchQuery, searchQuery], (err, countResult) => {
         if (err) {
             console.error('Error executing data query:', err);
             res.redirect('/');
@@ -39,7 +45,7 @@ exports.getManageProductCategoriesPage = (req, res) => {
             const totalRecords = countResult[0].total;
             const totalPages = Math.ceil(totalRecords / limit);
 
-            db.query(dataQuery, [searchQuery, searchQuery], (err, result) => {
+            db.query(dataQuery, [searchQuery, searchQuery, searchQuery, limit, offset], (err, result) => {
                 if (err) {
                     res.redirect('/');
                 } else {
