@@ -14,8 +14,8 @@ const port = 5000;
 const db = connectDB();
 global.db = db; 
 
-app.use(express.json({ limit: '15mb' }));
-app.use(express.urlencoded({ limit: '15mb', extended: true }));
+// app.use(express.json({ limit: '250mb' }));
+// app.use(express.urlencoded({ limit: '250mb', extended: true }));
 app.use(os);
 app.use(System_Settings);
 app.use(session({
