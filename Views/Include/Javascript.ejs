@@ -1,32 +1,3 @@
-<!-- <script>
-    let deferredPrompt;
-    const installButton = document.getElementById('install_posms_app_button');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // ป้องกันไม่ให้แสดงแถบติดตั้งเริ่มต้น
-        e.preventDefault();
-        // เก็บเหตุการณ์เพื่อเรียกใช้งานภายหลัง
-        deferredPrompt = e;
-        // แสดงปุ่มติดตั้ง
-        installButton.style.display = 'block';
-
-        installButton.addEventListener('click', async () => {
-            // แสดง prompt ให้ผู้ใช้ติดตั้งแอป
-            deferredPrompt.prompt();
-            // รอให้ผู้ใช้ตอบสนองต่อ prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
-            // รีเซ็ตค่า deferredPrompt
-            deferredPrompt = null;
-            // ซ่อนปุ่มติดตั้งหลังจากใช้งาน
-            installButton.style.display = 'none';
-        });
-    });
-
-    window.addEventListener('appinstalled', () => {
-        console.log('PWA has been installed');
-    });
-</script> -->
 <!-- jQuery -->
 <script src="/assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
