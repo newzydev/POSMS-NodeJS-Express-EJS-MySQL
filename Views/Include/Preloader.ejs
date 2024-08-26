@@ -45,7 +45,11 @@
                                     <div class="col-sm-10">
                                         <div class="list-group">
                                             <div class="list-group-item">
-                                                <%= settings.store_categorie %>
+                                                <% if (settings.store_categorie === "Other") { %>
+                                                    <%= settings.store_categorie_custom %>
+                                                <% } else { %>
+                                                    <%= settings.store_categorie %>
+                                                <% } %>                                                
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +280,11 @@
                                         <div class="col-sm-10">
                                             <div class="list-group">
                                                 <div class="list-group-item">
-                                                    สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= (settings.customer_discount * 100) %>% แต่ละออเดอร์
+                                                    <% if (settings.customer_discount === "Other") { %>
+                                                        สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= settings.customer_discount_custom %>% แต่ละออเดอร์
+                                                    <% } else { %>
+                                                        สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= settings.customer_discount %>% แต่ละออเดอร์
+                                                    <% } %>  
                                                 </div>
                                             </div>
                                         </div>

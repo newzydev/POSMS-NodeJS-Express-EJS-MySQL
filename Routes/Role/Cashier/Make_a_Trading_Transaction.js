@@ -64,7 +64,12 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
 
             // Calculate totals
             const totalAmount = cartResult.reduce((acc, cart) => acc + (cart.product_price * cart.cart_product_qty), 0);
-            const memberDisRate = settings.customer_discount;
+            let memberDisRate;
+            if (settings.customer_discount === "Other") {
+                memberDisRate = settings.customer_discount_custom / 100;
+            } else {
+                memberDisRate = settings.customer_discount / 100;
+            }
             const memberDis = totalAmount * memberDisRate;
             const netTotal = totalAmount - memberDis;
 

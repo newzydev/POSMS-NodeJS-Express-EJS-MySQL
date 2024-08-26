@@ -39,13 +39,13 @@ exports.getSystemSettingPage = (req, res) => {
 };
 
 exports.postUpdateSettingsForm1 = (req, res) => {
-    const { store_name, store_description, store_categorie } = req.body;
+    const { store_name, store_description, store_categorie, store_categorie_custom } = req.body;
 
     const query = `
         UPDATE Systen_Settings
-        SET store_name = ?, store_description = ?, store_categorie = ?`;
+        SET store_name = ?, store_description = ?, store_categorie = ?, store_categorie_custom = ?`;
 
-    db.query(query, [store_name, store_description, store_categorie], (err) => {
+    db.query(query, [store_name, store_description, store_categorie, store_categorie_custom], (err) => {
         if (err) {
             req.flash('settings_form_1_error', 'เกิดข้อผิดพลาดในการแก้ไขการตั้งค่าส่วนข้อมูลร้านค้า');
             return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขการตั้งค่าส่วนข้อมูลร้านค้าได้' });
@@ -108,13 +108,13 @@ exports.postUpdateSettingsForm3 = (req, res) => {
 };
 
 exports.postUpdateSettingsForm4 = (req, res) => {
-    const { customer_discount } = req.body;
+    const { customer_discount, customer_discount_custom } = req.body;
 
     const query = `
         UPDATE Systen_Settings
-        SET customer_discount = ?`;
+        SET customer_discount = ?, customer_discount_custom = ?`;
 
-    db.query(query, [customer_discount], (err) => {
+    db.query(query, [customer_discount, customer_discount_custom], (err) => {
         if (err) {
             req.flash('settings_form_4_error', 'เกิดข้อผิดพลาดในการแก้ไขส่วนลดลูกค้าสมาชิก');
             return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขส่วนลดลูกค้าสมาชิกได้' });

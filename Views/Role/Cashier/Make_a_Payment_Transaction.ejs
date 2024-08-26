@@ -191,7 +191,11 @@
                                         </div>
                                         <% if (settings.customer_discount !== "0") { %>
                                             <div class="d-flex justify-content-between mb-1">
-                                                <h5>ส่วนลดพิเศษ <%= (settings.customer_discount * 100) %>% (เฉพาะสมาชิก) : </h5>
+                                                <% if (settings.customer_discount === "Other") { %>
+                                                    <h5>ส่วนลดพิเศษ <%= settings.customer_discount_custom %>% (เฉพาะสมาชิก) : </h5>
+                                                <% } else { %>
+                                                    <h5>ส่วนลดพิเศษ <%= settings.customer_discount %>% (เฉพาะสมาชิก) : </h5>
+                                                <% } %>
                                                 <h5>฿<%= OrderPayment[0].member_discount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
                                             </div>
                                         <% } %>

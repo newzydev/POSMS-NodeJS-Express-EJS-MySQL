@@ -199,6 +199,11 @@ select {
   overflow: hidden;
 }
 
+.alert {
+  border-radius: 0.5rem !important;
+  overflow: hidden;
+}
+
 .btn {
   border-radius: 0.5rem !important;
   overflow: hidden !important;

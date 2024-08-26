@@ -108,7 +108,7 @@
                                                 <div class="invalid-feedback">
                                                     กรุณาเลือกประเภทร้านค้าให้ถูกต้อง
                                                 </div>
-                                                <div class="btn btn-custom-two btn-lg btn-block mt-3" data-toggle="collapse" data-target="#HelpInformation" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำประเภทร้านค้า (คลิก)</div>
+                                                <div class="btn btn-custom-two btn-lg btn-block mt-3" data-toggle="collapse" data-target="#HelpInformation" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำประเภทร้านค้า (คลิ้ก)</div>
                                                 <div class="collapse mt-3" id="HelpInformation">
                                                     <div class="card card-body">
                                                         <ul class="pl-3 pr-3 pt-0 pb-0 m-0">
@@ -157,11 +157,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <% if (settings.store_categorie === 'Other') { %>
-                                        <div class="form-group row">
+                                        <div class="form-group row <% if (settings.store_categorie !== 'Other') { %> d-none <% } %>">
                                             <label for="store_categorie_custom" class="col-sm-2 col-form-label required">อื่น ๆ กำหนดเอง :</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg store_categorie_custom" name="store_categorie_custom" id="store_categorie_custom" placeholder="กำหนดเองประเภทร้านค้าเอง" value="" autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg store_categorie_custom" name="store_categorie_custom" id="store_categorie_custom" placeholder="กำหนดประเภทร้านค้าเอง" value="<%= settings.store_categorie_custom %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกประเภทร้านค้าถูกต้อง
                                                 </div>
@@ -170,13 +169,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <% } %>
                                     </form>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {
                                             const Store_Name_Input = document.getElementById('store_name');
                                             const Store_Description_Input = document.getElementById('store_description');
                                             const Store_Categorie_Select = document.getElementById('store_categorie');
+                                            const Store_Categorie_Custom_Input = document.getElementById('store_categorie_custom');
 
                                             var ConfirmButton = function(context) {
                                                 var ui = $.summernote.ui;
@@ -219,7 +218,13 @@
                                             function updateSettings() {
                                                 const Store_Name = Store_Name_Input.value;
                                                 const Store_Description = $('#store_description').summernote('code');
-                                                const Store_Categorie = Store_Categorie_Select.value;
+                                                let Store_Categorie = Store_Categorie_Select.value;
+                                                let Store_Categorie_Custom = Store_Categorie_Custom_Input.value;
+
+                                                if (Store_Categorie !== "Other") {
+                                                    Store_Categorie_Custom_Input.value = "";
+                                                    Store_Categorie_Custom = "";
+                                                }
 
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', {
                                                     method: 'POST',
@@ -230,7 +235,8 @@
                                                     body: JSON.stringify({
                                                         store_name: Store_Name,
                                                         store_description: Store_Description,
-                                                        store_categorie: Store_Categorie
+                                                        store_categorie: Store_Categorie,
+                                                        store_categorie_custom: Store_Categorie_Custom
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -253,9 +259,11 @@
 
                                             Store_Name_Input.addEventListener('keydown', preventEnterKey);
                                             Store_Categorie_Select.addEventListener('keydown', preventEnterKey);
+                                            Store_Categorie_Select.addEventListener('keydown', preventEnterKey);
 
                                             Store_Name_Input.addEventListener('change', updateSettings);
                                             Store_Categorie_Select.addEventListener('change', updateSettings);
+                                            Store_Categorie_Custom_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>
                                 </div>
@@ -811,15 +819,16 @@
                                             <div class="col-sm-10">
                                                 <select class="form-control form-control-lg customer_discount" name="customer_discount" id="customer_discount" required>
                                                     <option value="" selected disabled>เลือกรูปแบบส่วนลดลูกค้าสมาชิก</option>
-                                                    <option <%= settings.customer_discount === '0.01' ? 'selected' : '' %> value="0.01">ส่วนลดลูกค้าสมาชิก 1%</option>
-                                                    <option <%= settings.customer_discount === '0.015' ? 'selected' : '' %> value="0.015">ส่วนลดลูกค้าสมาชิก 1.5%</option>
-                                                    <option <%= settings.customer_discount === '0.02' ? 'selected' : '' %> value="0.02">ส่วนลดลูกค้าสมาชิก 2%</option>
-                                                    <option <%= settings.customer_discount === '0.025' ? 'selected' : '' %> value="0.025">ส่วนลดลูกค้าสมาชิก 2.5%</option>
-                                                    <option <%= settings.customer_discount === '0.03' ? 'selected' : '' %> value="0.03">ส่วนลดลูกค้าสมาชิก 3%</option>
-                                                    <option <%= settings.customer_discount === '0.035' ? 'selected' : '' %> value="0.035">ส่วนลดลูกค้าสมาชิก 3.5%</option>
-                                                    <option <%= settings.customer_discount === '0.04' ? 'selected' : '' %> value="0.04">ส่วนลดลูกค้าสมาชิก 4%</option>
-                                                    <option <%= settings.customer_discount === '0.045' ? 'selected' : '' %> value="0.045">ส่วนลดลูกค้าสมาชิก 4.5%</option>
-                                                    <option <%= settings.customer_discount === '0.05' ? 'selected' : '' %> value="0.05">ส่วนลดลูกค้าสมาชิก 5%</option>
+                                                    <option <%= settings.customer_discount === '1' ? 'selected' : '' %> value="1">ส่วนลดลูกค้าสมาชิก 1%</option>
+                                                    <option <%= settings.customer_discount === '1.5' ? 'selected' : '' %> value="1.5">ส่วนลดลูกค้าสมาชิก 1.5%</option>
+                                                    <option <%= settings.customer_discount === '2' ? 'selected' : '' %> value="2">ส่วนลดลูกค้าสมาชิก 2%</option>
+                                                    <option <%= settings.customer_discount === '2.5' ? 'selected' : '' %> value="2.5">ส่วนลดลูกค้าสมาชิก 2.5%</option>
+                                                    <option <%= settings.customer_discount === '3' ? 'selected' : '' %> value="3">ส่วนลดลูกค้าสมาชิก 3%</option>
+                                                    <option <%= settings.customer_discount === '3.5' ? 'selected' : '' %> value="3.5">ส่วนลดลูกค้าสมาชิก 3.5%</option>
+                                                    <option <%= settings.customer_discount === '4' ? 'selected' : '' %> value="4">ส่วนลดลูกค้าสมาชิก 4%</option>
+                                                    <option <%= settings.customer_discount === '4.5' ? 'selected' : '' %> value="4.5">ส่วนลดลูกค้าสมาชิก 4.5%</option>
+                                                    <option <%= settings.customer_discount === '5' ? 'selected' : '' %> value="5">ส่วนลดลูกค้าสมาชิก 5%</option>
+                                                    <option <%= settings.customer_discount === 'Other' ? 'selected' : '' %> value="Other">อื่น ๆ กำหนดเอง</option>
                                                     <option <%= settings.customer_discount === '0' ? 'selected' : '' %> value="0">ปิดระบบส่วนลดลูกค้าสมาชิก</option>
                                                 </select>
                                                 <div class="valid-feedback">
@@ -827,6 +836,37 @@
                                                 </div>
                                                 <div class="invalid-feedback">
                                                     กรุณาเลือกส่วนลดสำหรับสมาชิกให้ถูกต้อง
+                                                </div>
+                                                <div class="btn btn-custom-two btn-lg btn-block mt-3" data-toggle="collapse" data-target="#HelpInformationDiscount" aria-expanded="false" aria-controls="HelpInformation"><i class="fas fa-info-circle mr-2"></i>คำแนะนำส่วนลดสำหรับลูกค้าสมาชิก (คลิ้ก)</div>
+                                                <div class="collapse mt-3" id="HelpInformationDiscount">
+                                                    <div class="card card-body">
+                                                        <ul class="pl-3 pr-3 pt-0 pb-0 m-0">
+                                                            <li>
+                                                                <b>ส่วนลดลูกค้าสมาชิก</b><br>
+                                                                <span>ส่วนลดลูกค้าสมาชิก 1% - 5% คือค่าพิ้นฐาน สามารถกำหนดเองได้</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>อื่น ๆ กำหนดเอง</b><br>
+                                                                <span>กำหนดส่วนลดด้วยตนเอง</span>
+                                                            </li>
+                                                            <li>
+                                                                <b>ปิดระบบส่วนลดลูกค้าสมาชิก</b><br>
+                                                                <span>ระบบส่วนลดสำหรับลูกค้าสมาชิกถูกปิดใช้งาน</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row <% if (settings.customer_discount !== 'Other') { %> d-none <% } %>">
+                                            <label for="customer_discount_custom" class="col-sm-2 col-form-label required">อื่น ๆ กำหนดส่วนลดเอง :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg customer_discount_custom" name="customer_discount_custom" id="customer_discount_custom" placeholder="กำหนดส่วนลดสำหรับสมาชิกเอง" value="<%= settings.customer_discount_custom %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกส่วนลดสำหรับสมาชิกถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกส่วนลดสำหรับสมาชิกให้ถูกต้อง
                                                 </div>
                                             </div>
                                         </div>
@@ -838,7 +878,11 @@
                                                         <% if (settings.customer_discount === "0") { %>
                                                             ระบบส่วนลดสำหรับลูกค้าสมาชิกถูกปิดใช้งาน หากต้องการเปิดใช้งานให้ใส่จำนวนตัวเลขร้อยละ
                                                         <% } else { %>
-                                                            สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= (settings.customer_discount * 100) %>% แต่ละออเดอร์
+                                                            <% if (settings.customer_discount === "Other") { %>
+                                                                สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= settings.customer_discount_custom %>% แต่ละออเดอร์
+                                                            <% } else { %>
+                                                                สำหรับลูกค้าสมาชิกจะได้รับส่วนลด <%= settings.customer_discount %>% แต่ละออเดอร์
+                                                            <% } %>  
                                                         <% } %>
                                                     </div>
                                                 </div>
@@ -848,10 +892,16 @@
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {
                                             const Customer_Discount_Input = document.getElementById('customer_discount');
+                                            const Customer_Discount_Custom_Input = document.getElementById('customer_discount_custom');
                                     
                                             function updateSettings() {
                                                 let Customer_Discount = Customer_Discount_Input.value;
+                                                let Customer_Discount_Custom = Customer_Discount_Custom_Input.value;
 
+                                                if (Customer_Discount !== "Other") {
+                                                    Customer_Discount_Custom_Input.value = "1";
+                                                    Customer_Discount_Custom = "1";
+                                                }
 
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_4', {
                                                     method: 'POST',
@@ -861,6 +911,7 @@
                                                     },
                                                     body: JSON.stringify({
                                                         customer_discount: Customer_Discount,
+                                                        customer_discount_custom: Customer_Discount_Custom,
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -884,9 +935,11 @@
 
                                             // ป้องกันการกดปุ่ม Enter
                                             Customer_Discount_Input.addEventListener('keydown', preventEnterKey);
+                                            Customer_Discount_Custom_Input.addEventListener('keydown', preventEnterKey);
 
                                             // ใช้ change event เพื่อ update
                                             Customer_Discount_Input.addEventListener('change', updateSettings);
+                                            Customer_Discount_Custom_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>
                                 </div>
