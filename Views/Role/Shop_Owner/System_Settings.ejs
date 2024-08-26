@@ -99,6 +99,7 @@
                                                     <option <%= settings.store_categorie === 'ร้านสะดวกซื้อ (Convenience Store)' ? 'selected' : '' %> value="ร้านสะดวกซื้อ (Convenience Store)">ร้านสะดวกซื้อ (Convenience Store)</option>
                                                     <option <%= settings.store_categorie === 'ร้านค้าชุมชน (Community Store)' ? 'selected' : '' %> value="ร้านค้าชุมชน (Community Store)">ร้านค้าชุมชน (Community Store)</option>
                                                     <option <%= settings.store_categorie === 'ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)' ? 'selected' : '' %> value="ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)">ร้านขายสินค้าเฉพาะกิจ (Pop-up Store)</option>
+                                                    <option <%= settings.store_categorie === 'Other' ? 'selected' : '' %> value="Other">อื่น ๆ กำหนดเอง</option>
                                                     <option <%= settings.store_categorie === 'ไม่ระบุ' ? 'selected' : '' %> value="ไม่ระบุ">ไม่ระบุ</option>
                                                 </select>
                                                 <div class="valid-feedback">
@@ -144,6 +145,10 @@
                                                                 <span>ร้านค้าที่เปิดเป็นการชั่วคราวในงานเทศกาลหรืองานอีเวนต์ต่าง ๆ</span>
                                                             </li>
                                                             <li>
+                                                                <b>อื่น ๆ กำหนดเอง</b><br>
+                                                                <span>กำหนดประเภทร้านค้าด้วยตนเอง</span>
+                                                            </li>
+                                                            <li>
                                                                 <b>ไม่ระบุ</b><br>
                                                                 <span>หากยังไม่ต้องการแสดงประเภทร้านค้าในตอนนี้</span>
                                                             </li>
@@ -152,6 +157,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <% if (settings.store_categorie === 'Other') { %>
+                                        <div class="form-group row">
+                                            <label for="store_categorie_custom" class="col-sm-2 col-form-label required">อื่น ๆ กำหนดเอง :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg store_categorie_custom" name="store_categorie_custom" id="store_categorie_custom" placeholder="กำหนดเองประเภทร้านค้าเอง" value="" autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกประเภทร้านค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกประเภทร้านค้าให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
                                     </form>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {

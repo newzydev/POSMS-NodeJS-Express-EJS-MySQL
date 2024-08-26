@@ -325,6 +325,7 @@ CREATE TABLE Systen_Settings (
     store_name VARCHAR(255) NOT NULL PRIMARY KEY,
     store_description TEXT NOT NULL,
     store_categorie VARCHAR(255) NOT NULL,
+    store_categorie_custom VARCHAR(255) NOT NULL,
     day_open_1 VARCHAR(255) NOT NULL,
     time_open_1 VARCHAR(255) NOT NULL,
     time_close_1 VARCHAR(255) NOT NULL,
@@ -348,6 +349,7 @@ CREATE TABLE Systen_Settings (
     time_close_7 VARCHAR(255) NOT NULL,
     map_iframe_api TEXT NOT NULL,
     customer_discount VARCHAR(255) NOT NULL,
+    customer_discount_custom VARCHAR(255) NOT NULL,
     privacy_policy TEXT NOT NULL,
     terms_and_conditions TEXT NOT NULL,
     cookie TEXT NOT NULL
