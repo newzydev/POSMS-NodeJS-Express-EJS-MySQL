@@ -19,6 +19,7 @@ $(document).ready(function () {
         year: 'numeric'
     };
     const formattedCopyright = now.toLocaleDateString('en-EN', copyright_year_option);
+    // const formattedCopyrightTH = parseInt(formattedCopyright) + 543;
 
     $("#copyright-year").each(function () {
         $(this).text(formattedCopyright);
