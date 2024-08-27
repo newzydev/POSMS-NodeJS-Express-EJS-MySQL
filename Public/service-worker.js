@@ -23,10 +23,37 @@ self.addEventListener('install', (event) => {
             ]);
         })
     );
+    self.skipWaiting(); // บังคับให้ service worker ที่กำลังรอเปลี่ยนมาใช้งานทันที
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keyList) => {
+            return Promise.all(
+                keyList.map((key) => {
+                    if (key !== 'v1') {
+                        return caches.delete(key);
+                    }
+                })
+            );
+        })
+    );
+    return self.clients.claim(); // รับการควบคุมของ client ทันที
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        clients.claim().then(() => {
+            return clients.matchAll({ type: 'window' });
+        }).then((windowClients) => {
+            for (let client of windowClients) {
+                client.navigate(client.url); // รีโหลดหน้าเพื่อให้ service worker ใหม่ใช้งานได้ทันที
+            }
+        })
+    );
 });
 
 self.addEventListener('fetch', (event) => {
-    // Do not cache requests to the login page or any URL containing "/"
     if (event.request.url.includes('/')) {
         event.respondWith(fetch(event.request));
     } else {
