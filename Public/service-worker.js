@@ -3,6 +3,9 @@ self.addEventListener('install', (event) => {
         caches.open('v1').then((cache) => {
             return cache.addAll([
                 '/',
+                '/manifest.json',
+                '/icons/icon-192x192.png',
+                '/icons/icon-512x512.png',
                 '/assets/images/logo/logo_icon.png',
                 '/assets/images/background/form-login.jpg',
                 '/assets/plugins/fontawesome-free/css/all.min.css',
