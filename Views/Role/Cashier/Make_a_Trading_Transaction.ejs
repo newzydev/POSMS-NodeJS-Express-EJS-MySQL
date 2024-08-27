@@ -63,7 +63,7 @@
                                         <div class="form-row">
                                             <input type="hidden" name="cashier_id" value="<%= user.member_id %>">
                                             <input type="hidden" name="cart_product_qty" value="1">
-                                            <div class="col-sm-12 col-md-8 col-lg-10 mb-3">
+                                            <div class="col-sm-12 col-md-8 col-lg-8 mb-3">
                                                 <input type="text" class="form-control form-control-lg" name="product_id" placeholder="รหัสสินค้า หรือ สแกน Bar Code" title="กรอกรหัสสินค้า หรือ สแกน Bar Code" required autofocus autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกรหัส หรือ สแกนรหัสสินค้าถูกต้อง
@@ -72,7 +72,7 @@
                                                     กรุณากรอกรหัส หรือ สแกนรหัสสินค้าให้ถูกต้อง
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-4 col-lg-2 mb-3">
+                                            <div class="col-sm-12 col-md-4 col-lg-4 mb-3">
                                                 <button type="submit" class="btn btn-lg btn-block btn-custom-one" title="เพิ่มสินค้าในตะกร้า"><i class="fas fa-cart-plus mr-2"></i>เพิ่มสินค้า</button>
                                             </div>
                                         </div>
@@ -153,36 +153,55 @@
                                     
                                     <h2>สรุปรายการ</h2>
                                     <hr>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>ทำรายการโดย : </h5>
-                                        <% if (cashierFirstName || cashierLastName) { %>
-                                        <h5><%= cashierFirstName %> <%= cashierLastName %></h5>
-                                        <% } else { %>
-                                        <h5><%= user.member_firstname %> <%= user.member_lastname %></h5>
-                                        <% } %>
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            <h5>ทำรายการโดย : </h5>
+                                        </div>
+                                        <div class="col text-right">
+                                            <% if (cashierFirstName || cashierLastName) { %>
+                                            <h5><%= cashierFirstName %> <%= cashierLastName %></h5>
+                                            <% } else { %>
+                                            <h5><%= user.member_firstname %> <%= user.member_lastname %></h5>
+                                            <% } %>
+                                        </div>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>วันที่ทำรายการ : </h5>
-                                        <h5><span id="date-today-1"></span></h5>
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            <h5>วันที่ทำรายการ : </h5>
+                                        </div>
+                                        <div class="col text-right">
+                                            <h5><span id="date-today-1"></span></h5>
+                                        </div>
                                     </div>
                                     <hr>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>ยอดรวม (สินค้า x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>) : </h5>
-                                        <h5>฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            <h5>ยอดรวม (สินค้า x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>) : </h5>
+                                        </div>
+                                        <div class="col text-right">
+                                            <h5>฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                        </div>
                                     </div>
                                     <% if (settings.customer_discount !== "0") { %>
-                                        <div class="d-flex justify-content-between">
-                                            <% if (settings.customer_discount === "Other") { %>
-                                                <h5>ส่วนลดพิเศษ <%= settings.customer_discount_custom %>% (เฉพาะสมาชิก) : </h5>
-                                            <% } else { %>
-                                                <h5>ส่วนลดพิเศษ <%= settings.customer_discount %>% (เฉพาะสมาชิก) : </h5>
-                                            <% } %> 
-                                            <h5>฿<%= memberDis.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                        <div class="row">
+                                            <div class="col text-left">
+                                                <% if (settings.customer_discount === "Other") { %>
+                                                    <h5>ส่วนลดพิเศษ (<%= settings.customer_discount_custom %>%) : </h5>
+                                                <% } else { %>
+                                                    <h5>ส่วนลดพิเศษ (<%= settings.customer_discount %>%) : </h5>
+                                                <% } %> </div>
+                                            <div class="col text-right text-danger">
+                                                <h5>฿<%= memberDis.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                            </div>
                                         </div>
                                     <% } %>
-                                    <div class="d-flex justify-content-between">
-                                        <h5>ยอดสุทธิ : </h5>
-                                        <h5>฿<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                    <div class="row">
+                                        <div class="col text-left">
+                                            <h5>ยอดสุทธิ : </h5>
+                                        </div>
+                                        <div class="col text-right text-success">
+                                            <h5>฿<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></h5>
+                                        </div>
                                     </div>
                                     
                                     <form class="needs-validation" novalidate action="/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order" method="post">
