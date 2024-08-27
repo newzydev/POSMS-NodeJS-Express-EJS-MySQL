@@ -7,17 +7,15 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const connectDB = require('./Config/db');
 const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth');
-const System_Settings = require('./Middlewares/setting');
-const os = require('./Middlewares/os');
+const SystemSettingsMiddleware = require('./Middlewares/setting');
+const osMiddleware = require('./Middlewares/os');
 const app = express();
 const port = 5000;
 const db = connectDB();
 global.db = db; 
 
-// app.use(express.json({ limit: '250mb' }));
-// app.use(express.urlencoded({ limit: '250mb', extended: true }));
-app.use(os);
-app.use(System_Settings);
+app.use(SystemSettingsMiddleware);
+app.use(osMiddleware);
 app.use(session({
     secret: 'ADMIN-DEV-POSMS',
     resave: false,
