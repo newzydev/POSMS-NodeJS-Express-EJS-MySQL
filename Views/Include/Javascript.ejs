@@ -99,4 +99,10 @@
             console.log('Caches API is not supported');
         }
     });
+
+    // เช็คว่า URL ไม่ใช่ localhost และแสดงข้อความแนะนำ
+    if (window.location.hostname !== 'localhost') {
+        alert('สำหรับการทดสอบ PWA โปรดเปิด Chrome ด้วย flag --unsafely-treat-insecure-origin-as-secure');
+        console.log('เพื่อให้การติดตั้ง PWA ทำงาน โปรดใช้ Chrome ด้วย flag --unsafely-treat-insecure-origin-as-secure');
+    }
 </script>
