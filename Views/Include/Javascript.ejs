@@ -58,18 +58,14 @@
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault(); // ป้องกันการแสดงแถบติดตั้งเริ่มต้น
         deferredPrompt = e; // เก็บเหตุการณ์เพื่อเรียกใช้งานภายหลัง
-    });
 
-    // แสดง prompt ให้ผู้ใช้ติดตั้ง PWA เมื่อคลิกปุ่มติดตั้ง
-    document.getElementById('install_posms_app_button').addEventListener('click', async (e) => {
-        e.preventDefault();
-        if (deferredPrompt) {
-            deferredPrompt.prompt(); // แสดง prompt
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
-            deferredPrompt = null; // รีเซ็ตค่า deferredPrompt
-        } else {
-            console.log('Cannot prompt install; deferredPrompt is not available');
+        // ตรวจสอบว่า hostname ไม่ใช่ localhost และเรียกใช้ prompt ติดตั้งอัตโนมัติ
+        if (window.location.hostname !== 'localhost') {
+            deferredPrompt.prompt(); // แสดง prompt ให้ติดตั้ง PWA ทันที
+            deferredPrompt.userChoice.then((choiceResult) => {
+                console.log(`User response to the install prompt: ${choiceResult.outcome}`);
+                deferredPrompt = null; // รีเซ็ตค่า deferredPrompt
+            });
         }
     });
 
@@ -99,10 +95,4 @@
             console.log('Caches API is not supported');
         }
     });
-
-    // เช็คว่า URL ไม่ใช่ localhost และแสดงข้อความแนะนำ
-    if (window.location.hostname !== 'localhost') {
-        alert('สำหรับการทดสอบ PWA โปรดเปิด Chrome ด้วย flag --unsafely-treat-insecure-origin-as-secure');
-        console.log('เพื่อให้การติดตั้ง PWA ทำงาน โปรดใช้ Chrome ด้วย flag --unsafely-treat-insecure-origin-as-secure');
-    }
 </script>
