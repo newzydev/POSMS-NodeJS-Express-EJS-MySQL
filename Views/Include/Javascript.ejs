@@ -43,27 +43,28 @@
 <script>
     let deferredPrompt;
 
+    // ลงทะเบียน Service Worker เมื่อโหลดหน้าเว็บ
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/service-worker.js').then((registration) => {
                 console.log('Service Worker registered with scope:', registration.scope);
-            }, (error) => {
+            }).catch((error) => {
                 console.log('Service Worker registration failed:', error);
             });
         });
     }
 
+    // จัดการเหตุการณ์ก่อนการติดตั้ง PWA
     window.addEventListener('beforeinstallprompt', (e) => {
-        // ป้องกันไม่ให้แสดงแถบติดตั้งเริ่มต้น
-        e.preventDefault();
-        // เก็บเหตุการณ์เพื่อเรียกใช้งานภายหลัง
-        deferredPrompt = e;
+        e.preventDefault(); // ป้องกันการแสดงแถบติดตั้งเริ่มต้น
+        deferredPrompt = e; // เก็บเหตุการณ์เพื่อเรียกใช้งานภายหลัง
     });
 
+    // แสดง prompt ให้ผู้ใช้ติดตั้ง PWA เมื่อคลิกปุ่มติดตั้ง
     document.getElementById('install_posms_app_button').addEventListener('click', async (e) => {
-        e.preventDefault(); // ป้องกันการทำงานปกติของลิงก์
+        e.preventDefault();
         if (deferredPrompt) {
-            deferredPrompt.prompt(); // แสดง prompt ให้ผู้ใช้ติดตั้งแอป
+            deferredPrompt.prompt(); // แสดง prompt
             const { outcome } = await deferredPrompt.userChoice;
             console.log(`User response to the install prompt: ${outcome}`);
             deferredPrompt = null; // รีเซ็ตค่า deferredPrompt
@@ -72,7 +73,30 @@
         }
     });
 
+    // แจ้งเตือนเมื่อแอปติดตั้งเสร็จสิ้น
     window.addEventListener('appinstalled', () => {
         console.log('PWA has been installed');
+    });
+
+    // จัดการการคลิกปุ่มล้างแคช
+    document.getElementById('clear_cache_button').addEventListener('click', () => {
+        if ('caches' in window) {
+            caches.keys().then((cacheNames) => {
+                return Promise.all(
+                    cacheNames.map((cacheName) => {
+                        return caches.delete(cacheName);
+                    })
+                );
+            }).then(() => {
+                if (navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
+                }
+                location.reload(); // รีโหลดหน้าเว็บ
+            }).catch((error) => {
+                console.error('Error clearing caches:', error);
+            });
+        } else {
+            console.log('Caches API is not supported');
+        }
     });
 </script>
