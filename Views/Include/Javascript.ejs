@@ -61,12 +61,27 @@
 
         // ตรวจสอบว่า hostname ไม่ใช่ localhost และเรียกใช้ prompt ติดตั้งอัตโนมัติ
         if (window.location.hostname !== 'localhost') {
-            deferredPrompt.prompt(); // แสดง prompt ให้ติดตั้ง PWA ทันที
+            promptInstallPWA();
+        }
+    });
+
+    // ฟังก์ชันติดตั้ง PWA อัตโนมัติหรือเมื่อคลิกปุ่ม
+    function promptInstallPWA() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt(); // แสดง prompt
             deferredPrompt.userChoice.then((choiceResult) => {
                 console.log(`User response to the install prompt: ${choiceResult.outcome}`);
                 deferredPrompt = null; // รีเซ็ตค่า deferredPrompt
             });
+        } else {
+            console.log('Cannot prompt install; deferredPrompt is not available');
         }
+    }
+
+    // เรียกใช้ฟังก์ชัน promptInstallPWA เมื่อผู้ใช้คลิกปุ่ม
+    document.getElementById('install_posms_app_button').addEventListener('click', (e) => {
+        e.preventDefault();
+        promptInstallPWA(); // เรียกใช้การติดตั้ง PWA เมื่อคลิกปุ่ม
     });
 
     // แจ้งเตือนเมื่อแอปติดตั้งเสร็จสิ้น
