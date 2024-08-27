@@ -1,6 +1,8 @@
+// ส่วนนี้คือการติดตั้ง (install) Service Worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('v1').then((cache) => {
+            // ทำการแคชไฟล์ที่ระบุในอาร์เรย์ เพื่อให้แอปสามารถทำงานออฟไลน์ได้
             return cache.addAll([
                 '/',
                 '/manifest.json',
@@ -23,43 +25,49 @@ self.addEventListener('install', (event) => {
             ]);
         })
     );
-    self.skipWaiting(); // บังคับให้ service worker ที่กำลังรอเปลี่ยนมาใช้งานทันที
+    self.skipWaiting(); // บังคับให้ Service Worker ที่ติดตั้งเสร็จแล้วเข้าสู่สถานะใช้งานทันที
 });
 
+// ส่วนนี้คือการเปิดใช้งาน (activate) Service Worker
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keyList) => {
+            // ลบแคชเก่าที่ยังเก็บไว้ เพื่อให้แคชที่ใช้เป็นเวอร์ชันล่าสุด
             return Promise.all(
                 keyList.map((key) => {
-                    if (key !== 'v1') {
+                    if (key !== 'v1') { // ลบแคชที่ไม่ใช่ 'v1'
                         return caches.delete(key);
                     }
                 })
             );
-        })
-    );
-    return self.clients.claim(); // รับการควบคุมของ client ทันที
-});
-
-self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        clients.claim().then(() => {
-            return clients.matchAll({ type: 'window' });
-        }).then((windowClients) => {
-            for (let client of windowClients) {
-                client.navigate(client.url); // รีโหลดหน้าเพื่อให้ service worker ใหม่ใช้งานได้ทันที
-            }
+        }).then(() => {
+            return clients.claim(); // รับการควบคุมจากทุกแท็บที่เปิดแอปอยู่ทันที
+        }).then(() => {
+            return clients.matchAll({ type: 'window' }).then((windowClients) => {
+                // รีโหลดทุกแท็บเพื่อให้ Service Worker ใหม่ทำงานได้ทันที
+                windowClients.forEach((client) => {
+                    client.navigate(client.url);
+                });
+            });
         })
     );
 });
 
+// ส่วนนี้คือการจัดการการร้องขอ (fetch) ข้อมูล
 self.addEventListener('fetch', (event) => {
     if (event.request.url.includes('/')) {
+        // หาก URL ที่ร้องขอมี '/' (เช่น หน้า login) จะไม่แคช แต่ดึงข้อมูลจากเซิร์ฟเวอร์โดยตรง
         event.respondWith(fetch(event.request));
     } else {
+        // แคชข้อมูลที่ร้องขอ ถ้าไม่พบในแคชก็จะดึงจากเซิร์ฟเวอร์แล้วเก็บไว้ในแคช
         event.respondWith(
             caches.match(event.request).then((response) => {
-                return response || fetch(event.request);
+                return response || fetch(event.request).then((fetchResponse) => {
+                    return caches.open('v1').then((cache) => {
+                        cache.put(event.request, fetchResponse.clone()); // เก็บไฟล์ที่ดึงมาล่าสุดลงแคช
+                        return fetchResponse;
+                    });
+                });
             })
         );
     }

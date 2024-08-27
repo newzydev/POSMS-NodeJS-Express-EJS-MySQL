@@ -5,7 +5,7 @@
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
-    "theme_color": "#333333",
+    "theme_color": "#fafafa",
     "icons": [
         {
             "src": "/icons/icon-192x192.png",
@@ -17,5 +17,8 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "prefer_related_applications": true,
+    "lang": "th",
+    "scope": "/"
 }
