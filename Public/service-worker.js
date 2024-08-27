@@ -1,7 +1,7 @@
 // Service Worker: ติดตั้ง (install) Service Worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('v2').then((cache) => {
+        caches.open('v3').then((cache) => {
             return cache.addAll([
                 '/',
                 '/manifest.json',
@@ -33,7 +33,7 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((keyList) => {
             return Promise.all(
                 keyList.map((key) => {
-                    if (key !== 'v2') {
+                    if (key !== 'v3') {
                         return caches.delete(key); // ลบแคชเก่าที่ไม่ใช่ 'v2'
                     }
                 })
