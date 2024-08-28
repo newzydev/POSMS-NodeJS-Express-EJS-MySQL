@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const QRCode = require('qrcode');
+const compression = require('compression');
+const minify = require('express-minify');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -11,15 +13,16 @@ const SystemSettingsMiddleware = require('./Middlewares/setting');
 const osMiddleware = require('./Middlewares/os');
 const app = express();
 
-const compression = require('compression');
-app.use(compression());
-
-const minify = require('express-minify');
-app.use(minify());
-
 const port = 5000;
 const db = connectDB();
 global.db = db; 
+
+app.use(compression());
+app.use(minify());
+app.use((req, res, next) => {
+    req.setTimeout(5000); // 5 seconds timeout for each request
+    next();
+});
 
 app.use(SystemSettingsMiddleware);
 app.use(osMiddleware);
