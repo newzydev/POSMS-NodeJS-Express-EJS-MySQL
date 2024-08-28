@@ -1,51 +1,52 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const QRCode = require('qrcode');
-const flash = require('connect-flash');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const connectDB = require('./Config/db');
-const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth');
-const SystemSettingsMiddleware = require('./Middlewares/setting');
-const osMiddleware = require('./Middlewares/os');
-const app = express();
+const express = require('express'); // นำเข้าโมดูล Express เพื่อใช้สร้างแอปพลิเคชันเว็บเซิร์ฟเวอร์
+const bodyParser = require('body-parser'); // นำเข้าโมดูล body-parser เพื่อแปลงข้อมูลใน request body เป็น JSON หรือรูปแบบอื่น ๆ
+const path = require('path'); // นำเข้าโมดูล path เพื่อจัดการเส้นทางของไฟล์และโฟลเดอร์ในระบบไฟล์
+const QRCode = require('qrcode'); // นำเข้าโมดูล qrcode เพื่อสร้าง QR Code จากข้อความที่กำหนด
+const flash = require('connect-flash'); // นำเข้าโมดูล connect-flash เพื่อใช้จัดการข้อความการแจ้งเตือน (flash messages)
+const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser เพื่อจัดการคุกกี้ใน request และ response
+const session = require('express-session'); // นำเข้าโมดูล express-session เพื่อจัดการ session ของผู้ใช้
+const connectDB = require('./Config/db'); // นำเข้าโมดูลที่ใช้เชื่อมต่อกับฐานข้อมูล
+const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('./Middlewares/auth'); // นำเข้า middleware สำหรับการยืนยันตัวตนและตรวจสอบสิทธิ์ของผู้ใช้
+const SystemSettingsMiddleware = require('./Middlewares/setting'); // นำเข้า middleware สำหรับดึงข้อมูลการตั้งค่าของระบบ
+const osMiddleware = require('./Middlewares/os'); // นำเข้า middleware สำหรับดึงข้อมูลเกี่ยวกับระบบปฏิบัติการ
+const app = express(); // สร้างแอปพลิเคชัน Express
 
-const port = 5000;
-const db = connectDB();
-global.db = db; 
+const port = 5000; // กำหนดหมายเลขพอร์ตที่แอปพลิเคชันจะฟังการเชื่อมต่อ
+const db = connectDB(); // เชื่อมต่อกับฐานข้อมูลและเก็บไว้ในตัวแปร db
+global.db = db; // กำหนดตัวแปร db ให้เป็น global เพื่อให้สามารถเข้าถึงได้จากทุกที่ในแอปพลิเคชัน
 
-app.use(SystemSettingsMiddleware);
-app.use(osMiddleware);
+app.use(SystemSettingsMiddleware); // ใช้ middleware ที่ดึงข้อมูลการตั้งค่าของระบบในทุก request
+app.use(osMiddleware); // ใช้ middleware ที่ดึงข้อมูลเกี่ยวกับระบบปฏิบัติการในทุก request
 app.use(session({
-    secret: 'ADMIN-DEV-POSMS',
-    resave: false,
-    saveUninitialized: false,
+    secret: 'ADMIN-DEV-POSMS', // กำหนดคีย์ลับสำหรับเข้ารหัสข้อมูล session
+    resave: false, // ไม่บันทึก session หากไม่มีการเปลี่ยนแปลงข้อมูล
+    saveUninitialized: false, // ไม่บันทึก session ที่ไม่ได้ถูกใช้งาน
     cookie: { 
-        name: 'SESSION_TOKEN',
-        secure: false
+        name: 'SESSION_TOKEN', // ตั้งชื่อคุกกี้สำหรับ session
+        secure: false // กำหนดให้คุกกี้ไม่จำเป็นต้องใช้งานบน HTTPS
     } 
 }));
-app.use(flash('ADMIN-DEV-POSMS'));
-app.use(cookieParser('ADMIN-DEV-POSMS'));
-app.set('port', process.env.port || port);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'Public')));
-app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
+app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
+app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
+app.set('port', process.env.port || port); // กำหนดหมายเลขพอร์ตให้แอปพลิเคชัน
+app.set('views', path.join(__dirname, 'views')); // กำหนดเส้นทางไปยังโฟลเดอร์ views ที่เก็บไฟล์ template
+app.set('view engine', 'ejs'); // กำหนดให้ใช้ EJS เป็น template engine
+app.use(bodyParser.urlencoded({ extended: false })); // แปลงข้อมูลจาก request body ที่มีรูปแบบ url-encoded ให้เป็น object
+app.use(bodyParser.json()); // แปลงข้อมูลจาก request body ที่เป็น JSON ให้เป็น object
+app.use(express.static(path.join(__dirname, 'Public'))); // กำหนดเส้นทางให้บริการไฟล์สาธารณะ (เช่น ไฟล์ CSS, JS) จากโฟลเดอร์ Public
+app.use('/assets', express.static(path.join(__dirname, 'Public/assets'))); // กำหนดเส้นทางเพิ่มเติมสำหรับไฟล์ในโฟลเดอร์ assets
+
 app.get('/qrcode-gen', (req, res) => {
-    const text = req.query.text;
-    if (!text) return res.status(400).send('Text query parameter is required');
-    
-    QRCode.toBuffer(text, (err, buffer) => {
+    const text = req.query.text; // ดึงค่าข้อความจาก query parameter 'text'
+    if (!text) return res.status(400).send('Text query parameter is required'); // ตรวจสอบว่ามีการส่งค่า text มาหรือไม่ ถ้าไม่ส่งให้ตอบกลับด้วยสถานะ 400
+
+    QRCode.toBuffer(text, (err, buffer) => { // สร้าง QR Code จากข้อความและแปลงเป็น buffer
         if (err) {
-            console.error(err);
-            return res.status(500).send('Error generating QR code');
+            console.error(err); // ถ้ามีข้อผิดพลาดในการสร้าง QR Code ให้แสดงข้อผิดพลาดใน console
+            return res.status(500).send('Error generating QR code'); // ตอบกลับด้วยสถานะ 500 และข้อความแจ้งข้อผิดพลาด
         }
-        res.setHeader('Content-Type', 'image/png');
-        res.send(buffer);
+        res.setHeader('Content-Type', 'image/png'); // กำหนด header ให้ส่งไฟล์ประเภท PNG
+        res.send(buffer); // ส่ง buffer ที่เป็น QR Code ให้กับ client
     });
 });
 
@@ -264,7 +265,7 @@ app.use((req, res) => {
     res.status(504).render('Error_Page/504', { title: 'Gateway Timeout | Point Of Sale Management System' });
 });
 
-// Start the Server
+// Start the Server - เริ่มเซิร์ฟเวอร์
 app.listen(port, () => {
     console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
 });
