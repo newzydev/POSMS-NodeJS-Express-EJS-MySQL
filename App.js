@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
 const QRCode = require('qrcode');
@@ -10,6 +12,12 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const SystemSettingsMiddleware = require('./Middlewares/setting');
 const osMiddleware = require('./Middlewares/os');
 const app = express();
+
+const options = {
+    key: fs.readFileSync('openSSL/private-key.pem'),
+    cert: fs.readFileSync('openSSL/certificate.pem')
+};
+
 const port = 5000;
 const db = connectDB();
 global.db = db; 
@@ -263,7 +271,12 @@ app.use((req, res) => {
     res.status(504).render('Error_Page/504', { title: 'Gateway Timeout | Point Of Sale Management System' });
 });
 
-// Start the Server
-app.listen(port, () => {
-    console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
+// // Start the Server
+// app.listen(port, () => {
+//     console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
+// });
+
+// เริ่มเซิร์ฟเวอร์ด้วย HTTPS
+https.createServer(options, app).listen(port, () => {
+    console.log(`Server running on port: ${port}\nHost Server Link: https://100.86.43.157:${port}`);
 });
