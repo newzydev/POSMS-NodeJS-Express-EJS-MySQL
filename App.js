@@ -1,6 +1,4 @@
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
 const QRCode = require('qrcode');
@@ -12,6 +10,12 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const SystemSettingsMiddleware = require('./Middlewares/setting');
 const osMiddleware = require('./Middlewares/os');
 const app = express();
+
+const compression = require('compression');
+app.use(compression());
+
+const minify = require('express-minify');
+app.use(minify());
 
 const port = 5000;
 const db = connectDB();
@@ -36,7 +40,10 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'Public')));
-app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
+// app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
+app.use('/assets', express.static(path.join(__dirname, 'Public/assets'), {
+    maxAge: '1d' // Cache static assets for 1 day
+}));
 app.get('/qrcode-gen', (req, res) => {
     const text = req.query.text;
     if (!text) return res.status(400).send('Text query parameter is required');
