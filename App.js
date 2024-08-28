@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const QRCode = require('qrcode');
-const compression = require('compression');
-const minify = require('express-minify');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -16,13 +14,6 @@ const app = express();
 const port = 5000;
 const db = connectDB();
 global.db = db; 
-
-app.use(compression());
-app.use(minify());
-app.use((req, res, next) => {
-    req.setTimeout(5000); // 5 seconds timeout for each request
-    next();
-});
 
 app.use(SystemSettingsMiddleware);
 app.use(osMiddleware);
@@ -43,10 +34,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'Public')));
-// app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
-app.use('/assets', express.static(path.join(__dirname, 'Public/assets'), {
-    maxAge: '1d' // Cache static assets for 1 day
-}));
+app.use('/assets', express.static(path.join(__dirname, 'Public/assets')));
 app.get('/qrcode-gen', (req, res) => {
     const text = req.query.text;
     if (!text) return res.status(400).send('Text query parameter is required');
@@ -276,7 +264,7 @@ app.use((req, res) => {
     res.status(504).render('Error_Page/504', { title: 'Gateway Timeout | Point Of Sale Management System' });
 });
 
-// // Start the Server
+// Start the Server
 app.listen(port, () => {
     console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
 });
