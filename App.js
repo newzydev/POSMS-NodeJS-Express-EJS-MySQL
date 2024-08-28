@@ -272,11 +272,11 @@ app.use((req, res) => {
 });
 
 // // Start the Server
-// app.listen(port, () => {
-//     console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
-// });
+app.listen(port, () => {
+    console.log(`Server running on port: ${port}\nHost Server Link: http://localhost:${port}`);
+});
 
 // เริ่มเซิร์ฟเวอร์ด้วย HTTPS
-https.createServer(options, app).listen(port, () => {
-    console.log(`Server running on port: ${port}\nHost Server Link: https://100.86.43.157:${port}`);
-});
+// https.createServer(options, app).listen(port, () => {
+//     console.log(`Server running on port: ${port}\nHost Server Link: https://100.86.43.157:${port}`);
+// });
