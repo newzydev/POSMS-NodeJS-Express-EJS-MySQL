@@ -47,6 +47,91 @@
         
                         <div class="col-12">
                             <div class="card">
+                                <div class="card-header">เวลาจดจำการลงชื่อเข้าใช้</div>
+                                <div class="card-body">
+
+                                    <% if (settings_form_3_error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_3_error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (settings_form_3_success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_3_success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="login_time_out" class="col-sm-2 col-form-label required">จดจำการลงชื่อเข้าใช้ :</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control form-control-lg login_time_out mb-2" name="login_time_out" id="login_time_out" required>
+                                                    <option value="3h">เวลา 3 ชั่วโมง</option>
+                                                    <option value="6h">เวลา 6 ชั่วโมง</option>
+                                                    <option value="9h">เวลา 9 ชั่วโมง</option>
+                                                    <option value="12h">เวลา 12 ชั่วโมง</option>
+                                                    <option value="24h">เวลา 24 ชั่วโมง</option>
+                                                    <option value="7d">เวลา 7 วัน</option>
+                                                    <option value="30d">เวลา 30 วัน</option>
+                                                </select>
+                                                <span class="text-muted">(กรุณาออกจากระบบ แล้วลงชื่อเข้าสู่ระใหม่อีกครั้ง เพื่อให้การเปลี่ยนแปลงนี้มีผล)</span>
+                                                <div class="valid-feedback">
+                                                    เลือกเลือกเวลาการจดจำถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณาเลือกเลือกเวลาการจดจำให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const Map_Iframe_Api_Input = document.getElementById('map_iframe_api');
+                                    
+                                            function updateSettings() {
+                                                const Map_Iframe_Api = Map_Iframe_Api_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        map_iframe_api: Map_Iframe_Api,
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Map_Iframe_Api_Input.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
+                                            Map_Iframe_Api_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
                                 <div class="card-header">ส่วนข้อมูลร้านค้า</div>
                                 <div class="card-body">
 
