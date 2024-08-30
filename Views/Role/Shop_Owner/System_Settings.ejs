@@ -50,14 +50,14 @@
                                 <div class="card-header">เวลาจดจำการลงชื่อเข้าใช้</div>
                                 <div class="card-body">
 
-                                    <% if (settings_form_3_error) { %>
+                                    <% if (settings_form_0_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_3_error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_0_error %>
                                     </div>
                                     <% } %>
-                                    <% if (settings_form_3_success) { %>
+                                    <% if (settings_form_0_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_3_success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_0_success %>
                                     </div>
                                     <% } %>
 
@@ -66,13 +66,17 @@
                                             <label for="login_time_out" class="col-sm-2 col-form-label required">จดจำการลงชื่อเข้าใช้ :</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control form-control-lg login_time_out mb-2" name="login_time_out" id="login_time_out" required>
-                                                    <option value="3h">เวลา 3 ชั่วโมง</option>
-                                                    <option value="6h">เวลา 6 ชั่วโมง</option>
-                                                    <option value="9h">เวลา 9 ชั่วโมง</option>
-                                                    <option value="12h">เวลา 12 ชั่วโมง</option>
-                                                    <option value="24h">เวลา 24 ชั่วโมง</option>
-                                                    <option value="7d">เวลา 7 วัน</option>
-                                                    <option value="30d">เวลา 30 วัน</option>
+                                                    <option <%= settings.login_time_out === '3h' ? 'selected' : '' %> value="3h">เวลา 3 ชั่วโมง</option>
+                                                    <option <%= settings.login_time_out === '6h' ? 'selected' : '' %> value="6h">เวลา 6 ชั่วโมง</option>
+                                                    <option <%= settings.login_time_out === '9h' ? 'selected' : '' %> value="9h">เวลา 9 ชั่วโมง</option>
+                                                    <option <%= settings.login_time_out === '12h' ? 'selected' : '' %> value="12h">เวลา 12 ชั่วโมง</option>
+                                                    <option <%= settings.login_time_out === '24h' ? 'selected' : '' %> value="24h">เวลา 24 ชั่วโมง</option>
+                                                    <option <%= settings.login_time_out === '7d' ? 'selected' : '' %> value="7d">เวลา 7 วัน (แนะนำ)</option>
+                                                    <option <%= settings.login_time_out === '30d' ? 'selected' : '' %> value="30d">เวลา 30 วัน</option>
+                                                    <option <%= settings.login_time_out === '3m' ? 'selected' : '' %> value="3m">เวลา 3 เดือน</option>
+                                                    <option <%= settings.login_time_out === '6m' ? 'selected' : '' %> value="6m">เวลา 6 เดือน</option>
+                                                    <option <%= settings.login_time_out === '9m' ? 'selected' : '' %> value="9m">เวลา 9 เดือน</option>
+                                                    <option <%= settings.login_time_out === '1y' ? 'selected' : '' %> value="1y">เวลา 1 ปี</option>
                                                 </select>
                                                 <span class="text-muted">(กรุณาออกจากระบบ แล้วลงชื่อเข้าสู่ระใหม่อีกครั้ง เพื่อให้การเปลี่ยนแปลงนี้มีผล)</span>
                                                 <div class="valid-feedback">
@@ -84,21 +88,21 @@
                                             </div>
                                         </div>
                                     </form>
-                                    <!-- <script>
+                                    <script>
                                         document.addEventListener('DOMContentLoaded', () => {
-                                            const Map_Iframe_Api_Input = document.getElementById('map_iframe_api');
+                                            const Login_Time_Out_Select = document.getElementById('login_time_out');
                                     
                                             function updateSettings() {
-                                                const Map_Iframe_Api = Map_Iframe_Api_Input.value;
+                                                const Login_Time_Out = Login_Time_Out_Select.value;
                                     
-                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', {
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_0', {
                                                     method: 'POST',
                                                     headers: {
                                                         'Content-Type': 'application/json',
                                                         'X-Requested-With': 'XMLHttpRequest'
                                                     },
                                                     body: JSON.stringify({
-                                                        map_iframe_api: Map_Iframe_Api,
+                                                        login_time_out: Login_Time_Out,
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -121,12 +125,12 @@
                                             }
 
                                             // ป้องกันการกดปุ่ม Enter
-                                            Map_Iframe_Api_Input.addEventListener('keydown', preventEnterKey);
+                                            Login_Time_Out_Select.addEventListener('keydown', preventEnterKey);
 
                                             // ใช้ change event เพื่อ update
-                                            Map_Iframe_Api_Input.addEventListener('change', updateSettings);
+                                            Login_Time_Out_Select.addEventListener('change', updateSettings);
                                         });
-                                    </script> -->
+                                    </script>
                                 </div>
                             </div>
                         </div>

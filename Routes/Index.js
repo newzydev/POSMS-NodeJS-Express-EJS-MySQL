@@ -33,6 +33,7 @@ exports.getLoginPage = (req, res) => {
 // ฟังก์ชันสำหรับการดำเนินการหลังจาก login
 exports.postLogin = (req, res) => {
     const { username, password } = req.body;
+    const settings = res.locals.settings;
 
     // Set Date and Time Login
     const now = new Date();
@@ -81,13 +82,52 @@ exports.postLogin = (req, res) => {
                 return res.redirect('/');
             }
 
-            const max_age_cookie = 30 * 24 * 60 * 60 * 1000; // 30 วัน
+            let max_age_cookie;
+            switch (settings.login_time_out) {
+                case "3h":
+                    max_age_cookie = 3 * 60 * 60 * 1000; // 3 ชั่วโมง
+                    break;
+                case "6h":
+                    max_age_cookie = 6 * 60 * 60 * 1000; // 6 ชั่วโมง
+                    break;
+                case "9h":
+                    max_age_cookie = 9 * 60 * 60 * 1000; // 9 ชั่วโมง
+                    break;
+                case "12h":
+                    max_age_cookie = 12 * 60 * 60 * 1000; // 12 ชั่วโมง
+                    break;
+                case "24h":
+                    max_age_cookie = 24 * 60 * 60 * 1000; // 24 ชั่วโมง
+                    break;
+                case "7d":
+                    max_age_cookie = 7 * 24 * 60 * 60 * 1000; // 7 วัน (แนะนำ)
+                    break;
+                case "30d":
+                    max_age_cookie = 30 * 24 * 60 * 60 * 1000; // 30 วัน
+                    break;
+                case "3m":
+                    max_age_cookie = 3 * 30 * 24 * 60 * 60 * 1000; // 3 เดือน
+                    break;
+                case "6m":
+                    max_age_cookie = 6 * 30 * 24 * 60 * 60 * 1000; // 6 เดือน
+                    break;
+                case "9m":
+                    max_age_cookie = 9 * 30 * 24 * 60 * 60 * 1000; // 9 เดือน
+                    break;
+                case "1y":
+                    max_age_cookie = 12 * 30 * 24 * 60 * 60 * 1000; // 1 ปี
+                    break;
+                default:
+                    max_age_cookie = 7 * 24 * 60 * 60 * 1000; // 7 วัน (แนะนำ)
+            }
+
             res.cookie('MEMBER_TOKEN', user.member_id, { 
                 maxAge: max_age_cookie, 
                 httpOnly: true, // ป้องกันการเข้าถึงจาก JavaScript
                 path: '/', // ใช้ได้ทั่วทั้งไซต์
                 signed: true // ลงชื่อ cookie
             });
+
             res.cookie('ROLE_TOKEN', user.role_id, { 
                 maxAge: max_age_cookie, 
                 httpOnly: true, // ป้องกันการเข้าถึงจาก JavaScript

@@ -2,6 +2,8 @@ exports.getSystemSettingPage = (req, res) => {
     const title = 'System Settings | Point Of Sale Management System';
     const your_page = 'System_Settings';
 
+    const settings_form_0_error = req.flash('settings_form_0_error');
+    const settings_form_0_success = req.flash('settings_form_0_success');
     const settings_form_1_error = req.flash('settings_form_1_error');
     const settings_form_1_success = req.flash('settings_form_1_success');
     const settings_form_2_error = req.flash('settings_form_2_error');
@@ -23,6 +25,8 @@ exports.getSystemSettingPage = (req, res) => {
         res.render('Role/Shop_Owner/System_Settings', { 
             title, 
             your_page,
+            settings_form_0_error: settings_form_0_error[0],
+            settings_form_0_success: settings_form_0_success[0],
             settings_form_1_error: settings_form_1_error[0],
             settings_form_1_success: settings_form_1_success[0],
             settings_form_2_error: settings_form_2_error[0],
@@ -35,6 +39,24 @@ exports.getSystemSettingPage = (req, res) => {
             settings_form_5_success: settings_form_5_success[0],
             settings
         });
+    });
+};
+
+exports.postUpdateSettingsForm0 = (req, res) => {
+    const { login_time_out } = req.body;
+
+    const query = `
+        UPDATE Systen_Settings
+        SET login_time_out = ?`;
+
+    db.query(query, [login_time_out], (err) => {
+        if (err) {
+            req.flash('settings_form_0_error', 'เกิดข้อผิดพลาดในการแก้ไขเวลาจดจำลงชื่อเข้าใช้');
+            return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขเวลาจดจำลงชื่อเข้าใช้ได้' });
+        } 
+
+        req.flash('settings_form_0_success', 'แก้ไขเวลาจดจำลงชื่อเข้าใช้สำเร็จ');
+        res.json({ success: true, message: 'แก้ไขเวลาจดจำลงชื่อเข้าใช้สำเร็จ' });
     });
 };
 

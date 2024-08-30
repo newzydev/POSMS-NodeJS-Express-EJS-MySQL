@@ -18,6 +18,48 @@
 
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">เวลาจดจำการลงชื่อเข้าใช้</div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label align-self-center">จดจำการลงชื่อเข้าใช้ :</label>
+                                    <div class="col-sm-10">
+                                        <div class="list-group">
+                                            <div class="list-group-item">
+                                                <% if (settings.login_time_out === "3h") { %>
+                                                    จดจำเป็นเวลา 3 ชั่วโมง
+                                                <% } else if (settings.login_time_out === "6h") { %>
+                                                    จดจำเป็นเวลา 6 ชั่วโมง
+                                                <% } else if (settings.login_time_out === "9h") { %>
+                                                    จดจำเป็นเวลา 9 ชั่วโมง
+                                                <% } else if (settings.login_time_out === "12h") { %>
+                                                    จดจำเป็นเวลา 12 ชั่วโมง
+                                                <% } else if (settings.login_time_out === "24h") { %>
+                                                    จดจำเป็นเวลา 24 ชั่วโมง
+                                                <% } else if (settings.login_time_out === "7d") { %>
+                                                    จดจำเป็นเวลา 7 วัน
+                                                <% } else if (settings.login_time_out === "30d") { %>
+                                                    จดจำเป็นเวลา 30 วัน
+                                                <% } else if (settings.login_time_out === "3m") { %>
+                                                    จดจำเป็นเวลา 3 เดือน
+                                                <% } else if (settings.login_time_out === "6m") { %>
+                                                    จดจำเป็นเวลา 6 เดือน
+                                                <% } else if (settings.login_time_out === "9m") { %>
+                                                    จดจำเป็นเวลา 9 เดือน
+                                                <% } else if (settings.login_time_out === "1y") { %>
+                                                    จดจำเป็นเวลา 1 ปี
+                                                <% } else { %>
+                                                    N/A
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
                             <div class="card-header">ร้านค้า</div>
                             <div class="card-body">
                                 <div class="form-group row">
@@ -25,7 +67,11 @@
                                     <div class="col-sm-10">
                                         <div class="list-group">
                                             <div class="list-group-item">
-                                                <%= settings.store_name %>
+                                                <% if (settings.store_name) { %>
+                                                    <%= settings.store_name %>
+                                                <% } else { %>
+                                                    N/A
+                                                <% } %>
                                             </div>
                                         </div>
                                     </div>
