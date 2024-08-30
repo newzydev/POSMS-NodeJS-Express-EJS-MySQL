@@ -1,0 +1,44 @@
+{
+  "name": "fileupload",
+  "description": "Route middleware for handling file uploads in Express",
+  "version": "1.0.0",
+  "author": "Dom Harrington <dom@harrington-mail.com>",
+  "contributors": [
+    "Dom Harrington <dom@harrington-mail.com>"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "dependencies": {
+    "async": "~0.2",
+    "mime": "~1.2",
+    "lodash": "~1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.8",
+    "fermata": "~0.9",
+    "express": "~3.1",
+    "temp": "~0.5.0",
+    "jshint": "~2.3.0",
+    "istanbul": "~0.2.1"
+  },
+  "keywords": [
+    "fileupload",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/domharrington/fileupload.git"
+  },
+  "main": "index",
+  "scripts": {
+    "lint": "./node_modules/.bin/jshint .",
+    "pretest": "npm run-script lint",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha test/*test.js",
+    "posttest": "./node_modules/.bin/istanbul check-coverage && rm -rf coverage",
+    "prepublish": "npm test && npm prune"
+  },
+  "engines": {
+    "node": ">= 0.4.6 < 0.10.22"
+  }
+}

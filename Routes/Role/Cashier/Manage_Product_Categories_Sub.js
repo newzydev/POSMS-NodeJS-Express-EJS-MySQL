@@ -1,5 +1,5 @@
-exports.getManageProductCategoriesPage = (req, res) => {
-    const title = 'Manage Product Categories | Point Of Sale Management System';
+exports.getManageProductCategoriesSubPage = (req, res) => {
+    const title = 'Manage Product Categories Sub | Point Of Sale Management System';
     const your_page = 'Manage_Product_Categories';
     const error = req.flash('error');
     const success = req.flash('success');
@@ -49,7 +49,7 @@ exports.getManageProductCategoriesPage = (req, res) => {
                 if (err) {
                     res.redirect('/');
                 } else {
-                    res.render('Role/Cashier/Manage_Product_Categories', {
+                    res.render('Role/Cashier/Manage_Product_Categories_Sub', {
                         title, 
                         your_page,
                         error: error[0], 
