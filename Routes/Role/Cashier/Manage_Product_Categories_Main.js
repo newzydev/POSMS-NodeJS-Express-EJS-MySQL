@@ -4,39 +4,35 @@ exports.getManageProductCategoriesMainPage = (req, res) => {
     const error = req.flash('error');
     const success = req.flash('success');
     const page = parseInt(req.query.page) || 1;
-    const limit = 5;
+    const limit = 12;
     const offset = (page - 1) * limit;
     const search = req.query.search || '';
 
     const countQuery = `
         SELECT COUNT(*) as total
-        FROM Categories
+        FROM Categories_Main
         WHERE 
-            cat_id LIKE ? 
-            OR cat_name_main LIKE ? 
-            OR cat_name_sub LIKE ?
+            cat_main_id LIKE ? 
+            OR cat_main_name LIKE ?
     `;
 
     const dataQuery = `
         SELECT 
-            cat_id, 
-            cat_name_main,
-            cat_name_sub
+            cat_main_id, 
+            cat_main_name
         FROM 
-            Categories 
+            Categories_Main 
         WHERE
-            cat_id LIKE ?
-            OR cat_name_main LIKE ?
-            OR cat_name_sub LIKE ?
+            cat_main_id LIKE ?
+            OR cat_main_name LIKE ?
         ORDER BY 
-            cat_name_main ASC,
             time_order DESC
         LIMIT ? OFFSET ?
     `;
 
     const searchQuery = `%${search}%`;
 
-    db.query(countQuery, [searchQuery, searchQuery, searchQuery], (err, countResult) => {
+    db.query(countQuery, [searchQuery, searchQuery], (err, countResult) => {
         if (err) {
             console.error('Error executing data query:', err);
             res.redirect('/');
@@ -45,7 +41,7 @@ exports.getManageProductCategoriesMainPage = (req, res) => {
             const totalRecords = countResult[0].total;
             const totalPages = Math.ceil(totalRecords / limit);
 
-            db.query(dataQuery, [searchQuery, searchQuery, searchQuery, limit, offset], (err, result) => {
+            db.query(dataQuery, [searchQuery, searchQuery, limit, offset], (err, result) => {
                 if (err) {
                     res.redirect('/');
                 } else {
@@ -54,7 +50,7 @@ exports.getManageProductCategoriesMainPage = (req, res) => {
                         your_page,
                         error: error[0], 
                         success: success[0],
-                        product_cats: result,
+                        product_cats_main: result,
                         currentPage: page,
                         totalRecords,
                         totalPages,

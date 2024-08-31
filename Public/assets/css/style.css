@@ -166,6 +166,12 @@ select {
   text-overflow: ellipsis !important;
 }
 
+.txt-cut {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 .list-group {
   border-radius: 0.5rem !important;
 }
