@@ -88,7 +88,7 @@ const { getDeletePaymentMethodPage } = require('./Routes/Role/Shop_Owner/Delete_
 const { getSaleReportsPage } = require('./Routes/Role/Shop_Owner/Sale_Reports');
 const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order_Receipt');
 // System Settings Page
-const { getSystemSettingPage, postUpdateSettingsForm0, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5 } = require('./Routes/Role/Shop_Owner/System_Settings');
+const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5 } = require('./Routes/Role/Shop_Owner/System_Settings');
 
 // ==================================================
 // Role Cashier
@@ -106,12 +106,12 @@ const { getProductPrintLabelPage } = require('./Routes/Role/Cashier/Print_Produc
 const { getProductPrintLabelCustomPage } = require('./Routes/Role/Cashier/Print_Product_Label_Custom');
 const { getProductPrintReportPage } = require('./Routes/Role/Cashier/Print_Product_Report');
 // Manage Product Categories Page
-const { getManageProductCategoriesMainPage } = require('./Routes/Role/Cashier/Manage_Product_Categories_Main');
-const { getManageProductCategoriesSubPage } = require('./Routes/Role/Cashier/Manage_Product_Categories_Sub');
-const { getAddMainProductCategoriePage, postAddMainProductCategorie } = require('./Routes/Role/Cashier/Add_Main_Product_Categorie');
+const { getManageProductCategoriesPage } = require('./Routes/Role/Cashier/Manage_Product_Categories');
+const { getAddProductCategoriePage, postAddProductCategorie } = require('./Routes/Role/Cashier/Add_Product_Categorie');
 const { getViewProductCategoriePage } = require('./Routes/Role/Cashier/View_Product_Categorie');
 const { getEditProductCategoriePage, postEditProductCategorie } = require('./Routes/Role/Cashier/Edit_Product_Categorie');
 const { getDeleteProductCategoriePage } = require('./Routes/Role/Cashier/Delete_Product_Categorie');
+// const { getProductCategoriePrintReportPage } = require('./Routes/Role/Cashier/Print_Product_Categories_Report');
 // Make a Trading Transaction Page
 const { getMakeaTradingTransactionPage, postAddProductCart, updateProductQuantity, getDeleteProductCartPage, postAddOrder } = require('./Routes/Role/Cashier/Make_a_Trading_Transaction');
 // Make a Payment Transaction Page
@@ -179,7 +179,6 @@ app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
 // System Settings Page
 app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
-app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_0', authenticateUser(db), checkRole001, postUpdateSettingsForm0);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', authenticateUser(db), checkRole001, postUpdateSettingsForm1);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_2', authenticateUser(db), checkRole001, postUpdateSettingsForm2);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', authenticateUser(db), checkRole001, postUpdateSettingsForm3);
@@ -205,14 +204,14 @@ app.get('/Role/Cashier/Page/Manage_Products/Print/Label', authenticateUser(db), 
 app.get('/Role/Cashier/Page/Manage_Products/Print/Label/Custom/:product_id', authenticateUser(db), checkRole002, getProductPrintLabelCustomPage);
 app.get('/Role/Cashier/Page/Manage_Products/Print/Report', authenticateUser(db), checkRole002, getProductPrintReportPage);
 // Manage Product Categories Page
-app.get('/Role/Cashier/Page/Manage_Product_Categories_Main', authenticateUser(db), checkRole002, getManageProductCategoriesMainPage);
-app.get('/Role/Cashier/Page/Manage_Product_Categories_Sub', authenticateUser(db), checkRole002, getManageProductCategoriesSubPage);
-app.get('/Role/Cashier/Page/Manage_Product_Categories_Main/Add_Main_Product_Categorie', authenticateUser(db), checkRole002, getAddMainProductCategoriePage);
-app.post('/Role/Cashier/Page/Manage_Product_Categories_Main/Add_Main_Product_Categorie', authenticateUser(db), checkRole002, postAddMainProductCategorie);
+app.get('/Role/Cashier/Page/Manage_Product_Categories', authenticateUser(db), checkRole002, getManageProductCategoriesPage);
+app.get('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie', authenticateUser(db), checkRole002, getAddProductCategoriePage);
+app.post('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie', authenticateUser(db), checkRole002, postAddProductCategorie);
 app.get('/Role/Cashier/Page/Manage_Product_Categories/View/:cat_id', authenticateUser(db), checkRole002, getViewProductCategoriePage);
 app.get('/Role/Cashier/Page/Manage_Product_Categories/Edit/:cat_id', authenticateUser(db), checkRole002, getEditProductCategoriePage);
 app.post('/Role/Cashier/Page/Manage_Product_Categories/Edit/:cat_id', authenticateUser(db), checkRole002, postEditProductCategorie);
 app.get('/Role/Cashier/Page/Manage_Product_Categories/Delete/:cat_id', authenticateUser(db), checkRole002, getDeleteProductCategoriePage);
+// app.get('/Role/Cashier/Page/Manage_Product_Categories/Print/Report', authenticateUser(db), checkRole002, getProductCategoriePrintReportPage);
 // Make a Trading Transaction Page
 app.get('/Role/Cashier/Page/Make_a_Trading_Transaction', authenticateUser(db), checkRole002, getMakeaTradingTransactionPage);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart', authenticateUser(db), checkRole002, postAddProductCart);
