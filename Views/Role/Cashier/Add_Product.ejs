@@ -95,22 +95,57 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="cat_id" class="col-sm-2 col-form-label required">หมวดหมู่สินค้า</label>
+                                            <label for="cat_name_main" class="col-sm-2 col-form-label required">หมวดหมู่สินค้าหลัก</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control form-control-lg form-control form-control-lg-lg" name="cat_id" id="cat_id" required>
-                                                    <option value="" selected disabled>เลือกหมวดหมู่สินค้า</option>
-                                                    <% product_cats.forEach((product_cat) => { %>
-                                                        <option value="<%= product_cat.cat_id %>">(<%= product_cat.cat_name_main %>) : <%= product_cat.cat_name_sub %></option>
+                                                <select class="form-control form-control-lg" name="cat_name_main" id="cat_name_main" required>
+                                                    <option value="" selected disabled>เลือกหมวดหมู่สินค้าหลัก</option>
+                                                    <% product_cats_main.forEach((product_cat_main) => { %>
+                                                        <option value="<%= product_cat_main.cat_name_main %>"><%= product_cat_main.cat_name_main %></option>
                                                     <% }) %>
                                                 </select>
+                                                <div class="valid-feedback">เลือกหมวดหมู่สินค้าหลักถูกต้อง</div>
+                                                <div class="invalid-feedback">กรุณาเลือกหมวดหมู่สินค้าหลักให้ถูกต้อง</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="cat_name_sub" class="col-sm-2 col-form-label required">หมวดหมู่สินค้าย่อย</label>
+                                            <div class="col-sm-10">
+                                                <select class="form-control form-control-lg" name="cat_id" id="cat_name_sub" required>
+                                                    <option value="" selected disabled>เลือกหมวดหมู่สินค้าย่อย</option>
+                                                </select>
                                                 <div class="valid-feedback">
-                                                    เลือกหมวดหมู่สินค้าถูกต้อง
+                                                    เลือกหมวดหมู่สินค้าย่อยถูกต้อง
                                                 </div>
                                                 <div class="invalid-feedback">
-                                                    กรุณาเลือกหมวดหมู่สินค้าให้ถูกต้อง
+                                                    กรุณาเลือกหมวดหมู่สินค้าย่อยให้ถูกต้อง
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        <script>
+                                            document.getElementById('cat_name_main').addEventListener('change', function() {
+                                                const mainCategory = this.value;
+                                                const subCategorySelect = document.getElementById('cat_name_sub');
+                                                subCategorySelect.innerHTML = '<option value="" selected disabled>Loading...</option>';
+                                        
+                                                fetch(`/Get_sub_Categories/${mainCategory}`)
+                                                    .then(response => response.json())
+                                                    .then(data => {
+                                                        subCategorySelect.innerHTML = '<option value="" selected disabled>เลือกหมวดหมู่สินค้าย่อย</option>';
+                                                        data.forEach(subCategory => {
+                                                            const option = document.createElement('option');
+                                                            option.value = subCategory.cat_id;
+                                                            option.textContent = subCategory.cat_name_sub;
+                                                            subCategorySelect.appendChild(option);
+                                                        });
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error fetching subcategories:', error);
+                                                        subCategorySelect.innerHTML = '<option value="" selected disabled>หมวดหมู่สินค้าย่อยไม่พร้อมใช้งาน</option>';
+                                                    });
+                                            });
+                                        </script>
+                                        
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <div class="row">

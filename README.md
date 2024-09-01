@@ -1,4 +1,4 @@
-<h1 align="center">POSMS WEB APP & MOBILE APP</h1>
+<h1 align="center">Point Of Sale Management System</h1>
 
 <h3 align="center">Develop with language :</h2>
 <p align="center">

@@ -5,31 +5,39 @@ exports.getAddProductPage = (req, res) => {
     const formData = req.flash('formData')[0] || {};
     const success = req.flash('success');
 
-    const dataQuery = `
-        SELECT 
-            cat_id, 
-            cat_name_main,
-            cat_name_sub
-        FROM 
-            Categories 
-        ORDER BY 
-            cat_name_main ASC, time_order DESC
+    const dataQuery1 = `
+        SELECT DISTINCT cat_name_main
+        FROM categories
+        ORDER BY cat_name_main ASC;
     `;
 
+    db.query(dataQuery1, (err, result) => {
+        if (err) throw err;
 
-    db.query(dataQuery, (err, result) => {
-        if (err) {
-            res.redirect('/Role/Cashier/Page/Manage_Products');
-        } else {
-            res.render('Role/Cashier/Add_Product', { 
-                title, 
-                your_page,
-                error: error[0], 
-                formData, 
-                success: success[0],
-                product_cats: result
-            });
-        }
+        res.render('Role/Cashier/Add_Product', { 
+            title, 
+            your_page,
+            error: error[0], 
+            formData, 
+            success: success[0],
+            product_cats_main: result,
+            product_cats_sub: [] // เริ่มต้นด้วย array ว่างสำหรับหมวดหมู่ย่อย
+        });
+    });
+};
+
+// Endpoint สำหรับดึงหมวดหมู่ย่อย
+exports.getSubCategories = (req, res) => {
+    const mainCategory = req.params.mainCategory;
+    const dataQuery2 = `
+        SELECT cat_id, cat_name_sub
+        FROM categories
+        WHERE cat_name_main = ?
+        ORDER BY cat_name_sub ASC;
+    `;
+    db.query(dataQuery2, [mainCategory], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database query error' });
+        res.json(result);
     });
 };
 

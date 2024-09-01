@@ -98,7 +98,7 @@ const { getCashierProfilePage, postCashierChangeProfile } = require('./Routes/Ro
 const { postCashierChangePassword } = require('./Routes/Role/Cashier/Profile');
 // Manage Products Page
 const { getManageProductsPage } = require('./Routes/Role/Cashier/Manage_Products');
-const { getAddProductPage, postAddProduct } = require('./Routes/Role/Cashier/Add_Product');
+const { getAddProductPage, getSubCategories, postAddProduct } = require('./Routes/Role/Cashier/Add_Product');
 const { getViewProductPage } = require('./Routes/Role/Cashier/View_Product');
 const { getEditProductPage, postEditProduct } = require('./Routes/Role/Cashier/Edit_Product');
 const { getDeleteProductPage } = require('./Routes/Role/Cashier/Delete_Product');
@@ -195,6 +195,7 @@ app.post('/Role/Cashier/Page/Profile/ChangePassword', authenticateUser(db), chec
 // Manage Products Page
 app.get('/Role/Cashier/Page/Manage_Products', authenticateUser(db), checkRole002, getManageProductsPage);
 app.get('/Role/Cashier/Page/Manage_Products/Add_Product', authenticateUser(db), checkRole002, getAddProductPage);
+app.get('/Get_sub_Categories/:mainCategory', authenticateUser(db), checkRole002, getSubCategories);
 app.post('/Role/Cashier/Page/Manage_Products/Add_Product', authenticateUser(db), checkRole002, postAddProduct);
 app.get('/Role/Cashier/Page/Manage_Products/View/:product_id', authenticateUser(db), checkRole002, getViewProductPage);
 app.get('/Role/Cashier/Page/Manage_Products/Edit/:product_id', authenticateUser(db), checkRole002, getEditProductPage);
