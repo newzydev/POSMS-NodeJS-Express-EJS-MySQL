@@ -145,7 +145,7 @@
                                                             </td>
                                                             <td class="text-middle"><%= product.cat_name_main %><br><span class="text-success">หมวดหลัก</span></td>
                                                             <td class="text-middle"><%= product.cat_name_sub %><br><span class="text-success">หมวดย่อย</span></td>
-                                                            <td class="text-middle"><%= product.product_name %><br><span class="text-success">สินค้า</span></td>
+                                                            <td class="text-middle"><%= product.product_name %> (ราคา x<%= product.product_unit_number %> หน่วย)<br><span class="text-success">สินค้า</span></td>
                                                             <td class="text-middle">฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">ราคา</span></td>
                                                             <td class="text-middle">x<%= product.product_unit_number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %><br><span class="text-success">หน่วย</span></td>
                                                             <td class="text-middle text-center">

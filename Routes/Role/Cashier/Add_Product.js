@@ -62,7 +62,7 @@ exports.postAddProduct = (req, res) => {
     }
 
     // Query SQL
-    const query = 'INSERT INTO Products (Product_id, cat_id, product_name, product_price, product_unit_number) VALUES (?, ?, ?, ?)';
+    const query = 'INSERT INTO Products (Product_id, cat_id, product_name, product_price, product_unit_number) VALUES (?, ?, ?, ?, ?)';
     
     db.query(query, [Product_id, cat_id, product_name, product_price, product_unit_number], (err, result) => {
         if (err) {
