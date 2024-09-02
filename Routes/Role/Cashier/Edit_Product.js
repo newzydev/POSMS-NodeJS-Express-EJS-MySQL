@@ -5,25 +5,21 @@ exports.getEditProductPage = (req, res) => {
     const success = req.flash('success');
     const product_id = req.params.product_id;
 
-    const dataQueryCats = `
-        SELECT 
-            cat_id, 
-            cat_name_main,
-            cat_name_sub
-        FROM 
-            Categories 
-        ORDER BY 
-            cat_name_main ASC, time_order DESC
+    const dataQuery1 = `
+        SELECT DISTINCT cat_name_main
+        FROM categories
+        ORDER BY cat_name_main ASC;
     `;
 
     const dataQuery = `
-        SELECT * FROM 
-        Products 
-        WHERE product_id = ?
+        SELECT Products.*, Categories.cat_name_main, Categories.cat_name_sub
+        FROM Products
+        INNER JOIN Categories ON Products.cat_id = Categories.cat_id
+        WHERE Products.product_id = ?
     `;
 
     // Query categories
-    db.query(dataQueryCats, (err, resultCats) => {
+    db.query(dataQuery1, (err, resultCats) => {
         if (err) {
             res.redirect('/Role/Cashier/Page/Manage_Products');
         } else {
@@ -37,7 +33,8 @@ exports.getEditProductPage = (req, res) => {
                         your_page,
                         error: error[0],
                         success: success[0],
-                        product_cats: resultCats,
+                        product_cats_main: resultCats,
+                        product_cats_sub: [], // เริ่มต้นด้วย array ว่างสำหรับหมวดหมู่ย่อย
                         product: resultProduct
                     });
                 }
@@ -46,12 +43,27 @@ exports.getEditProductPage = (req, res) => {
     });
 };
 
+// Endpoint สำหรับดึงหมวดหมู่ย่อย
+exports.getSubCategories = (req, res) => {
+    const mainCategory = req.params.mainCategory;
+    const dataQuery2 = `
+        SELECT cat_id, cat_name_sub
+        FROM categories
+        WHERE cat_name_main = ?
+        ORDER BY cat_name_sub ASC;
+    `;
+    db.query(dataQuery2, [mainCategory], (err, result) => {
+        if (err) return res.status(500).json({ error: 'Database query error' });
+        res.json(result);
+    });
+};
+
 exports.postEditProduct = (req, res) => {
     const product_id = req.params.product_id;
-    const { cat_id, product_name, product_price } = req.body;
-    const query = 'UPDATE Products SET cat_id = ?, product_name = ?, product_price = ? WHERE product_id = ?';
+    const { cat_id, product_name, product_price, product_unit_number } = req.body;
+    const query = 'UPDATE Products SET cat_id = ?, product_name = ?, product_price = ?, product_unit_number = ? WHERE product_id = ?';
     
-    db.query(query, [cat_id, product_name, product_price, product_id], (err, result) => {
+    db.query(query, [cat_id, product_name, product_price, product_unit_number, product_id], (err, result) => {
         if (err) {
             req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขสินค้า');
             res.redirect('/Role/Cashier/Page/Manage_Products/Edit_Product/Edit/' + product_id);

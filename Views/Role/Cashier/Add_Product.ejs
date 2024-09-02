@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="product_price" class="col-sm-2 col-form-label required">ราคาสินค้า</label>
+                                            <label for="product_price" class="col-sm-2 col-form-label required">ราคาสินค้า (รวมหน่วย)</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control form-control-lg form-control form-control-lg-lg" name="product_price" id="product_price" placeholder="0.00" value="<%= formData ? formData.product_price : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
@@ -91,6 +91,18 @@
                                                 </div>
                                                 <div class="invalid-feedback">
                                                     กรุณากรอกราคาสินค้าให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="product_unit_number" class="col-sm-2 col-form-label required">จำนวนหน่วยสินค้า (x1)</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg form-control form-control-lg-lg" name="product_unit_number" id="product_unit_number" placeholder="จำนวนหน่วยสินค้า (x1)" value="<%= formData ? formData.product_unit_number : '' %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกจำนวนหน่วยสินค้าถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกจำนวนหน่วยสินค้าให้ถูกต้อง
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +140,7 @@
                                                 const subCategorySelect = document.getElementById('cat_name_sub');
                                                 subCategorySelect.innerHTML = '<option value="" selected disabled>Loading...</option>';
                                         
-                                                fetch(`/Get_sub_Categories/${mainCategory}`)
+                                                fetch(`/Role/Cashier/Page/Manage_Products/Add_Product/Get_Sub_Categories/${mainCategory}`)
                                                     .then(response => response.json())
                                                     .then(data => {
                                                         subCategorySelect.innerHTML = '<option value="" selected disabled>เลือกหมวดหมู่สินค้าย่อย</option>';

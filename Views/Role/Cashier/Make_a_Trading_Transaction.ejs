@@ -118,7 +118,7 @@
                                                     <tr>
                                                         <th class="text-middle text-center"><%= index + 1 %></th>
                                                         <td class="text-middle"><%= cart.product_id %></td>
-                                                        <td class="text-middle"><%= cart.product_name %></td>
+                                                        <td class="text-middle"><%= cart.product_name %> ราคา x<%= cart.product_unit_number %> หน่วย</td>
                                                         <td class="text-middle">
                                                             <input type="hidden" name="cart_id" value="<%= cart.cart_id %>">
                                                             <input type="text" class="form-control form-control-sm text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
@@ -249,7 +249,7 @@
                                         
                                         <!-- Insert to table Order_Product_Lists -->
                                         <% carts.forEach((cart, index) => { %>
-                                        <input type="hidden" name="product_name[]" value="<%= cart.product_name %>">
+                                        <input type="hidden" name="product_name[]" value="<%= cart.product_name %> ราคา x<%= cart.product_unit_number %> หน่วย">
                                         <input type="hidden" name="cart_product_qty[]" value="<%= cart.cart_product_qty %>">
                                         <input type="hidden" name="product_price[]" value="<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
                                         <% }) %>

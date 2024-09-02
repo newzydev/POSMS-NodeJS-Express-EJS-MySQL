@@ -24,6 +24,7 @@ exports.getManageProductsPage = (req, res) => {
             Products.product_id, 
             Products.product_name, 
             Products.product_price,
+            Products.product_unit_number,
             Categories.cat_id, 
             Categories.cat_name_main, 
             Categories.cat_name_sub 

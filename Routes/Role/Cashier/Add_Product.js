@@ -43,11 +43,11 @@ exports.getSubCategories = (req, res) => {
 
 exports.postAddProduct = (req, res) => {
     // Get variables
-    let { Product_id, cat_id, product_name, product_price } = req.body;
+    let { Product_id, cat_id, product_name, product_price, product_unit_number } = req.body;
 
     if (!cat_id || !product_name || !product_price) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { Product_id, cat_id, product_name, product_price });
+        req.flash('formData', { Product_id, cat_id, product_name, product_price, product_unit_number });
         return res.redirect('/Role/Cashier/Page/Manage_Products/Add_Product');
     }
     
@@ -62,9 +62,9 @@ exports.postAddProduct = (req, res) => {
     }
 
     // Query SQL
-    const query = 'INSERT INTO Products (Product_id, cat_id, product_name, product_price) VALUES (?, ?, ?, ?)';
+    const query = 'INSERT INTO Products (Product_id, cat_id, product_name, product_price, product_unit_number) VALUES (?, ?, ?, ?)';
     
-    db.query(query, [Product_id, cat_id, product_name, product_price], (err, result) => {
+    db.query(query, [Product_id, cat_id, product_name, product_price, product_unit_number], (err, result) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในเพิ่มสินค้า');

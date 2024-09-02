@@ -34,6 +34,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
             Products.product_id,
             Products.product_name,
             Products.product_price,
+            Products.product_unit_number,
             Cart_Orders.cart_product_qty,
             Cart_Orders.time_order
         FROM 
