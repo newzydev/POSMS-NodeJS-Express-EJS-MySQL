@@ -23,18 +23,10 @@ exports.getShopOwnerDashbordPage = (req, res) => {
     `;
 
     // Query for top 12 products
-    // const topProductsQuery = `
-    //     SELECT product_name, SUM(cart_product_qty) AS total_qty
-    //     FROM Order_Product_Lists
-    //     GROUP BY product_name
-    //     ORDER BY total_qty DESC
-    //     LIMIT 12;
-    // `;
     const topProductsQuery = `
-        SELECT p.product_name, SUM(opl.cart_product_qty) AS total_qty, p.product_price
-        FROM Order_Product_Lists opl
-        JOIN Products p ON opl.product_name = p.product_name
-        GROUP BY p.product_name, p.product_price
+        SELECT product_name, SUM(cart_product_qty) AS total_qty
+        FROM Order_Product_Lists
+        GROUP BY product_name
         ORDER BY total_qty DESC
         LIMIT 12;
     `;

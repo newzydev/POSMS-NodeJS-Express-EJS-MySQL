@@ -252,6 +252,8 @@
                                         <input type="hidden" name="product_name[]" value="<%= cart.product_name %> ราคา x<%= cart.product_unit_number %> หน่วย">
                                         <input type="hidden" name="cart_product_qty[]" value="<%= cart.cart_product_qty %>">
                                         <input type="hidden" name="product_price[]" value="<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <input type="hidden" name="cat_name_main[]" value="<%= cart.cat_name_main %>">
+                                        <input type="hidden" name="cat_name_sub[]" value="<%= cart.cat_name_sub %>">
                                         <% }) %>
                                         <!-- Insert to table Order_Product_Lists End -->
                                         

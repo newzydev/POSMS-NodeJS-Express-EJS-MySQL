@@ -31,10 +31,13 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
             Cart_Orders.cashier_id,
             Users.member_firstname,
             Users.member_lastname,
-            Products.product_id,
-            Products.product_name,
-            Products.product_price,
-            Products.product_unit_number,
+            p.product_id,
+            p.product_name,
+            p.product_price,
+            p.product_unit_number,
+            Categories.cat_id,
+            Categories.cat_name_main,
+            Categories.cat_name_sub,
             Cart_Orders.cart_product_qty,
             Cart_Orders.time_order
         FROM 
@@ -42,7 +45,9 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
         INNER JOIN 
             Users ON Cart_Orders.cashier_id = Users.member_id
         INNER JOIN 
-            Products ON Cart_Orders.product_id = Products.product_id
+            Products p ON Cart_Orders.product_id = p.product_id
+        INNER JOIN 
+            Categories ON p.cat_id = Categories.cat_id
         WHERE 
             Cart_Orders.cashier_id = ?
         ORDER BY 
@@ -218,7 +223,9 @@ exports.postAddOrder = (req, res) => {
         change_money,
         'product_name[]': productNames,
         'cart_product_qty[]': cartProductQtys,
-        'product_price[]': productPrices
+        'product_price[]': productPrices,
+        'cat_name_main[]': catNameMains,
+        'cat_name_sub[]': catNameSubs
     } = req.body;
 
     // สร้าง Order ID
@@ -269,6 +276,8 @@ exports.postAddOrder = (req, res) => {
     let productNamesArray = parseArray(productNames);
     let cartProductQtysArray = parseArray(cartProductQtys).map(Number);
     let productPricesArray = parseArray(productPrices).map(Number);
+    let catNameMainsArray = parseArray(catNameMains);
+    let catNameSubsArray = parseArray(catNameSubs);
 
     // ตรวจสอบการไม่ตรงกันของความยาว
     if (productNamesArray.length !== cartProductQtysArray.length || productNamesArray.length !== productPricesArray.length) {
@@ -297,7 +306,7 @@ exports.postAddOrder = (req, res) => {
         // แทรก Order_Product_Lists
         if (productNamesArray.length > 0) {
             const productListQuery = `
-                INSERT INTO Order_Product_Lists (order_id, product_name, cart_product_qty, product_price) 
+                INSERT INTO Order_Product_Lists (order_id, product_name, cart_product_qty, product_price, cat_name_main, cat_name_sub) 
                 VALUES ?
             `;
             
@@ -305,7 +314,9 @@ exports.postAddOrder = (req, res) => {
                 order_id,
                 name,
                 cartProductQtysArray[index],
-                productPricesArray[index]
+                productPricesArray[index],
+                catNameMainsArray[index],
+                catNameSubsArray[index]
             ]);
             
             db.query(productListQuery, [productListValues], (err) => {
