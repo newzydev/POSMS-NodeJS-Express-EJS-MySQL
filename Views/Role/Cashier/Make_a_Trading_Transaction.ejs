@@ -112,20 +112,23 @@
                                             </thead>
                                             <tbody>
                                                 <% if (carts.length === 0) { %>
-                                                    <td class="text-center" colspan="6">ไม่มีสินค้าในตะกร้า</td>
+                                                    <td class="col-12 text-center" colspan="6">ไม่มีสินค้าในตะกร้า</td>
                                                 <% } else { %>
                                                     <% carts.forEach((cart, index) => { %>
                                                     <tr>
                                                         <th class="text-middle text-center"><%= index + 1 %></th>
                                                         <td class="text-middle"><%= cart.product_id %></td>
-                                                        <td class="text-middle"><%= cart.product_name %> ราคา x<%= cart.product_unit_number %> หน่วย</td>
+                                                        <td class="text-middle" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;">
+                                                            <b><%= cart.product_name %> ราคา x<%= cart.product_unit_number %> หน่วย</b><br>
+                                                            <span class="text-muted"><%= cart.cat_name_main %>, <%= cart.cat_name_sub %></span>
+                                                        </td>
                                                         <td class="text-middle">
                                                             <input type="hidden" name="cart_id" value="<%= cart.cart_id %>">
-                                                            <input type="text" class="form-control form-control-sm text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
+                                                            <input type="text" class="form-control form-control-md text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
                                                         </td>
                                                         <td class="text-middle text-right">฿<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                         <td class="text-middle text-center">
-                                                            <div class="btn btn-custom-two btn-sm" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
+                                                            <div class="btn btn-custom-two btn-md" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
