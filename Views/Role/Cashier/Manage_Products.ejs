@@ -63,30 +63,30 @@
                                             <div class="form-row">
                                                 
                                                 <!-- ส่วนแผงควบคุม -->
-                                                <div class="col-md-4 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 mb-3">
                                                     <div class="btn-group btn-group-radius btn-block">
                                                         <div class="btn btn-secondary btn-lg txt_cut" onclick="location.href='/Role/Cashier/Page/Manage_Products/Print/Label';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์ฉลากสินค้า</div>
                                                         <div class="btn btn-secondary btn-lg txt_cut" onclick="location.href='/Role/Cashier/Page/Manage_Products/Print/Report';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์รายงานสินค้า</div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mb-3">
                                                     <div class="btn-group btn-group-radius btn-block">
                                                         <div class="btn btn-success btn-lg txt_cut" onclick="location.href='/Role/Cashier/Page/Manage_Products/Add_Product';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มสินค้า</div>
                                                     </div>
                                                 </div>
                                                 <% if (search) { %>
-                                                <div class="col-md-2 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mb-3">
                                                     <div class="btn-group btn-group-radius btn-block">
                                                         <div class="btn btn-info btn-lg txt_cut" onclick="location.href='/Role/Cashier/Page/Manage_Products';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
                                                     </div>
                                                 </div>
                                                 <% } else { %>
-                                                <div class="col-md-2"></div>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2"></div>
                                                 <% } %>
                                                 <!-- ส่วนแผงควบคุม -->
 
                                                 <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
-                                                <div class="col-md-1 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mb-3">
                                                     <div class="btn-group btn-group-radius btn-block">
                                                         <div class="btn btn-outline-secondary btn-lg active"><i class="fas fa-th-list"></i></div>
                                                         <div class="btn btn-outline-secondary btn-lg"><i class="fas fa-th"></i></div>
@@ -95,7 +95,7 @@
                                                 <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
 
                                                 <!-- ส้วนค้นหาข้อมูล -->
-                                                <div class="col-md-2 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-2 mb-3">
                                                     <input type="text" class="form-control form-control-lg input-anti input-search" name="search" placeholder="รหัสสินค้า, สินค้า, หมวดหมู่" required autocomplete="off" autofocus value="<%= search %>">
                                                     <div class="valid-feedback">
                                                         กรอกข้อมูลค้นหาถูกต้อง
@@ -104,7 +104,7 @@
                                                         กรุณากรอกข้อมูลค้นหาให้ถูกต้อง
                                                     </div>
                                                 </div>
-                                                <div class="col-md-1 mb-3">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-1 mb-3">
                                                     <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>
                                                 </div>
                                                 <!-- ส้วนค้นหาข้อมูล -->
@@ -145,7 +145,7 @@
                                                             </td>
                                                             <td class="text-middle"><%= product.cat_name_main %><br><span class="text-success">หมวดหลัก</span></td>
                                                             <td class="text-middle"><%= product.cat_name_sub %><br><span class="text-success">หมวดย่อย</span></td>
-                                                            <td class="text-middle"><%= product.product_name %> (ราคา x<%= product.product_unit_number %> หน่วย)<br><span class="text-success">สินค้า</span></td>
+                                                            <td class="text-middle"><%= product.product_name %> ราคา x<%= product.product_unit_number %> หน่วย<br><span class="text-success">สินค้า</span></td>
                                                             <td class="text-middle">฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">ราคา</span></td>
                                                             <td class="text-middle">x<%= product.product_unit_number.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %><br><span class="text-success">หน่วย</span></td>
                                                             <td class="text-middle text-center">

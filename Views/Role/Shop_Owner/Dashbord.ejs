@@ -145,13 +145,13 @@
                         </div>
                         
                         <div class="col-lg-3 col-md-6 col-sm-12">
-                            <div class="small-box bg-light">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
-                                    <h3>แดชบอร์ด</h3>
-                                    <p class="m-0" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">ข้อมูลรายงานสรุป<br>ข้อมูล ณ วันที่ <span id="date-info-8"></span></p>
+                                    <h3><span><%= (dashQuery8Re || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) %></span><sup style="font-size: 20px" class="ml-2">รายการ</sup></h3>
+                                    <p class="m-0" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">หมวดหมู่ย่อยทั้งหมด<br>ข้อมูล ณ วันที่ <span id="date-info-7"></span></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-chart-pie"></i>
+                                    <i class="far fa-folder-open"></i>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +160,46 @@
                         <!-- Row 3 -->
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <div class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ</div>
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม ประจำปี</b>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart1" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ</b>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
+                                        <canvas id="myChart2" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row 3 End -->
+                        
+                        <!-- Row 4 -->
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="card">
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดหมวดหมู่สินค้าหลักยอดนิยม 12 รายการ</b>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -178,7 +217,7 @@
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <div class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม ประจำปี</div>
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดหมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ</b>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -194,12 +233,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Row 3 End -->
+                        <!-- Row 5 End -->
 
-                        <!-- Row 4 -->
+                        <!-- Row 5 -->
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <div class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด</div>
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดบัญชีพนักงาน และ ลูกค้าทั้งหมด</b>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -210,14 +249,14 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart1" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart5" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <div class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดรูปแบบชำเงินยอดนิยม</div>
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดรูปแบบชำเงินยอดนิยม</b>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -228,12 +267,12 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart2" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart6" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Row 4 End -->
+                        <!-- Row 5 End -->
                         
                     </div>
                 </div>
@@ -253,9 +292,180 @@
     <%- include('../../Include/Javascript.ejs') %>
     <script>
         // Chart 1
-        const ctx1 = document.getElementById('myChart1');
-
+        const ctx1 = document.getElementById('myChart1').getContext('2d');
+    
         new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: JSON.parse('<%- monthlyLabels || "N/A" %>'),
+                datasets: [{
+                    label: ' ยอดขายรายเดือนประจำปี ',
+                    data: JSON.parse('<%- monthlyData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'รายงานแสดงยอดขายสินค้ารายเดือน มกราคม - ธันวาคม',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงานยอดขายสินค้ารายเดือน',
+                    }
+                }
+            }
+        });
+        // Chart 1 End
+    </script>
+    <script>
+        // Chart 2
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+    
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: JSON.parse('<%- topProductLabels || "N/A" %>'),
+                datasets: [{
+                    label: ' สินค้ายอดนิยม ',
+                    data: JSON.parse('<%- topProductData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
+                    }
+                }
+            }
+        });
+        // Chart 2 End
+    </script>
+    <script>
+        // Chart 3
+        const ctx3 = document.getElementById('myChart3').getContext('2d');
+    
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: JSON.parse('<%- topCatMainProductLabels || "N/A" %>'),
+                datasets: [{
+                    label: ' หมวดหมู่สินค้าหลักยอดนิยม ',
+                    data: JSON.parse('<%- topCatMainProductData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'กราฟรายงานแสดงหมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงาน หมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                    }
+                }
+            }
+        });
+        // Chart 3 End
+    </script>
+    <script>
+        // Chart 4
+        const ctx4 = document.getElementById('myChart4').getContext('2d');
+    
+        new Chart(ctx4, {
+            type: 'bar',
+            data: {
+                labels: JSON.parse('<%- topCatSubProductLabels || "N/A" %>'),
+                datasets: [{
+                    label: ' หมวดหมู่สินค้าย่อยยอดนิยม ',
+                    data: JSON.parse('<%- topCatSubProductData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'กราฟรายงานแสดงหมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'รายงาน หมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                    }
+                }
+            }
+        });
+        // Chart 4 End
+    </script>
+    <script>
+        // Chart 5
+        const ctx5 = document.getElementById('myChart5');
+
+        new Chart(ctx5, {
             type: 'pie',
             data: {
                 labels: ['เจ้าของร้าน', 'พนักงาน', 'ลูกค้า'],
@@ -285,19 +495,19 @@
                 }
             }
         });
-        // Chart 1 End
+        // Chart 5 End
     </script>
     <script>
-        // Chart 2
-        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        // Chart 6
+        const ctx6 = document.getElementById('myChart6').getContext('2d');
     
-        new Chart(ctx2, {
+        new Chart(ctx6, {
             type: 'pie',
             data: {
                 labels: ['เงินสด', 'บัญชีธนาคาร', 'พร้อมเพย์'],
                 datasets: [{
                     label: ' รูปแบบชำเงินยอดนิยม ',
-                    data: <%- paymentData %>,
+                    data: JSON.parse('<%- paymentData %>'),
                     borderWidth: 2,
                     borderColor: ['#ffffff', '#ffffff', '#ffffff'],
                     backgroundColor: ['#ff6384', '#36A2EB', '#ff9020'],
@@ -321,105 +531,8 @@
                 }
             }
         });
-        // Chart 2 End
+        // Chart 6 End
     </script>
-        <script>
-            // Chart 3
-            const ctx3 = document.getElementById('myChart3').getContext('2d');
-        
-            new Chart(ctx3, {
-                type: 'bar',
-                data: {
-                    labels: <%- topProductLabels %>,
-                    datasets: [{
-                        label: ' สินค้ายอดนิยม ',
-                        data: <%- topProductData %>,
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            beginAtZero: true
-                        },
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
-                        },
-                        subtitle: {
-                            display: true,
-                            text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
-                        }
-                    }
-                }
-            });
-
-            // Adjust the canvas height based on the chart content
-            function adjustCanvasHeight() {
-                const canvas = document.getElementById('myChart4');
-                const chartArea = myChart.chartArea;
-                if (chartArea) {
-                    canvas.style.height = `${chartArea.bottom - chartArea.top}px`;
-                }
-            }
-
-            // Call this function to adjust height after rendering
-            myChart.options.animation.onComplete = adjustCanvasHeight;
-            // Chart 3 End
-        </script>        
-        <script>
-            // Chart 4
-            const ctx4 = document.getElementById('myChart4').getContext('2d');
-        
-            new Chart(ctx4, {
-                type: 'bar',
-                data: {
-                    labels: <%- monthlyLabels %>,
-                    datasets: [{
-                        label: ' ยอดขายรายเดือนประจำปี ',
-                        data: <%- monthlyData %>,
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
-                },
-                options: {
-                    responsive: true,
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            beginAtZero: true
-                        },
-                        y: {
-                            beginAtZero: true
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'รายงานแสดงยอดขายสินค้ารายเดือน มกราคม - ธันวาคม',
-                        },
-                        subtitle: {
-                            display: true,
-                            text: 'รายงานยอดขายสินค้ารายเดือน',
-                        }
-                    }
-                }
-            });
-            // Chart 4 End
-        </script>          
-    <!-- Javascript End -->
+<!-- Javascript End -->
 </body>
 </html>
