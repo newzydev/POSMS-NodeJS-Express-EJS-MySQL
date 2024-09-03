@@ -160,7 +160,7 @@
                         <!-- Row 3 -->
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="card">
-                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม ประจำปี</b>
+                                <b class="card-header" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis">กราฟรายงานแสดงยอดขายสินค้าประจำเดือน มกราคม - ธันวาคม</b>
                                 <div class="card-body">
                                     <div class="chart">
                                         <div class="chartjs-size-monitor">
@@ -171,7 +171,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart1" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart1" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart2" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart2" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart3" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart3" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart4" style="min-height: 500px; height: 400px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart4" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%; display: block; width: 470px;" width="470" height="1000" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +249,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart5" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart5" style="min-height: 343px; height: 343px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="343" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
                                                 <div class=""></div>
                                             </div>
                                         </div>
-                                        <canvas id="myChart6" style="min-height: 343px; height: 400px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="400" class="chartjs-render-monitor"></canvas>
+                                        <canvas id="myChart6" style="min-height: 343px; height: 343px; max-height: 343px; max-width: 100%; display: block; width: 470px;" width="470" height="343" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -291,175 +291,251 @@
     <!-- Javascript -->
     <%- include('../../Include/Javascript.ejs') %>
     <script>
-        // Chart 1
-        const ctx1 = document.getElementById('myChart1').getContext('2d');
-    
-        new Chart(ctx1, {
-            type: 'bar',
-            data: {
-                labels: JSON.parse('<%- monthlyLabels || "N/A" %>'),
-                datasets: [{
-                    label: ' ยอดขายรายเดือนประจำปี ',
-                    data: JSON.parse('<%- monthlyData || 0 %>'),
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true
+        $(document).ready(function () {
+            const now = new Date();
+            const dataset_year_option = {
+                timeZone: 'Asia/Bangkok',
+                year: 'numeric'
+            };
+            const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
+            const dataset_year_now = parseInt(formatted_dataset_year) + 543;
+            const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
+            
+            // Chart 1
+            const ctx1 = document.getElementById('myChart1').getContext('2d');
+        
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('<%- monthlyLabels || "N/A" %>'),
+                    datasets: [{
+                        label: ` ${dataset_year_old} `,
+                        data: JSON.parse('<%- monthlyData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#9BD0F5',
+                        backgroundColor: '#36A2EB',
+                        hidden: true
                     },
-                    y: {
-                        beginAtZero: true
-                    }
+                    {
+                        label: ` ${dataset_year_now} `,
+                        data: JSON.parse('<%- monthlyData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'รายงานแสดงยอดขายสินค้ารายเดือน มกราคม - ธันวาคม',
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงานยอดขายสินค้ารายเดือน',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'รายงานแสดงยอดขายสินค้ารายเดือน มกราคม - ธันวาคม',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงานยอดขายสินค้ารายเดือน',
+                        }
                     }
                 }
-            }
+            });
         });
         // Chart 1 End
     </script>
     <script>
-        // Chart 2
-        const ctx2 = document.getElementById('myChart2').getContext('2d');
-    
-        new Chart(ctx2, {
-            type: 'bar',
-            data: {
-                labels: JSON.parse('<%- topProductLabels || "N/A" %>'),
-                datasets: [{
-                    label: ' สินค้ายอดนิยม ',
-                    data: JSON.parse('<%- topProductData || 0 %>'),
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true
+        $(document).ready(function () {
+            const now = new Date();
+            const dataset_year_option = {
+                timeZone: 'Asia/Bangkok',
+                year: 'numeric'
+            };
+            const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
+            const dataset_year_now = parseInt(formatted_dataset_year) + 543;
+            const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
+            
+            // Chart 2
+            const ctx2 = document.getElementById('myChart2').getContext('2d');
+        
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('<%- topProductsOldQueryLabels || "[]" %>').concat(JSON.parse('<%- topProductPresentLabels || "[]" %>')),
+                    datasets: [{
+                        label: ` ${dataset_year_old} `,
+                        data: JSON.parse('<%- topProductsOldQueryData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#9BD0F5',
+                        backgroundColor: '#36A2EB',
+                        hidden: true
                     },
-                    y: {
-                        beginAtZero: true
-                    }
+                    {
+                        label: ` ${dataset_year_now} `,
+                        data: JSON.parse('<%- topProductPresentData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'กราฟรายงานแสดงยอดสินค้ายอดนิยม 12 รายการ',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
+                        }
                     }
                 }
-            }
+            });
+            // Chart 2 End
         });
-        // Chart 2 End
     </script>
     <script>
-        // Chart 3
-        const ctx3 = document.getElementById('myChart3').getContext('2d');
-    
-        new Chart(ctx3, {
-            type: 'bar',
-            data: {
-                labels: JSON.parse('<%- topCatMainProductLabels || "N/A" %>'),
-                datasets: [{
-                    label: ' หมวดหมู่สินค้าหลักยอดนิยม ',
-                    data: JSON.parse('<%- topCatMainProductData || 0 %>'),
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true
+        $(document).ready(function () {
+            const now = new Date();
+            const dataset_year_option = {
+                timeZone: 'Asia/Bangkok',
+                year: 'numeric'
+            };
+            const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
+            const dataset_year_now = parseInt(formatted_dataset_year) + 543;
+            const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
+            
+            // Chart 3
+            const ctx3 = document.getElementById('myChart3').getContext('2d');
+        
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('<%- topCatMainProductLabels || "N/A" %>'),
+                    datasets: [{
+                        label: ` ${dataset_year_old} `,
+                        data: JSON.parse('<%- topCatMainProductData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#9BD0F5',
+                        backgroundColor: '#36A2EB',
+                        hidden: true
                     },
-                    y: {
-                        beginAtZero: true
-                    }
+                    {
+                        label: ` ${dataset_year_now} `,
+                        data: JSON.parse('<%- topCatMainProductData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'กราฟรายงานแสดงหมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงาน หมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'กราฟรายงานแสดงหมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงาน หมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
+                        }
                     }
                 }
-            }
+            });
+            // Chart 3 End
         });
-        // Chart 3 End
     </script>
     <script>
-        // Chart 4
-        const ctx4 = document.getElementById('myChart4').getContext('2d');
-    
-        new Chart(ctx4, {
-            type: 'bar',
-            data: {
-                labels: JSON.parse('<%- topCatSubProductLabels || "N/A" %>'),
-                datasets: [{
-                    label: ' หมวดหมู่สินค้าย่อยยอดนิยม ',
-                    data: JSON.parse('<%- topCatSubProductData || 0 %>'),
-                    borderWidth: 2,
-                    borderColor: '#36A2EB',
-                    backgroundColor: '#9BD0F5',
-                    hidden: false
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true
+        $(document).ready(function () {
+            const now = new Date();
+            const dataset_year_option = {
+                timeZone: 'Asia/Bangkok',
+                year: 'numeric'
+            };
+            const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
+            const dataset_year_now = parseInt(formatted_dataset_year) + 543;
+            const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
+            
+            // Chart 4
+            const ctx4 = document.getElementById('myChart4').getContext('2d');
+        
+            new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: JSON.parse('<%- topCatSubProductLabels || "N/A" %>'),
+                    datasets: [{
+                        label: ` ${dataset_year_old} `,
+                        data: JSON.parse('<%- topCatSubProductData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#9BD0F5',
+                        backgroundColor: '#36A2EB',
+                        hidden: true
                     },
-                    y: {
-                        beginAtZero: true
-                    }
+                    {
+                        label: ` ${dataset_year_now} `,
+                        data: JSON.parse('<%- topCatSubProductData || 0 %>'),
+                        borderWidth: 2,
+                        borderColor: '#36A2EB',
+                        backgroundColor: '#9BD0F5',
+                        hidden: false
+                    }],
                 },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'กราฟรายงานแสดงหมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     },
-                    subtitle: {
-                        display: true,
-                        text: 'รายงาน หมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'กราฟรายงานแสดงหมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                        },
+                        subtitle: {
+                            display: true,
+                            text: 'รายงาน หมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
+                        }
                     }
                 }
-            }
+            });
+            // Chart 4 End
         });
-        // Chart 4 End
     </script>
     <script>
         // Chart 5
