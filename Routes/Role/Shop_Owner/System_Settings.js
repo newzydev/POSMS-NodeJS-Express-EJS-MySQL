@@ -14,6 +14,8 @@ exports.getSystemSettingPage = (req, res) => {
     const settings_form_4_success = req.flash('settings_form_4_success');
     const settings_form_5_error = req.flash('settings_form_5_error');
     const settings_form_5_success = req.flash('settings_form_5_success');
+    const settings_form_6_error = req.flash('settings_form_6_error');
+    const settings_form_6_success = req.flash('settings_form_6_success');
 
     // Query to retrieve system settings from the database
     const query = 'SELECT * FROM Systen_Settings';
@@ -37,6 +39,8 @@ exports.getSystemSettingPage = (req, res) => {
             settings_form_4_success: settings_form_4_success[0],
             settings_form_5_error: settings_form_5_error[0],
             settings_form_5_success: settings_form_5_success[0],
+            settings_form_6_error: settings_form_6_error[0],
+            settings_form_6_success: settings_form_6_success[0],
             settings
         });
     });
@@ -162,5 +166,23 @@ exports.postUpdateSettingsForm5 = (req, res) => {
 
         req.flash('settings_form_5_success', 'แก้ไข นโยบายความเป็นส่วนตัว หรือ ข้อกำหนดและเงื่อนไข หรือ นโยบายการใช้คุกกี้ สำเร็จ');
         res.json({ success: true, message: 'แก้ไข นโยบายความเป็นส่วนตัว หรือ ข้อกำหนดและเงื่อนไข หรือ นโยบายการใช้คุกกี้ สำเร็จ' });
+    });
+};
+
+exports.postUpdateSettingsForm6 = (req, res) => {
+    const { text_footer } = req.body;
+
+    const query = `
+        UPDATE Systen_Settings
+        SET text_footer = ?`;
+
+    db.query(query, [text_footer], (err) => {
+        if (err) {
+            req.flash('settings_form_6_error', 'เกิดข้อผิดพลาดในการแก้ไขส่วนท้ายของเว็บไซต์');
+            return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขส่วนท้ายของเว็บไซต์ได้' });
+        } 
+
+        req.flash('settings_form_6_success', 'แก้ไขส่วนท้ายของเว็บไซต์สำเร็จ');
+        res.json({ success: true, message: 'แก้ไขส่วนท้ายของเว็บไซต์สำเร็จ' });
     });
 };
