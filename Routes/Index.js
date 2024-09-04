@@ -3,13 +3,13 @@ exports.getLoginPage = (req, res) => {
     if (req.signedCookies.MEMBER_TOKEN && req.signedCookies.ROLE_TOKEN) {
         switch (req.signedCookies.ROLE_TOKEN) {
             case 'ROLE001':
-                req.flash('success', 'เข้าสู่ระบบ "เจ้าของร้าน" สำเร็จ');
+                // req.flash('success', 'เข้าสู่ระบบ "เจ้าของร้าน" สำเร็จ');
                 return res.redirect('/Role/Shop_Owner/Page/Dashbord');
             case 'ROLE002':
-                req.flash('success', 'เข้าสู่ระบบ "แคชเชียร์" สำเร็จ');
+                // req.flash('success', 'เข้าสู่ระบบ "แคชเชียร์" สำเร็จ');
                 return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
             case 'ROLE003':
-                req.flash('success', 'เข้าสู่ระบบ "ลูกค้า" สำเร็จ');
+                // req.flash('success', 'เข้าสู่ระบบ "ลูกค้า" สำเร็จ');
                 return res.redirect('/Role/Customer/Page/Order_And_Receipt');
             default:
                 res.clearCookie('MEMBER_TOKEN');
@@ -137,13 +137,13 @@ exports.postLogin = (req, res) => {
 
             switch (user.role_id) {
                 case 'ROLE001':
-                    req.flash('success', 'เข้าสู่ระบบ "เจ้าของร้าน" สำเร็จ');
+                    // req.flash('success', 'เข้าสู่ระบบ "เจ้าของร้าน" สำเร็จ');
                     return res.redirect('/Role/Shop_Owner/Page/Dashbord');
                 case 'ROLE002':
-                    req.flash('success', 'เข้าสู่ระบบ "แคชเชียร์" สำเร็จ');
+                    // req.flash('success', 'เข้าสู่ระบบ "แคชเชียร์" สำเร็จ');
                     return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
                 case 'ROLE003':
-                    req.flash('success', 'เข้าสู่ระบบ "ลูกค้า" สำเร็จ');
+                    // req.flash('success', 'เข้าสู่ระบบ "ลูกค้า" สำเร็จ');
                     return res.redirect('/Role/Customer/Page/Order_And_Receipt');
                 default:
                     res.clearCookie('MEMBER_TOKEN');
