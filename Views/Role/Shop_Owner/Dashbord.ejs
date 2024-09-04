@@ -300,33 +300,61 @@
             const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
             const dataset_year_now = parseInt(formatted_dataset_year) + 543;
             const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
-            
-            // Chart 1
+    
+            // Original labels and datasets
+            const allLabels = JSON.parse('<%- monthlyOldLabels || "[]" %>')
+                .concat(JSON.parse('<%- monthlyPresentLabels || "[]" %>'))
+                .concat(JSON.parse('<%- monthlyAllLabels || "[]" %>'));
+    
+            const datasets = [
+                {
+                    label: ` ${dataset_year_old} `,
+                    data: JSON.parse('<%- monthlyOldData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#4CAF50',
+                    backgroundColor: '#81C784',
+                    hidden: true
+                },
+                {
+                    label: ` ${dataset_year_now} `,
+                    data: JSON.parse('<%- monthlyPresentData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#FF9F40',
+                    backgroundColor: '#FFCD56',
+                    hidden: true
+                },
+                {
+                    label: ` รวมทุกปี `,
+                    data: JSON.parse('<%- monthlyAllData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }
+            ];
+    
+            // Function to filter labels based on visible datasets
+            function getVisibleLabels() {
+                let visibleLabels = [];
+                datasets.forEach((dataset, index) => {
+                    if (!dataset.hidden) {
+                        visibleLabels = allLabels.slice(0, dataset.data.length);
+                    }
+                });
+                return visibleLabels;
+            }
+    
+            // Initialize the chart
             const ctx1 = document.getElementById('myChart1').getContext('2d');
-        
-            new Chart(ctx1, {
+            const myChart1 = new Chart(ctx1, {
                 type: 'bar',
                 data: {
-                    labels: JSON.parse('<%- monthlyLabels || "N/A" %>'),
-                    datasets: [{
-                        label: ` ${dataset_year_old} `,
-                        data: JSON.parse('<%- monthlyData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#9BD0F5',
-                        backgroundColor: '#36A2EB',
-                        hidden: true
-                    },
-                    {
-                        label: ` ${dataset_year_now} `,
-                        data: JSON.parse('<%- monthlyData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
+                    labels: getVisibleLabels(),
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     indexAxis: 'y',
                     scales: {
                         x: {
@@ -345,11 +373,15 @@
                             display: true,
                             text: 'รายงานยอดขายสินค้ารายเดือน',
                         }
+                    },
+                    onClick: function (e, activeElements) {
+                        // Handle chart updates based on dataset visibility
+                        myChart1.data.labels = getVisibleLabels();
+                        myChart1.update();
                     }
                 }
             });
         });
-        // Chart 1 End
     </script>
     <script>
         $(document).ready(function () {
@@ -361,30 +393,57 @@
             const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
             const dataset_year_now = parseInt(formatted_dataset_year) + 543;
             const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
-            
-            // Chart 2
+    
+            // Original labels and datasets
+            const allLabels = JSON.parse('<%- topProductsOldQueryLabels || "[]" %>')
+                .concat(JSON.parse('<%- topProductPresentLabels || "[]" %>'))
+                .concat(JSON.parse('<%- topProductAllLabels || "[]" %>'));
+    
+            const datasets = [
+                {
+                    label: ` ${dataset_year_old} `,
+                    data: JSON.parse('<%- topProductsOldQueryData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#4CAF50',
+                    backgroundColor: '#81C784',
+                    hidden: true
+                },
+                {
+                    label: ` ${dataset_year_now} `,
+                    data: JSON.parse('<%- topProductPresentData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#FF9F40',
+                    backgroundColor: '#FFCD56',
+                    hidden: true
+                },
+                {
+                    label: ` รวมทุกปี `,
+                    data: JSON.parse('<%- topProductAllData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }
+            ];
+    
+            // Function to filter labels based on visible datasets
+            function getVisibleLabels() {
+                let visibleLabels = [];
+                datasets.forEach((dataset, index) => {
+                    if (!dataset.hidden) {
+                        visibleLabels = allLabels.slice(0, dataset.data.length);
+                    }
+                });
+                return visibleLabels;
+            }
+    
+            // Initialize the chart
             const ctx2 = document.getElementById('myChart2').getContext('2d');
-        
-            new Chart(ctx2, {
+            const myChart2 = new Chart(ctx2, {
                 type: 'bar',
                 data: {
-                    labels: JSON.parse('<%- topProductsOldQueryLabels || "[]" %>').concat(JSON.parse('<%- topProductPresentLabels || "[]" %>')),
-                    datasets: [{
-                        label: ` ${dataset_year_old} `,
-                        data: JSON.parse('<%- topProductsOldQueryData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#9BD0F5',
-                        backgroundColor: '#36A2EB',
-                        hidden: true
-                    },
-                    {
-                        label: ` ${dataset_year_now} `,
-                        data: JSON.parse('<%- topProductPresentData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
+                    labels: getVisibleLabels(),
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -407,10 +466,14 @@
                             display: true,
                             text: 'รายงาน สินค้ายอดนิยม 12 รายการ',
                         }
+                    },
+                    onClick: function (e, activeElements) {
+                        // Handle chart updates based on dataset visibility
+                        myChart2.data.labels = getVisibleLabels();
+                        myChart2.update();
                     }
                 }
             });
-            // Chart 2 End
         });
     </script>
     <script>
@@ -423,30 +486,57 @@
             const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
             const dataset_year_now = parseInt(formatted_dataset_year) + 543;
             const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
-            
-            // Chart 3
+    
+            // Original labels and datasets
+            const allLabels = JSON.parse('<%- topCatMainProductsOldLabels || "[]" %>')
+                .concat(JSON.parse('<%- topCatMainProductsPresentLabels || "[]" %>'))
+                .concat(JSON.parse('<%- topCatMainProductsAllLabels || "[]" %>'));
+    
+            const datasets = [
+                {
+                    label: ` ${dataset_year_old} `,
+                    data: JSON.parse('<%- topCatMainProductsOldData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#4CAF50',
+                    backgroundColor: '#81C784',
+                    hidden: true
+                },
+                {
+                    label: ` ${dataset_year_now} `,
+                    data: JSON.parse('<%- topCatMainProductsPresentData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#FF9F40',
+                    backgroundColor: '#FFCD56',
+                    hidden: true
+                },
+                {
+                    label: ` รวมทุกปี `,
+                    data: JSON.parse('<%- topCatMainProductsAllData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }
+            ];
+    
+            // Function to filter labels based on visible datasets
+            function getVisibleLabels() {
+                let visibleLabels = [];
+                datasets.forEach((dataset, index) => {
+                    if (!dataset.hidden) {
+                        visibleLabels = allLabels.slice(0, dataset.data.length);
+                    }
+                });
+                return visibleLabels;
+            }
+    
+            // Initialize the chart
             const ctx3 = document.getElementById('myChart3').getContext('2d');
-        
-            new Chart(ctx3, {
+            const myChart3 = new Chart(ctx3, {
                 type: 'bar',
                 data: {
-                    labels: JSON.parse('<%- topCatMainProductLabels || "N/A" %>'),
-                    datasets: [{
-                        label: ` ${dataset_year_old} `,
-                        data: JSON.parse('<%- topCatMainProductData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#9BD0F5',
-                        backgroundColor: '#36A2EB',
-                        hidden: true
-                    },
-                    {
-                        label: ` ${dataset_year_now} `,
-                        data: JSON.parse('<%- topCatMainProductData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
+                    labels: getVisibleLabels(),
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -469,10 +559,14 @@
                             display: true,
                             text: 'รายงาน หมวดหมู่สินค้าหลักยอดนิยม 12 รายการ',
                         }
+                    },
+                    onClick: function (e, activeElements) {
+                        // Handle chart updates based on dataset visibility
+                        myChart3.data.labels = getVisibleLabels();
+                        myChart3.update();
                     }
                 }
             });
-            // Chart 3 End
         });
     </script>
     <script>
@@ -485,30 +579,57 @@
             const formatted_dataset_year = now.toLocaleDateString('en-EN', dataset_year_option);
             const dataset_year_now = parseInt(formatted_dataset_year) + 543;
             const dataset_year_old = parseInt(formatted_dataset_year) + 543 - 1;
-            
-            // Chart 4
+    
+            // Original labels and datasets
+            const allLabels = JSON.parse('<%- topCatSubProductsOldLabels || "[]" %>')
+                .concat(JSON.parse('<%- topCatSubProductsPresentLabels || "[]" %>'))
+                .concat(JSON.parse('<%- topCatSubProductsAllLabels || "[]" %>'));
+    
+            const datasets = [
+                {
+                    label: ` ${dataset_year_old} `,
+                    data: JSON.parse('<%- topCatSubProductsOldData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#4CAF50',
+                    backgroundColor: '#81C784',
+                    hidden: true
+                },
+                {
+                    label: ` ${dataset_year_now} `,
+                    data: JSON.parse('<%- topCatSubProductsPresentData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#FF9F40',
+                    backgroundColor: '#FFCD56',
+                    hidden: true
+                },
+                {
+                    label: ` รวมทุกปี `,
+                    data: JSON.parse('<%- topCatSubProductsAllData || 0 %>'),
+                    borderWidth: 2,
+                    borderColor: '#36A2EB',
+                    backgroundColor: '#9BD0F5',
+                    hidden: false
+                }
+            ];
+    
+            // Function to filter labels based on visible datasets
+            function getVisibleLabels() {
+                let visibleLabels = [];
+                datasets.forEach((dataset, index) => {
+                    if (!dataset.hidden) {
+                        visibleLabels = allLabels.slice(0, dataset.data.length);
+                    }
+                });
+                return visibleLabels;
+            }
+    
+            // Initialize the chart
             const ctx4 = document.getElementById('myChart4').getContext('2d');
-        
-            new Chart(ctx4, {
+            const myChart4 = new Chart(ctx4, {
                 type: 'bar',
                 data: {
-                    labels: JSON.parse('<%- topCatSubProductLabels || "N/A" %>'),
-                    datasets: [{
-                        label: ` ${dataset_year_old} `,
-                        data: JSON.parse('<%- topCatSubProductData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#9BD0F5',
-                        backgroundColor: '#36A2EB',
-                        hidden: true
-                    },
-                    {
-                        label: ` ${dataset_year_now} `,
-                        data: JSON.parse('<%- topCatSubProductData || 0 %>'),
-                        borderWidth: 2,
-                        borderColor: '#36A2EB',
-                        backgroundColor: '#9BD0F5',
-                        hidden: false
-                    }],
+                    labels: getVisibleLabels(),
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -531,10 +652,14 @@
                             display: true,
                             text: 'รายงาน หมวดหมู่สินค้าย่อยยอดนิยม 12 รายการ',
                         }
+                    },
+                    onClick: function (e, activeElements) {
+                        // Handle chart updates based on dataset visibility
+                        myChart4.data.labels = getVisibleLabels();
+                        myChart4.update();
                     }
                 }
             });
-            // Chart 4 End
         });
     </script>
     <script>
@@ -609,6 +734,6 @@
         });
         // Chart 6 End
     </script>
-<!-- Javascript End -->
+    <!-- Javascript End -->
 </body>
 </html>
