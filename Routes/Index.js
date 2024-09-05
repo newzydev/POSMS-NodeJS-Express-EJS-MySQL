@@ -87,44 +87,48 @@ exports.postLogin = (req, res) => {
             res.cookie('ROLE_TOKEN', user.role_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
 
             // ส่งอีเมล
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
-            });
-
-            const mailOptions = {
-                from: 'POSMS TEAM <posms.newzydev@gmail.com>',
-                to: user.member_email,
-                subject: 'เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname + ' เข้าสู่ระบบ เวลา ' + member_time_login,
-                html: `
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
-                        <h1 style="color: #2c3e50; text-align: center;">
-                            ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
-                        </h1>
-                        <div style="font-size: 16px; color: #34495e; text-align: center;">
-                            ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ
+            if (user.member_email) {
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                });
+            
+                const mailOptions = {
+                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    to: user.member_email,
+                    subject: 'เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname + ' เข้าสู่ระบบ เวลา ' + member_time_login,
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                            <h1 style="color: #2c3e50; text-align: center;">
+                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                            </h1>
+                            <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ
+                            </div>
+                            <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${user.member_time_register}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เข้าสู่ระบบ :</strong> ${member_time_login}</div>
+                            </div>
+                            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                            </p>
                         </div>
-                        <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                            <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
-                            <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                            <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${user.member_time_register}</div>
-                            <div style="font-size: 16px; color: #333;"><strong>เข้าสู่ระบบ :</strong> ${member_time_login}</div>
-                        </div>
-                        <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
-                            (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
-                        </p>
-                    </div>
-                `,
-                priority: 'high'
-            };            
-
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+                    `,
+                    priority: 'high'
+                };
+            
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            } else {
+                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+            }            
 
             switch (user.role_id) {
                 case 'ROLE001': return res.redirect('/Role/Shop_Owner/Page/Dashbord');
