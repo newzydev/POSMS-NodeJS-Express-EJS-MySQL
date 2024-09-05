@@ -169,6 +169,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
+                                                    <label for="member_email" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="member_email" name="member_email" placeholder="ที่อยู่อีเมล์" value="<%= user.member_email %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกที่อยู่อีเมล์ถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="member_email_activate" class="col-sm-2 col-form-label">ยืนยันที่อยู่อีเมล์</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control form-control-lg" id="member_email_activate" name="member_email_activate" placeholder="ที่อยู่อีเมล์" value="<% if (user.member_email_activate === "1") { %>ยืนยันแล้ว<% } else { %>รอยืนยันที่อยู่อีเมล์<% } %>" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
                                                         <div class="form-group form-check m-0 p-0 icheck-primary">
                                                             <input type="checkbox" class="form-check-input" id="accept_check_1" required>

@@ -21,6 +21,7 @@
     "fileupload": "^1.0.0",
     "fs": "^0.0.1-security",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.9.15",
     "nodemon": "^3.1.4",
     "promptpay-qr": "^0.5.0",
     "qrcode": "^1.5.4",

@@ -119,10 +119,10 @@
                                                     <th class="text-center" scope="col">รหัสสมาชิก</th>
                                                     <th scope="col">ชื่อจริง</th>
                                                     <th scope="col">นามสกุล</th>
+                                                    <th scope="col">ที่อยู่อีเมล์</th>
                                                     <th scope="col">หมายเลขโทรศัพท์</th>
                                                     <th scope="col">ระดับผู้ใช้</th>
                                                     <th scope="col">สมัครสมาชิกเมื่อ</th>
-                                                    <th scope="col">ลงชื่อเข้าใช้เมื่อ</th>
                                                     <th class="text-center" scope="col">ดำเนินการ</th>
                                                 </tr>
                                             </thead>
@@ -146,10 +146,10 @@
                                                         </td>
                                                         <td class="text-middle"><%= emp_user.member_firstname %><br><span class="text-success">ชื่อจริง</span></td>
                                                         <td class="text-middle"><%= emp_user.member_lastname %><br><span class="text-success">นามสกุล</span></td>
-                                                        <td class="text-middle"><%= emp_user.member_tel.substring(0, 2) %>X-XXX-<%= emp_user.member_tel.substring(6) %><br><span class="text-success">ประเทศไทย</span></td>
+                                                        <td class="text-middle"><%= emp_user.member_email.substring(0, 2) %>*****<%= emp_user.member_email.slice(-12); %><br><span class="text-success">อีเมล์</span></td>
+                                                        <td class="text-middle"><%= emp_user.member_tel.substring(0, 2) %>*-***-<%= emp_user.member_tel.substring(6) %><br><span class="text-success">ประเทศไทย</span></td>
                                                         <td class="text-middle"><%= emp_user.role_name %><br><span class="text-success">บทบาทการใช้งาน</span></td>
                                                         <td class="text-middle"><%= emp_user.member_time_register %><br><span class="text-success">เป็นสมาชิกเมื่อ</span></td>
-                                                        <td class="text-middle"><%= emp_user.member_time_login %><br><span class="text-success">เข้าใช้ล่าสุดเมื่อ</span></td>
                                                         <td class="text-middle text-center">
                                                             <div class="btn-group btn-group-radius">
                                                                 <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= emp_user.member_id %>');"><i class="fas fa-copy"></i></div>

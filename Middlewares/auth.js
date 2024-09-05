@@ -8,6 +8,8 @@ const authenticateUser = (db) => (req, res, next) => {
     const dataQuery = `
         SELECT 
             Users.member_id, 
+            Users.member_email, 
+            Users.member_email_activate, 
             Users.member_firstname, 
             Users.member_lastname, 
             Users.member_username, 
