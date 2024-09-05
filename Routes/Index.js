@@ -88,6 +88,10 @@ exports.postLogin = (req, res) => {
 
             // ส่งอีเมล
             if (user.member_email) {
+                // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                const now = new Date();
+                const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
                     auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
@@ -96,14 +100,14 @@ exports.postLogin = (req, res) => {
                 const mailOptions = {
                     from: 'POSMS TEAM <posms.newzydev@gmail.com>',
                     to: user.member_email,
-                    subject: 'เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname + ' เข้าสู่ระบบ เวลา ' + member_time_login,
+                    subject: 'แจ้งเตือนการลงชื่อเข้าใช้งานระบบ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
                             <h1 style="color: #2c3e50; text-align: center;">
                                 ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="font-size: 16px; color: #34495e; text-align: center;">
-                                ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ
+                                เลขที่ทำรายการ #${Mail_Id}
                             </div>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
@@ -128,7 +132,7 @@ exports.postLogin = (req, res) => {
                 });
             } else {
                 console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
-            }            
+            }
 
             switch (user.role_id) {
                 case 'ROLE001': return res.redirect('/Role/Shop_Owner/Page/Dashbord');

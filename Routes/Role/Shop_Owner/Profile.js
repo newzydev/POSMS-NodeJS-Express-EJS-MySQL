@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 exports.getShopOwnerProfilePage = (req, res) => {
     const title = 'Profile | Point Of Sale Management System';
     const your_page = 'Profile';
@@ -28,6 +30,106 @@ exports.postShopOwnerChangeProfile = (req, res) => {
             req.flash('success', 'บันทึกข้อมูลบัญชีผู้ใช้สำเร็จ');
             res.redirect('/Role/Shop_Owner/Page/Profile');
         }
+    });
+};
+
+exports.postShopOwnerChangeEmail = (req, res) => {
+    const { member_id, old_email, new_email, confirm_new_email } = req.body;
+    const user = res.locals.user;
+
+    if (!old_email || !new_email || !confirm_new_email) {
+        req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
+        req.flash('formData', { old_email, new_email, confirm_new_email });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    if (new_email !== confirm_new_email) {
+        req.flash('error', 'ที่อยู่อีเมล์ และการยืนยันที่อยู่อีเมล์ไม่ตรงกัน');
+        req.flash('formData', { new_email, confirm_new_email });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    const query = 'SELECT member_email FROM Users WHERE member_id = ?';
+    db.query(query, [member_id], (err, result) => {
+        if (err) {
+            console.error(err);
+            req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบที่อยู่อีเมล์');
+            req.flash('formData', { old_email, new_email, confirm_new_email });
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        if (result.length === 0) {
+            req.flash('error', 'ไม่พบบัญชีผู้ใช้');
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        const user_me = result[0];
+
+        if (old_email !== user_me.member_email) {
+            req.flash('error', 'ที่อยู่อีเมล์เดิมไม่ถูกต้อง');
+            req.flash('formData', { old_email, new_email, confirm_new_email });
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        const updateQuery = 'UPDATE Users SET member_email = ? WHERE member_id = ?';
+        db.query(updateQuery, [new_email, member_id], (err, result) => {
+            if (err) {
+                console.error(err);
+                req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขที่อยู่อีเมล์');
+                req.flash('formData', { old_email, new_email, confirm_new_email });
+                return res.redirect('/Role/Shop_Owner/Page/Profile');
+            }
+
+            // ส่งอีเมล
+            if (new_email) {
+                // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                const now = new Date();
+                const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                });
+            
+                const mailOptions = {
+                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    to: new_email,
+                    subject: 'แจ้งเตือนการเปลี่ยนแปลงที่อยู่อีเมล์ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                            <h1 style="color: #2c3e50; text-align: center;">
+                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                            </h1>
+                            <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                เลขที่ทำรายการ #${Mail_Id}
+                            </div>
+                            <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เปลี่ยนที่อยู่อีเมล์เป็น :</strong> ${new_email} (สำเร็จ)</div>
+                            </div>
+                            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                            </p>
+                        </div>
+                    `,
+                    priority: 'high'
+                };
+            
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            } else {
+                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+            }
+            
+            req.flash('success', 'บันทึกข้อมูลรหัสผ่านสำเร็จ');
+            res.redirect('/Role/Shop_Owner/Page/Profile');
+        });
     });
 };
 

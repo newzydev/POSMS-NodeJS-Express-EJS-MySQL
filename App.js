@@ -72,11 +72,12 @@ app.post('/Register', postRegister);
 // Role Shop_Owner
 // ==================================================
 // Profile Page
-const { getShopOwnerProfilePage, postShopOwnerChangeProfile } = require('./Routes/Role/Shop_Owner/Profile');
+const { getShopOwnerProfilePage, postShopOwnerChangeEmail, postShopOwnerChangeProfile } = require('./Routes/Role/Shop_Owner/Profile');
 const { postShopOwnerChangePassword } = require('./Routes/Role/Shop_Owner/Profile');
 
 app.get('/Role/Shop_Owner/Page/Profile', authenticateUser(db), checkRole001, getShopOwnerProfilePage);
-app.post('/Role/Shop_Owner/Page/Profile/Update', authenticateUser(db), checkRole001, postShopOwnerChangeProfile);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postShopOwnerChangeProfile);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postShopOwnerChangeEmail);
 app.post('/Role/Shop_Owner/Page/Profile/ChangePassword', authenticateUser(db), checkRole001, postShopOwnerChangePassword);
 
 // Dashbord Page
