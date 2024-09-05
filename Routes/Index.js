@@ -112,7 +112,6 @@ exports.postLogin = (req, res) => {
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
                                 <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${user.member_time_register}</div>
                                 <div style="font-size: 16px; color: #333;"><strong>เข้าสู่ระบบ :</strong> ${member_time_login}</div>
                             </div>
                             <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
