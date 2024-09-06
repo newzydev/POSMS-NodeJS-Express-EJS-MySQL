@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 exports.getRegisterPage = (req, res) => {
     const title = 'Register | Point Of Sale Management System';
     const error = req.flash('error');
@@ -8,17 +10,17 @@ exports.getRegisterPage = (req, res) => {
 
 exports.postRegister = (req, res) => {
     // Get variables
-    const { first_name, last_name, username, password, confirm_password, phone_number } = req.body;
+    const { first_name, last_name, member_email, confirm_member_email, phone_number } = req.body;
 
-    if (!first_name || !last_name || !username || !password || !confirm_password || !phone_number) {
+    if (!first_name || !last_name || !member_email || !phone_number) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { first_name, last_name, username, phone_number });
+        req.flash('formData', { first_name, last_name, member_email, phone_number });
         return res.redirect('/Register');
     }
 
-    if (password !== confirm_password) {
+    if (member_email !== confirm_member_email) {
         req.flash('error', 'รหัสผ่าน และการยืนยันรหัสผ่านไม่ตรงกัน');
-        req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+        req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
         return res.redirect('/Register');
     }
     
@@ -29,13 +31,13 @@ exports.postRegister = (req, res) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์');
-            req.flash('formData', { first_name, last_name, username, phone_number });
+            req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
             return res.redirect('/Register');
         }
 
         if (results[0].count > 0) {
             req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
-            req.flash('formData', { first_name, last_name, username, password, confirm_password, phone_number });
+            req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
             return res.redirect('/Register');
         }
 
@@ -64,19 +66,70 @@ exports.postRegister = (req, res) => {
         const role_id = "ROLE003";
         const member_time_register = formattedDate + ' ' + formattedTime;
         const member_time_login = formattedDate + ' ' + formattedTime;
+        const code_6_digit = Math.floor(100000 + Math.random() * 900000).toString();
+        const member_email_activate = code_6_digit;
 
         // Query SQL
-        const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_username, member_password, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         
-        db.query(query, [member_id, first_name, last_name, username, password, phone_number, role_id, member_time_register, member_time_login], (err, result) => {
+        db.query(query, [member_id, first_name, last_name, member_email, member_email_activate, phone_number, role_id, member_time_register, member_time_login], (err, result) => {
             if (err) {
                 console.error(err);
                 req.flash('error', 'เกิดข้อผิดพลาดในการสมัครสมาชิก');
-                req.flash('formData', { first_name, last_name, username, phone_number });
+                req.flash('formData', { first_name, last_name, member_email, member_email_activate, confirm_member_email, phone_number });
                 return res.redirect('/Register');
             } else {
+
+                // ส่งอีเมล
+                if (member_email) {
+                    // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                    const now = new Date();
+                    const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+                    
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                    });
+                
+                    const mailOptions = {
+                        from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                        to: member_email,
+                        subject: 'ขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + first_name + ' ' + last_name,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                                <h1 style="color: #2c3e50; text-align: center;">
+                                    ยินดีต้อนรับ คุณ ${first_name} ${last_name}
+                                </h1>
+                                <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                    เลขที่ #${Mail_Id}
+                                </div>
+                                <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${first_name} ${last_name}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${member_time_register}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
+                                </div>
+                                <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                    (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                </p>
+                            </div>
+                        `,
+                        priority: 'high'
+                    };
+                
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                } else {
+                    console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+                }
+
                 req.flash('success', 'สมัครสมาชิกสำเร็จ');
-                res.redirect('/Login');
+                res.redirect('/Account_Register_Activate/' + member_id);
             }
         });
     });

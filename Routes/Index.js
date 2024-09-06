@@ -31,7 +31,7 @@ exports.getLoginPage = (req, res) => {
 
 // ฟังก์ชันหลังจาก login
 exports.postLogin = (req, res) => {
-    const { username, password } = req.body;
+    const { member_email, member_tel } = req.body;
     const settings = res.locals.settings;
 
     // ตั้งเวลาเข้าสู่ระบบ
@@ -40,22 +40,22 @@ exports.postLogin = (req, res) => {
     const formattedTime = now.toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: 'numeric', second: 'numeric' });
     const member_time_login = formattedDate + ' ' + formattedTime;
 
-    if (!username || !password) {
+    if (!member_email || !member_tel) {
         req.flash('error', 'กรุณากรอกข้อมูลให้ครบ');
-        req.flash('formData', { username, password });
+        req.flash('formData', { member_email, member_tel });
         return res.redirect('/');
     }
 
-    db.query('SELECT * FROM Users WHERE member_username = ? AND member_password = ?', [username, password], (err, results) => {
+    db.query('SELECT * FROM Users WHERE member_email = ? AND member_tel = ?', [member_email, member_tel], (err, results) => {
         if (err) {
             req.flash('error', 'เกิดข้อผิดพลาดกับฐานข้อมูล');
-            req.flash('formData', { username, password });
+            req.flash('formData', { member_email, member_tel });
             return res.redirect('/');
         }
 
         if (results.length === 0) {
             req.flash('error', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-            req.flash('formData', { username, password });
+            req.flash('formData', { member_email, member_tel });
             return res.redirect('/');
         }
 
@@ -65,7 +65,7 @@ exports.postLogin = (req, res) => {
         db.query('UPDATE Users SET member_time_login = ? WHERE member_id = ?', [member_time_login, user.member_id], (updateErr) => {
             if (updateErr) {
                 req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตเวลา');
-                req.flash('formData', { username, password });
+                req.flash('formData', { member_email, member_tel });
                 return res.redirect('/');
             }
 
@@ -107,7 +107,7 @@ exports.postLogin = (req, res) => {
                                 ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="font-size: 16px; color: #34495e; text-align: center;">
-                                เลขที่ทำรายการ #${Mail_Id}
+                                เลขที่ #${Mail_Id}
                             </div>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>

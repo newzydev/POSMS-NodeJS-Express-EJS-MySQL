@@ -68,6 +68,12 @@ const { getRegisterPage, postRegister } = require('./Routes/Register');
 app.get('/Register', getRegisterPage);
 app.post('/Register', postRegister);
 
+// Account Register Activate Page
+const { getRegisterActivatePage, postRegisterActivate } = require('./Routes/Account_Register_Activate');
+
+app.get('/Account_Register_Activate/:member_id', getRegisterActivatePage);
+app.post('/Account_Register_Activate/:member_id', postRegisterActivate);
+
 // ==================================================
 // Role Shop_Owner
 // ==================================================

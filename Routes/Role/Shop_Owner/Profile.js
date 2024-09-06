@@ -10,21 +10,21 @@ exports.getShopOwnerProfilePage = (req, res) => {
 };
 
 exports.postShopOwnerChangeProfile = (req, res) => {
-    const { member_id, firstname, lastname, username, phone_number } = req.body;
+    const { member_id, firstname, lastname, member_tel } = req.body;
 
-    if (!firstname || !lastname || !username || !phone_number) {
+    if (!firstname || !lastname || !member_tel) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { firstname, lastname, username, phone_number });
+        req.flash('formData', { firstname, lastname, member_tel });
         return res.redirect('/Role/Shop_Owner/Page/Profile');
     }
 
-    const query = 'UPDATE Users SET member_firstname = ?, member_lastname = ?, member_username = ?, member_tel = ? WHERE member_id = ?';
+    const query = 'UPDATE Users SET member_firstname = ?, member_lastname = ?, member_tel = ? WHERE member_id = ?';
 
-    db.query(query, [firstname, lastname, username, phone_number, member_id], (err, result) => {
+    db.query(query, [firstname, lastname, member_tel, member_id], (err, result) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขบัญชีผู้ใช้');
-            req.flash('formData', { firstname, lastname, username, phone_number });
+            req.flash('formData', { firstname, lastname, member_tel });
             res.redirect('/Role/Shop_Owner/Page/Profile');
         } else {
             req.flash('success', 'บันทึกข้อมูลบัญชีผู้ใช้สำเร็จ');
@@ -101,7 +101,7 @@ exports.postShopOwnerChangeEmail = (req, res) => {
                                 ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="font-size: 16px; color: #34495e; text-align: center;">
-                                เลขที่ทำรายการ #${Mail_Id}
+                                เลขที่ #${Mail_Id}
                             </div>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>

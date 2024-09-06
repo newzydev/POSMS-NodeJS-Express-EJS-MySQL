@@ -19,12 +19,10 @@ INSERT INTO User_Role (role_id, role_name) VALUES
 CREATE TABLE Users (
     member_id VARCHAR(255) PRIMARY KEY,
     role_id VARCHAR(255) NOT NULL,
-    member_email VARCHAR(255) NOT NULL,
-    member_email_activate VARCHAR(255) NOT NULL,
     member_firstname VARCHAR(255) NOT NULL,
     member_lastname VARCHAR(255) NOT NULL,
-    member_username VARCHAR(255) NOT NULL,
-    member_password VARCHAR(255) NOT NULL,
+    member_email VARCHAR(255) NOT NULL,
+    member_email_activate VARCHAR(255) NOT NULL,
     member_tel VARCHAR(255) NOT NULL,
     member_time_register VARCHAR(255) NOT NULL,
     member_time_login VARCHAR(255) NOT NULL,
@@ -32,23 +30,23 @@ CREATE TABLE Users (
     FOREIGN KEY (role_id) REFERENCES User_Role(role_id)
 );
 
-INSERT INTO `users` (`member_id`, `role_id`, `member_email`, `member_email_activate`, `member_firstname`, `member_lastname`, `member_username`, `member_password`, `member_tel`, `member_time_register`, `member_time_login`, `time_order`) VALUES
-('MB1131347521', 'ROLE001', 'sakdar.user.hcc@gmail.com', '1', 'ศักดา', 'สุขขวัญ', 'sakdar.s@pos', 'sakdar.s@pos', '0980755735', '14 มิ.ย. 2567 11:27:50', '16 ส.ค. 2567 20:51:50', '2024-06-14 11:27:50'),
-('MB2027027573', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'กัญญารัตน์', 'สินเจริญ', 'kanyarat.s@pos', 'kanyarat.s@pos', '0659985125', '14 มิ.ย. 2567 12:12:47', '14 มิ.ย. 2567 12:12:47', '2024-06-14 12:12:47'),
-('MB2248769214', 'ROLE002', 'sakdar.user.hcc@gmail.com', '1', 'ชรินทร์รัตน์', 'สุวรรณรัตน์', 'charinrat.s@pos', 'charinrat.s@pos', '0956547895', '14 มิ.ย. 2567 12:10:26', '15 ส.ค. 2567 10:47:49', '2024-06-14 12:10:26'),
-('MB2335127573', 'ROLE002', 'sakdar.user.hcc@gmail.com', '0', 'พรประภา', 'กำจัดภัย', 'pornpapar.g@pos', 'pornpapar.g@pos', '0657874595', '14 มิ.ย. 2567 11:51:01', '14 มิ.ย. 2567 11:51:01', '2024-06-14 11:51:01'),
-('MB2357696365', 'ROLE002', 'sakdar.user.hcc@gmail.com', '0', 'บัวชมพู', 'รัตนา', 'buachompuu.r@pos', 'buachompuu.r@pos', '0746542355', '14 มิ.ย. 2567 12:08:23', '14 มิ.ย. 2567 12:08:23', '2024-06-14 12:08:23'),
-('MB2976892258', 'ROLE003', 'sakdar.user.hcc@gmail.com', '1', 'แพรวา', 'ธรรมรัตน์', 'praewa.t@pos', 'praewa.t@pos', '0634562566', '14 มิ.ย. 2567 18:37:42', '17 ส.ค. 2567 15:50:34', '2024-06-14 18:37:42'),
-('MB3088654056', 'ROLE002', 'sakdar.user.hcc@gmail.com', '0', 'อัมรินทร์', 'สุวรรณชาติ', 'aummarin.s@pos', 'aummarin.s@pos', '0453331234', '10 ก.ค. 2567 09:51:46', '10 ก.ค. 2567 09:51:46', '2024-07-10 10:17:50'),
-('MB3466477454', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'พรอย', 'ชมพู', 'ploy.c@pos', 'ploy.c@pos', '0976541235', '15 มิ.ย. 2567 09:07:09', '15 มิ.ย. 2567 09:07:09', '2024-06-15 09:07:09'),
-('MB4444903325', 'ROLE002', 'sakdar.user.hcc@gmail.com', '1', 'นริศรา', 'สิงค์ดา', 'naritsara.s@pos', 'naritsara.s@pos', '0654836545', '14 มิ.ย. 2567 11:32:19', '5 ส.ค. 2567 08:52:22', '2024-06-14 11:32:19'),
-('MB5862619314', 'ROLE002', 'sakdar.user.hcc@gmail.com', '0', 'แพรพลอย', 'เกษมสุข', 'prawploy.k@pos', 'prawploy.k@pos', '0994551234', '9 ก.ค. 2567 17:23:17', '9 ก.ค. 2567 17:23:17', '2024-07-09 17:23:17'),
-('MB5864308660', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'ปรียาภรณ์', 'สุขสวัสดิ์', 'preyaporn.s@pos', 'preyaporn.s@pos', '0875456523', '14 มิ.ย. 2567 13:18:30', '14 มิ.ย. 2567 13:18:30', '2024-06-14 13:18:30'),
-('MB6176927131', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'ธัญญ์นรี', 'บุญประเสริฐ', 'tannare.b@pos', 'tannare.b@pos', '0843654565', '14 มิ.ย. 2567 13:17:29', '14 มิ.ย. 2567 13:17:29', '2024-06-14 13:17:29'),
-('MB8434964444', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'ศิริพร', 'จันทร์เพ็ญ', 'siriporn.j@pos', 'siriporn.j@pos', '0456544554', '15 มิ.ย. 2567 10:27:22', '15 มิ.ย. 2567 10:27:22', '2024-06-15 10:27:22'),
-('MB9033093141', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'สุดารัตน์', 'วงศ์วรวิทย์', 'sudarat.v@pos', 'sudarat.v@pos', '0951112223', '10 ก.ค. 2567 16:47:50', '5 ส.ค. 2567 11:18:35', '2024-07-10 19:05:39'),
-('MB9141185012', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'ญาดา', 'นวลพรรณ', 'yada.n@pos', 'yada.n@pos', '0643554568', '14 มิ.ย. 2567 12:30:30', '14 มิ.ย. 2567 12:30:30', '2024-06-14 12:30:30'),
-('MB9288107054', 'ROLE003', 'sakdar.user.hcc@gmail.com', '0', 'ชนากานต์', 'อินทรชัย', 'chanakan.e@pos', 'chanakan.e@pos', '0745456544', '14 มิ.ย. 2567 12:29:45', '14 มิ.ย. 2567 12:29:45', '2024-06-14 12:29:45');
+INSERT INTO `users` (`member_id`, `role_id`, `member_firstname`, `member_lastname`, `member_email`, `member_email_activate`, `member_tel`, `member_time_register`, `member_time_login`, `time_order`) VALUES
+('MB1131347521', 'ROLE001', 'ศักดา', 'สุขขวัญ', 'sakdar.user.hcc@gmail.com', '1', '0980755735', '14 มิ.ย. 2567 11:27:50', '16 ส.ค. 2567 20:51:50', '2024-06-14 11:27:50'),
+('MB2027027573', 'ROLE003', 'กัญญารัตน์', 'สินเจริญ', 'kanyarat.s@gmail.com', '0', '0659985125', '14 มิ.ย. 2567 12:12:47', '14 มิ.ย. 2567 12:12:47', '2024-06-14 12:12:47'),
+('MB2248769214', 'ROLE002', 'ชรินทร์รัตน์', 'สุวรรณรัตน์', 'charinrat.s@gmail.com', '1', '0956547895', '14 มิ.ย. 2567 12:10:26', '15 ส.ค. 2567 10:47:49', '2024-06-14 12:10:26'),
+('MB2335127573', 'ROLE002', 'พรประภา', 'กำจัดภัย', 'pornpapar.g@gmail.com', '0', '0657874595', '14 มิ.ย. 2567 11:51:01', '14 มิ.ย. 2567 11:51:01', '2024-06-14 11:51:01'),
+('MB2357696365', 'ROLE002', 'บัวชมพู', 'รัตนา', 'buachompuu.r@gmail.com', '0', '0746542355', '14 มิ.ย. 2567 12:08:23', '14 มิ.ย. 2567 12:08:23', '2024-06-14 12:08:23'),
+('MB2976892258', 'ROLE003', 'แพรวา', 'ธรรมรัตน์', 'praewa.t@gmail.com', '1', '0634562566', '14 มิ.ย. 2567 18:37:42', '17 ส.ค. 2567 15:50:34', '2024-06-14 18:37:42'),
+('MB3088654056', 'ROLE002', 'อัมรินทร์', 'สุวรรณชาติ', 'aummarin.s@gmail.com', '0', '0453331234', '10 ก.ค. 2567 09:51:46', '10 ก.ค. 2567 09:51:46', '2024-07-10 10:17:50'),
+('MB3466477454', 'ROLE003', 'พรอย', 'ชมพู', 'ploy.c@gmail.com', '0', '0976541235', '15 มิ.ย. 2567 09:07:09', '15 มิ.ย. 2567 09:07:09', '2024-06-15 09:07:09'),
+('MB4444903325', 'ROLE002', 'นริศรา', 'สิงค์ดา', 'naritsara.s@gmail.com', '1', '0654836545', '14 มิ.ย. 2567 11:32:19', '5 ส.ค. 2567 08:52:22', '2024-06-14 11:32:19'),
+('MB5862619314', 'ROLE002', 'แพรพลอย', 'เกษมสุข', 'prawploy.k@gmail.com', '0', '0994551234', '9 ก.ค. 2567 17:23:17', '9 ก.ค. 2567 17:23:17', '2024-07-09 17:23:17'),
+('MB5864308660', 'ROLE003', 'ปรียาภรณ์', 'สุขสวัสดิ์', 'preyaporn.s@gmail.com', '0', '0875456523', '14 มิ.ย. 2567 13:18:30', '14 มิ.ย. 2567 13:18:30', '2024-06-14 13:18:30'),
+('MB6176927131', 'ROLE003', 'ธัญญ์นรี', 'บุญประเสริฐ', 'tannare.b@gmail.com', '0', '0843654565', '14 มิ.ย. 2567 13:17:29', '14 มิ.ย. 2567 13:17:29', '2024-06-14 13:17:29'),
+('MB8434964444', 'ROLE003', 'ศิริพร', 'จันทร์เพ็ญ', 'siriporn.j@gmail.com', '0', '0456544554', '15 มิ.ย. 2567 10:27:22', '15 มิ.ย. 2567 10:27:22', '2024-06-15 10:27:22'),
+('MB9033093141', 'ROLE003', 'สุดารัตน์', 'วงศ์วรวิทย์', 'sudarat.v@gmail.com', '0', '0951112223', '10 ก.ค. 2567 16:47:50', '5 ส.ค. 2567 11:18:35', '2024-07-10 19:05:39'),
+('MB9141185012', 'ROLE003', 'ญาดา', 'นวลพรรณ', 'yada.n@gmail.com', '0', '0643554568', '14 มิ.ย. 2567 12:30:30', '14 มิ.ย. 2567 12:30:30', '2024-06-14 12:30:30'),
+('MB9288107054', 'ROLE003', 'ชนากานต์', 'อินทรชัย', 'chanakan.e@gmail.com', '0', '0745456544', '14 มิ.ย. 2567 12:29:45', '14 มิ.ย. 2567 12:29:45', '2024-06-14 12:29:45');
 
 -- Create table for Payment_Options
 CREATE TABLE Payment_Options (

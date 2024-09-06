@@ -55,39 +55,29 @@
                                 กรุณากรอกนามสกุลให้ถูกต้อง
                             </div>
                         </div>
-                        <div class="col-12 mb-3">
-                            <label for="username" class="required">ชื่อผู้ใช้</label>
-                            <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autocomplete="off" required>
+                        <div class="col-6 mb-3">
+                            <label for="member_email" class="required">ที่อยู่อีเมล์</label>
+                            <input type="email" class="form-control form-control-lg" name="member_email" id="member_email" placeholder="ที่อยู่อีเมล์" value="<%= formData ? formData.member_email : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกชื่อผู้ใช้ถูกต้อง
+                                กรอกที่อยู่อีเมล์ถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                                กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
                             </div>
                         </div>
                         <div class="col-6 mb-3">
-                            <label for="password" class="required">รหัสผ่าน</label>
-                            <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autocomplete="off" required>
+                            <label for="confirm_member_email" class="required">ยืนยันที่อยู่อีเมล์</label>
+                            <input type="email" class="form-control form-control-lg" name="confirm_member_email" id="confirm_member_email" placeholder="ยืนยันที่อยู่อีเมล์" value="<%= formData ? formData.member_email : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกรหัสผ่านถูกต้อง
+                                กรอกยืนยันที่อยู่อีเมล์ถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกรหัสผ่านให้ถูกต้อง
-                            </div>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label for="confirm_password" class="required">ยืนยันรหัสผ่าน</label>
-                            <input type="password" class="form-control form-control-lg" name="confirm_password" id="confirm_password" value="<%= formData ? formData.confirm_password : '' %>" placeholder="ยืนยันรหัสผ่าน" value="<%= formData ? formData.first_name : '' %>" autocomplete="off" required>
-                            <div class="valid-feedback">
-                                กรอกยืนยันรหัสผ่านถูกต้อง
-                            </div>
-                            <div class="invalid-feedback">
-                                กรุณากรอกยืนยันรหัสผ่านให้ถูกต้อง
+                                กรุณากรอกยืนยันที่อยู่อีเมล์ให้ถูกต้อง
                             </div>
                         </div>
                         <div class="col-12 mb-3">
-                            <label for="phone_number" class="required">หมายเลขโทรศัพท์มือถือ 10 หลัก</label>
-                            <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์มือถือ 10 หลัก" value="<%= formData ? formData.phone_number : '' %>" autocomplete="off" required>
+                            <label for="phone_number" class="required">หมายเลขโทรศัพท์มือถือ</label>
+                            <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์มือถือ" value="<%= formData ? formData.phone_number : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
                                 กรอกหมายเลขโทรศัพท์มือถือถูกต้อง
                             </div>

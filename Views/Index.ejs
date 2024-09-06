@@ -16,7 +16,7 @@
                 <div class="login-box-msg">
                     ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
                     ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
-                    ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b>
+                    ป้อน <b>อีเมล์</b> และ <b>หมายเลขโทรศัพท์</b>
                 </div>
                 
                 <% if (error) { %>
@@ -33,23 +33,23 @@
                 <form class="needs-validation" novalidate id="login_form" method="POST">
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="username" class="required">ชื่อผู้ใช้</label>
-                            <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" autofocus autocomplete="off" required>
+                            <label for="member_email" class="required">ที่อยู่อีเมล์</label>
+                            <input type="email" class="form-control form-control-lg" name="member_email" id="member_email" placeholder="ที่อยู่อีเมล์" value="<%= formData ? formData.member_email : '' %>" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกชื่อผู้ใช้ถูกต้อง
+                                กรอกที่อยู่อีเมล์ถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                                กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
                             </div>
                         </div>
                         <div class="col-12">
-                            <label for="password" class="required">รหัสผ่าน</label>
-                            <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" autofocus autocomplete="off" required>
+                            <label for="member_tel" class="required">หมายเลขโทรศัพท์</label>
+                            <input type="tel" class="form-control form-control-lg" name="member_tel" id="member_tel" placeholder="หมายเลขโทรศัพท์" value="<%= formData ? formData.member_tel : '' %>" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกรหัสผ่านถูกต้อง
+                                กรอกหมายเลขโทรศัพท์ถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกรหัสผ่านให้ถูกต้อง
+                                กรุณากรอกหมายเลขโทรศัพท์ให้ถูกต้อง
                             </div>
                         </div>
                     </div>
