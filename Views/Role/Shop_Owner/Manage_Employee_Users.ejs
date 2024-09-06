@@ -65,8 +65,8 @@
                                             <!-- ส่วนแผงควบคุม -->
                                             <div class="col-md-4 mb-3">
                                                 <div class="btn-group btn-group-radius btn-block">
-                                                    <div class="btn btn-secondary btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/Print/Label';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์บัตรพนักงาน</div>
-                                                    <div class="btn btn-secondary btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/Print/Report';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์รายงานบัญชีพนักงาน</div>
+                                                    <div class="btn btn-secondary btn-lg txt-cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/Print/Label';"><i class="fas fa-print mr-2"></i>บัตรพนักงาน</div>
+                                                    <div class="btn btn-secondary btn-lg txt-cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users/Print/Report';"><i class="fas fa-print mr-2"></i>รายงานพนักงาน</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2 mb-3">
@@ -122,7 +122,7 @@
                                                     <th scope="col">ที่อยู่อีเมล์</th>
                                                     <th scope="col">หมายเลขโทรศัพท์</th>
                                                     <th scope="col">ระดับผู้ใช้</th>
-                                                    <th scope="col">สมัครสมาชิกเมื่อ</th>
+                                                    <th scope="col">สถานะบัญชี</th>
                                                     <th class="text-center" scope="col">ดำเนินการ</th>
                                                 </tr>
                                             </thead>
@@ -151,8 +151,11 @@
                                                             <span class="text-success">อีเมล์</span>
                                                         </td>                                                          
                                                         <td class="text-middle"><%= emp_user.member_tel.substring(0, 2) %>*-***-<%= emp_user.member_tel.substring(6) %><br><span class="text-success">ประเทศไทย</span></td>
-                                                        <td class="text-middle"><%= emp_user.role_name %><br><span class="text-success">บทบาทการใช้งาน</span></td>
-                                                        <td class="text-middle"><%= emp_user.member_time_register %><br><span class="text-success">เป็นสมาชิกเมื่อ</span></td>
+                                                        <td class="text-middle"><%= emp_user.role_name %><br><span class="text-success">บทบาท</span></td>
+                                                        <td class="text-middle">
+                                                            <% if (emp_user.member_email_activate === "ACTIVATE") { %>ยืนยันอีเมล์แล้ว<% } else { %>รอยืนยันอีเมล์<% } %><br>
+                                                            <span class="text-success">บัญชีอีเมล์</span>
+                                                        </td>
                                                         <td class="text-middle text-center">
                                                             <div class="btn-group btn-group-radius">
                                                                 <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= emp_user.member_id %>');"><i class="fas fa-copy"></i></div>
@@ -176,7 +179,9 @@
                                                                     <div class="mb-3">
                                                                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
                                                                     </div>
-                                                                    คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?<br><b>(<%= emp_user.member_id %>) <%= emp_user.member_firstname %> <%= emp_user.member_lastname %></b>
+                                                                    <div>คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?</div>
+                                                                    <div><b>(<%= emp_user.member_id %>)</b></div>
+                                                                    <div><b><%= emp_user.member_firstname %> <%= emp_user.member_lastname %></b></div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <div class="col-12">
@@ -237,8 +242,7 @@
                                     </nav>
                                     <% } %>
                                 </div>
-                                <div class="card-footer d-none d-lg-block"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
-                                <div class="card-footer d-block d-sm-none text-center"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
+                                <div class="card-footer text-center"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
                             </div>
                         </div>
                         

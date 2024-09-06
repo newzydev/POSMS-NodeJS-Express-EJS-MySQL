@@ -20,7 +20,10 @@
                 <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
             </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>ยืนยันที่อยู่อีเมล์</p>
+                <p class="login-box-msg">
+                    ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
+                    กรุณายืนยันที่อยู่อีเมล์ก่อน โดยการกรอกรหัส 6 หลักที่ถูกส่งไปยังที่อยู่อีเมล์ของคุณ<br><b>(<%= customer.member_email.substring(0, 2) %>*****<%= customer.member_email.substring(customer.member_email.indexOf('@')) %>)</b>
+                </p>
 
                 <% if (error) { %>
                 <div class="alert alert-danger text-center" role="alert">

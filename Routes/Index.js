@@ -61,87 +61,95 @@ exports.postLogin = (req, res) => {
 
         const user = results[0];
 
-        // อัปเดตเวลาเข้าสู่ระบบ
-        db.query('UPDATE Users SET member_time_login = ? WHERE member_id = ?', [member_time_login, user.member_id], (updateErr) => {
-            if (updateErr) {
-                req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตเวลา');
-                req.flash('formData', { member_email, member_tel });
-                return res.redirect('/');
-            }
-
-            let max_age_cookie = {
-                '3h': 3 * 60 * 60 * 1000,
-                '6h': 6 * 60 * 60 * 1000,
-                '9h': 9 * 60 * 60 * 1000,
-                '12h': 12 * 60 * 60 * 1000,
-                '24h': 24 * 60 * 60 * 1000,
-                '7d': 7 * 24 * 60 * 60 * 1000,
-                '30d': 30 * 24 * 60 * 60 * 1000,
-                '3m': 3 * 30 * 24 * 60 * 60 * 1000,
-                '6m': 6 * 30 * 24 * 60 * 60 * 1000,
-                '9m': 9 * 30 * 24 * 60 * 60 * 1000,
-                '1y': 12 * 30 * 24 * 60 * 60 * 1000
-            }[settings.login_time_out] || 7 * 24 * 60 * 60 * 1000;
-
-            res.cookie('MEMBER_TOKEN', user.member_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
-            res.cookie('ROLE_TOKEN', user.role_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
-
-            // ส่งอีเมล
-            if (user.member_email) {
-                // Generate a timestamp-based ID: YYYYMMDDHHMMSS
-                const now = new Date();
-                const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
-
-                const transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
-                });
+        if (user.member_email_activate === "ACTIVATE") {
             
-                const mailOptions = {
-                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
-                    to: user.member_email,
-                    subject: 'แจ้งเตือนการลงชื่อเข้าใช้งานระบบ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
-                    html: `
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
-                            <h1 style="color: #2c3e50; text-align: center;">
-                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
-                            </h1>
-                            <div style="font-size: 16px; color: #34495e; text-align: center;">
-                                เลขที่ #${Mail_Id}
-                            </div>
-                            <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
-                                <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <div style="font-size: 16px; color: #333;"><strong>เข้าสู่ระบบ :</strong> ${member_time_login}</div>
-                            </div>
-                            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
-                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
-                            </p>
-                        </div>
-                    `,
-                    priority: 'high'
-                };
-            
-                transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log('Email sent: ' + info.response);
-                    }
-                });
-            } else {
-                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
-            }
-
-            switch (user.role_id) {
-                case 'ROLE001': return res.redirect('/Role/Shop_Owner/Page/Dashbord');
-                case 'ROLE002': return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
-                case 'ROLE003': return res.redirect('/Role/Customer/Page/Order_And_Receipt');
-                default:
-                    res.clearCookie('MEMBER_TOKEN');
-                    res.clearCookie('ROLE_TOKEN');
+            // อัปเดตเวลาเข้าสู่ระบบ
+            db.query('UPDATE Users SET member_time_login = ? WHERE member_id = ?', [member_time_login, user.member_id], (updateErr) => {
+                if (updateErr) {
+                    req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตเวลา');
+                    req.flash('formData', { member_email, member_tel });
                     return res.redirect('/');
-            }
-        });
+                }
+    
+                let max_age_cookie = {
+                    '3h': 3 * 60 * 60 * 1000,
+                    '6h': 6 * 60 * 60 * 1000,
+                    '9h': 9 * 60 * 60 * 1000,
+                    '12h': 12 * 60 * 60 * 1000,
+                    '24h': 24 * 60 * 60 * 1000,
+                    '7d': 7 * 24 * 60 * 60 * 1000,
+                    '30d': 30 * 24 * 60 * 60 * 1000,
+                    '3m': 3 * 30 * 24 * 60 * 60 * 1000,
+                    '6m': 6 * 30 * 24 * 60 * 60 * 1000,
+                    '9m': 9 * 30 * 24 * 60 * 60 * 1000,
+                    '1y': 12 * 30 * 24 * 60 * 60 * 1000
+                }[settings.login_time_out] || 7 * 24 * 60 * 60 * 1000;
+    
+                res.cookie('MEMBER_TOKEN', user.member_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
+                res.cookie('ROLE_TOKEN', user.role_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
+    
+                // ส่งอีเมล
+                if (user.member_email) {
+                    // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                    const now = new Date();
+                    const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+    
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                    });
+                
+                    const mailOptions = {
+                        from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                        to: user.member_email,
+                        subject: 'แจ้งเตือนการลงชื่อเข้าใช้งานระบบ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                                <h1 style="color: #2c3e50; text-align: center;">
+                                    ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                                </h1>
+                                <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                    เลขที่ #${Mail_Id}
+                                </div>
+                                <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>เข้าสู่ระบบ :</strong> ${member_time_login}</div>
+                                </div>
+                                <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                    (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                </p>
+                            </div>
+                        `,
+                        priority: 'high'
+                    };
+                
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+                } else {
+                    console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+                }
+    
+                switch (user.role_id) {
+                    case 'ROLE001': return res.redirect('/Role/Shop_Owner/Page/Dashbord');
+                    case 'ROLE002': return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+                    case 'ROLE003': return res.redirect('/Role/Customer/Page/Order_And_Receipt');
+                    default:
+                        res.clearCookie('MEMBER_TOKEN');
+                        res.clearCookie('ROLE_TOKEN');
+                        return res.redirect('/');
+                }
+            });
+
+        } else {
+            req.flash('error', 'กรุณายืนยันที่อยู่อีเมล์ก่อน โดยการกรอกรหัส 6 หลักที่ถูกส่งไปยังที่อยู่อีเมล์ของคุณ');
+            res.redirect('/Account_Register_Activate/' + user.member_id);
+        }
+
     });
 };

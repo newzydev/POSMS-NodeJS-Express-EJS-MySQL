@@ -62,9 +62,9 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
-                                            <label for="first_name" class="col-sm-2 col-form-label required">ชื่อจริง</label>
+                                            <label for="member_firstname" class="col-sm-2 col-form-label required">ชื่อจริง</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= formData ? formData.first_name : '' %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="member_firstname" id="member_firstname" placeholder="ชื่อจริง" value="<%= formData ? formData.first_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อจริงถูกต้อง
                                                 </div>
@@ -74,9 +74,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-sm-2 col-form-label required">นามสกุล</label>
+                                            <label for="member_lastname" class="col-sm-2 col-form-label required">นามสกุล</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= formData ? formData.last_name : '' %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="member_lastname" id="member_lastname" placeholder="นามสกุล" value="<%= formData ? formData.last_name : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกนามสกุลถูกต้อง
                                                 </div>
@@ -86,45 +86,21 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
+                                            <label for="member_email" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.username : '' %>" required autocomplete="off">
+                                                <input type="email" class="form-control form-control-lg" name="member_email" id="member_email" placeholder="ที่อยู่อีเมล์" value="<%= formData ? formData.username : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
-                                                    กรอกชื่อผู้ใช้ถูกต้อง
+                                                    กรอกที่อยู่อีเมล์ถูกต้อง
                                                 </div>
                                                 <div class="invalid-feedback">
-                                                    กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
+                                                    กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label required">รหัสผ่าน</label>
+                                            <label for="member_tel" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
                                             <div class="col-sm-10">
-                                                <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= formData ? formData.password : '' %>" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกรหัสผ่านถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกรหัสผ่านให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="confirm_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่าน</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control form-control-lg" name="confirm_password" id="confirm_password" value="<%= formData ? formData.confirm_password : '' %>" placeholder="ยืนยันรหัสผ่าน" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกยืนยันรหัสผ่านถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกยืนยันรหัสผ่านให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
-                                            <div class="col-sm-10">
-                                                <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= formData ? formData.phone_number : '' %>" required autocomplete="off">
+                                                <input type="tel" class="form-control form-control-lg" name="member_tel" id="member_tel" placeholder="หมายเลขโทรศัพท์" value="<%= formData ? formData.phone_number : '' %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกหมายเลขโทรศัพท์ถูกต้อง
                                                 </div>
@@ -138,8 +114,8 @@
                                             <div class="col-sm-10">
                                                 <select class="form-control form-control-lg" name="role_id" id="role_id" required>
                                                     <option value="" selected disabled>เลือกระดับผู้ใช้งาน</option>
-                                                    <option value="ROLE001">เจ้าของร้าน / Shop Owner</option>
-                                                    <option value="ROLE002">แคชเชียร์ / Cashier</option>
+                                                    <option value="ROLE001">เจ้าของร้าน</option>
+                                                    <option value="ROLE002">แคชเชียร์</option>
                                                 </select>
                                                 <div class="valid-feedback">
                                                     เลือกระดับผู้ใช้งานถูกต้อง
@@ -151,9 +127,17 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-custom-one btn-lg">บันทึกข้อมูล</button>
-                                                <button type="reset" class="btn btn-custom-two btn-lg">รีเซ็ตฟอร์ม</button>
-                                                <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users';" class="btn btn-custom-two btn-lg">ย้อนกลับ</div>
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="submit" class="btn btn-custom-one btn-lg btn-block">บันทึกข้อมูล</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="reset" class="btn btn-custom-two btn-lg btn-block">รีเซ็ตฟอร์ม</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
