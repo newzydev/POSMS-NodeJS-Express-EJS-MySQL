@@ -10,34 +10,28 @@ exports.getRegisterPage = (req, res) => {
 
 exports.postRegister = (req, res) => {
     // Get variables
-    const { first_name, last_name, member_email, confirm_member_email, phone_number } = req.body;
+    const { member_firstname, member_lastname, member_email, member_tel } = req.body;
 
-    if (!first_name || !last_name || !member_email || !phone_number) {
+    if (!member_firstname || !member_lastname || !member_email || !member_tel) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { first_name, last_name, member_email, phone_number });
-        return res.redirect('/Register');
-    }
-
-    if (member_email !== confirm_member_email) {
-        req.flash('error', 'รหัสผ่าน และการยืนยันรหัสผ่านไม่ตรงกัน');
-        req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
+        req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
         return res.redirect('/Register');
     }
     
     // Check if phone number already exists
     const checkPhoneNumberQuery = 'SELECT COUNT(*) AS count FROM Users WHERE member_tel = ?';
     
-    db.query(checkPhoneNumberQuery, [phone_number], (err, results) => {
+    db.query(checkPhoneNumberQuery, [member_tel], (err, results) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์');
-            req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
             return res.redirect('/Register');
         }
 
         if (results[0].count > 0) {
             req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
-            req.flash('formData', { first_name, last_name, member_email, confirm_member_email, phone_number });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
             return res.redirect('/Register');
         }
 
@@ -72,11 +66,11 @@ exports.postRegister = (req, res) => {
         // Query SQL
         const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
         
-        db.query(query, [member_id, first_name, last_name, member_email, member_email_activate, phone_number, role_id, member_time_register, member_time_login], (err, result) => {
+        db.query(query, [member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login], (err, result) => {
             if (err) {
                 console.error(err);
                 req.flash('error', 'เกิดข้อผิดพลาดในการสมัครสมาชิก');
-                req.flash('formData', { first_name, last_name, member_email, member_email_activate, confirm_member_email, phone_number });
+                req.flash('formData', { member_firstname, member_lastname, member_email, member_email_activate, member_tel });
                 return res.redirect('/Register');
             } else {
 
@@ -94,18 +88,18 @@ exports.postRegister = (req, res) => {
                     const mailOptions = {
                         from: 'POSMS TEAM <posms.newzydev@gmail.com>',
                         to: member_email,
-                        subject: 'ขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + first_name + ' ' + last_name,
+                        subject: 'ขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
                         html: `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
                                 <h1 style="color: #2c3e50; text-align: center;">
-                                    ยินดีต้อนรับ คุณ ${first_name} ${last_name}
+                                    ยินดีต้อนรับ คุณ ${member_firstname} ${member_lastname}
                                 </h1>
                                 <div style="font-size: 16px; color: #34495e; text-align: center;">
                                     เลขที่ #${Mail_Id}
                                 </div>
                                 <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                     <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${first_name} ${last_name}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${member_firstname} ${member_lastname}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${member_time_register}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>รหัสยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
                                 </div>
