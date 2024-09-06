@@ -22,9 +22,9 @@ exports.getManageCustomerPage = (req, res) => {
         SELECT 
             Users.member_id, 
             Users.member_firstname, 
-            Users.member_lastname, 
-            Users.member_username, 
-            Users.member_password, 
+            Users.member_lastname,
+            Users.member_email,
+            Users.member_email_activate,
             Users.member_tel, 
             Users.member_time_register, 
             Users.member_time_login, 

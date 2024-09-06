@@ -146,7 +146,10 @@
                                                         </td>
                                                         <td class="text-middle"><%= emp_user.member_firstname %><br><span class="text-success">ชื่อจริง</span></td>
                                                         <td class="text-middle"><%= emp_user.member_lastname %><br><span class="text-success">นามสกุล</span></td>
-                                                        <td class="text-middle"><%= emp_user.member_email.substring(0, 2) %>*****<%= emp_user.member_email.slice(-12); %><br><span class="text-success">อีเมล์</span></td>
+                                                        <td class="text-middle">
+                                                            <%= emp_user.member_email.substring(0, 2) %>*****<%= emp_user.member_email.substring(emp_user.member_email.indexOf('@')) %><br>
+                                                            <span class="text-success">อีเมล์</span>
+                                                        </td>                                                          
                                                         <td class="text-middle"><%= emp_user.member_tel.substring(0, 2) %>*-***-<%= emp_user.member_tel.substring(6) %><br><span class="text-success">ประเทศไทย</span></td>
                                                         <td class="text-middle"><%= emp_user.role_name %><br><span class="text-success">บทบาทการใช้งาน</span></td>
                                                         <td class="text-middle"><%= emp_user.member_time_register %><br><span class="text-success">เป็นสมาชิกเมื่อ</span></td>
