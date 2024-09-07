@@ -24,7 +24,7 @@ exports.getRegisterActivatePage = (req, res) => {
 
 exports.postRegisterActivate = (req, res) => {
     const member_id = req.params.member_id;
-    const { member_firstname, member_lastname, member_email, code_6_digit, member_email_activate } = req.body;
+    const { member_firstname, member_lastname, member_email, code_6_digit, member_email_activate, member_tel } = req.body;
 
     if (!code_6_digit) {
         req.flash('error', 'กรุณากรอกรหัสยืนยันที่อยู่อีเมล์ 6 หลักในช่อง');
@@ -35,7 +35,7 @@ exports.postRegisterActivate = (req, res) => {
         return res.redirect('/Account_Register_Activate/' + member_id);
     }
 
-    const email_activate = "1";
+    const email_activate = "ACTIVATE";
 
     const query = 'UPDATE Users SET member_email_activate = ? WHERE member_id = ?';
     
@@ -72,6 +72,7 @@ exports.postRegisterActivate = (req, res) => {
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
                                 <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${member_firstname} ${member_lastname}</div>
                                 <div style="font-size: 16px; color: #333;"><strong>ยืนยันที่อยู่อีเมล์ :</strong> ${member_email} (ยืนยันแล้ว)</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เบอร์โทรศัพท์ :</strong> ${member_tel} (ยืนยันแล้ว)</div>
                             </div>
                             <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
                                 (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
