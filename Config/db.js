@@ -1,8 +1,8 @@
 // Database Config
 const mysql = require('mysql');
 
-// Function ในการสร้าง return การเชื่อมต่อฐานข้อมูล
-const connectDB = () => {
+// ฟังก์ชันสำหรับสร้างการเชื่อมต่อใหม่เมื่อเกิดปัญหา connection lost
+const handleDisconnect = () => {
     const db = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -14,13 +14,25 @@ const connectDB = () => {
     db.connect((err) => {
         if (err) {
             console.error('Database connection error:', err);
+            setTimeout(handleDisconnect, 2000); // ลองเชื่อมต่อใหม่หลังจาก 2 วินาที
+        } else {
+            console.log('Server Connect: Connected to database successfully');
+        }
+    });
+
+    // จัดการ error เมื่อเกิด connection lost
+    db.on('error', (err) => {
+        console.error('Database error:', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            console.log('Attempting to reconnect...');
+            handleDisconnect(); // เรียกฟังก์ชันเชื่อมต่อใหม่
+        } else {
             throw err;
         }
-        console.log('Server Connect: Connected to database successfully');
     });
 
     return db;
 };
 
-// Export the connectDB function
-module.exports = connectDB;
+// Export the handleDisconnect function
+module.exports = handleDisconnect;
