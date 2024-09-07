@@ -24,26 +24,37 @@ exports.getRegisterActivatePage = (req, res) => {
 
 exports.postRegisterActivate = (req, res) => {
     const member_id = req.params.member_id;
-    const { member_firstname, member_lastname, member_email, code_6_digit, member_email_activate, member_tel } = req.body;
+    const { code_6_digit } = req.body;
 
     if (!code_6_digit) {
         req.flash('error', 'กรุณากรอกรหัสยืนยันที่อยู่อีเมล์ 6 หลักในช่อง');
-    }
-
-    if (code_6_digit !== member_email_activate) {
-        req.flash('error', 'รหัสยืนยันที่อยู่อีเมล์ 6 หลักไม่ถูกต้อง');
         return res.redirect('/Account_Register_Activate/' + member_id);
     }
 
-    const email_activate = "ACTIVATE";
-
-    const query = 'UPDATE Users SET member_email_activate = ? WHERE member_id = ?';
+    const queryUserInfo = 'SELECT member_firstname, member_lastname, member_email, member_email_activate, member_tel FROM Users WHERE member_id = ?';
     
-    db.query(query, [email_activate, member_id], (err, result) => {
-        if (err) {
-            req.flash('error', 'เกิดข้อผิดพลาดในการยืนยันที่อยู่อีเมล์');
-            res.redirect('/Account_Register_Activate/' + member_id);
-        } else {
+    db.query(queryUserInfo, [member_id], (err, userInfo) => {
+        if (err || userInfo.length === 0) {
+            req.flash('error', 'ไม่พบข้อมูลสมาชิก');
+            return res.redirect('/Account_Register_Activate/' + member_id);
+        }
+
+        const { member_firstname, member_lastname, member_email, member_email_activate, member_tel } = userInfo[0];
+
+        if (code_6_digit !== member_email_activate) {
+            req.flash('error', 'รหัสยืนยันที่อยู่อีเมล์ 6 หลักไม่ถูกต้อง');
+            return res.redirect('/Account_Register_Activate/' + member_id);
+        }
+
+        const email_activate = "ACTIVATE";
+
+        const updateQuery = 'UPDATE Users SET member_email_activate = ? WHERE member_id = ?';
+        
+        db.query(updateQuery, [email_activate, member_id], (err, result) => {
+            if (err) {
+                req.flash('error', 'เกิดข้อผิดพลาดในการยืนยันที่อยู่อีเมล์');
+                return res.redirect('/Account_Register_Activate/' + member_id);
+            }
 
             // ส่งอีเมล
             if (member_email) {
@@ -59,7 +70,7 @@ exports.postRegisterActivate = (req, res) => {
                 const mailOptions = {
                     from: 'POSMS TEAM <posms.newzydev@gmail.com>',
                     to: member_email,
-                    subject: 'แจ้งเตือนการยืนยันที่อยู่อีเมล์ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                    subject: 'แจ้งเตือนการยืนยันที่อยู่อีเมล์ เลขที่ #' + Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
                             <h1 style="color: #2c3e50; text-align: center;">
@@ -95,6 +106,6 @@ exports.postRegisterActivate = (req, res) => {
 
             req.flash('success', 'ยืนยันที่อยู่อีเมล์สำเร็จ');
             res.redirect('/');
-        }
+        });
     });
 };
