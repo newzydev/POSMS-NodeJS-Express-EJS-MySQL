@@ -16,7 +16,7 @@
                 <div class="login-box-msg">
                     ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
                     ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
-                    ป้อน <b>อีเมล์</b> และ <b>หมายเลขโทรศัพท์</b>
+                    ป้อน <b>ที่อยู่อีเมล์</b> และ <b>โทรศัพท์มือถือ</b>
                 </div>
                 
                 <% if (error) { %>
@@ -43,13 +43,13 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <label for="member_tel" class="required">หมายเลขโทรศัพท์</label>
-                            <input type="tel" class="form-control form-control-lg" name="member_tel" id="member_tel" placeholder="หมายเลขโทรศัพท์" value="<%= formData ? formData.member_tel : '' %>" autofocus autocomplete="off" required>
+                            <label for="member_tel" class="required">โทรศัพท์มือถือ</label>
+                            <input type="tel" class="form-control form-control-lg" name="member_tel" id="member_tel" placeholder="โทรศัพท์มือถือ" value="<%= formData ? formData.member_tel : '' %>" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกหมายเลขโทรศัพท์ถูกต้อง
+                                กรอกโทรศัพท์มือถือถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกหมายเลขโทรศัพท์ให้ถูกต้อง
+                                กรุณากรอกโทรศัพท์ให้ถูกต้อง
                             </div>
                         </div>
                     </div>
