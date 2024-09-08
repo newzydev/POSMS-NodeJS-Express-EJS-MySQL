@@ -31,7 +31,7 @@ exports.getLoginPage = (req, res) => {
 
 // ฟังก์ชันหลังจาก login
 exports.postLogin = (req, res) => {
-    const { member_email, member_tel } = req.body;
+    const { member_username, member_password } = req.body;
     const settings = res.locals.settings;
 
     // ตั้งเวลาเข้าสู่ระบบ
@@ -40,22 +40,22 @@ exports.postLogin = (req, res) => {
     const formattedTime = now.toLocaleTimeString('th-TH', { timeZone: 'Asia/Bangkok', hour: 'numeric', minute: 'numeric', second: 'numeric' });
     const member_time_login = formattedDate + ' ' + formattedTime;
 
-    if (!member_email || !member_tel) {
+    if (!member_username || !member_password) {
         req.flash('error', 'กรุณากรอกข้อมูลให้ครบ');
-        req.flash('formData', { member_email, member_tel });
+        req.flash('formData', { member_username, member_password });
         return res.redirect('/');
     }
 
-    db.query('SELECT * FROM Users WHERE member_email = ? AND member_tel = ?', [member_email, member_tel], (err, results) => {
+    db.query('SELECT * FROM Users WHERE member_username = ? AND member_password = ?', [member_username, member_password], (err, results) => {
         if (err) {
             req.flash('error', 'เกิดข้อผิดพลาดกับฐานข้อมูล');
-            req.flash('formData', { member_email, member_tel });
+            req.flash('formData', { member_username, member_password });
             return res.redirect('/');
         }
 
         if (results.length === 0) {
             req.flash('error', 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
-            req.flash('formData', { member_email, member_tel });
+            req.flash('formData', { member_username, member_password });
             return res.redirect('/');
         }
 
@@ -67,7 +67,7 @@ exports.postLogin = (req, res) => {
             db.query('UPDATE Users SET member_time_login = ? WHERE member_id = ?', [member_time_login, user.member_id], (updateErr) => {
                 if (updateErr) {
                     req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตเวลา');
-                    req.flash('formData', { member_email, member_tel });
+                    req.flash('formData', { member_username, member_password });
                     return res.redirect('/');
                 }
     

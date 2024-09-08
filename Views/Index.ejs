@@ -16,7 +16,7 @@
                 <div class="login-box-msg">
                     ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
                     ลงชื่อเข้าใช้ระบบเพื่อเริ่มเซสชั่นของคุณ<br>
-                    ป้อน <b>ที่อยู่อีเมล์</b> และ <b>โทรศัพท์มือถือ</b>
+                    ป้อน <b>ชื่อผู้ใช้</b> และ <b>รหัสผ่าน</b>
                 </div>
                 
                 <% if (error) { %>
@@ -33,23 +33,23 @@
                 <form class="needs-validation" novalidate id="login_form" method="POST">
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="member_email" class="required">ที่อยู่อีเมล์</label>
-                            <input type="email" class="form-control form-control-lg" name="member_email" id="member_email" placeholder="ที่อยู่อีเมล์" value="<%= formData ? formData.member_email : '' %>" autofocus autocomplete="off" required>
+                            <label for="member_username" class="required">ชื่อผู้ใช้</label>
+                            <input type="email" class="form-control form-control-lg" name="member_username" id="member_username" placeholder="ชื่อผู้ใช้" value="<%= formData ? formData.member_username : '' %>" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกที่อยู่อีเมล์ถูกต้อง
+                                กรอกชื่อผู้ใช้ถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
+                                กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
                             </div>
                         </div>
                         <div class="col-12">
-                            <label for="member_tel" class="required">โทรศัพท์มือถือ</label>
-                            <input type="tel" class="form-control form-control-lg" name="member_tel" id="member_tel" placeholder="โทรศัพท์มือถือ" value="<%= formData ? formData.member_tel : '' %>" autofocus autocomplete="off" required>
+                            <label for="member_password" class="required">รหัสผ่าน</label>
+                            <input type="password" class="form-control form-control-lg" name="member_password" id="member_password" placeholder="รหัสผ่าน" value="<%= formData ? formData.member_password : '' %>" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกโทรศัพท์มือถือถูกต้อง
+                                กรอกรหัสผ่านถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกโทรศัพท์ให้ถูกต้อง
+                                กรุณากรอกรหัสผ่านให้ถูกต้อง
                             </div>
                         </div>
                     </div>
@@ -61,10 +61,12 @@
                         <div class="col-12 mb-3">
                             <div class="btn btn-custom-two btn-lg btn-anti btn-block" onclick="location.href='/Register';">สมัครสมาชิกกับเรา</div>
                         </div>
+                        <div class="col-12 mb-3">
+                            <div class="btn btn-custom-two btn-lg btn-anti btn-block" onclick="location.href='/Forgot_Account';">ลืมชื่อผู้ใช้ หรือ รหัสผ่าน?</div>
+                        </div>
                         <div class="col-12">
                             <div class="btn btn-lg btn-block" data-toggle="modal" data-target="#Store_Information"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า</div>
                         </div>
-                    </div>
                 </form>
             </div>
         </div>

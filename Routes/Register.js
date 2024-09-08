@@ -10,11 +10,11 @@ exports.getRegisterPage = (req, res) => {
 
 exports.postRegister = (req, res) => {
     // Get variables
-    const { member_firstname, member_lastname, member_email, member_tel } = req.body;
+    const { member_firstname, member_lastname, member_username, member_password, member_email, member_tel } = req.body;
 
-    if (!member_firstname || !member_lastname || !member_email || !member_tel) {
+    if (!member_firstname || !member_lastname || !member_username || !member_password || !member_email || !member_tel) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
+        req.flash('formData', { member_firstname, member_lastname, member_username, member_password, member_email, member_tel });
         return res.redirect('/Register');
     }
     
@@ -64,13 +64,13 @@ exports.postRegister = (req, res) => {
         const member_email_activate = code_6_digit;
 
         // Query SQL
-        const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_username, member_password, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         
-        db.query(query, [member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login], (err, result) => {
+        db.query(query, [member_id, member_firstname, member_lastname, member_username, member_password, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login], (err, result) => {
             if (err) {
                 console.error(err);
                 req.flash('error', 'เกิดข้อผิดพลาดในการสมัครสมาชิก');
-                req.flash('formData', { member_firstname, member_lastname, member_email, member_email_activate, member_tel });
+                req.flash('formData', { member_firstname, member_lastname, member_username, member_password, member_email, member_email_activate, member_tel });
                 return res.redirect('/Register');
             } else {
 
@@ -88,7 +88,7 @@ exports.postRegister = (req, res) => {
                     const mailOptions = {
                         from: 'POSMS TEAM <posms.newzydev@gmail.com>',
                         to: member_email,
-                        subject: 'ขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                        subject: 'แจ้งเตือนขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
                         html: `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
                                 <h1 style="color: #2c3e50; text-align: center;">
