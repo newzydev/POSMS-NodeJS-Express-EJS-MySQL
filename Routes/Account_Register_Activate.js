@@ -31,7 +31,7 @@ exports.postRegisterActivate = (req, res) => {
         return res.redirect('/Account_Register_Activate/' + member_id);
     }
 
-    const queryUserInfo = 'SELECT member_firstname, member_lastname, member_email, member_email_activate, member_tel FROM Users WHERE member_id = ?';
+    const queryUserInfo = 'SELECT member_firstname, member_lastname, member_email, member_email_activate FROM Users WHERE member_id = ?';
     
     db.query(queryUserInfo, [member_id], (err, userInfo) => {
         if (err || userInfo.length === 0) {
@@ -39,7 +39,7 @@ exports.postRegisterActivate = (req, res) => {
             return res.redirect('/Account_Register_Activate/' + member_id);
         }
 
-        const { member_firstname, member_lastname, member_email, member_email_activate, member_tel } = userInfo[0];
+        const { member_firstname, member_lastname, member_email, member_email_activate } = userInfo[0];
 
         if (code_6_digit !== member_email_activate) {
             req.flash('error', 'รหัสยืนยันที่อยู่อีเมล์ 6 หลักไม่ถูกต้อง');
@@ -52,6 +52,7 @@ exports.postRegisterActivate = (req, res) => {
         
         db.query(updateQuery, [email_activate, member_id], (err, result) => {
             if (err) {
+                console.log(err);
                 req.flash('error', 'เกิดข้อผิดพลาดในการยืนยันที่อยู่อีเมล์');
                 return res.redirect('/Account_Register_Activate/' + member_id);
             }
