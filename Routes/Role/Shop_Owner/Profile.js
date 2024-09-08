@@ -9,6 +9,7 @@ exports.getShopOwnerProfilePage = (req, res) => {
     res.render('Role/Shop_Owner/Profile', { title, your_page, error: error[0], formData, success: success[0] });
 };
 
+// Account Settings
 exports.postShopOwnerChangeProfile = (req, res) => {
     const { member_id, firstname, lastname, member_tel } = req.body;
 
@@ -32,7 +33,9 @@ exports.postShopOwnerChangeProfile = (req, res) => {
         }
     });
 };
+// Account Settings End
 
+// Change Email
 exports.postShopOwnerChangeEmail = (req, res) => {
     const { member_id, old_email, new_email, confirm_new_email } = req.body;
     const user = res.locals.user;
@@ -42,10 +45,16 @@ exports.postShopOwnerChangeEmail = (req, res) => {
         req.flash('formData', { old_email, new_email, confirm_new_email });
         return res.redirect('/Role/Shop_Owner/Page/Profile');
     }
-
+    
     if (new_email !== confirm_new_email) {
         req.flash('error', 'ที่อยู่อีเมล์ และการยืนยันที่อยู่อีเมล์ไม่ตรงกัน');
         req.flash('formData', { new_email, confirm_new_email });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    if (new_email || confirm_new_email === old_email) {
+        req.flash('error', 'ไม่สามารถเปลี่ยนไปใช้ที่อยู่อีเมล์เดิมได้');
+        req.flash('formData', { old_email,  });
         return res.redirect('/Role/Shop_Owner/Page/Profile');
     }
 
@@ -132,7 +141,69 @@ exports.postShopOwnerChangeEmail = (req, res) => {
         });
     });
 };
+// Change Email End
 
+// Change Username
+exports.postShopOwnerChangeUsername = (req, res) => {
+    const { member_id, old_username, new_username, confirm_new_username } = req.body;
+
+    if (!old_username || !new_username || !confirm_new_username) {
+        req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
+        req.flash('formData', { old_username, new_username, confirm_new_username });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    if (new_username !== confirm_new_username) {
+        req.flash('error', 'ชื่อผู้ใช้ และการยืนยันชื่อผู้ใช้ไม่ตรงกัน');
+        req.flash('formData', { new_username, confirm_new_username });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    if (new_username || confirm_new_username === old_username) {
+        req.flash('error', 'ไม่สามารถเปลี่ยนไปใช้ชื่อผู้ใช้เดิมได้');
+        req.flash('formData', { old_email,  });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    const query = 'SELECT member_username FROM Users WHERE member_id = ?';
+    db.query(query, [member_id], (err, result) => {
+        if (err) {
+            console.error(err);
+            req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบชื่อผู้ใช้');
+            req.flash('formData', { old_username, new_username, confirm_new_username });
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        if (result.length === 0) {
+            req.flash('error', 'ไม่พบบัญชีผู้ใช้');
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        const user = result[0];
+
+        if (old_username !== user.member_username) {
+            req.flash('error', 'ชื่อผู้ใช้เดิมไม่ถูกต้อง');
+            req.flash('formData', { old_username, new_username, confirm_new_username });
+            return res.redirect('/Role/Shop_Owner/Page/Profile');
+        }
+
+        const updateQuery = 'UPDATE Users SET member_username = ? WHERE member_id = ?';
+        db.query(updateQuery, [new_username, member_id], (err, result) => {
+            if (err) {
+                console.error(err);
+                req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขชื่อผู้ใช้');
+                req.flash('formData', { old_username, new_username, confirm_new_username });
+                return res.redirect('/Role/Shop_Owner/Page/Profile');
+            }
+            
+            req.flash('success', 'บันทึกข้อมูลชื่อผู้ใช้สำเร็จ');
+            res.redirect('/Role/Shop_Owner/Page/Profile');
+        });
+    });
+};
+// Change Username End
+
+// Change Password
 exports.postShopOwnerChangePassword = (req, res) => {
     const { member_id, old_password, new_password, confirm_new_password } = req.body;
 
@@ -145,6 +216,12 @@ exports.postShopOwnerChangePassword = (req, res) => {
     if (new_password !== confirm_new_password) {
         req.flash('error', 'รหัสผ่าน และการยืนยันรหัสผ่านไม่ตรงกัน');
         req.flash('formData', { new_password, confirm_new_password });
+        return res.redirect('/Role/Shop_Owner/Page/Profile');
+    }
+
+    if (new_password || confirm_new_password === old_password) {
+        req.flash('error', 'ไม่สามารถเปลี่ยนไปใช้รหัสผ่านเดิมได้');
+        req.flash('formData', { old_email,  });
         return res.redirect('/Role/Shop_Owner/Page/Profile');
     }
 
@@ -184,3 +261,4 @@ exports.postShopOwnerChangePassword = (req, res) => {
         });
     });
 };
+// Change Password End

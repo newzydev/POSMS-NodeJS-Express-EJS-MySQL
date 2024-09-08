@@ -98,6 +98,8 @@
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
                                         <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab"><i class="fas fa-user-cog"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#change_email" data-toggle="tab"><i class="fas fa-mail-bulk"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#change_username" data-toggle="tab"><i class="fas fa-user-lock"></i></a></li>
                                         <li class="nav-item"><a class="nav-link" href="#change_password" data-toggle="tab"><i class="fas fa-key"></i></a></li>
                                     </ul>
                                 </div><!-- /.card-header -->
@@ -113,12 +115,12 @@
                                         <span><i class="fas fa-check-circle mr-2"></i><%= success %>
                                     </div>
                                     <% } %>
-                                    
+
                                     <div class="tab-content">
 
                                         <!-- Account Settings Form -->
                                         <div class="active tab-pane" id="settings">
-                                            <form class="needs-validation" novalidate method="POST" action="/Role/Customer/Page/Profile/Update">
+                                            <form class="needs-validation" novalidate method="POST" action="/Role/Customer/Page/Profile/ChangeProfile">
                                                 <input type="hidden" name="member_id" value="<%= user.member_id %>">
                                                 <div class="form-group row">
                                                     <label for="firstname" class="col-sm-2 col-form-label required">ชื่อจริง</label>
@@ -145,21 +147,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
+                                                    <label for="member_tel" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="ชื่อผู้ใช้" value="<%= user.member_username %>" required autocomplete="off">
-                                                        <div class="valid-feedback">
-                                                            กรอกชื่อผู้ใช้ถูกต้อง
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= user.member_tel %>" required autocomplete="off">
+                                                        <input type="tel" class="form-control form-control-lg" id="member_tel" name="member_tel" placeholder="หมายเลขโทรศัพท์" value="<%= user.member_tel %>" required autocomplete="off">
                                                         <div class="valid-feedback">
                                                             กรอกหมายเลขโทรศัพท์ถูกต้อง
                                                         </div>
@@ -169,21 +159,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="member_email" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์</label>
+                                                    <label for="member_email_activate" class="col-sm-2 col-form-label">สถานะบัญชี</label>
                                                     <div class="col-sm-10">
-                                                        <input type="email" class="form-control form-control-lg" id="member_email" name="member_email" placeholder="ที่อยู่อีเมล์" value="<%= user.member_email %>" required autocomplete="off">
-                                                        <div class="valid-feedback">
-                                                            กรอกที่อยู่อีเมล์ถูกต้อง
+                                                        <div class="list-group">
+                                                            <div class="list-group-item">
+                                                                <% if (user.member_email_activate === "ACTIVATE") { %>ยืนยันที่อยู่อีเมล์แล้ว<% } else { %>รอยืนยันที่อยู่อีเมล์<% } %>
+                                                            </div>
                                                         </div>
-                                                        <div class="invalid-feedback">
-                                                            กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="member_email_activate" class="col-sm-2 col-form-label">ยืนยันที่อยู่อีเมล์</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control form-control-lg" id="member_email_activate" name="member_email_activate" placeholder="ที่อยู่อีเมล์" value="<% if (user.member_email_activate === "1") { %>ยืนยันแล้ว<% } else { %>รอยืนยันที่อยู่อีเมล์<% } %>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -208,6 +190,132 @@
                                             </form>
                                         </div>
                                         <!-- Account Settings Form -->
+
+                                        <!-- Change Email Form -->
+                                        <div class="tab-pane" id="change_email">
+                                            <form class="needs-validation" novalidate method="POST" action="/Role/Customer/Page/Profile/ChangeEmail">
+                                                <input type="hidden" name="member_id" value="<%= user.member_id %>">
+                                                <div class="form-group row">
+                                                    <label for="old_email" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์เดิม</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="old_email" name="old_email" placeholder="ที่อยู่อีเมล์เดิม" value="<%= formData ? formData.old_email : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกที่อยู่อีเมล์เดิมเดิมถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกที่อยู่อีเมล์เดิมเดิมให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="new_email" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์ใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="new_email" name="new_email" placeholder="ที่อยู่อีเมล์ใหม่" value="<%= formData ? formData.new_email : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกที่อยู่อีเมล์ใหม่ถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกที่อยู่อีเมล์ใหม่ให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="confirm_new_email" class="col-sm-2 col-form-label required">ยืนยันที่อยู่อีเมล์ใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="confirm_new_email" name="confirm_new_email" placeholder="ยืนยันที่อยู่อีเมล์ใหม่" value="<%= formData ? formData.confirm_new_email : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกยืนยันที่อยู่อีเมล์ใหม่ถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกยืนยันที่อยู่อีเมล์ใหม่ให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <div class="form-group form-check m-0 p-0 icheck-primary">
+                                                            <input type="checkbox" class="form-check-input" id="accept_check_2" required>
+                                                            <label class="form-check-label" for="accept_check_2">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                            <div class="valid-feedback">
+                                                                ข้าพเจ้าได้อ่านและยอมรับ
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Change Email Form End -->
+                                        
+                                        <!-- Change Username Form -->
+                                        <div class="tab-pane" id="change_username">
+                                            <form class="needs-validation" novalidate method="POST" action="/Role/Customer/Page/Profile/ChangeUsername">
+                                                <input type="hidden" name="member_id" value="<%= user.member_id %>">
+                                                <div class="form-group row">
+                                                    <label for="old_username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้เดิม</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="old_username" name="old_username" placeholder="ชื่อผู้ใช้เดิม" value="<%= formData ? formData.old_username : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกชื่อผู้ใช้เดิมถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกชื่อผู้ใช้เดิมให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="new_username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้ใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="new_username" name="new_username" placeholder="ชื่อผู้ใช้ใหม่" value="<%= formData ? formData.new_username : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกชื่อผู้ใช้ใหม่ถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกชื่อผู้ใช้ใหม่ให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="confirm_new_username" class="col-sm-2 col-form-label required">ยืนยันชื่อผู้ใช้ใหม่</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control form-control-lg" id="confirm_new_username" name="confirm_new_username" placeholder="ยืนยันชื่อผู้ใช้ใหม่" value="<%= formData ? formData.confirm_new_username : '' %>" required autocomplete="off">
+                                                        <div class="valid-feedback">
+                                                            กรอกยืนยันชื่อผู้ใช้ใหม่ถูกต้อง
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            กรุณากรอกยืนยันชื่อผู้ใช้ใหม่ให้ถูกต้อง
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <div class="form-group form-check m-0 p-0 icheck-primary">
+                                                            <input type="checkbox" class="form-check-input" id="accept_check_3" required>
+                                                            <label class="form-check-label" for="accept_check_3">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                            <div class="valid-feedback">
+                                                                ข้าพเจ้าได้อ่านและยอมรับ
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                กรุณาอ่านและยอมรับ นโยบายความเป็นส่วนตัว ข้อกำหนด และเงื่อนไชการใช้บริการ
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="offset-sm-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-custom-one">บันทึกข้อมูล</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- Change Username Form End -->
 
                                         <!-- Change Password Form -->
                                         <div class="tab-pane" id="change_password">
@@ -252,8 +360,8 @@
                                                 <div class="form-group row">
                                                     <div class="offset-sm-2 col-sm-10">
                                                         <div class="form-group form-check m-0 p-0 icheck-primary">
-                                                            <input type="checkbox" class="form-check-input" id="accept_check_2" required>
-                                                            <label class="form-check-label" for="accept_check_2">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
+                                                            <input type="checkbox" class="form-check-input" id="accept_check_3" required>
+                                                            <label class="form-check-label" for="accept_check_3">ข้าพเจ้า ได้อ่านและยอมรับ <span class="text-primary">นโยบายความเป็นส่วนตัว</span> <span class="text-primary">ข้อกำหนด</span> และ <span class="text-primary">เงื่อนไขการใช้บริการ</span> ของเราเป็นที่เรียบร้อยแล้ว</label>
                                                             <div class="valid-feedback">
                                                                 ข้าพเจ้าได้อ่านและยอมรับ
                                                             </div>

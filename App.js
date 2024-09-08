@@ -78,12 +78,12 @@ app.post('/Account_Register_Activate/:member_id', postRegisterActivate);
 // Role Shop_Owner
 // ==================================================
 // Profile Page
-const { getShopOwnerProfilePage, postShopOwnerChangeEmail, postShopOwnerChangeProfile } = require('./Routes/Role/Shop_Owner/Profile');
-const { postShopOwnerChangePassword } = require('./Routes/Role/Shop_Owner/Profile');
+const { getShopOwnerProfilePage, postShopOwnerChangeProfile, postShopOwnerChangeEmail, postShopOwnerChangeUsername, postShopOwnerChangePassword } = require('./Routes/Role/Shop_Owner/Profile');
 
 app.get('/Role/Shop_Owner/Page/Profile', authenticateUser(db), checkRole001, getShopOwnerProfilePage);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postShopOwnerChangeProfile);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postShopOwnerChangeEmail);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeUsername', authenticateUser(db), checkRole001, postShopOwnerChangeUsername);
 app.post('/Role/Shop_Owner/Page/Profile/ChangePassword', authenticateUser(db), checkRole001, postShopOwnerChangePassword);
 
 // Dashbord Page
@@ -159,12 +159,13 @@ app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', authent
 // Role Cashier
 // ==================================================
 // Profile Page
-const { getCashierProfilePage, postCashierChangeProfile } = require('./Routes/Role/Cashier/Profile');
-const { postCashierChangePassword } = require('./Routes/Role/Cashier/Profile');
+const { getCashierProfilePage, postCashierChangeProfile, postCashierChangeEmail, postCashierChangeUsername, postCashierChangePassword } = require('./Routes/Role/Cashier/Profile');
 
 app.get('/Role/Cashier/Page/Profile', authenticateUser(db), checkRole002, getCashierProfilePage);
-app.post('/Role/Cashier/Page/Profile/Update', authenticateUser(db), checkRole002, postCashierChangeProfile);
-app.post('/Role/Cashier/Page/Profile/ChangePassword', authenticateUser(db), checkRole002, postCashierChangePassword);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postCashierChangeProfile);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postCashierChangeEmail);
+app.post('/Role/Shop_Owner/Page/Profile/ChangeUsername', authenticateUser(db), checkRole001, postCashierChangeUsername);
+app.post('/Role/Shop_Owner/Page/Profile/ChangePassword', authenticateUser(db), checkRole001, postCashierChangePassword);
 
 // Manage Products Page
 const { getManageProductsPage } = require('./Routes/Role/Cashier/Manage_Products');
@@ -232,12 +233,13 @@ app.get('/Role/Cashier/Page/Electronic_Reciept/Order/:order_id', authenticateUse
 // Role Customer
 // ==================================================
 // Profile Page
-const { getCustomerProfilePage, postCustomerChangeProfile } = require('./Routes/Role/Customer/Profile');
-const { postCustomerChangePassword } = require('./Routes/Role/Customer/Profile');
+const { getCustomerProfilePage, postCustomerChangeProfile, postCustomerChangeEmail, postCustomerChangeUsername, postCustomerChangePassword } = require('./Routes/Role/Customer/Profile');
 
 app.get('/Role/Customer/Page/Profile', authenticateUser(db), checkRole003, getCustomerProfilePage);
-app.post('/Role/Customer/Page/Profile/Update', authenticateUser(db), checkRole003, postCustomerChangeProfile);
-app.post('/Role/Customer/Page/Profile/ChangePassword', authenticateUser(db), checkRole003, postCustomerChangePassword);
+app.post('/Role/Customer/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postCustomerChangeProfile);
+app.post('/Role/Customer/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postCustomerChangeEmail);
+app.post('/Role/Customer/Page/Profile/ChangeUsername', authenticateUser(db), checkRole001, postCustomerChangeUsername);
+app.post('/Role/Customer/Page/Profile/ChangePassword', authenticateUser(db), checkRole001, postCustomerChangePassword);
 
 // Order And Receipt Page
 const { getOrderAndRecieptPage } = require('./Routes/Role/Customer/Order_And_Receipt');
