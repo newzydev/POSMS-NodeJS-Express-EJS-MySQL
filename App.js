@@ -27,11 +27,19 @@ app.use(session({
     } 
 }));
 
+// เพิ่มประสิทธิภาพ และความปลอดภัยให้ระบบ
+// Middleware สำหรับประสิทธิภาพ
 const compression = require('compression'); // เพื่อลดขนาดของการส่งข้อมูล
 app.use(compression());
-const helmet = require('helmet'); // เพื่อเพิ่มความปลอดภัย
+// Middleware สำหรับความปลอดภัย
+const cors = require('cors'); // ป้องกัน Cross-Origin Resource Sharing (CORS) issues
+app.use(cors({
+  origin: '*' // หรือ '*' เพื่ออนุญาตทุกโดเมน
+}));
+const xss = require('xss-clean'); // ป้องกันการโจมตี XSS โดยการทำความสะอาดข้อมูลที่ส่งเข้ามา
+app.use(xss());
+const helmet = require('helmet'); // ป้องกันการโจมตีหลายประเภท เช่น XSS, clickjacking, และอื่น ๆ
 app.use(helmet());
-
 
 app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
 app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
