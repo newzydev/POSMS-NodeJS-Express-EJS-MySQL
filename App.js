@@ -34,12 +34,12 @@ app.use(compression());
 // Middleware สำหรับความปลอดภัย
 const cors = require('cors'); // ป้องกัน Cross-Origin Resource Sharing (CORS) issues
 app.use(cors({
-  origin: '*' // หรือ '*' เพื่ออนุญาตทุกโดเมน
+    origin: '*', // หรือ '*' เพื่ออนุญาตทุกโดเมน
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
 }));
 const xss = require('xss-clean'); // ป้องกันการโจมตี XSS โดยการทำความสะอาดข้อมูลที่ส่งเข้ามา
 app.use(xss());
-const helmet = require('helmet'); // ป้องกันการโจมตีหลายประเภท เช่น XSS, clickjacking, และอื่น ๆ
-app.use(helmet());
 
 app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
 app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
