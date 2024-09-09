@@ -49,7 +49,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">รหัสลูกค้า</label>
+                                        <label class="col-sm-2 col-form-label">รหัสพนักงาน</label>
                                         <div class="col-sm-10">
                                             <svg class="barcode" 
                                                 jsbarcode-format="CODE128" 
@@ -66,42 +66,94 @@
                                     <div class="form-group row">
                                         <label for="first_name" class="col-sm-2 col-form-label">ชื่อจริง</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= customer.member_firstname %>" disabled required autocomplete="off">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_firstname %>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="last_name" class="col-sm-2 col-form-label">นามสกุล</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= customer.member_lastname %>" disabled required autocomplete="off">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_lastname %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="phone_number" class="col-sm-2 col-form-label">ที่อยู่อีเมลย์</label>
+                                        <div class="col-sm-10">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_email.substring(0, 2) %>*****<%= customer.member_email.substring(customer.member_email.indexOf('@')) %>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="phone_number" class="col-sm-2 col-form-label">หมายเลขโทรศัพท์</label>
                                         <div class="col-sm-10">
-                                            <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= customer.member_tel.substring(0, 2) %>X-XXX-<%= customer.member_tel.substring(6) %>" disabled required autocomplete="off">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_tel.substring(0, 2) %>*-***-<%= customer.member_tel.substring(6) %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="phone_number" class="col-sm-2 col-form-label">สถานะบัญชี</label>
+                                        <div class="col-sm-10">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <% if (customer.member_email_activate === "ACTIVATE") { %>
+                                                        ยืนยันที่อยู่อีเมล์แล้ว
+                                                    <% } else { %>
+                                                        รอยืนยันที่อยู่อีเมล์
+                                                    <% } %>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="role_id" class="col-sm-2 col-form-label">ระดับผู้ใช้งานบัญชี</label>
                                         <div class="col-sm-10">
-                                            <input type="tel" class="form-control form-control-lg" name="role_id" id="role_id" placeholder="ระดับผู้ใช้งานบัญชี" value="<%= customer.role_name %>" disabled required autocomplete="off">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.role_name %>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="member_time_register" class="col-sm-2 col-form-label">สมัครสมาชิกเมื่อ</label>
                                         <div class="col-sm-10">
-                                            <input type="tel" class="form-control form-control-lg" name="member_time_register" id="member_time_register" placeholder="สมัครสมาชิกเมื่อ" value="<%= customer.member_time_register %>" disabled required autocomplete="off">
-                                        </div>
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_time_register %>
+                                                </div>
+                                            </div>
+                                            </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="member_time_login" class="col-sm-2 col-form-label">ลงชื่อเข้าใช้เมื่อ</label>
                                         <div class="col-sm-10">
-                                            <input type="tel" class="form-control form-control-lg" name="member_time_login" id="member_time_login" placeholder="ลงชื่อเข้าใช้เมื่อ" value="<%= customer.member_time_login %>" disabled required autocomplete="off">
+                                            <div class="list-group">
+                                                <div class="list-group-item">
+                                                    <%= customer.member_time_login %>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';" class="btn btn-custom-one btn-lg">ย้อนกลับ</div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3">
+                                                    <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';" class="btn btn-custom-one btn-lg btn-block">ย้อนกลับ</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

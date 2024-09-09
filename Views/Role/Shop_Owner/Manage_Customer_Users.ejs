@@ -61,18 +61,42 @@
                                     
                                     <form class="needs-validation" novalidate method="GET" action="">
                                         <div class="form-row">
-                                            <div class="col-md-9 mb-3">
-                                                <div class="btn-group btn-group-radius">
-                                                    <div class="btn btn-secondary btn-lg btn-anti d-none d-sm-block" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Download/Excel';"><i class="fas fa-download mr-2"></i>ใฟล์ Excel</div>
-                                                    <div class="btn btn-secondary btn-lg btn-anti d-none d-sm-block" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Print';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์</div>
+
+                                            <!-- ส่วนแผงควบคุม -->
+                                            <div class="col-md-4 mb-3">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-secondary btn-lg txt-cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Print/Label';"><i class="fas fa-print mr-2"></i>บัตรลูกค้า</div>
+                                                    <div class="btn btn-secondary btn-lg txt-cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Print/Report';"><i class="fas fa-print mr-2"></i>รายงานลูกค้า</div>
                                                 </div>
-                                                <div class="btn btn-success btn-lg btn-anti" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มบัญชีลูกค้า</div>
-                                                <% if (search) { %>
-                                                <div class="btn btn-info btn-lg btn-anti" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
-                                                <% } %>
                                             </div>
                                             <div class="col-md-2 mb-3">
-                                                <input type="text" class="form-control form-control-lg input-anti input-search" name="search" placeholder="ค้นหาจาก ชื่อ / นามสกุล" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-success btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มบัญชีลูกค้า</div>
+                                                </div>
+                                            </div>
+                                            <% if (search) { %>
+                                            <div class="col-md-2 mb-3">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-info btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
+                                                </div>
+                                            </div>
+                                            <% } else { %>
+                                            <div class="col-md-2"></div>
+                                            <% } %>
+                                            <!-- ส่วนแผงควบคุม -->
+
+                                            <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
+                                            <div class="col-md-1 mb-3">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-outline-secondary btn-lg active"><i class="fas fa-th-list"></i></div>
+                                                    <div class="btn btn-outline-secondary btn-lg"><i class="fas fa-th"></i></div>
+                                                </div>
+                                            </div>
+                                            <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
+
+                                            <!-- ส้วนค้นหาข้อมูล -->
+                                            <div class="col-md-2 mb-3">
+                                                <input type="text" class="form-control form-control-lg input-anti input-search" name="search" placeholder="รหัสพนักงาน, ชื่อ, นามสกุล" required autocomplete="off" autofocus value="<%= search %>">
                                                 <div class="valid-feedback">
                                                     กรอกข้อมูลค้นหาถูกต้อง
                                                 </div>
@@ -83,6 +107,8 @@
                                             <div class="col-md-1 mb-3">
                                                 <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>
                                             </div>
+                                            <!-- ส้วนค้นหาข้อมูล -->
+                                            
                                         </div>
                                     </form>
                                     <div class="table-responsive">
@@ -153,11 +179,13 @@
                                                                     <div class="mb-3">
                                                                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
                                                                     </div>
-                                                                    คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?<br><b>(<%= cus_user.member_id %>) <%= cus_user.member_firstname %> <%= cus_user.member_lastname %></b>
+                                                                    <div>คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?</div>
+                                                                    <div><b>(<%= cus_user.member_id %>)</b></div>
+                                                                    <div><b><%= cus_user.member_firstname %> <%= cus_user.member_lastname %></b></div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <div class="col-12">
-                                                                        <div class="row ">
+                                                                        <div class="row">
                                                                             <div class="col-6">
                                                                                 <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ยกเลิก</button>
                                                                             </div>

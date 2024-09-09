@@ -77,9 +77,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="first_name" class="col-sm-2 col-form-label required">ชื่อจริง</label>
+                                            <label for="member_firstname" class="col-sm-2 col-form-label required">ชื่อจริง</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="ชื่อจริง" value="<%= customer.member_firstname %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="member_firstname" id="member_firstname" placeholder="ชื่อจริง" value="<%= customer.member_firstname %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกชื่อจริงถูกต้อง
                                                 </div>
@@ -89,9 +89,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="last_name" class="col-sm-2 col-form-label required">นามสกุล</label>
+                                            <label for="member_lastname" class="col-sm-2 col-form-label required">นามสกุล</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="นามสกุล" value="<%= customer.member_lastname %>" required autocomplete="off">
+                                                <input type="text" class="form-control form-control-lg" name="member_lastname" id="member_lastname" placeholder="นามสกุล" value="<%= customer.member_lastname %>" required autocomplete="off">
                                                 <div class="valid-feedback">
                                                     กรอกนามสกุลถูกต้อง
                                                 </div>
@@ -101,58 +101,35 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="username" class="col-sm-2 col-form-label required">ชื่อผู้ใช้</label>
+                                            <label for="role_id" class="col-sm-2 col-form-label required">ระดับผู้ใช้งานบัญชี</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="username" id="username" placeholder="ชื่อผู้ใช้" value="<%= customer.member_username %>" required autocomplete="off">
+                                                <select class="form-control form-control-lg" name="role_id" id="role_id">
+                                                    <option value="" disabled>เลือกระดับผู้ใช้งาน</option>
+                                                    <option <%= customer.role_id === 'ROLE001' ? 'selected' : '' %> value="ROLE001">เจ้าของร้าน</option>
+                                                    <option <%= customer.role_id === 'ROLE002' ? 'selected' : '' %> value="ROLE002">แคชเชียร์</option>
+                                                    <option <%= customer.role_id === 'ROLE003' ? 'selected' : '' %> value="ROLE003">ลูกค้า</option>
+                                                </select>
                                                 <div class="valid-feedback">
-                                                    กรอกชื่อผู้ใช้ถูกต้อง
+                                                    เลือกระดับผู้ใช้งานถูกต้อง
                                                 </div>
                                                 <div class="invalid-feedback">
-                                                    กรุณากรอกชื่อผู้ใช้ให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="password" class="col-sm-2 col-form-label required">รหัสผ่าน</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="รหัสผ่าน" value="<%= customer.member_password %>" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกรหัสผ่านถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกรหัสผ่านให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="confirm_password" class="col-sm-2 col-form-label required">ยืนยันรหัสผ่าน</label>
-                                            <div class="col-sm-10">
-                                                <input type="password" class="form-control form-control-lg" name="confirm_password" id="confirm_password" placeholder="ยืนยันรหัสผ่าน" value="<%= customer.member_password %>" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกยืนยันรหัสผ่านถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกยืนยันรหัสผ่านให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="phone_number" class="col-sm-2 col-form-label required">หมายเลขโทรศัพท์</label>
-                                            <div class="col-sm-10">
-                                                <input type="tel" class="form-control form-control-lg" name="phone_number" id="phone_number" placeholder="หมายเลขโทรศัพท์" value="<%= customer.member_tel%>" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกหมายเลขโทรศัพท์ถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกหมายเลขโทรศัพท์ให้ถูกต้อง
+                                                    กรุณาเลือกระดับผู้ใช้งานให้ถูกต้อง
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-custom-one btn-lg">บันทึกข้อมูล</button>
-                                                <button type="reset" class="btn btn-custom-two btn-lg">รีเซ็ตฟอร์ม</button>
-                                                <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';" class="btn btn-custom-two btn-lg">ย้อนกลับ</div>
+                                                <div class="row">
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="submit" class="btn btn-custom-one btn-lg btn-block">บันทึกข้อมูล</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <button type="reset" class="btn btn-custom-two btn-lg btn-block">รีเซ็ตฟอร์ม</button>
+                                                    </div>
+                                                    <div class="col-md-4 mb-3">
+                                                        <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
