@@ -26,6 +26,13 @@ app.use(session({
         secure: false // กำหนดให้คุกกี้ไม่จำเป็นต้องใช้งานบน HTTPS
     } 
 }));
+
+const compression = require('compression'); // เพื่อลดขนาดของการส่งข้อมูล
+app.use(compression());
+const helmet = require('helmet'); // เพื่อเพิ่มความปลอดภัย
+app.use(helmet());
+
+
 app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
 app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
 app.set('port', process.env.port || port); // กำหนดหมายเลขพอร์ตให้แอปพลิเคชัน

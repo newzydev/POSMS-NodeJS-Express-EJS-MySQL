@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.10",
@@ -20,6 +21,7 @@
     "express-validator": "^7.1.0",
     "fileupload": "^1.0.0",
     "fs": "^0.0.1-security",
+    "helmet": "^7.1.0",
     "mysql": "^2.18.1",
     "nodemailer": "^6.9.15",
     "nodemon": "^3.1.4",
