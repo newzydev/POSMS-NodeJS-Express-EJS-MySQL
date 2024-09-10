@@ -115,7 +115,7 @@ exports.postShopOwnerChangeEmail = (req, res) => {
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
                                 <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <div style="font-size: 16px; color: #333;"><strong>เปลี่ยนที่อยู่อีเมล์เป็น :</strong> ${new_email} (สำเร็จ)</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เปลี่ยนที่อยู่อีเมล์ :</strong> (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
                                 (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
@@ -195,6 +195,53 @@ exports.postShopOwnerChangeUsername = (req, res) => {
                 req.flash('formData', { old_username, new_username, confirm_new_username });
                 return res.redirect('/Role/Shop_Owner/Page/Profile');
             }
+
+            // ส่งอีเมล
+            if (user.member_email) {
+                // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                const now = new Date();
+                const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                });
+            
+                const mailOptions = {
+                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    to: user.member_email,
+                    subject: 'แจ้งเตือนการเปลี่ยนแปลงชื่อผู้ใช้ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                            <h1 style="color: #2c3e50; text-align: center;">
+                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                            </h1>
+                            <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                เลขที่ #${Mail_Id}
+                            </div>
+                            <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เปลี่ยนชื่อผู้ใช้ :</strong> (สำเร็จ)</div>
+                            </div>
+                            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                            </p>
+                        </div>
+                    `,
+                    priority: 'high'
+                };
+            
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            } else {
+                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+            }
             
             req.flash('success', 'บันทึกข้อมูลชื่อผู้ใช้สำเร็จ');
             res.redirect('/Role/Shop_Owner/Page/Profile');
@@ -254,6 +301,53 @@ exports.postShopOwnerChangePassword = (req, res) => {
                 req.flash('error', 'เกิดข้อผิดพลาดในการแก้ไขรหัสผ่าน');
                 req.flash('formData', { old_password, new_password, confirm_new_password });
                 return res.redirect('/Role/Shop_Owner/Page/Profile');
+            }
+
+            // ส่งอีเมล
+            if (user.member_email) {
+                // Generate a timestamp-based ID: YYYYMMDDHHMMSS
+                const now = new Date();
+                const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                });
+            
+                const mailOptions = {
+                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    to: user.member_email,
+                    subject: 'แจ้งเตือนการเปลี่ยนแปลงรหัสผ่าน เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                            <h1 style="color: #2c3e50; text-align: center;">
+                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                            </h1>
+                            <div style="font-size: 16px; color: #34495e; text-align: center;">
+                                เลขที่ #${Mail_Id}
+                            </div>
+                            <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333;"><strong>เปลี่ยนชื่อผู้ใช้ :</strong> (สำเร็จ)</div>
+                            </div>
+                            <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
+                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                            </p>
+                        </div>
+                    `,
+                    priority: 'high'
+                };
+            
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            } else {
+                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
             }
             
             req.flash('success', 'บันทึกข้อมูลรหัสผ่านสำเร็จ');
