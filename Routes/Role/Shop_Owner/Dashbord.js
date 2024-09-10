@@ -1,5 +1,6 @@
 exports.getShopOwnerDashbordPage = (req, res) => {
-    const title = 'Dashbord | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'DASHBORD - ' + settings.text_footer;
     const your_page = 'Dashbord';
     const error = req.flash('error');
     const success = req.flash('success');

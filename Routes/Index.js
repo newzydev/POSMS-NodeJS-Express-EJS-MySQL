@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 // ฟังก์ชันแสดงหน้า Login
 exports.getLoginPage = (req, res) => {
+    const settings = res.locals.settings;
     if (req.signedCookies.MEMBER_TOKEN && req.signedCookies.ROLE_TOKEN) {
         switch (req.signedCookies.ROLE_TOKEN) {
             case 'ROLE001':
@@ -16,7 +17,7 @@ exports.getLoginPage = (req, res) => {
                 return res.redirect('/Login');
         }
     } else {
-        const title = 'Point Of Sale Management System';
+        const title = settings.text_footer;
         const error = req.flash('error');
         const formData = req.flash('formData')[0] || {};
         const success = req.flash('success');

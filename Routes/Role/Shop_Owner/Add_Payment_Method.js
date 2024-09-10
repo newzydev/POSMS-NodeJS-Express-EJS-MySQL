@@ -1,5 +1,6 @@
 exports.getAddPaymentMethodPage = (req, res) => {
-    const title = 'Add Payment Method | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'ADD PAYMENT METHOD - ' + settings.text_footer;
     const your_page = 'Manage_Payment_Methods';
     const error = req.flash('error');
     const formData = req.flash('formData')[0] || {};

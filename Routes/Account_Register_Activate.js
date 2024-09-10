@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 
 exports.getRegisterActivatePage = (req, res) => {
-    const title = 'Email Activate | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'E-MAIL ACTIVATE - ' + settings.text_footer;
     const error = req.flash('error');
     const success = req.flash('success');
     

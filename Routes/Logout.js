@@ -1,7 +1,9 @@
 exports.getLogoutPage = (req, res) => {
+    const settings = res.locals.settings;
+
     res.clearCookie('MEMBER_TOKEN');
     res.clearCookie('ROLE_TOKEN');
     
-    const title = 'Logout | Point Of Sale Management System';
+    const title = 'LOGOUT - ' + settings.text_footer;
     res.render('Logout', { title });
 };

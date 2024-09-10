@@ -1,7 +1,8 @@
 const nodemailer = require('nodemailer');
 
 exports.getRegisterPage = (req, res) => {
-    const title = 'Register | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'REGISTER - ' + settings.text_footer;
     const error = req.flash('error');
     const formData = req.flash('formData')[0] || {};
     const success = req.flash('success');

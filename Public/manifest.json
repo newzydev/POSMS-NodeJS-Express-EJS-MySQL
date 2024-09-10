@@ -1,7 +1,7 @@
 {
-    "name": "Point Of Sale Management System App",
+    "name": "POSMS APP",
     "short_name": "POSMS APP",
-    "description": "A Point Of Sale Management System App",
+    "description": "A POSMS DEVELOP BY NEWZYDEV",
     "start_url": "./",
     "display": "standalone",
     "background_color": "#ffffff",

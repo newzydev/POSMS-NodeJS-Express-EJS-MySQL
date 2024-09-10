@@ -1,5 +1,6 @@
 exports.getOrderAndReciept = (req, res) => {
-    const title = 'Order Reciept | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'ORDER RECEIPT - ' + settings.text_footer;
     const your_page = 'Order_And_Receipt';
     const error = req.flash('error');
     const success = req.flash('success');
