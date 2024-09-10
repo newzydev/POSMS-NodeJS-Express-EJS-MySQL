@@ -61,18 +61,36 @@
                                     
                                     <form class="needs-validation" novalidate method="GET" action="">
                                         <div class="form-row">
-                                            <div class="col-md-9 mb-3">
-                                                <div class="btn-group btn-group-radius">
-                                                    <div class="btn btn-secondary btn-lg btn-anti d-none d-sm-block" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods/Download/Excel';"><i class="fas fa-download mr-2"></i>ใฟล์ Excel</div>
-                                                    <div class="btn btn-secondary btn-lg btn-anti d-none d-sm-block" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods/Print';"><i class="fas fa-print mr-2"></i>สั่งพิมพ์</div>
+
+                                            <!-- ส่วนแผงควบคุม -->
+                                            <div class="col-md-6 mb-3">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-success btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มรูปแบบชำระเงิน</div>
                                                 </div>
-                                                <div class="btn btn-success btn-lg btn-anti" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method';"><i class="fas fa-plus-circle mr-2"></i>เพิ่มรูปแบบชำระเงิน</div>
-                                                <% if (search) { %>
-                                                <div class="btn btn-info btn-lg btn-anti" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
-                                                <% } %>
                                             </div>
+                                            <% if (search) { %>
                                             <div class="col-md-2 mb-3">
-                                                <input type="text" class="form-control form-control-lg input-anti input-search" name="search" placeholder="ค้นหาจาก ชื่อธนาคาร / ชื่อบัญชี" required autocomplete="off" autofocus value="<%= search %>">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-info btn-lg txt_cut" onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
+                                                </div>
+                                            </div>
+                                            <% } else { %>
+                                            <div class="col-md-2"></div>
+                                            <% } %>
+                                            <!-- ส่วนแผงควบคุม -->
+
+                                            <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
+                                            <div class="col-md-1 mb-3">
+                                                <div class="btn-group btn-group-radius btn-block">
+                                                    <div class="btn btn-outline-secondary btn-lg active"><i class="fas fa-th-list"></i></div>
+                                                    <div class="btn btn-outline-secondary btn-lg"><i class="fas fa-th"></i></div>
+                                                </div>
+                                            </div>
+                                            <!-- ส่วนสำหรับเลือกรูปแบบการแสดงผล -->
+
+                                            <!-- ส้วนค้นหาข้อมูล -->
+                                            <div class="col-md-2 mb-3">
+                                                <input type="text" class="form-control form-control-lg input-anti input-search" name="search" placeholder="ชื่อธนาคาร, ชื่อบัญชี" required autocomplete="off" autofocus value="<%= search %>">
                                                 <div class="valid-feedback">
                                                     กรอกข้อมูลค้นหาถูกต้อง
                                                 </div>
@@ -83,6 +101,8 @@
                                             <div class="col-md-1 mb-3">
                                                 <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fas fa-search mr-2"></i>ค้นหา</button>
                                             </div>
+                                            <!-- ส้วนค้นหาข้อมูล -->
+                                            
                                         </div>
                                     </form>
                                     <div class="table-responsive">
@@ -119,11 +139,11 @@
                                                         </td>
                                                         <td class="text-middle">
                                                             <% if (pay_method.pay_cat_name === "OPT1") { %>
-                                                                เงินสด / Cash Pay
+                                                                เงินสด (Cash Pay)
                                                             <% } else if (pay_method.pay_cat_name === "OPT2") { %>
-                                                                บัญชีธนาคาร / Bank Account
+                                                                บัญชีธนาคาร (Bank Account)
                                                             <% } else if (pay_method.pay_cat_name === "OPT3") { %>
-                                                                คิวอาร์พร้อมเพย์ / QR Prompt Pay
+                                                                คิวอาร์พร้อมเพย์ (QR Prompt Pay)
                                                             <% } %>
                                                             <br><span class="text-success">รูปแบบ</span>
                                                         </td>
@@ -131,7 +151,7 @@
                                                         <td class="text-middle"><%= pay_method.pay_bank_account_name %><br><span class="text-success">บัญชี</span></td>
                                                         <td class="text-middle">
                                                             <% if (pay_method.pay_bank_number.length === 10) { %>
-                                                                <%= pay_method.pay_bank_number.substring(0, 2) %>X-XXX-<%= pay_method.pay_bank_number.substring(6) %>
+                                                                <%= pay_method.pay_bank_number.substring(0, 2) %>*-***-<%= pay_method.pay_bank_number.substring(6) %>
                                                             <% } else { %>
                                                                 <%= pay_method.pay_bank_number %>
                                                             <% } %>
@@ -232,8 +252,7 @@
                                     </nav>
                                     <% } %>
                                 </div>
-                                <div class="card-footer d-none d-lg-block"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
-                                <div class="card-footer d-block d-sm-none text-center"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
+                                <div class="card-footer text-center"><i class="fas fa-clock mr-2"></i>ข้อมูล ณ วันที่ <span id="date-info-1"></span></div>
                             </div>
                         </div>
                         
