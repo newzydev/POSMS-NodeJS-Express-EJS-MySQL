@@ -1,5 +1,6 @@
 exports.getSaleReportsPage = (req, res) => {
-    const title = 'Sale Reports | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'SALE REPORTS - ' + settings.text_footer;
     const your_page = 'Sale_Reports';
     const error = req.flash('error');
     const success = req.flash('success');

@@ -1,5 +1,6 @@
 exports.getManageCustomerPage = (req, res) => {
-    const title = 'Manage Customer Users | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'MANAGE CUSTOMER USERS - ' + settings.text_footer;
     const your_page = 'Manage_Customer_Users';
     const error = req.flash('error');
     const success = req.flash('success');

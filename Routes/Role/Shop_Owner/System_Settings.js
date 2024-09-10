@@ -1,5 +1,6 @@
 exports.getSystemSettingPage = (req, res) => {
-    const title = 'System Settings | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'SYSTEM SETTINGS - ' + settings.text_footer;
     const your_page = 'System_Settings';
 
     const settings_form_0_error = req.flash('settings_form_0_error');

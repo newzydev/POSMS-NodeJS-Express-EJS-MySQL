@@ -1,5 +1,6 @@
 exports.getCashierProfilePage = (req, res) => {
-    const title = 'Profile | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'PROFILE - ' + settings.text_footer;
     const your_page = 'Profile';
     const error = req.flash('error');
     const formData = req.flash('formData')[0] || {};

@@ -1,5 +1,6 @@
 exports.getViewProductCategoriePage = (req, res) => {
-    const title = 'View Product Categories | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'VIEW PRODUCT CATEGORIE - ' + settings.text_footer;
     const your_page = 'Manage_Product_Categories';
     const cat_id = req.params.cat_id;
     

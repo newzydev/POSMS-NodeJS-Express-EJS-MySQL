@@ -1,5 +1,6 @@
 exports.getViewEmployeePage = (req, res) => {
-    const title = 'View Employee | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'VIEW EMPLOYEE - ' + settings.text_footer;
     const your_page = 'Manage_Employee_Users';
     const member_id = req.params.member_id;
     

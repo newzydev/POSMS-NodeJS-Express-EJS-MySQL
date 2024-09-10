@@ -3,7 +3,8 @@ exports.getElectronicRecieptPage = (req, res) => {
 };
 
 exports.getElectronicRecieptOrder = (req, res) => {
-    const title = 'Electronic Reciept | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'ELECTRONIC RECEIPT - ' + settings.text_footer;
     const your_page = 'Electronic_Reciept';
     const error = req.flash('error');
     const success = req.flash('success');

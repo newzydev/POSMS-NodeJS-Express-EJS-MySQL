@@ -1,5 +1,6 @@
 exports.getViewProductPage = (req, res) => {
-    const title = 'View Product | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'VIEW PRODUCT - ' + settings.text_footer;
     const your_page = 'Manage_Products';
     const product_id = req.params.product_id;
     

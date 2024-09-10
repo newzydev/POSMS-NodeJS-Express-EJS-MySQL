@@ -1,5 +1,6 @@
 exports.getManagePaymentMethodsPage = (req, res) => {
-    const title = 'Manage Payment Methods | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'MANAGE PAYMENT METHODS - ' + settings.text_footer;
     const your_page = 'Manage_Payment_Methods';
     const error = req.flash('error');
     const success = req.flash('success');

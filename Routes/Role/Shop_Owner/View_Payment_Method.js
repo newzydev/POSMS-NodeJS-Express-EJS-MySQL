@@ -1,5 +1,6 @@
 exports.getViewPaymentMethodPage = (req, res) => {
-    const title = 'View Payment Method | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'VIEW PAYMENT METHOD - ' + settings.text_footer;
     const your_page = 'Manage_Payment_Methods';
     const pay_id = req.params.pay_id;
     

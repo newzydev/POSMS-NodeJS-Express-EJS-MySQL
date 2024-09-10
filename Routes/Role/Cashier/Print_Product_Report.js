@@ -1,5 +1,6 @@
 exports.getProductPrintReportPage = (req, res) => {
-    const title = 'สั่งพิมพ์รายงานสินค้า - Print Product Report | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'PRINT PRODUCT REPORT - ' + settings.text_footer;
     const your_page = 'Manage_Products';
     const error = req.flash('error');
     const success = req.flash('success');

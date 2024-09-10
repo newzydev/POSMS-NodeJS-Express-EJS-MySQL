@@ -1,10 +1,10 @@
 exports.getMakeaTradingTransactionPage = (req, res) => {
-    const title = 'Make a Trading Transaction | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'MAKE A TRADING TRANSACTION - ' + settings.text_footer;
     const your_page = 'Make_a_Trading_Transaction';
     const error = req.flash('error');
     const success = req.flash('success');
     const user = res.locals.user;
-    const settings = res.locals.settings;
 
     if (!user || !user.member_id) {
         console.error('User not authenticated or user ID not found');

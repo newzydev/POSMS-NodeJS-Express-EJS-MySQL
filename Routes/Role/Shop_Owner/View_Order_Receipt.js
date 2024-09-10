@@ -1,5 +1,6 @@
 exports.getViewOrderRecieptPage = (req, res) => {
-    const title = 'Order Reciept | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'ORDER RECEIPT - ' + settings.text_footer;
     const your_page = 'Sale_Reports';
     const order_id = req.params.order_id;
 

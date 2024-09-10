@@ -1,5 +1,6 @@
 exports.getProductPrintLabelCustomPage = (req, res) => {
-    const title = 'สั่งพิมพ์ฉลากสินค้าแบบเลือกรายการ - Print Product Label | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'PRINT PRODUCT LABEL CUSTOM - ' + settings.text_footer;
     const your_page = 'Manage_Products';
     const error = req.flash('error');
     const success = req.flash('success');

@@ -7,7 +7,8 @@ const qrcode = require('qrcode');
 const fs = require('fs');
 
 exports.getMakeaPaymentTransactionOrder = (req, res) => {
-    const title = 'Make a Payment Transaction | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'MAKE A PAYMENT TRANSACTION - ' + settings.text_footer;
     const your_page = 'Make_a_Payment_Transaction';
     const error = req.flash('error');
     const success = req.flash('success');

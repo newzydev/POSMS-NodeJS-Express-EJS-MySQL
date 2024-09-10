@@ -1,5 +1,6 @@
 exports.getViewCustomerPage = (req, res) => {
-    const title = 'View Customer | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'VIEW CUSTOMER - ' + settings.text_footer;
     const your_page = 'Manage_Customer_Users';
     const member_id = req.params.member_id;
     

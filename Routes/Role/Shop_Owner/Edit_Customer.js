@@ -1,5 +1,6 @@
 exports.getEditCustomerPage = (req, res) => {
-    const title = 'Edit Customer | Point Of Sale Management System';
+    const settings = res.locals.settings;
+    const title = 'EDIT CUSTOMER - ' + settings.text_footer;
     const your_page = 'Manage_Customer_Users';
     const error = req.flash('error');
     const success = req.flash('success');
