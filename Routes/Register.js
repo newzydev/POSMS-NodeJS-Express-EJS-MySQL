@@ -101,6 +101,8 @@ exports.postRegister = (req, res) => {
                                     <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${member_firstname} ${member_lastname}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${member_time_register}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อผู้ใช้ของคุณ :</strong> ${member_username}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสผ่านของคุณ :</strong> ${member_password}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>รหัส OTP ยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
                                 </div>
                                 <p style="font-size: 14px; color: #7f8c8d; text-align: center;">

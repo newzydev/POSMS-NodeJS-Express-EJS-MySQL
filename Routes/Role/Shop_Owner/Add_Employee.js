@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 exports.getAddEmployeePage = (req, res) => {
     const title = 'Add Employee | Point Of Sale Management System';
     const your_page = 'Manage_Employee_Users';
@@ -15,11 +17,11 @@ exports.getAddEmployeePage = (req, res) => {
 
 exports.postAddEmployee = (req, res) => {
     // Get variable
-    const { member_firstname, member_lastname, member_email, member_tel, role_id } = req.body;
+    const { member_firstname, member_lastname, member_email, member_username, member_password, member_tel, role_id } = req.body;
 
-    if (!member_firstname || !member_lastname || !member_email || !member_tel || !role_id || !phone_number) {
+    if (!member_firstname || !member_lastname || !member_email, !member_username, !member_password || !member_tel || !role_id || !member_tel) {
         req.flash('error', 'กรุณากรอกข้อมูลที่มีเครื่องหมาย (*) ให้ครบทุกช่อง');
-        req.flash('formData', { member_firstname, member_lastname, member_email, member_tel, role_id });
+        req.flash('formData', { member_firstname, member_lastname, member_email, member_username, member_password, member_tel, role_id });
         return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
     }
     
@@ -52,23 +54,23 @@ exports.postAddEmployee = (req, res) => {
 
     // Query SQL
     const checkPhoneNumberQuery = 'SELECT COUNT(*) AS count FROM Users WHERE member_tel = ?';
-    const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO Users (member_id, member_firstname, member_lastname, member_email, member_email_activate, member_username, member_password, member_tel, role_id, member_time_register, member_time_login) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     
     db.query(checkPhoneNumberQuery, [member_tel], (err, results) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์');
-            req.flash('formData', { member_firstname, member_lastname, member_email, member_tel, role_id });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_username, member_password, member_tel, role_id });
             return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
         }
 
         if (results[0].count > 0) {
             req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
-            req.flash('formData', { member_firstname, member_lastname, member_email, role_id });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_username, member_password, role_id });
             return res.redirect('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee');
         }
 
-        db.query(query, [member_id, member_firstname, member_lastname, member_email, member_email_activate, member_tel, role_id, member_time_register, member_time_login], (err, result) => {
+        db.query(query, [member_id, member_firstname, member_lastname, member_email, member_email_activate, member_username, member_password, member_tel, role_id, member_time_register, member_time_login], (err, result) => {
             if (err) {
                 console.error(err);
                 req.flash('error', 'เกิดข้อผิดพลาดในการเพิ่มบัญชีพนักงาน');
@@ -89,7 +91,7 @@ exports.postAddEmployee = (req, res) => {
                     const mailOptions = {
                         from: 'POSMS TEAM <posms.newzydev@gmail.com>',
                         to: member_email,
-                        subject: 'ขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                        subject: 'แจ้งเตือนเจ้าของร้านได้สมัครสมาชิกให้กับคุณ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
                         html: `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
                                 <h1 style="color: #2c3e50; text-align: center;">
@@ -102,7 +104,9 @@ exports.postAddEmployee = (req, res) => {
                                     <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${member_firstname} ${member_lastname}</div>
                                     <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${member_time_register}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>รหัสยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อผู้ใช้ของคุณ :</strong> ${member_username}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสผ่านของคุณ :</strong> ${member_password}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัส OTP ยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
                                 </div>
                                 <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
                                     (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
