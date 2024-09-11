@@ -89,6 +89,16 @@ const { getRegisterActivatePage, postRegisterActivate } = require('./Routes/Acco
 app.get('/Account_Register_Activate/:member_id', getRegisterActivatePage);
 app.post('/Account_Register_Activate/:member_id', postRegisterActivate);
 
+// Forgot Account Page
+const { getForgotAccountPage } = require('./Routes/Forgot_Account');
+
+app.get('/Forgot_Account', getForgotAccountPage);
+
+// Forgot Account Verify Page
+const { getForgotAccountVerifyPage } = require('./Routes/Forgot_Account_Verify');
+
+app.get('/Forgot_Account_Verify', getForgotAccountVerifyPage);
+
 // ==================================================
 // Role Shop_Owner
 // ==================================================

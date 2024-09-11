@@ -2,29 +2,23 @@
 <html lang="th">
 
 <head>
-    <!-- Head -->
     <%- include('Include/Head.ejs') %>
-    <!-- Head End -->
 </head>
 
 <body class="hold-transition login-page">
-    
-    <!-- Preloader -->
     <%- include('Include/Preloader.ejs') %>
-    <!-- Preloader End -->
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="login-box">
         <div class="card">
             <div class="card-header text-center">
                 <img src="/assets/images/logo/logo_icon.png" alt="Logo Point of Sale Management System" width="15%">
             </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">
+                <div class="login-box-msg">
                     ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
-                    กรุณายืนยันที่อยู่อีเมล์ก่อน โดยการกรอกรหัส 6 หลักที่ถูกส่งไปยังที่อยู่อีเมล์ของคุณ<br><b>(<%= customer.member_email.substring(0, 2) %>*****<%= customer.member_email.substring(customer.member_email.indexOf('@')) %>)</b>
-                </p>
-
+                    ลืมชื่อผู้ใช้ หรือ รหัสผ่าน<br>
+                    ป้อน <b>ที่อยู่อีเมล์</b> เพื่อขอชื่อผู้ใช้ และ รหัสผ่าน
+                </div>
+                
                 <% if (error) { %>
                 <div class="alert alert-danger text-center" role="alert">
                     <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
@@ -39,31 +33,27 @@
                 <form class="needs-validation" novalidate id="login_form" method="POST">
                     <div class="row">
                         <div class="col-12">
-                            <label for="code_6_digit" class="required">รหัส OTP ยืนยัน 6 หลัก</label>
-                            <input type="text" class="form-control form-control-lg" name="code_6_digit" id="code_6_digit" placeholder="รหัส OTP ยืนยัน 6 หลัก" autocomplete="off" required>
+                            <label for="code_6_digit_verify" class="required">รหัส OTP ยืนยัน</label>
+                            <input type="text" class="form-control form-control-lg" name="code_6_digit_verify" id="code_6_digit_verify" placeholder="XXXXXX" value="<%= formData ? formData.code_6_digit_verify : '' %>" autocomplete="off" required>
                             <div class="valid-feedback">
-                                กรอกรหัส OTP ยืนยัน 6 หลักถูกต้อง
+                                กรอกรหัส OTP ยืนยันถูกต้อง
                             </div>
                             <div class="invalid-feedback">
-                                กรุณากรอกรหัส OTP ยืนยัน 6 หลักให้ถูกต้อง
+                                กรุณากรอกรหัส OTP ยืนยันให้ถูกต้อง
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-12">
-                            <button type="submit" id="btn_submit" class="btn btn-custom-one btn-lg btn-block">ยืนยันที่อยู่อีเมล์</button>
+                        <div class="col-12 mb-3">
+                            <button type="submit" class="btn btn-custom-one btn-lg btn-anti btn-block">ตรวจสอบรหัส OTP</button>
                         </div>
-                    </div>
-                </form>                
-
+                </form>
             </div>
         </div>
     </div>
-    <!-- Content Wrapper. Contains page content End -->
 
-    <!-- Javascript -->
     <%- include('Include/Javascript.ejs') %>
-    <!-- Javascript End -->
 </body>
+
 </html>
