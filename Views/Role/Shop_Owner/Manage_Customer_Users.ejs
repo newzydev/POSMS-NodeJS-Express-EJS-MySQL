@@ -122,7 +122,7 @@
                                                     <th scope="col">ที่อยู่อีเมล์</th>
                                                     <th scope="col">หมายเลขโทรศัพท์</th>
                                                     <th scope="col">ระดับผู้ใช้</th>
-                                                    <th scope="col">สถานะบัญชี</th>
+                                                    <th class="text-center" scope="col">สถานะบัญชี</th>
                                                     <th class="text-center" scope="col">ดำเนินการ</th>
                                                 </tr>
                                             </thead>
@@ -153,8 +153,15 @@
                                                         <td class="text-middle"><%= cus_user.member_tel.substring(0, 2) %>*-***-<%= cus_user.member_tel.substring(6) %><br><span class="text-success">ประเทศไทย</span></td>
                                                         <td class="text-middle"><%= cus_user.role_name %><br><span class="text-success">บทบาทการใช้งาน</span></td>
                                                         <td class="text-middle">
-                                                            <% if (cus_user.member_email_activate === "ACTIVATE") { %>ยืนยันอีเมล์แล้ว<% } else { %>รอยืนยันอีเมล์<% } %><br>
-                                                            <span class="text-success">บัญชีอีเมล์</span>
+                                                            <% if (cus_user.member_email_activate === "ACTIVATE") { %>
+                                                                <div class="btn btn-success btn-sm btn-block">
+                                                                    <i class="fas fa-check-circle mr-1"></i>ยืนยันอีเมล์แล้ว
+                                                                </div>
+                                                            <% } else { %>
+                                                                <div class="btn btn-danger btn-sm btn-block">
+                                                                    <i class="fas fa-times-circle mr-1"></i>รอยืนยันอีเมล์
+                                                                </div>
+                                                            <% } %>
                                                         </td>
                                                         <td class="text-middle text-center">
                                                             <div class="btn-group btn-group-radius">
