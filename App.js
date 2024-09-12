@@ -90,14 +90,16 @@ app.get('/Account_Register_Activate/:member_id', getRegisterActivatePage);
 app.post('/Account_Register_Activate/:member_id', postRegisterActivate);
 
 // Forgot Account Page
-const { getForgotAccountPage } = require('./Routes/Forgot_Account');
+const { getForgotAccountPage, postForgotAccount } = require('./Routes/Forgot_Account');
 
 app.get('/Forgot_Account', getForgotAccountPage);
+app.post('/Forgot_Account', postForgotAccount);
 
 // Forgot Account Verify Page
-const { getForgotAccountVerifyPage } = require('./Routes/Forgot_Account_Verify');
+const { getForgotAccountVerifyPage, postForgotAccountVerify } = require('./Routes/Forgot_Account_Verify');
 
-app.get('/Forgot_Account_Verify', getForgotAccountVerifyPage);
+app.get('/Forgot_Account/Forgot_Account_Verify/:member_id', getForgotAccountVerifyPage);
+app.post('/Forgot_Account/Forgot_Account_Verify/:member_id', postForgotAccountVerify);
 
 // ==================================================
 // Role Shop_Owner

@@ -30,11 +30,19 @@
                 </div>
                 <% } %>
                 
-                <form class="needs-validation" novalidate id="login_form" method="POST">
+                <form class="needs-validation" novalidate method="POST">
                     <div class="row">
+                        <div class="col-12 mb-3">
+                            <label class="required">ที่อยู่อีเมล์ที่สมัครสมาชิก</label>
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <%= customer.member_email.substring(0, 2) %>*****<%= customer.member_email.substring(customer.member_email.indexOf('@')) %>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
-                            <label for="code_6_digit_verify" class="required">รหัส OTP ยืนยัน</label>
-                            <input type="text" class="form-control form-control-lg" name="code_6_digit_verify" id="code_6_digit_verify" placeholder="XXXXXX" value="<%= formData ? formData.code_6_digit_verify : '' %>" autocomplete="off" required>
+                            <label for="code_6_digit_verify" class="required">รหัส OTP ยืนยัน (สามารถกรอกได้ภายใน 5 นาที)</label>
+                            <input type="text" class="form-control form-control-lg" name="code_6_digit_verify" id="code_6_digit_verify" placeholder="XXXXXX" autofocus autocomplete="off" required>
                             <div class="valid-feedback">
                                 กรอกรหัส OTP ยืนยันถูกต้อง
                             </div>
@@ -46,7 +54,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <button type="submit" class="btn btn-custom-one btn-lg btn-anti btn-block">ตรวจสอบรหัส OTP</button>
+                            <button type="submit" class="btn btn-custom-one btn-lg btn-anti btn-block">กู้คืนบัญชีผู้ใช้</button>
                         </div>
                 </form>
             </div>
