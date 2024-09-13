@@ -838,7 +838,13 @@
                                             <div class="col-sm-10">
                                                 <div class="df-iframe-container">
                                                     <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450"></iframe>
-                                                    <div class="df-iframe-head"><b><%= settings.store_name %></b></div>
+                                                    <div class="df-iframe-head">
+                                                        <% if (settings.store_name) { %>
+                                                            <b><i class="fas fa-store-alt mr-1"></i><%= settings.store_name %></b>
+                                                        <% } else { %>
+                                                            <b><i class="fas fa-store-alt mr-1"></i>N/A</b>
+                                                        <% } %>
+                                                    </div>
                                                     <div class="df-iframe-info">
                                                         <div class="df-iframe-data">
                                                             <i class="far fa-copyright"></i> <b><span id="copyright-year-1"></span> <a class="text-primary" style="cursor: pointer;" onclick="location.href='/';">POSMS</a> POWERED BY <a class="text-primary" style="cursor: pointer;" onclick="window.open('https://www.google.com/maps/', '_blank');">GOOGLE</a></b>

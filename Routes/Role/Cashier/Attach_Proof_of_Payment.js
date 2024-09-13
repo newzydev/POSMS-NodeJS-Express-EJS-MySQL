@@ -19,7 +19,7 @@ exports.getAttachProofofPaymentPage = (req, res) => {
         SELECT COUNT(*) as total
         FROM Orders
         INNER JOIN Payment_Options ON Orders.pay_id = Payment_Options.pay_id
-        WHERE (Orders.order_id LIKE ?)
+        WHERE (Orders.order_id LIKE ?) AND Orders.cashier_id = ?
     `;
 
     const dataQuery = `
@@ -38,13 +38,18 @@ exports.getAttachProofofPaymentPage = (req, res) => {
             Orders.change_money,
             Orders.order_time_transaction,
             Orders.order_time_payment,
+            Order_Attach_Proof_Payment.oapp_image,
+            Order_Attach_Proof_Payment.oapp_date,
+            Order_Attach_Proof_Payment.oapp_time,
             Orders.time_order
         FROM 
             Orders
         INNER JOIN 
             Payment_Options ON Orders.pay_id = Payment_Options.pay_id
+        LEFT JOIN 
+            Order_Attach_Proof_Payment ON Orders.order_id = Order_Attach_Proof_Payment.order_id
         WHERE
-            (Orders.order_id LIKE ?)
+            (Orders.order_id LIKE ?) AND Orders.cashier_id = ?
         ORDER BY 
             time_order DESC
         LIMIT ${limit} OFFSET ${offset}
@@ -52,14 +57,14 @@ exports.getAttachProofofPaymentPage = (req, res) => {
 
     const searchQuery = `%${search}%`;
 
-    db.query(countQuery, [searchQuery, searchQuery], (err, countResult) => {
+    db.query(countQuery, [searchQuery, user.member_id], (err, countResult) => {
         if (err) {
             res.redirect('/');
         } else {
             const totalRecords = countResult[0].total;
             const totalPages = Math.ceil(totalRecords / limit);
 
-            db.query(dataQuery, [searchQuery, searchQuery], (err, result) => {
+            db.query(dataQuery, [searchQuery, user.member_id], (err, result) => {
                 if (err) {
                     console.log(err);
                     res.redirect('/');

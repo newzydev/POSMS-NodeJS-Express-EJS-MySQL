@@ -332,6 +332,17 @@ INSERT INTO `order_product_lists` (`order_id`, `product_name`, `cart_product_qty
 ('OD9906149788', 'น้ำดื่มสิงห์ ราคา x1 หน่วย', 1, '15.00', 'เครื่องดื่ม', 'น้ำดื่ม', '2024-08-22 18:50:16'),
 ('OD9906149788', 'โค้ก ราคา x1 หน่วย', 2, '15.00', 'เครื่องดื่ม', 'น้ำอัดลม', '2024-08-22 18:50:16');
 
+-- Create table for Order_Attach_Proof_Payment
+CREATE TABLE Order_Attach_Proof_Payment (
+    order_id VARCHAR(255) NOT NULL,
+    oapp_image VARCHAR(255) NOT NULL,
+    oapp_date VARCHAR(255) NOT NULL,
+    oapp_time VARCHAR(255) NOT NULL,
+    time_order DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (order_id, oapp_image),
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+
 -- Create table for User_Role
 CREATE TABLE Systen_Settings (
     store_name VARCHAR(255) NOT NULL PRIMARY KEY,

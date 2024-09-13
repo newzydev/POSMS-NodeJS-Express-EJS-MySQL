@@ -119,7 +119,7 @@
                                                     <th scope="col">ยอดเงินทอน</th>
                                                     <th scope="col">ทำรายการเมื่อ</th>
                                                     <th scope="col">ชำระเงินเมื่อ</th>
-                                                    <th scope="col">ใบเสร็จรับเงิน</th>
+                                                    <th class="text-center" scope="col">ใบเสร็จรับเงิน</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="body-anti">
@@ -162,10 +162,8 @@
                                                             <br><span class="text-success">วันชำระเงิน</span>
                                                         </td>
                                                         <td class="text-middle text-center">
-                                                            <div class="btn-group btn-group-radius">
-                                                                <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= order.order_id %>');"><i class="fas fa-copy mr-2"></i>คัดลอก</div>
-                                                                <div class="btn btn-success btn-sm" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';">E-Receipt</div>
-                                                            </div>
+                                                            <div class="btn btn-success btn-sm btn-block" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';">E-Receipt</div>
+                                                            <div class="btn btn-info btn-sm btn-block" onclick="copyDataInfo('<%= order.order_id %>');"><i class="fas fa-copy mr-2"></i>หมายเลขออร์</div>
                                                         </td>
                                                     </tr>
                                                     <% }) %>

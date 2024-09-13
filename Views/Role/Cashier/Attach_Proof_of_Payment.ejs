@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Dashbord';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
                                 <li class="breadcrumb-item active">แนบหลักฐานชำระเงิน</li>
                             </ol>
                         </div>
@@ -119,7 +119,7 @@
                                                     <th scope="col">ยอดเงินทอน</th>
                                                     <th scope="col">ทำรายการเมื่อ</th>
                                                     <th scope="col">ชำระเงินเมื่อ</th>
-                                                    <th scope="col">ใบเสร็จรับเงิน</th>
+                                                    <th class="text-center" scope="col">หลักฐานชำระเงิน</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="body-anti">
@@ -154,7 +154,7 @@
                                                         <td class="text-middle">฿<%= order.change_money.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">เงินทอน</span></td>
                                                         <td class="text-middle"><%= order.order_time_transaction %><br><span class="text-success">วันทำรายการ</span></td>
                                                         <td class="text-middle">
-                                                            <% if(order.order_time_payment === "N/A") { %>
+                                                            <% if(order.oapp_image === "N/A") { %>
                                                                 รอชำระเงิน
                                                             <% } else { %>
                                                                 <%= order.order_time_payment %>
@@ -162,10 +162,16 @@
                                                             <br><span class="text-success">วันชำระเงิน</span>
                                                         </td>
                                                         <td class="text-middle text-center">
-                                                            <div class="btn-group btn-group-radius">
-                                                                <div class="btn btn-info btn-sm" onclick="copyDataInfo('<%= order.order_id %>');"><i class="fas fa-copy mr-2"></i>คัดลอก</div>
-                                                                <div class="btn btn-success btn-sm" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';">E-Receipt</div>
-                                                            </div>
+                                                            <% if(order.oapp_image) { %>
+                                                                <button type="button" class="btn btn-info btn-sm btn-danger btn-block">ตรวจสอบหลักฐาน</button>
+                                                            <% } else { %>
+                                                                <button type="button" class="btn btn-info btn-sm btn-danger btn-block">รอแนบหลักฐาน</button>
+                                                            <% } %>
+                                                            <% if(order.oapp_image) { %>
+                                                                <button type="button" class="btn btn-success btn-sm btn-block" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';" disabled>แนบหลักฐาน</button>
+                                                            <% } else { %>
+                                                                <button type="button" class="btn btn-success btn-sm btn-block" onclick="location.href='/Role/Shop_Owner/Page/Sale_Reports/Order/<%= order.order_id %>';">แนบหลักฐาน</button>
+                                                            <% } %>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
