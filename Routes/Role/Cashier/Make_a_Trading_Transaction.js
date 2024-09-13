@@ -8,7 +8,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
 
     if (!user || !user.member_id) {
         console.error('User not authenticated or user ID not found');
-        return res.redirect('/Login');
+        return res.redirect('/');
     }
 
     const cashierId = user.member_id;

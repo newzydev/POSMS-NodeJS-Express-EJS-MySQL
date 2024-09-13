@@ -836,7 +836,14 @@
                                         <div class="form-group row">
                                             <label for="map_iframe_api_preview" class="col-sm-2 col-form-label">Preview Iframe จาก Google Map :</label>
                                             <div class="col-sm-10">
-                                                <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450" style="border: 1px solid #e7e7e7;"></iframe>
+                                                <div class="df-iframe-container">
+                                                    <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450"></iframe>
+                                                    <div class="df-iframe-info">
+                                                        <div class="df-iframe-data">
+                                                            <i class="far fa-copyright"></i> <b><span id="copyright-year-1"></span> <a class="text-primary" style="cursor: pointer;" onclick="location.href='/';"><%= settings.text_footer %></a> Powered By <a class="text-primary" style="cursor: pointer;" onclick="window.open('https://www.google.com/maps/', '_blank');">GOOGLE</a></b>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

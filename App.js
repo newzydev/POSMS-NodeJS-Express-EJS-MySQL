@@ -68,36 +68,30 @@ app.get('/qrcode-gen', (req, res) => {
 // Route Imports
 // Login Page
 const { getLoginPage, postLogin } = require('./Routes/Index');
-
 app.get('/', getLoginPage);
 app.post('/', postLogin);
 
 // Logout Page
 const { getLogoutPage } = require('./Routes/Logout');
-
 app.get('/Logout', getLogoutPage);
 
 // Register Page
 const { getRegisterPage, postRegister } = require('./Routes/Register');
-
 app.get('/Register', getRegisterPage);
 app.post('/Register', postRegister);
 
 // Account Register Activate Page
 const { getRegisterActivatePage, postRegisterActivate } = require('./Routes/Account_Register_Activate');
-
 app.get('/Account_Register_Activate/:member_id', getRegisterActivatePage);
 app.post('/Account_Register_Activate/:member_id', postRegisterActivate);
 
 // Forgot Account Page
 const { getForgotAccountPage, postForgotAccount } = require('./Routes/Forgot_Account');
-
 app.get('/Forgot_Account', getForgotAccountPage);
 app.post('/Forgot_Account', postForgotAccount);
 
 // Forgot Account Verify Page
 const { getForgotAccountVerifyPage, postForgotAccountVerify } = require('./Routes/Forgot_Account_Verify');
-
 app.get('/Forgot_Account/Forgot_Account_Verify/:member_id', getForgotAccountVerifyPage);
 app.post('/Forgot_Account/Forgot_Account_Verify/:member_id', postForgotAccountVerify);
 
@@ -106,7 +100,6 @@ app.post('/Forgot_Account/Forgot_Account_Verify/:member_id', postForgotAccountVe
 // ==================================================
 // Profile Page
 const { getShopOwnerProfilePage, postShopOwnerChangeProfile, postShopOwnerChangeEmail, postShopOwnerChangeUsername, postShopOwnerChangePassword } = require('./Routes/Role/Shop_Owner/Profile');
-
 app.get('/Role/Shop_Owner/Page/Profile', authenticateUser(db), checkRole001, getShopOwnerProfilePage);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postShopOwnerChangeProfile);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postShopOwnerChangeEmail);
@@ -115,7 +108,6 @@ app.post('/Role/Shop_Owner/Page/Profile/ChangePassword', authenticateUser(db), c
 
 // Dashbord Page
 const { getShopOwnerDashbordPage } = require('./Routes/Role/Shop_Owner/Dashbord');
-
 app.get('/Role/Shop_Owner/Page/Dashbord', authenticateUser(db), checkRole001, getShopOwnerDashbordPage);
 
 // Manage Employee Page
@@ -124,7 +116,6 @@ const { getAddEmployeePage, postAddEmployee } = require('./Routes/Role/Shop_Owne
 const { getViewEmployeePage } = require('./Routes/Role/Shop_Owner/View_Employee');
 const { getEditEmployeePage, postEditEmployee } = require('./Routes/Role/Shop_Owner/Edit_Employee');
 const { getDeleteEmployeePage } = require('./Routes/Role/Shop_Owner/Delete_Employee');
-
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users', authenticateUser(db), checkRole001, getManageEmployeePage);
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee', authenticateUser(db), checkRole001, getAddEmployeePage);
 app.post('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee', authenticateUser(db), checkRole001, postAddEmployee);
@@ -139,7 +130,6 @@ const { getAddCustomerPage, postAddCustomer } = require('./Routes/Role/Shop_Owne
 const { getViewCustomerPage } = require('./Routes/Role/Shop_Owner/View_Customer');
 const { getEditCustomerPage, postEditCustomer } = require('./Routes/Role/Shop_Owner/Edit_Customer');
 const { getDeleteCustomerPage } = require('./Routes/Role/Shop_Owner/Delete_Customer');
-
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users', authenticateUser(db), checkRole001, getManageCustomerPage);
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer', authenticateUser(db), checkRole001, getAddCustomerPage);
 app.post('/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer', authenticateUser(db), checkRole001, postAddCustomer);
@@ -154,7 +144,6 @@ const { getAddPaymentMethodPage, postAddPaymentMethod } = require('./Routes/Role
 const { getViewPaymentMethodPage } = require('./Routes/Role/Shop_Owner/View_Payment_Method');
 const { getEditPaymentMethodPage, postEditPaymentMethod } = require('./Routes/Role/Shop_Owner/Edit_Payment_Method');
 const { getDeletePaymentMethodPage } = require('./Routes/Role/Shop_Owner/Delete_Payment_Method');
-
 app.get('/Role/Shop_Owner/Page/Manage_Payment_Methods', authenticateUser(db), checkRole001, getManagePaymentMethodsPage);
 app.get('/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method', authenticateUser(db), checkRole001, getAddPaymentMethodPage);
 app.post('/Role/Shop_Owner/Page/Manage_Payment_Methods/Add_Payment_Method', authenticateUser(db), checkRole001, postAddPaymentMethod);
@@ -166,13 +155,11 @@ app.get('/Role/Shop_Owner/Page/Manage_Payment_Methods/Delete/:pay_id', authentic
 // Sale Reports Page
 const { getSaleReportsPage } = require('./Routes/Role/Shop_Owner/Sale_Reports');
 const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order_Receipt');
-
 app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001, getSaleReportsPage);
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
 
 // System Settings Page
 const { getSystemSettingPage, postUpdateSettingsForm0, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6 } = require('./Routes/Role/Shop_Owner/System_Settings');
-
 app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_0', authenticateUser(db), checkRole001, postUpdateSettingsForm0);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', authenticateUser(db), checkRole001, postUpdateSettingsForm1);
@@ -187,7 +174,6 @@ app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', authent
 // ==================================================
 // Profile Page
 const { getCashierProfilePage, postCashierChangeProfile, postCashierChangeEmail, postCashierChangeUsername, postCashierChangePassword } = require('./Routes/Role/Cashier/Profile');
-
 app.get('/Role/Cashier/Page/Profile', authenticateUser(db), checkRole002, getCashierProfilePage);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postCashierChangeProfile);
 app.post('/Role/Shop_Owner/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postCashierChangeEmail);
@@ -203,7 +189,6 @@ const { getDeleteProductPage } = require('./Routes/Role/Cashier/Delete_Product')
 const { getProductPrintLabelPage } = require('./Routes/Role/Cashier/Print_Product_Label');
 const { getProductPrintLabelCustomPage } = require('./Routes/Role/Cashier/Print_Product_Label_Custom');
 const { getProductPrintReportPage } = require('./Routes/Role/Cashier/Print_Product_Report');
-
 app.get('/Role/Cashier/Page/Manage_Products', authenticateUser(db), checkRole002, getManageProductsPage);
 app.get('/Role/Cashier/Page/Manage_Products/Add_Product', authenticateUser(db), checkRole002, getAddProductPage);
 app.get('/Role/Cashier/Page/Manage_Products/Add_Product/Get_Sub_Categories/:mainCategory', authenticateUser(db), checkRole002, getSubCategories);
@@ -223,7 +208,6 @@ const { getAddProductCategoriePage, postAddProductCategorie } = require('./Route
 const { getViewProductCategoriePage } = require('./Routes/Role/Cashier/View_Product_Categorie');
 const { getEditProductCategoriePage, postEditProductCategorie } = require('./Routes/Role/Cashier/Edit_Product_Categorie');
 const { getDeleteProductCategoriePage } = require('./Routes/Role/Cashier/Delete_Product_Categorie');
-
 app.get('/Role/Cashier/Page/Manage_Product_Categories', authenticateUser(db), checkRole002, getManageProductCategoriesPage);
 app.get('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie', authenticateUser(db), checkRole002, getAddProductCategoriePage);
 app.post('/Role/Cashier/Page/Manage_Product_Categories/Add_Product_Categorie', authenticateUser(db), checkRole002, postAddProductCategorie);
@@ -234,7 +218,6 @@ app.get('/Role/Cashier/Page/Manage_Product_Categories/Delete/:cat_id', authentic
 
 // Make a Trading Transaction Page
 const { getMakeaTradingTransactionPage, postAddProductCart, updateProductQuantity, getDeleteProductCartPage, postAddOrder } = require('./Routes/Role/Cashier/Make_a_Trading_Transaction');
-
 app.get('/Role/Cashier/Page/Make_a_Trading_Transaction', authenticateUser(db), checkRole002, getMakeaTradingTransactionPage);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart', authenticateUser(db), checkRole002, postAddProductCart);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Update_Product_Quantity', authenticateUser(db), checkRole002, updateProductQuantity);
@@ -244,7 +227,6 @@ app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order', authenticate
 // Make a Payment Transaction Page
 const { getMakeaPaymentTransactionPage } = require('./Routes/Role/Cashier/Make_a_Payment_Transaction');
 const { getMakeaPaymentTransactionOrder, postMakeaPaymentTransactionOrder } = require('./Routes/Role/Cashier/Make_a_Payment_Transaction');
-
 app.get('/Role/Cashier/Page/Make_a_Payment_Transaction', authenticateUser(db), checkRole002, getMakeaPaymentTransactionPage);
 app.get('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/:order_id', authenticateUser(db), checkRole002, getMakeaPaymentTransactionOrder);
 app.post('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/:order_id', authenticateUser(db), checkRole002, postMakeaPaymentTransactionOrder);
@@ -252,16 +234,18 @@ app.post('/Role/Cashier/Page/Make_a_Payment_Transaction/Order/:order_id', authen
 // Electronic Reciept Page
 const { getElectronicRecieptPage } = require('./Routes/Role/Cashier/Electronic_Reciept');
 const { getElectronicRecieptOrder } = require('./Routes/Role/Cashier/Electronic_Reciept');
-
 app.get('/Role/Cashier/Page/Electronic_Reciept', authenticateUser(db), checkRole002, getElectronicRecieptPage);
 app.get('/Role/Cashier/Page/Electronic_Reciept/Order/:order_id', authenticateUser(db), checkRole002, getElectronicRecieptOrder);
+
+// Attach Proof of Payment
+const { getAttachProofofPaymentPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
+app.get('/Role/Cashier/Page/Attach_Proof_of_Payment', authenticateUser(db), checkRole002, getAttachProofofPaymentPage);
 
 // ==================================================
 // Role Customer
 // ==================================================
 // Profile Page
 const { getCustomerProfilePage, postCustomerChangeProfile, postCustomerChangeEmail, postCustomerChangeUsername, postCustomerChangePassword } = require('./Routes/Role/Customer/Profile');
-
 app.get('/Role/Customer/Page/Profile', authenticateUser(db), checkRole003, getCustomerProfilePage);
 app.post('/Role/Customer/Page/Profile/ChangeProfile', authenticateUser(db), checkRole001, postCustomerChangeProfile);
 app.post('/Role/Customer/Page/Profile/ChangeEmail', authenticateUser(db), checkRole001, postCustomerChangeEmail);
@@ -271,7 +255,6 @@ app.post('/Role/Customer/Page/Profile/ChangePassword', authenticateUser(db), che
 // Order And Receipt Page
 const { getOrderAndRecieptPage } = require('./Routes/Role/Customer/Order_And_Receipt');
 const { getOrderAndReciept } = require('./Routes/Role/Customer/View_Order_Receipt');
-
 app.get('/Role/Customer/Page/Order_And_Receipt', authenticateUser(db), checkRole003, getOrderAndRecieptPage);
 app.get('/Role/Customer/Page/Order_And_Receipt/Order/:order_id', authenticateUser(db), checkRole003, getOrderAndReciept);
 
@@ -306,5 +289,6 @@ app.use((req, res) => {
 // Start the Server - เริ่มเซิร์ฟเวอร์
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
-    console.log(`Host Server Link: http://localhost:${port}`);
+    console.log(`Local Server Link: http://localhost:${port}`);
+    console.log(`Client Server Link: http://posms.ddns.net`);
 });
