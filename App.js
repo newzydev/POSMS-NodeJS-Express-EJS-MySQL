@@ -159,9 +159,8 @@ app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
 
 // System Settings Page
-const { getSystemSettingPage, postUpdateSettingsForm0, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6 } = require('./Routes/Role/Shop_Owner/System_Settings');
+const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6 } = require('./Routes/Role/Shop_Owner/System_Settings');
 app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
-app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_0', authenticateUser(db), checkRole001, postUpdateSettingsForm0);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', authenticateUser(db), checkRole001, postUpdateSettingsForm1);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_2', authenticateUser(db), checkRole001, postUpdateSettingsForm2);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', authenticateUser(db), checkRole001, postUpdateSettingsForm3);
