@@ -72,19 +72,7 @@ exports.postLogin = (req, res) => {
                     return res.redirect('/');
                 }
     
-                let max_age_cookie = {
-                    '3h': 3 * 60 * 60 * 1000,
-                    '6h': 6 * 60 * 60 * 1000,
-                    '9h': 9 * 60 * 60 * 1000,
-                    '12h': 12 * 60 * 60 * 1000,
-                    '24h': 24 * 60 * 60 * 1000,
-                    '7d': 7 * 24 * 60 * 60 * 1000,
-                    '30d': 30 * 24 * 60 * 60 * 1000,
-                    '3m': 3 * 30 * 24 * 60 * 60 * 1000,
-                    '6m': 6 * 30 * 24 * 60 * 60 * 1000,
-                    '9m': 9 * 30 * 24 * 60 * 60 * 1000,
-                    '1y': 12 * 30 * 24 * 60 * 60 * 1000
-                }[settings.login_time_out] || 7 * 24 * 60 * 60 * 1000;
+                const max_age_cookie = 30 * 24 * 60 * 60 * 1000;
     
                 res.cookie('MEMBER_TOKEN', user.member_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
                 res.cookie('ROLE_TOKEN', user.role_id, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
