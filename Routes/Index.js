@@ -85,11 +85,11 @@ exports.postLogin = (req, res) => {
     
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
-                        auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                        auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
                     });
                 
                     const mailOptions = {
-                        from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                        from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                         to: user.member_email,
                         subject: 'แจ้งเตือนการลงชื่อเข้าใช้งานระบบ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
                         html: `

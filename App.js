@@ -159,7 +159,7 @@ app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
 
 // System Settings Page
-const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6 } = require('./Routes/Role/Shop_Owner/System_Settings');
+const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6, postUpdateSettingsForm7 } = require('./Routes/Role/Shop_Owner/System_Settings');
 app.get('/Role/Shop_Owner/Page/System_Settings', authenticateUser(db), checkRole001, getSystemSettingPage);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_1', authenticateUser(db), checkRole001, postUpdateSettingsForm1);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_2', authenticateUser(db), checkRole001, postUpdateSettingsForm2);
@@ -167,6 +167,7 @@ app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_3', authent
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_4', authenticateUser(db), checkRole001, postUpdateSettingsForm4);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_5', authenticateUser(db), checkRole001, postUpdateSettingsForm5);
 app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', authenticateUser(db), checkRole001, postUpdateSettingsForm6);
+app.post('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_7', authenticateUser(db), checkRole001, postUpdateSettingsForm7);
 
 // ==================================================
 // Role Cashier

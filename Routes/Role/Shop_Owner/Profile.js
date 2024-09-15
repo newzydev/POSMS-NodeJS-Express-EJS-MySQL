@@ -98,11 +98,11 @@ exports.postShopOwnerChangeEmail = (req, res) => {
 
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
-                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                    auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
                 });
             
                 const mailOptions = {
-                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: new_email,
                     subject: 'แจ้งเตือนการเปลี่ยนแปลงที่อยู่อีเมล์ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
                     html: `
@@ -205,11 +205,11 @@ exports.postShopOwnerChangeUsername = (req, res) => {
 
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
-                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                    auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
                 });
             
                 const mailOptions = {
-                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: user.member_email,
                     subject: 'แจ้งเตือนการเปลี่ยนแปลงชื่อผู้ใช้ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
                     html: `
@@ -312,11 +312,11 @@ exports.postShopOwnerChangePassword = (req, res) => {
 
                 const transporter = nodemailer.createTransport({
                     service: 'gmail',
-                    auth: { user: 'posms.newzydev@gmail.com', pass: 'qdai jiww yzhh gtfl' }
+                    auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
                 });
             
                 const mailOptions = {
-                    from: 'POSMS TEAM <posms.newzydev@gmail.com>',
+                    from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: user.member_email,
                     subject: 'แจ้งเตือนการเปลี่ยนแปลงรหัสผ่าน เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
                     html: `

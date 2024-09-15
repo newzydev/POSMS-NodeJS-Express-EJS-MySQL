@@ -1193,14 +1193,14 @@
                                 <div class="card-header">อีเมล์อัตโนมัติ</div>
                                 <div class="card-body">
 
-                                    <% if (settings_form_6_error) { %>
+                                    <% if (settings_form_7_error) { %>
                                     <div class="alert alert-danger text-center" role="alert">
-                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_6_error %>
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_7_error %>
                                     </div>
                                     <% } %>
-                                    <% if (settings_form_6_success) { %>
+                                    <% if (settings_form_7_success) { %>
                                     <div class="alert alert-success text-center" role="alert">
-                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_6_success %>
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_7_success %>
                                     </div>
                                     <% } %>
 
@@ -1244,22 +1244,25 @@
                                     </form>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {
-                                            const Text_Footer_Input = document.getElementById('mail_noreply');
-                                            const System_Version_Input = document.getElementById('app_password');
+                                            const Mail_Name_Input = document.getElementById('mail_name');
+                                            const Mail_Auto_Sent_Input = document.getElementById('mail_auto_sent');
+                                            const Mail_App_Password_Input = document.getElementById('mail_app_password');
                                     
                                             function updateSettings() {
-                                                const Text_Footer = Text_Footer_Input.value;
-                                                const System_Version = System_Version_Input.value;
+                                                const Mail_Name = Mail_Name_Input.value;
+                                                const Mail_Auto_Sent = Mail_Auto_Sent_Input.value;
+                                                const Mail_App_Password = Mail_App_Password_Input.value;
                                     
-                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', {
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_7', {
                                                     method: 'POST',
                                                     headers: {
                                                         'Content-Type': 'application/json',
                                                         'X-Requested-With': 'XMLHttpRequest'
                                                     },
                                                     body: JSON.stringify({
-                                                        text_footer: Text_Footer,
-                                                        system_version: System_Version,
+                                                        mail_name: Mail_Name,
+                                                        mail_auto_sent: Mail_Auto_Sent,
+                                                        mail_app_password: Mail_App_Password,
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -1282,12 +1285,14 @@
                                             }
 
                                             // ป้องกันการกดปุ่ม Enter
-                                            Text_Footer_Input.addEventListener('keydown', preventEnterKey);
-                                            System_Version_Input.addEventListener('keydown', preventEnterKey);
+                                            Mail_Name_Input.addEventListener('keydown', preventEnterKey);
+                                            Mail_Auto_Sent_Input.addEventListener('keydown', preventEnterKey);
+                                            Mail_App_Password_Input.addEventListener('keydown', preventEnterKey);
 
                                             // ใช้ change event เพื่อ update
-                                            Text_Footer_Input.addEventListener('change', updateSettings);
-                                            System_Version_Input.addEventListener('change', updateSettings);
+                                            Mail_Name_Input.addEventListener('change', updateSettings);
+                                            Mail_Auto_Sent_Input.addEventListener('change', updateSettings);
+                                            Mail_App_Password_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>                                                                   
                                 </div>

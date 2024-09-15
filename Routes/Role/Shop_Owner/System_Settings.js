@@ -15,6 +15,8 @@ exports.getSystemSettingPage = (req, res) => {
     const settings_form_5_success = req.flash('settings_form_5_success');
     const settings_form_6_error = req.flash('settings_form_6_error');
     const settings_form_6_success = req.flash('settings_form_6_success');
+    const settings_form_7_error = req.flash('settings_form_7_error');
+    const settings_form_7_success = req.flash('settings_form_7_success');
 
     // Query to retrieve system settings from the database
     const query = 'SELECT * FROM Systen_Settings';
@@ -38,6 +40,8 @@ exports.getSystemSettingPage = (req, res) => {
             settings_form_5_success: settings_form_5_success[0],
             settings_form_6_error: settings_form_6_error[0],
             settings_form_6_success: settings_form_6_success[0],
+            settings_form_7_error: settings_form_7_error[0],
+            settings_form_7_success: settings_form_7_success[0],
             settings
         });
     });
@@ -80,7 +84,7 @@ exports.postUpdateSettingsForm2 = (req, res) => {
         day_open_4 = ?, time_open_4 = ?, time_close_4 = ?,
         day_open_5 = ?, time_open_5 = ?, time_close_5 = ?,
         day_open_6 = ?, time_open_6 = ?, time_close_6 = ?,
-        day_open_7 = ?, time_open_7 = ?, time_close_7 = ?
+        day_open_7 = ?, time_open_7 = ?, time_close_7 = ?,
     `;
 
     db.query(query, [day_open_1, time_open_1, time_close_1, day_open_2, time_open_2, time_close_2, day_open_3, time_open_3, time_close_3, day_open_4, time_open_4, time_close_4, day_open_5, time_open_5, time_close_5, day_open_6, time_open_6, time_close_6, day_open_7, time_open_7, time_close_7], (err) => {
@@ -163,5 +167,23 @@ exports.postUpdateSettingsForm6 = (req, res) => {
 
         req.flash('settings_form_6_success', 'แก้ไขส่วนท้ายของเว็บไซต์สำเร็จ');
         res.json({ success: true, message: 'แก้ไขส่วนท้ายของเว็บไซต์สำเร็จ' });
+    });
+};
+
+exports.postUpdateSettingsForm7 = (req, res) => {
+    const { mail_name, mail_auto_sent, mail_app_password } = req.body;
+
+    const query = `
+        UPDATE Systen_Settings
+        SET mail_name = ?, mail_auto_sent = ?, mail_app_password = ?`;
+
+    db.query(query, [mail_name, mail_auto_sent, mail_app_password], (err) => {
+        if (err) {
+            req.flash('settings_form_7_error', 'เกิดข้อผิดพลาดในการแก้ไขอีเมล์อัตโนมัติ');
+            return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขอีเมล์อัตโนมัติได้' });
+        } 
+
+        req.flash('settings_form_7_success', 'แก้ไขอีเมล์อัตโนมัติสำเร็จ');
+        res.json({ success: true, message: 'แก้ไขอีเมล์อัตโนมัติสำเร็จ' });
     });
 };
