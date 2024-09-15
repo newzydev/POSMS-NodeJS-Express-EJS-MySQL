@@ -977,7 +977,7 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
-                                            <label for="privacy_policy" class="col-sm-2 col-form-label required">นโยบายความเป็นส่วนตัว</label>
+                                            <label for="privacy_policy" class="col-sm-2 col-form-label required">นโยบายความเป็นส่วนตัว :</label>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control form-control-lg summernote-txt-multiple" name="privacy_policy" id="privacy_policy" rows="5" placeholder="นโยบายความเป็นส่วนตัว" required autocomplete="off"><%= settings.privacy_policy %></textarea>
                                                 <div class="valid-feedback">
@@ -989,7 +989,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="terms_and_conditions" class="col-sm-2 col-form-label required">ข้อกำหนดและเงื่อนไขการใช้งาน</label>
+                                            <label for="terms_and_conditions" class="col-sm-2 col-form-label required">ข้อกำหนดและเงื่อนไขการใช้งาน :</label>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control form-control-lg summernote-txt-multiple" name="terms_and_conditions" id="terms_and_conditions" rows="5" placeholder="ข้อกำหนดและเงื่อนไขการใช้งาน" required autocomplete="off"><%= settings.terms_and_conditions %></textarea>
                                                 <div class="valid-feedback">
@@ -1001,7 +1001,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="cookie" class="col-sm-2 col-form-label required">นโยบายการใช้คุกกี้</label>
+                                            <label for="cookie" class="col-sm-2 col-form-label required">นโยบายการใช้คุกกี้ :</label>
                                             <div class="col-sm-10">
                                                 <textarea class="form-control form-control-lg summernote-txt-multiple" name="cookie" id="cookie" rows="5" placeholder="นโยบายการใช้คุกกี้" required autocomplete="off"><%= settings.cookie %></textarea>
                                                 <div class="valid-feedback">
@@ -1113,7 +1113,7 @@
 
                                     <form action="" class="needs-validation" novalidate method="POST">
                                         <div class="form-group row">
-                                            <label for="text_footer" class="col-sm-2 col-form-label required">ส่วนท้ายเว็บไซต์</label>
+                                            <label for="text_footer" class="col-sm-2 col-form-label required">ส่วนท้ายเว็บไซต์ :</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control form-control-lg mb-2" name="text_footer" id="text_footer" placeholder="ส่วนท้ายเว็บไซต์" value="<%= settings.text_footer %>" required autocomplete="off">
                                                 <div class="valid-feedback">
@@ -1125,7 +1125,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="system_version" class="col-sm-2 col-form-label required">เวอร์ชันระบบ</label>
+                                            <label for="system_version" class="col-sm-2 col-form-label required">เวอร์ชันระบบ :</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control form-control-lg mb-2" name="system_version" id="system_version" placeholder="เวอร์ชันระบบ" value="<%= settings.system_version %>" required autocomplete="off">
                                                 <div class="valid-feedback">
@@ -1141,6 +1141,111 @@
                                         document.addEventListener('DOMContentLoaded', () => {
                                             const Text_Footer_Input = document.getElementById('text_footer');
                                             const System_Version_Input = document.getElementById('system_version');
+                                    
+                                            function updateSettings() {
+                                                const Text_Footer = Text_Footer_Input.value;
+                                                const System_Version = System_Version_Input.value;
+                                    
+                                                fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    },
+                                                    body: JSON.stringify({
+                                                        text_footer: Text_Footer,
+                                                        system_version: System_Version,
+                                                    })
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    if (data.success) {
+                                                        console.log('Setting updated successfully');
+                                                        // Reload the page
+                                                        location.reload();
+                                                    } else {
+                                                        console.error('Failed to update setting');
+                                                    }
+                                                })
+                                                .catch(error => console.error('Error:', error));
+                                            }
+                                    
+                                            function preventEnterKey(event) {
+                                                if (event.key === 'Enter') {
+                                                    event.preventDefault();
+                                                }
+                                            }
+
+                                            // ป้องกันการกดปุ่ม Enter
+                                            Text_Footer_Input.addEventListener('keydown', preventEnterKey);
+                                            System_Version_Input.addEventListener('keydown', preventEnterKey);
+
+                                            // ใช้ change event เพื่อ update
+                                            Text_Footer_Input.addEventListener('change', updateSettings);
+                                            System_Version_Input.addEventListener('change', updateSettings);
+                                        });
+                                    </script>                                                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">อีเมล์อัตโนมัติ</div>
+                                <div class="card-body">
+
+                                    <% if (settings_form_6_error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= settings_form_6_error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (settings_form_6_success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= settings_form_6_success %>
+                                    </div>
+                                    <% } %>
+
+                                    <form action="" class="needs-validation" novalidate method="POST">
+                                        <div class="form-group row">
+                                            <label for="mail_name" class="col-sm-2 col-form-label required">ชื่ออีเมล์ (Mail Name) :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg mb-2" name="mail_name" id="mail_name" placeholder="POSMS TEAM" value="<%= settings.mail_name %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกที่อยู่อีเมล์ถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="mail_auto_sent" class="col-sm-2 col-form-label required">ที่อยู่อีเมล์ (Google Mail) :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg mb-2" name="mail_auto_sent" id="mail_auto_sent" placeholder="example@gmail.com" value="<%= settings.mail_auto_sent %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกที่อยู่อีเมล์ถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกที่อยู่อีเมล์ให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="mail_app_password" class="col-sm-2 col-form-label required">รหัสผ่าน (App Password) :</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control form-control-lg mb-2" name="mail_app_password" id="mail_app_password" placeholder="XXXX XXXX XXXX XXXX" value="<%= settings.mail_app_password %>" required autocomplete="off">
+                                                <div class="valid-feedback">
+                                                    กรอกรหัสผ่านถูกต้อง
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    กรุณากรอกรหัสผ่านให้ถูกต้อง
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <script>
+                                        document.addEventListener('DOMContentLoaded', () => {
+                                            const Text_Footer_Input = document.getElementById('mail_noreply');
+                                            const System_Version_Input = document.getElementById('app_password');
                                     
                                             function updateSettings() {
                                                 const Text_Footer = Text_Footer_Input.value;
