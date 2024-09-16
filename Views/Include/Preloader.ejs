@@ -1,14 +1,36 @@
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="/assets/images/logo/icons/logo-icon-latest-1.png" alt="Loaading..." height="60" width="60">
+    <img class="animation__shake" src="/assets/images/logo/logo_icon.png" alt="Loaading..." height="60" width="60">
     <b class="mt-3">กำลังโหลด ...</b>
 </div>
 
 <!-- Modal -->
+<div class="modal fade" id="copyModal" tabindex="-1" role="dialog" aria-labelledby="copyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis" id="Store_Information_Label">คัดลอกสำเร็จ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-clone" style="font-size: 3rem;"></i>
+                </div>
+                <div><b>ข้อมูลได้รับการคัดลอกไปยังคลิปบอร์ดแล้ว!</b></div>
+                <div><b><span id="copiedData"></span></b></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิดโมดอล</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="Store_Information" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="Store_Information_Label" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis" id="Store_Information_Label"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า / ศูนย์ลูกค้าสัมพันธ์</h5>
+                <h5 class="modal-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis" id="Store_Information_Label"><i class="fas fa-info-circle mr-2"></i>เกี่ยวกับร้านค้า / ศูนย์ลูกค้าสัมพันธ์</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
                 </button>

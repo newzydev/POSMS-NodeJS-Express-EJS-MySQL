@@ -263,32 +263,37 @@ app.get('/Role/Customer/Page/Order_And_Receipt/Order/:order_id', authenticateUse
 // ==================================================
 // 403 Forbidden - ไม่มีสิทธิเข้าถึงระบบส่วนนี้
 // app.use((req, res) => {
-//     res.status(404).render('Error_Page/403', { title: 'Forbidden Access Denied | Point Of Sale Management System' });
+//     const settings = res.locals.settings;
+//     res.status(404).render('Error_Page/403', { title: 'Forbidden Access Denied - ' + settings.text_footer });
 // });
 // 404 Not Found - ไม่พบหน้าที่ร้องขอ
 app.use((req, res) => {
-    res.status(404).render('Error_Page/404', { title: 'Not Found | Point Of Sale Management System' });
+    const settings = res.locals.settings;
+    res.status(404).render('Error_Page/404', { title: 'NOT FOUND - ' + settings.text_footer });
 });
 // 500 Internal Server Error - มีข้อผิดพลาดบางอย่างภายใน server โดยไม่ทราบสาเหตุ
 // app.use((req, res) => {
-//     res.status(500).render('Error_Page/500', { title: 'Internal Server Error | Point Of Sale Management System' });
+//     const settings = res.locals.settings;
+//     res.status(500).render('Error_Page/500', { title: 'INTERNAL SERVER ERROR - ' + settings.text_footer });
 // });
 // 502 Bad Gateway - server เป็น Gateway หรือ Proxy ได้รับ response ผิดพลาดจาก server อื่น
 app.use((req, res) => {
-    res.status(502).render('Error_Page/502', { title: 'Bad Gateway | Point Of Sale Management System' });
+    const settings = res.locals.settings;
+    res.status(502).render('Error_Page/502', { title: 'BAD GATEWAY - ' + settings.text_footer });
 });
 // 503 Service Unavailable - ใช้งานเกินพิกัด(ล่ม) หรือกำลังปรับปรุง server
 app.use((req, res) => {
-    res.status(503).render('Error_Page/503', { title: 'Service Unavailable | Point Of Sale Management System' });
+    const settings = res.locals.settings;
+    res.status(503).render('Error_Page/503', { title: 'SERVICE UNAAILABLE - ' + settings.text_footer });
 });
 // 504 Gateway Timeout - server ไม่ได้รับตอบสนองจาก server อื่น จนหมดเวลากันก่อน
 app.use((req, res) => {
-    res.status(504).render('Error_Page/504', { title: 'Gateway Timeout | Point Of Sale Management System' });
+    const settings = res.locals.settings;
+    res.status(504).render('Error_Page/504', { title: 'GATEWAY TIMEOUT - ' + settings.text_footer });
 });
 
 // Start the Server - เริ่มเซิร์ฟเวอร์
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
     console.log(`Local Server Link: http://localhost:${port}`);
-    console.log(`Client Server Link: http://posms.ddns.net`);
 });

@@ -1,4 +1,4 @@
-<h1 align="center">Point Of Sale Management System</h1>
+<h1 align="center">POINT OF SALE MANAGEMENT SYSTEM</h1>
 
 <h3 align="center">Develop with language :</h2>
 <p align="center">

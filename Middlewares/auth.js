@@ -45,10 +45,11 @@ const authenticateUser = (db) => (req, res, next) => {
 // Authorization Middlewares
 const checkRole = (roleId) => (req, res, next) => {
     const user = res.locals.user;
+    const settings = res.locals.settings;
     if (user && user.role_id === roleId) {
         return next();
     } else {
-        return res.status(403).render('Error_Page/403', { title: 'Forbidden Access Denied | Point Of Sale Management System' });
+        return res.status(403).render('Error_Page/403', { title: 'FORBIDDEN ACCESS DENIED - ' + settings.text_footer });
     }
 };
 
