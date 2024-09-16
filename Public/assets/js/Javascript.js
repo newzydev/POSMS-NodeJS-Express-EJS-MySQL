@@ -79,7 +79,7 @@ function copyDataInfo(dataInfo) {
     // Remove the textarea
     document.body.removeChild(tempInput);
     // Update the modal content with the copied data
-    document.getElementById("copiedData").innerText = "(ข้อมูล : " + dataInfo + ")";
+    document.getElementById("copiedData").innerText = "ข้อมูล : " + dataInfo;
     // Show the modal after copying the data
     $('#copyModal').modal('show');
 }
