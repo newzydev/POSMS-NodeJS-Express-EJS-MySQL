@@ -169,7 +169,7 @@
                                                             <% if(order.oapp_image) { %>
                                                                 <button type="button" class="btn btn-success btn-sm btn-block" disabled><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
                                                             <% } else { %>
-                                                                <button type="button" class="btn btn-success btn-sm btn-block"><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
+                                                                <button type="button" class="btn btn-success btn-sm btn-block" onclick="location.href='/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/<%= order.order_id %>';"><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
                                                             <% } %>
                                                         </td>
                                                     </tr>

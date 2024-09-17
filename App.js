@@ -239,7 +239,9 @@ app.get('/Role/Cashier/Page/Electronic_Reciept/Order/:order_id', authenticateUse
 
 // Attach Proof of Payment
 const { getAttachProofofPaymentPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
+// const { getAttachProofofPaymentOrderPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
 app.get('/Role/Cashier/Page/Attach_Proof_of_Payment', authenticateUser(db), checkRole002, getAttachProofofPaymentPage);
+// app.get('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/:order_id', authenticateUser(db), checkRole002, getAttachProofofPaymentOrderPage);
 
 // ==================================================
 // Role Customer
