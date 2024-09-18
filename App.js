@@ -15,15 +15,6 @@ const port = 5000; // กำหนดหมายเลขพอร์ตที�
 const db = connectDB(); // เชื่อมต่อกับฐานข้อมูลและเก็บไว้ในตัวแปร db
 global.db = db; // กำหนดตัวแปร db ให้เป็น global เพื่อให้สามารถเข้าถึงได้จากทุกที่ในแอปพลิเคชัน
 
-const https = require('https');
-const fs = require('fs');
-
-// โหลดคีย์และใบรับรอง SSL
-const options = {
-  key: fs.readFileSync('openSSL/key.pem'),
-  cert: fs.readFileSync('openSSL/cert.pem')
-};
-
 app.use(SystemSettingsMiddleware); // ใช้ middleware ที่ดึงข้อมูลการตั้งค่าของระบบในทุก request
 app.use(osMiddleware); // ใช้ middleware ที่ดึงข้อมูลเกี่ยวกับระบบปฏิบัติการในทุก request
 app.use(session({
@@ -304,12 +295,7 @@ app.use((req, res) => {
 });
 
 // Start the Server - เริ่มเซิร์ฟเวอร์
-// app.listen(port, () => {
-//     console.log(`Server running on port: ${port}`);
-//     console.log(`Local Server Link: http://localhost:${port}`);
-// });
-
-https.createServer(options, app).listen(port, () => {
+app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
-    console.log(`Local Server Link: https://localhost:${port}`);
+    console.log(`Local Server Link: http://localhost:${port}`);
 });
