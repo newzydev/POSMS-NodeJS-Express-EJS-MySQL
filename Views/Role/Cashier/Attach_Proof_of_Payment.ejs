@@ -111,8 +111,8 @@
                                                 <tr>
                                                     <th scope="col">#</th>
                                                     <th class="text-center" scope="col">หมายเลขออเดอร์</th>
-                                                    <th scope="col">พนักงานแคชเชียร์</th>
-                                                    <th scope="col">ลูกค้าสมาชิก</th>
+                                                    <th class="text-center" scope="col">พนักงานแคชเชียร์</th>
+                                                    <th class="text-center" scope="col">ลูกค้าสมาชิก</th>
                                                     <th scope="col">ยอดเงินสุทธิ</th>
                                                     <th scope="col">ยอดรับเงิน</th>
                                                     <th scope="col">ยอดเงินทอน</th>
@@ -139,21 +139,22 @@
                                                         <td class="text-middle text-center">
                                                             <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.order_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
                                                         </td>
-                                                        <td class="text-middle"><%= order.cashier_id %><br><span class="text-success">พนักงาน</span></td>
-                                                        <td class="text-middle">
+                                                        <td class="text-middle text-center">
+                                                            <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.cashier_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
+                                                        </td>
+                                                        <td class="text-middle text-center">
                                                             <% if(order.customer_id === "N/A") { %>
                                                                 ไม่ได้ระบุ
                                                             <% } else { %>    
-                                                                <%= order.customer_id %>
-                                                            <% } %>    
-                                                            <br><span class="text-success">ลูกค้า</span>
+                                                                <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.customer_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
+                                                            <% } %>
                                                         </td>
                                                         <td class="text-middle">฿<%= order.net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">ยอดสุทธิ</span></td>
                                                         <td class="text-middle">฿<%= order.get_money.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">รับเงิน</span></td>
                                                         <td class="text-middle">฿<%= order.change_money.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">เงินทอน</span></td>
                                                         <td class="text-middle"><%= order.order_time_transaction %><br><span class="text-success">วันทำรายการ</span></td>
                                                         <td class="text-middle">
-                                                            <% if(order.oapp_image === "N/A") { %>
+                                                            <% if(order.order_time_payment === "N/A") { %>
                                                                 รอชำระเงิน
                                                             <% } else { %>
                                                                 <%= order.order_time_payment %>
@@ -161,15 +162,15 @@
                                                             <br><span class="text-success">วันชำระเงิน</span>
                                                         </td>
                                                         <td class="text-middle text-center">
-                                                            <% if(order.oapp_image) { %>
-                                                                <button type="button" class="btn btn-info btn-sm btn-danger btn-block"><i class="fas fa-check-circle mr-1"></i>แนบหลักฐานแล้ว</button>
+                                                            <% if(order.oapp_image !== "N/A") { %>
+                                                                <button type="button" class="btn btn-sm btn-success btn-block"><i class="fas fa-check-circle mr-1"></i>แนบหลักฐานแล้ว</button>
                                                             <% } else { %>
-                                                                <button type="button" class="btn btn-info btn-sm btn-danger btn-block"><i class="fas fa-times-circle mr-1"></i>ยังไม่แนบหลักฐาน</button>
+                                                                <button type="button" class="btn btn-sm btn-danger btn-block"><i class="fas fa-times-circle mr-1"></i>ยังไม่แนบหลักฐาน</button>
                                                             <% } %>
-                                                            <% if(order.oapp_image) { %>
-                                                                <button type="button" class="btn btn-success btn-sm btn-block" disabled><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
+                                                            <% if(order.oapp_image !== "N/A") { %>
+                                                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fas fa-eye mr-1"></i>หลักฐานชำระเงิน</button>
                                                             <% } else { %>
-                                                                <button type="button" class="btn btn-success btn-sm btn-block" onclick="location.href='/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/<%= order.order_id %>';"><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
+                                                                <button type="button" class="btn btn-primary btn-sm btn-block" onclick="location.href='/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/<%= order.order_id %>';"><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
                                                             <% } %>
                                                         </td>
                                                     </tr>

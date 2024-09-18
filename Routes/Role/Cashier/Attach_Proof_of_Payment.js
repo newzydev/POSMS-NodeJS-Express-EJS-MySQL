@@ -38,16 +38,12 @@ exports.getAttachProofofPaymentPage = (req, res) => {
             Orders.change_money,
             Orders.order_time_transaction,
             Orders.order_time_payment,
-            Order_Attach_Proof_Payment.oapp_image,
-            Order_Attach_Proof_Payment.oapp_date,
-            Order_Attach_Proof_Payment.oapp_time,
+            Orders.oapp_image,
             Orders.time_order
         FROM 
             Orders
         INNER JOIN 
             Payment_Options ON Orders.pay_id = Payment_Options.pay_id
-        LEFT JOIN 
-            Order_Attach_Proof_Payment ON Orders.order_id = Order_Attach_Proof_Payment.order_id
         WHERE
             (Orders.order_id LIKE ?) AND Orders.cashier_id = ?
         ORDER BY 

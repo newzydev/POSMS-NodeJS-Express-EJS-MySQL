@@ -140,14 +140,15 @@
                                                         <td class="text-middle text-center">
                                                             <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.order_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
                                                         </td>
-                                                        <td class="text-middle"><%= order.cashier_id %><br><span class="text-success">พนักงาน</span></td>
-                                                        <td class="text-middle">
+                                                        <td class="text-middle text-center">
+                                                            <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.cashier_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
+                                                        </td>
+                                                        <td class="text-middle text-center">
                                                             <% if(order.customer_id === "N/A") { %>
                                                                 ไม่ได้ระบุ
                                                             <% } else { %>    
-                                                                <%= order.customer_id %>
-                                                            <% } %>    
-                                                            <br><span class="text-success">ลูกค้า</span>
+                                                                <svg class="barcode" jsbarcode-format="CODE128" jsbarcode-value="<%= order.customer_id %>" jsbarcode-textmargin="5" jsbarcode-fontoptions="normal" jsbarcode-fontsize="12" jsbarcode-width="1" jsbarcode-height="20"></svg>
+                                                            <% } %>
                                                         </td>
                                                         <td class="text-middle">฿<%= order.net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">ยอดสุทธิ</span></td>
                                                         <td class="text-middle">฿<%= order.get_money.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %><br><span class="text-success">รับเงิน</span></td>

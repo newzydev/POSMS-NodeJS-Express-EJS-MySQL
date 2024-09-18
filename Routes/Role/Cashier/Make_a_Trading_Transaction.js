@@ -234,7 +234,6 @@ exports.postAddOrder = (req, res) => {
     };
     const order_id = generateOrderId();
 
-    // ค่าปริยาย
     const finalCustomerId = customer_id || "N/A";
     const finalGetMoney = get_money || 0.00;
     const finalChangeMoney = change_money || 0.00;
@@ -265,6 +264,7 @@ exports.postAddOrder = (req, res) => {
     const formattedTime = now.toLocaleTimeString('th-TH', options_time);
     const order_time_transaction = formattedDate + ' ' + formattedTime;
     const order_time_payment = "N/A";
+    const oapp_image = "N/A";
 
     // แปลง Arrays จากข้อมูลฟอร์มหากเป็นสตริง
     const parseArray = (data) => {
@@ -288,14 +288,14 @@ exports.postAddOrder = (req, res) => {
 
     // แทรก Order
     const insertOrderQuery = `
-        INSERT INTO Orders (order_id, cashier_id, customer_id, pay_id, total_unit, total_amount, member_discount, net_total, get_money, change_money, order_time_transaction, order_time_payment) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO Orders (order_id, cashier_id, customer_id, pay_id, total_unit, total_amount, member_discount, net_total, get_money, change_money, order_time_transaction, order_time_payment, oapp_image) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
     db.query(insertOrderQuery, [
         order_id, cashier_id, finalCustomerId, pay_id,
         total_unit, total_amount, finalMemberDiscount, finalNetTotal, finalGetMoney,
-        finalChangeMoney, order_time_transaction, order_time_payment
+        finalChangeMoney, order_time_transaction, order_time_payment, oapp_image
     ], (err, result) => {
         if (err) {
             console.error('ข้อผิดพลาดในการเพิ่มคำสั่งซื้อ:', err);
