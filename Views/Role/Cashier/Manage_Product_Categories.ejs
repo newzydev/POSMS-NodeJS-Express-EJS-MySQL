@@ -164,20 +164,18 @@
                                                                     <div class="mb-3">
                                                                         <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
                                                                     </div>
-                                                                    คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?<br><b>(<%= product_cat.cat_id %>) <%= product_cat.cat_name_sub %></b>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <div class="col-12">
-                                                                        <div class="row">
-                                                                            <div class="col-6">
-                                                                                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ยกเลิก</button>
-                                                                            </div>
-                                                                            <div class="col-6">
-                                                                                <button type="button" class="btn btn-primary btn-block" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/Delete/<%= product_cat.cat_id %>';">ยืนยันลบข้อมูล</button>
-                                                                            </div>
+                                                                    <b>คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้ ?<br>ข้อมูล : <%= product_cat.cat_id %>, <%= product_cat.cat_name_sub %></b>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-6">
+                                                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ยกเลิก</button>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                            <button type="button" class="btn btn-primary btn-block" onclick="location.href='/Role/Cashier/Page/Manage_Product_Categories/Delete/<%= product_cat.cat_id %>';">ยืนยันลบข้อมูล</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="modal-footer"></div>
                                                             </div>
                                                         </div>
                                                     </div>

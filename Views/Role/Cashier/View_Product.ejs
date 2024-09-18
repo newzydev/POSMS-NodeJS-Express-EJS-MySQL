@@ -67,32 +67,51 @@
                                         <div class="form-group row">
                                             <label for="product_name" class="col-sm-2 col-form-label">ชื่อสินค้า</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="product_name" id="product_name" placeholder="ชื่อสินค้า" value="<%= product.product_name %>" disabled required autocomplete="off">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        <%= product.product_name %>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="product_price" class="col-sm-2 col-form-label">ราคาสินค้า (รวมหน่วย)</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="product_price" id="product_price" placeholder="0.00" value="฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" disabled required autocomplete="off">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        ฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="cat_name_main" class="col-sm-2 col-form-label">หมวดหมู่สินค้าหลัก</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="cat_name_main" id="cat_name_main" placeholder="หมวดหมู่สินค้าหลัก" value="<%= product.cat_name_main %>" disabled required autocomplete="off">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        <%= product.cat_name_main %>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="cat_name_sub" class="col-sm-2 col-form-label">หมวดหมู่สินค้า</label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg" name="cat_name_sub" id="cat_name_sub" placeholder="หมวดหมู่สินค้า" value="<%= product.cat_name_sub %>" disabled required autocomplete="off">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        <%= product.cat_name_sub %>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <div class="row">
-                                                    <div class="col-md-12 mb-3">
-                                                        <div onclick="location.href='/Role/Cashier/Page/Manage_Products';" class="btn btn-custom-one btn-lg btn-block">ย้อนกลับ</div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <div class="btn btn-custom-one btn-lg btn-block" onclick="copyDataInfo('<%= product.product_id %>, <%= product.product_name %>, ฿<%= product.product_price.toFixed(2) %>, <%= product.cat_name_main %>, <%= product.cat_name_sub %>');">คัดลอกข้อมูล</div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <div onclick="location.href='/Role/Cashier/Page/Manage_Products';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</div>
                                                     </div>
                                                 </div>
                                             </div>
