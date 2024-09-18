@@ -21,6 +21,10 @@ body {
   -moz-user-drag: none;
 }
 
+body {
+  overflow-y: scroll !important;
+}
+
 .bai-jamjuree-extralight {
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 200;
