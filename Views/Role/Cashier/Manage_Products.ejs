@@ -157,6 +157,9 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <% }) %>
+
+                                                        <% products.forEach((product, index) => { %>
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="<%= product.product_id %>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="<%= product.member_id %>Label" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -182,7 +185,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="modal-footer"></div>
                                                                 </div>
                                                             </div>
                                                         </div>
