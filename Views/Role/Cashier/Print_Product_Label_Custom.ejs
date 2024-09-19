@@ -176,7 +176,10 @@
                                                             <div>
                                                                 <img src="/qrcode-gen?text=<%= product.product_id %>" alt="QR Code">
                                                             </div>
-                                                            <h5 class="product-name"><%= product.product_name %></h5>
+                                                            <div class="product-name">
+                                                                <h5><%= product.product_name %></h5>
+                                                                <span>(ราคา x<%= product.product_unit_number %> หน่วย)</span>
+                                                            </div>
                                                             <b>ราคา ฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %> บาท</b>
                                                         </div>
                                                     </div>

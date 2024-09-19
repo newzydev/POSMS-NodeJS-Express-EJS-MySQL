@@ -24,6 +24,7 @@ exports.getRegisterActivatePage = (req, res) => {
 };
 
 exports.postRegisterActivate = (req, res) => {
+    const settings = res.locals.settings;
     const member_id = req.params.member_id;
     const { code_6_digit } = req.body;
 
@@ -72,14 +73,11 @@ exports.postRegisterActivate = (req, res) => {
                 const mailOptions = {
                     from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: member_email,
-                    subject: 'แจ้งเตือนการยืนยันที่อยู่อีเมล์ เลขที่ #' + Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                    subject: '[POSMS] แจ้งเตือนการยืนยันที่อยู่อีเมล์ #' + Mail_Id,
                     html: `
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
-                            E-MAIL AUTO SENT #${Mail_Id}
-                        </p>
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-color: #f9f9f9;">
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <h1 style="color: #ffffff; text-align: center;">
-                                ยินดีต้อนรับ คุณ ${member_firstname} ${member_lastname}
+                                สวัสดี คุณ ${member_firstname} ${member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${member_id}</div>
@@ -87,7 +85,8 @@ exports.postRegisterActivate = (req, res) => {
                                 <div style="font-size: 16px; color: #333333;"><strong>ยืนยันที่อยู่อีเมล์</strong> ${member_email} (ยืนยันแล้ว)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
                         <p style="font-size: 14px; color: #333333; text-align: center;">

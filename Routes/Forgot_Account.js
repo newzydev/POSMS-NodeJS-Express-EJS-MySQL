@@ -10,6 +10,7 @@ exports.getForgotAccountPage = (req, res) => {
 };
 
 exports.postForgotAccount = (req, res) => {
+    const settings = res.locals.settings;
     const { member_email, member_tel } = req.body;
     const code_6_digit = Math.floor(100000 + Math.random() * 900000).toString();
 
@@ -52,12 +53,9 @@ exports.postForgotAccount = (req, res) => {
             const mailOptions = {
                 from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                 to: user.member_email,
-                subject: 'แจ้งเตือนการกู้คืนบัญชีผู้ใช้ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                subject: '[POSMS] แจ้งเตือนการกู้คืนบัญชีผู้ใช้ #'+ Mail_Id,
                 html: `
-                    <p style="font-size: 14px; color: #333333; text-align: center;">
-                        E-MAIL AUTO SENT #${Mail_Id}
-                    </p>
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-color: #f9f9f9;">
+                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                         <h1 style="color: #ffffff; text-align: center;">
                             ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
                         </h1>
@@ -67,7 +65,8 @@ exports.postForgotAccount = (req, res) => {
                             <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน 6 หลัก</strong> ${code_6_digit}</div>
                         </div>
                         <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                            (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                            * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                            ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                         </p>
                     </div>
                     <p style="font-size: 14px; color: #333333; text-align: center;">

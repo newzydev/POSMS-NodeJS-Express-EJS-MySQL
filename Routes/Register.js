@@ -10,6 +10,7 @@ exports.getRegisterPage = (req, res) => {
 };
 
 exports.postRegister = (req, res) => {
+    const settings = res.locals.settings;
     // Get variables
     const { member_firstname, member_lastname, member_username, member_password, member_email, member_tel } = req.body;
 
@@ -26,13 +27,13 @@ exports.postRegister = (req, res) => {
         if (err) {
             console.error(err);
             req.flash('error', 'เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์');
-            req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_username, member_password, member_tel });
             return res.redirect('/Register');
         }
 
         if (results[0].count > 0) {
             req.flash('error', 'หมายเลขโทรศัพท์มือถือนี้ถูกใช้ไปแล้ว');
-            req.flash('formData', { member_firstname, member_lastname, member_email, member_tel });
+            req.flash('formData', { member_firstname, member_lastname, member_email, member_username, member_password });
             return res.redirect('/Register');
         }
 
@@ -89,14 +90,11 @@ exports.postRegister = (req, res) => {
                     const mailOptions = {
                         from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                         to: member_email,
-                        subject: 'แจ้งเตือนขอบคุณที่สมัครสมาชิกกับเรา เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                        subject: '[POSMS] แจ้งเตือนขอบคุณที่สมัครสมาชิกกับเรา #'+ Mail_Id,
                         html: `
-                            <p style="font-size: 14px; color: #333333; text-align: center;">
-                                E-MAIL AUTO SENT #${Mail_Id}
-                            </p>
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                                 <h1 style="color: #ffffff; text-align: center;">
-                                    ยินดีต้อนรับ คุณ ${member_firstname} ${member_lastname}
+                                    สวัสดี คุณ ${member_firstname} ${member_lastname}
                                 </h1>
                                 <div style="background-color: #ffffff; padding: 15px; margin: 20px 0; border: 1px solid #e0e0e0; border-radius: 0.5rem; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                     <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${member_id}</div>
@@ -107,7 +105,8 @@ exports.postRegister = (req, res) => {
                                     <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน 6 หลัก</strong> ${member_email_activate}</div>
                                 </div>
                                 <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                                    (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                    * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                    ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                                 </p>
                             </div>
                             <p style="font-size: 14px; color: #333333; text-align: center;">

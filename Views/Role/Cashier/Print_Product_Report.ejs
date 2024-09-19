@@ -162,7 +162,7 @@
                                                         <th class="text-middle"><%= index + 1 %></th>
                                                         <td class="text-middle text-center"><%= product.product_id %></td>
                                                         <td class="text-middle"><%= product.cat_name_sub %></td>
-                                                        <td class="text-middle"><%= product.product_name %></td>
+                                                        <td class="text-middle"><%= product.product_name %> ราคา x<%= product.product_unit_number %> หน่วย</td>
                                                         <td class="text-middle">฿<%= product.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                     </tr>
                                                     <% }) %>
