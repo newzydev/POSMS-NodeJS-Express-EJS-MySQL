@@ -1,14 +1,15 @@
 // System Setting Middlewares
 const System_Settings = (req, res, next) => {
-    const query = 'SELECT * FROM System_Settings'; // Corrected the typo
+    const query = 'SELECT * FROM Systen_Settings';
 
-    global.db.query(query, (err, results) => {
+    db.query(query, (err, results) => {
         if (err) {
             return next(err); // Pass the error to the next middleware
         }
 
-        // Set settings in res.locals for global access
+        // ตั้งค่าเป็น res.locals เพื่อให้เรียกใช้ได้กับทุกหน้าและทุกใฟล์
         res.locals.settings = results.length ? results[0] : {};
+
         next();
     });
 };
