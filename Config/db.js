@@ -1,44 +1,42 @@
 const mysql = require('mysql');
 
-// ฟังก์ชันสำหรับสร้างการเชื่อมต่อใหม่เมื่อเกิดปัญหา connection lost
+let db;
+
 const handleDisconnect = () => {
-    const db = mysql.createConnection({
+    db = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'root',
         database: 'point_of_sale_management_system',
-        connectTimeout: 10000, // 10 วินาที
-        acquireTimeout: 10000, // 10 วินาทีสำหรับรอการดึง connection จาก pool
-        timeout: 60000, // เวลารวมสูงสุดในการประมวลผล query คือ 1 นาที
-        reconnect: true // เปิดการเชื่อมต่ออัตโนมัติเมื่อ connection หลุด
+        connectTimeout: 10000,
+        acquireTimeout: 10000,
+        timeout: 60000,
     });
 
-    // เชื่อมต่อ database
     db.connect((err) => {
         if (err) {
-            console.error('Database connection error:', err);
-            setTimeout(handleDisconnect, 2000); // ลองเชื่อมต่อใหม่หลังจาก 2 วินาที
+            console.error('Error connecting to database:', err);
+            setTimeout(handleDisconnect, 2000); // Attempt reconnection after 2 seconds
         } else {
-            console.log('Server Connect: Connected to database successfully');
+            console.log('Database connected successfully.');
         }
     });
 
-    // จัดการ error เมื่อเกิด connection lost หรือปัญหาอื่นๆ
     db.on('error', (err) => {
         console.error('Database error:', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            console.log('Attempting to reconnect...');
-            handleDisconnect(); // เรียกฟังก์ชันเชื่อมต่อใหม่
-        } else if (err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
-            console.log('Connection timed out. Reconnecting...');
-            handleDisconnect();
+
+        // Handle connection lost error
+        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
+            console.log('Reconnecting to database...');
+            handleDisconnect(); // Reconnect on connection loss
         } else {
-            throw err;
+            throw err; // Throw the error for other types
         }
     });
-
-    return db;
 };
 
-// Export the handleDisconnect function
-module.exports = handleDisconnect;
+// Initialize the database connection
+handleDisconnect();
+
+// Export the db object
+module.exports = db;
