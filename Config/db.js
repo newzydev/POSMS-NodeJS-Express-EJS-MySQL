@@ -1,9 +1,8 @@
 const mysql = require('mysql');
 
-let db;
-
-const handleDisconnect = () => {
-    db = mysql.createConnection({
+// Function to handle reconnection and database initialization
+const connectDB = () => {
+    const db = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'root',
@@ -16,7 +15,7 @@ const handleDisconnect = () => {
     db.connect((err) => {
         if (err) {
             console.error('Error connecting to database:', err);
-            setTimeout(handleDisconnect, 2000); // Attempt reconnection after 2 seconds
+            setTimeout(connectDB, 2000); // Attempt reconnection after 2 seconds
         } else {
             console.log('Database connected successfully.');
         }
@@ -25,18 +24,16 @@ const handleDisconnect = () => {
     db.on('error', (err) => {
         console.error('Database error:', err);
 
-        // Handle connection lost error
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
             console.log('Reconnecting to database...');
-            handleDisconnect(); // Reconnect on connection loss
+            connectDB(); // Reconnect on connection loss
         } else {
             throw err; // Throw the error for other types
         }
     });
+
+    return db; // Return the initialized db connection
 };
 
-// Initialize the database connection
-handleDisconnect();
-
-// Export the db object
-module.exports = db;
+// Export the connectDB function
+module.exports = connectDB;
