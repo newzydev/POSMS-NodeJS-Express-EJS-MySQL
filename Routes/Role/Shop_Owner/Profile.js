@@ -38,6 +38,7 @@ exports.postShopOwnerChangeProfile = (req, res) => {
 
 // Change Email
 exports.postShopOwnerChangeEmail = (req, res) => {
+    const settings = res.locals.settings;
     const { member_id, old_email, new_email, confirm_new_email } = req.body;
     const user = res.locals.user;
 
@@ -104,22 +105,21 @@ exports.postShopOwnerChangeEmail = (req, res) => {
                 const mailOptions = {
                     from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: new_email,
-                    subject: 'แจ้งเตือนการเปลี่ยนแปลงที่อยู่อีเมล์ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    subject: '[POSMS] แจ้งเตือนการเปลี่ยนแปลงที่อยู่อีเมล์ #' + Mail_Id,
                     html: `
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
-                            E-MAIL AUTO SENT #${Mail_Id}
-                        </p>
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-color: #f9f9f9;">
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <h1 style="color: #ffffff; text-align: center;">
-                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                                สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${user.member_id}</div>
                                 <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <hr style="color: #333333;">
                                 <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนที่อยู่อีเมล์</strong> ${new_email.substring(0, 2)}*****${new_email.substring(new_email.indexOf('@'))} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
                         <p style="font-size: 14px; color: #333333; text-align: center;">
@@ -150,6 +150,7 @@ exports.postShopOwnerChangeEmail = (req, res) => {
 
 // Change Username
 exports.postShopOwnerChangeUsername = (req, res) => {
+    const settings = res.locals.settings;
     const { member_id, old_username, new_username, confirm_new_username } = req.body;
 
     if (!old_username || !new_username || !confirm_new_username) {
@@ -215,22 +216,21 @@ exports.postShopOwnerChangeUsername = (req, res) => {
                 const mailOptions = {
                     from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: user.member_email,
-                    subject: 'แจ้งเตือนการเปลี่ยนแปลงชื่อผู้ใช้ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    subject: '[POSMS] แจ้งเตือนการเปลี่ยนแปลงชื่อผู้ใช้ #' + Mail_Id,
                     html: `
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
-                            E-MAIL AUTO SENT #${Mail_Id}
-                        </p>
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-color: #f9f9f9;">
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <h1 style="color: #ffffff; text-align: center;">
-                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                                สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${user.member_id}</div>
                                 <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <hr style="color: #333333;">
                                 <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนชื่อผู้ใช้</strong> ${new_username.substring(0, 2)}*****${new_username.substring(new_username.indexOf('@'))} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
                         <p style="font-size: 14px; color: #333333; text-align: center;">
@@ -261,6 +261,7 @@ exports.postShopOwnerChangeUsername = (req, res) => {
 
 // Change Password
 exports.postShopOwnerChangePassword = (req, res) => {
+    const settings = res.locals.settings;
     const { member_id, old_password, new_password, confirm_new_password } = req.body;
 
     if (!old_password || !new_password || !confirm_new_password) {
@@ -326,22 +327,21 @@ exports.postShopOwnerChangePassword = (req, res) => {
                 const mailOptions = {
                     from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: user.member_email,
-                    subject: 'แจ้งเตือนการเปลี่ยนแปลงรหัสผ่าน เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + user.member_firstname + ' ' + user.member_lastname,
+                    subject: '[POSMS] แจ้งเตือนการเปลี่ยนแปลงรหัสผ่าน #' + Mail_Id,
                     html: `
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
-                            E-MAIL AUTO SENT #${Mail_Id}
-                        </p>
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-color: #f9f9f9;">
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <h1 style="color: #ffffff; text-align: center;">
-                                ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                                สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                                 <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
-                                <div style="font-size: 16px; color: #333333;"><strong>ชื่อ - นามสกุล :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม :</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <hr style="color: #333333;">
                                 <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนรหัสผ่าน :</strong> ${new_password.substring(0, 2)}*****${new_password.substring(new_password.indexOf('@'))} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                                (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
                         <p style="font-size: 14px; color: #333333; text-align: center;">

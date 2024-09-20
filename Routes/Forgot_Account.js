@@ -57,11 +57,12 @@ exports.postForgotAccount = (req, res) => {
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                         <h1 style="color: #ffffff; text-align: center;">
-                            ยินดีต้อนรับ คุณ ${user.member_firstname} ${user.member_lastname}
+                            สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
                         </h1>
                         <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                             <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${user.member_id}</div>
                             <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                            <hr style="color: #333333;">
                             <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน 6 หลัก</strong> ${code_6_digit}</div>
                         </div>
                         <p style="font-size: 14px; color: #ffffff; text-align: center;">

@@ -17,6 +17,7 @@ exports.getAddCustomerPage = (req, res) => {
 };
 
 exports.postAddCustomer = (req, res) => {
+    const settings = res.locals.settings;
     // Get variable
     const { member_firstname, member_lastname, member_email, member_username, member_password, member_tel } = req.body;
 
@@ -93,27 +94,32 @@ exports.postAddCustomer = (req, res) => {
                     const mailOptions = {
                         from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                         to: member_email,
-                        subject: 'แจ้งเตือนเจ้าของร้านได้สมัครสมาชิกให้กับคุณ เลขที่ #'+ Mail_Id + ' - เรียน คุณ ' + member_firstname + ' ' + member_lastname,
+                        subject: '[POSMS] แจ้งเตือนเจ้าของร้านได้สมัครสมาชิกให้กับคุณ #' + Mail_Id,
                         html: `
-                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; background-color: #f9f9f9;">
+                            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                                 <h1 style="color: #2c3e50; text-align: center;">
-                                    ยินดีต้อนรับ คุณ ${member_firstname} ${member_lastname}
+                                    สวัสดีคุณ ${member_firstname} ${member_lastname}
                                 </h1>
-                                <div style="font-size: 16px; color: #34495e; text-align: center;">
-                                    เลขที่ #${Mail_Id}
+                                <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก</strong> ${member_id}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อเต็ม</strong> ${member_firstname} ${member_lastname}</div>
+                                    <hr style="color: #333333;">
+                                    <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก</strong> ${member_time_register}</div>
+                                    <hr style="color: #333333;">
+                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อผู้ใช้ของคุณ</strong> ${member_username}</div>
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัสผ่านของคุณ</strong> ${member_password}</div>
+                                    <hr style="color: #333333;">
+                                    <div style="font-size: 16px; color: #333;"><strong>รหัส OTP ยืนยัน 6 หลัก</strong> ${member_email_activate}</div>
                                 </div>
-                                <div style="background-color: #ffffff; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                    <div style="font-size: 16px; color: #333;"><strong>รหัสสมาชิก :</strong> ${member_id}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อ - นามสกุล :</strong> ${member_firstname} ${member_lastname}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>สมัครสมาชิก :</strong> ${member_time_register}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>ชื่อผู้ใช้ของคุณ :</strong> ${member_username}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>รหัสผ่านของคุณ :</strong> ${member_password}</div>
-                                    <div style="font-size: 16px; color: #333;"><strong>รหัส OTP ยืนยัน 6 หลัก :</strong> ${member_email_activate}</div>
-                                </div>
-                                <p style="font-size: 14px; color: #7f8c8d; text-align: center;">
-                                    (อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้)
+                                <p style="font-size: 14px; color: #ffffff; text-align: center;">
+                                    * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                    ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                                 </p>
                             </div>
+                            <p style="font-size: 14px; color: #333333; text-align: center;">
+                                COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
+                                DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
+                            </p>
                         `,
                         priority: 'high'
                     };
