@@ -100,22 +100,22 @@ exports.postAddEmployee = (req, res) => {
                                     สวัสดีคุณ ${member_firstname} ${member_lastname}
                                 </h1>
                                 <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                    <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${member_id}</div>
-                                    <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${member_firstname} ${member_lastname}</div>
-                                    <hr style="color: #333333;">
-                                    <div style="font-size: 16px; color: #333333;"><strong>สมัครสมาชิก</strong> ${member_time_register}</div>
-                                    <hr style="color: #333333;">
+                                    <div style="font-size: 16px; color: #333333;"><strong>เจ้าของร้านได้สมัครสมาชิกให้กับคุณ</strong></div>
+                                    <hr style="border: 1px solid #e0e0e0;">
                                     <div style="font-size: 16px; color: #333333;"><strong>ชื่อผู้ใช้ของคุณ</strong> ${member_username}</div>
                                     <div style="font-size: 16px; color: #333333;"><strong>รหัสผ่านของคุณ</strong> ${member_password}</div>
-                                    <hr style="color: #333333;">
-                                    <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน 6 หลัก</strong> ${member_email_activate}</div>
+                                    <div style="font-size: 16px; color: #333333;"><strong>ใช้สำหรับลงชื่อเข้าใช้ระบบ</strong></div>
+                                    <hr style="border: 1px solid #e0e0e0;">
+                                    <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน</strong></div>
+                                    <h1 style="color: #333333; margin: 0"><strong>${member_email_activate}</strong></h1>
+                                    <div style="font-size: 16px; color: #333333;"><strong>ใช้สำหรับยืนที่อยู่อีเมล์</strong></div>
                                 </div>
                                 <p style="font-size: 14px; color: #ffffff; text-align: center;">
                                     * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
                                     ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                                 </p>
                             </div>
-                            <p style="font-size: 14px; color: #333333; text-align: center;">
+                            <p style="font-size: 12px; color: #333333; text-align: center;">
                                 COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
                                 DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                             </p>

@@ -1,35 +1,57 @@
 const nodemailer = require('nodemailer');
 
-exports.getForgotAccountPage = (req, res) => {
+// ฟังก์ชันแสดงหน้า Login
+exports.getLoginPage = (req, res) => {
     const settings = res.locals.settings;
-    const title = 'FORGOT ACCOUNT - ' + settings.text_footer;
-    const error = req.flash('error');
-    const formData = req.flash('formData')[0] || {};
-    const success = req.flash('success');
-    res.render('Forgot_Account', { title, error: error[0], formData, success: success[0] });
+    if (req.signedCookies.MEMBER_TOKEN && req.signedCookies.ROLE_TOKEN) {
+        switch (req.signedCookies.ROLE_TOKEN) {
+            case 'ROLE001':
+                return res.redirect('/Role/Shop_Owner/Page/Dashbord');
+            case 'ROLE002':
+                return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+            case 'ROLE003':
+                return res.redirect('/Role/Customer/Page/Order_And_Receipt');
+            default:
+                res.clearCookie('MEMBER_TOKEN');
+                res.clearCookie('ROLE_TOKEN');
+                return res.redirect('/Login');
+        }
+    } else {
+        const title = settings.text_footer;
+        const error = req.flash('error');
+        const formData = req.flash('formData')[0] || {};
+        const success = req.flash('success');
+        return res.render('Login', { 
+            title, 
+            error: error[0], 
+            formData, 
+            success: success[0] 
+        });
+    }
 };
 
-exports.postForgotAccount = (req, res) => {
+// ฟังก์ชันหลังจาก login
+exports.postLogin = (req, res) => {
     const settings = res.locals.settings;
-    const { member_email, member_tel } = req.body;
+    const { member_username, member_password } = req.body;
     const code_6_digit = Math.floor(100000 + Math.random() * 900000).toString();
 
-    if (!member_email || !member_tel) {
+    if (!member_username || !member_password) {
         req.flash('error', 'กรุณากรอกข้อมูลให้ครบ');
-        req.flash('formData', { member_email, member_tel });
+        req.flash('formData', { member_username, member_password });
         return res.redirect('/');
     }
 
-    db.query('SELECT * FROM Users WHERE member_email = ? AND member_tel = ?', [member_email, member_tel], (err, results) => {
+    db.query('SELECT * FROM Users WHERE member_username = ? AND member_password = ?', [member_username, member_password], (err, results) => {
         if (err) {
             req.flash('error', 'เกิดข้อผิดพลาดกับฐานข้อมูล');
-            req.flash('formData', { member_email, member_tel });
+            req.flash('formData', { member_username, member_password });
             return res.redirect('/');
         }
 
         if (results.length === 0) {
-            req.flash('error', 'ที่อยู่อีเมล์ หรือ โทรศัพท์ไม่ถูกต้อง');
-            req.flash('formData', { member_email, member_tel });
+            req.flash('error', 'ชื่อผู้ใช้ หรือ รหัสผ่านไม่ถูกต้อง');
+            req.flash('formData', { member_username, member_password });
             return res.redirect('/');
         }
 
@@ -37,7 +59,7 @@ exports.postForgotAccount = (req, res) => {
 
         const max_age_cookie = 5 * 60 * 1000; // 5 นาที
 
-        res.cookie('FORGOT_AC_TOKEN', code_6_digit, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
+        res.cookie('LOGIN_AC_TOKEN', code_6_digit, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
 
         // ส่งอีเมล
         if (user.member_email) {
@@ -53,14 +75,14 @@ exports.postForgotAccount = (req, res) => {
             const mailOptions = {
                 from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                 to: user.member_email,
-                subject: '[POSMS] แจ้งเตือนการกู้คืนบัญชีผู้ใช้ #'+ Mail_Id,
+                subject: '[POSMS] แจ้งเตือนลงชื่อเข้าใช้ รหัส OTP สำหรับยืนยันตัวตน #' + Mail_Id,
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                         <h1 style="color: #ffffff; text-align: center;">
                             สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
                         </h1>
                         <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                            <div style="font-size: 16px; color: #333333;"><strong>คุณได้กำลังกู้คืนบัญชีผู้ใช้</strong></div>
+                            <div style="font-size: 16px; color: #333333;"><strong>รหัสยืนยันตัวตน จะมีอายุ 5 นาที หลัจากนั้นจะต้องลงชื่อเข้าใช้ระบบใหม่</strong></div>
                             <hr style="border: 1px solid #e0e0e0;">
                             <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน</strong></div>
                             <h1 style="color: #333333; margin: 0"><strong>${code_6_digit}</strong></h1>
@@ -90,7 +112,7 @@ exports.postForgotAccount = (req, res) => {
             console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
         }
 
-        res.redirect('/Forgot_Account/Forgot_Account_Verify/' + user.member_id);
+        res.redirect('/Login_Verify/' + user.member_id);
 
     });
 };

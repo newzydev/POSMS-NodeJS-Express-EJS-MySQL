@@ -82,11 +82,9 @@ exports.postForgotAccountVerify = (req, res) => {
                             สวัสดีคุณ คุณ ${member_firstname} ${member_lastname}
                         </h1>
                         <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                            <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${member_id}</div>
-                            <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${member_firstname} ${member_lastname}</div>
-                            <hr style="color: #333333;">
-                            <div style="font-size: 16px; color: #333333;"><strong>ที่อยู่อีเมล์</strong> ${member_email}</div>
-                            <hr style="color: #333333;">
+                            <div style="font-size: 16px; color: #333333;"><strong>คุณได้กู้คืนบัญชีผู้ใช้สำเร็จ</strong> ${member_id}</div>
+                            <hr style="border: 1px solid #e0e0e0;">
+                            <div style="font-size: 16px; color: #333333;"><strong>บัญชี</strong> ${member_firstname} ${member_lastname}</div>
                             <div style="font-size: 16px; color: #333333;"><strong>ชื่อผู้ใช้ของคุณ คือ</strong> ${member_username}</div>
                             <div style="font-size: 16px; color: #333333;"><strong>รหัสผ่านของคุณ คือ</strong> ${member_password}</div>
                         </div>
@@ -95,7 +93,7 @@ exports.postForgotAccountVerify = (req, res) => {
                             ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                         </p>
                     </div>
-                    <p style="font-size: 14px; color: #333333; text-align: center;">
+                    <p style="font-size: 12px; color: #333333; text-align: center;">
                         COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
                         DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                     </p>

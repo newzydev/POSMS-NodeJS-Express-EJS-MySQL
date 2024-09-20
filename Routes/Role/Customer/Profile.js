@@ -110,17 +110,18 @@ exports.postCustomerChangeEmail = (req, res) => {
                                 สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${user.member_id}</div>
-                                <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <hr style="color: #333333;">
-                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนที่อยู่อีเมล์</strong> ${new_email.substring(0, 2)}*****${new_email.substring(new_email.indexOf('@'))} (สำเร็จ)</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>คุณได้เปลี่ยนที่อยู่อีเมล์</strong></div>
+                                <hr style="border: 1px solid #e0e0e0;">
+                                <div style="font-size: 16px; color: #333333;"><strong>บัญชี</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>ที่อยู่อีเมล์เดิมของคุณ</strong> ${user.member_email}</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนที่อยู่อีเมล์เป็น</strong> ${new_email} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
                                 * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
                                 ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
+                        <p style="font-size: 12px; color: #333333; text-align: center;">
                             COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
                             DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                         </p>
@@ -218,20 +219,20 @@ exports.postCustomerChangeUsername = (req, res) => {
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <h1 style="color: #ffffff; text-align: center;">
-                                สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
+                                สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก</strong> ${user.member_id}</div>
-                                <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <hr style="color: #333333;">
-                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนชื่อผู้ใช้</strong> ${new_username.substring(0, 2)}*****${new_username.substring(new_username.indexOf('@'))} (สำเร็จ)</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>คุณได้เปลี่ยนแปลงชื่อผู้ใช้</strong></div>
+                                <hr style="border: 1px solid #e0e0e0;">
+                                <div style="font-size: 16px; color: #333333;"><strong>บัญชี</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนชื่อผู้ใช้เป็น</strong> ${new_username} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
                                 * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
                                 ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
+                        <p style="font-size: 12px; color: #333333; text-align: center;">
                             COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
                             DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                         </p>
@@ -332,17 +333,17 @@ exports.postCustomerChangePassword = (req, res) => {
                                 สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
                             </h1>
                             <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                <div style="font-size: 16px; color: #333333;"><strong>รหัสสมาชิก :</strong> ${user.member_id}</div>
-                                <div style="font-size: 16px; color: #333333;"><strong>ชื่อเต็ม :</strong> ${user.member_firstname} ${user.member_lastname}</div>
-                                <hr style="color: #333333;">
-                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนรหัสผ่าน :</strong> ${new_password.substring(0, 2)}*****${new_password.substring(new_password.indexOf('@'))} (สำเร็จ)</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>คุณได้เปลี่ยนแปลงรหัสผ่าน</strong></div>
+                                <hr style="border: 1px solid #e0e0e0;">
+                                <div style="font-size: 16px; color: #333333;"><strong>บัญชี</strong> ${user.member_firstname} ${user.member_lastname}</div>
+                                <div style="font-size: 16px; color: #333333;"><strong>เปลี่ยนรหัสผ่านเป็น</strong> ${new_password} (สำเร็จ)</div>
                             </div>
                             <p style="font-size: 14px; color: #ffffff; text-align: center;">
                                 * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
                                 ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
                             </p>
                         </div>
-                        <p style="font-size: 14px; color: #333333; text-align: center;">
+                        <p style="font-size: 12px; color: #333333; text-align: center;">
                             COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
                             DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                         </p>

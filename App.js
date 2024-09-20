@@ -67,9 +67,14 @@ app.get('/qrcode-gen', (req, res) => {
 
 // Route Imports
 // Login Page
-const { getLoginPage, postLogin } = require('./Routes/Index');
+const { getLoginPage, postLogin } = require('./Routes/Login');
 app.get('/', getLoginPage);
 app.post('/', postLogin);
+
+// Login Verify Page
+const { getLoginVerifyPage, postLoginVerify } = require('./Routes/Login_Verify');
+app.get('/Login_Verify/:member_id', getLoginVerifyPage);
+app.post('/Login_Verify/:member_id', postLoginVerify);
 
 // Logout Page
 const { getLogoutPage } = require('./Routes/Logout');

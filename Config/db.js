@@ -17,7 +17,7 @@ const connectDB = () => {
             console.error('Error connecting to database:', err);
             setTimeout(connectDB, 2000); // Attempt reconnection after 2 seconds
         } else {
-            console.log('Database connected successfully.');
+            console.log('Database: Connected successfully.');
         }
     });
 
@@ -25,7 +25,7 @@ const connectDB = () => {
         console.error('Database error:', err);
 
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
-            console.log('Reconnecting to database...');
+            console.log('Database: Reconnecting to database...');
             connectDB(); // Reconnect on connection loss
         } else {
             throw err; // Throw the error for other types

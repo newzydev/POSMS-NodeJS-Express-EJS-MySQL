@@ -15,8 +15,8 @@
             <div class="card-body login-card-body">
                 <div class="login-box-msg">
                     ยินดีต้อนรับเข้าสู่ <b><%= settings.store_name %></b><br>
-                    ลืมชื่อผู้ใช้ หรือ รหัสผ่าน<br>
-                    ป้อน <b>ที่อยู่อีเมล์</b> เพื่อขอชื่อผู้ใช้ และ รหัสผ่าน
+                    ยืนยันตัวตนระดับ ที่ 2<br>
+                    ป้อน <b>รหัส OTP</b> จากอีเมล์ที่ส่งไป
                 </div>
                 
                 <% if (error) { %>
@@ -33,7 +33,7 @@
                 <form class="needs-validation" novalidate method="POST">
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label>ที่อยู่อีเมล์ที่สมัครสมาชิก</label>
+                            <label>ที่อยู่อีเมล์ของคุณ</label>
                             <div class="list-group">
                                 <div class="list-group-item">
                                     <%= customer.member_email.substring(0, 2) %>*****<%= customer.member_email.substring(customer.member_email.indexOf('@')) %>
@@ -54,7 +54,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <button type="submit" class="btn btn-custom-one btn-lg btn-anti btn-block">กู้คืนบัญชีผู้ใช้</button>
+                            <button type="submit" class="btn btn-custom-one btn-lg btn-anti btn-block">ยืนยันตัวตน</button>
                         </div>
                 </form>
             </div>
