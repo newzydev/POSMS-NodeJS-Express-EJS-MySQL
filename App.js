@@ -27,6 +27,14 @@ app.use(session({
     } 
 }));
 
+const fileUpload = require('express-fileupload');
+
+app.use(fileUpload({
+    limits: { fileSize: 25 * 1024 * 1024 }, // จำกัดขนาดไฟล์ที่ 25MB
+    abortOnLimit: true, // ยกเลิกการอัปโหลดถ้าเกินขนาดที่กำหนด
+    createParentPath: true // สร้างโฟลเดอร์ถ้ายังไม่มี
+}));
+
 app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
 app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
 app.set('port', process.env.port || port); // กำหนดหมายเลขพอร์ตให้แอปพลิเคชัน
@@ -230,9 +238,10 @@ app.get('/Role/Cashier/Page/Electronic_Reciept/Order/:order_id', authenticateUse
 
 // Attach Proof of Payment
 const { getAttachProofofPaymentPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
-const { getAttachPaymentOrderPage } = require('./Routes/Role/Cashier/Attach_Payment_Order');
+const { getAttachPaymentOrderPage, postAttachPaymentOrder } = require('./Routes/Role/Cashier/Attach_Payment_Order');
 app.get('/Role/Cashier/Page/Attach_Proof_of_Payment', authenticateUser(db), checkRole002, getAttachProofofPaymentPage);
 app.get('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/:order_id', authenticateUser(db), checkRole002, getAttachPaymentOrderPage);
+app.post('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/:order_id', authenticateUser(db), checkRole002, postAttachPaymentOrder);
 
 // ==================================================
 // Role Customer

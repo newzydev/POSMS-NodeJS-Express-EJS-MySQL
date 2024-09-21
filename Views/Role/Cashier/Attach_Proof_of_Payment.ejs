@@ -26,12 +26,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>แนบหลักฐานชำระเงิน</h1>
+                            <h1>รายงานการซื้อขาย</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction';">หน้าหลัก</a></li>
-                                <li class="breadcrumb-item active">แนบหลักฐานชำระเงิน</li>
+                                <li class="breadcrumb-item active">รายงานการซื้อขาย</li>
                             </ol>
                         </div>
                     </div>
@@ -163,17 +163,34 @@
                                                         </td>
                                                         <td class="text-middle text-center">
                                                             <% if(order.oapp_image !== "N/A") { %>
-                                                                <button type="button" class="btn btn-sm btn-success btn-block"><i class="fas fa-check-circle mr-1"></i>แนบหลักฐานแล้ว</button>
+                                                                <button type="button" class="btn btn-sm btn-success btn-block" data-toggle="modal" data-target="#<%= order.order_id %>"><i class="fas fa-check-circle mr-1"></i>แนบหลักฐานแล้ว</button>
                                                             <% } else { %>
                                                                 <button type="button" class="btn btn-sm btn-danger btn-block"><i class="fas fa-times-circle mr-1"></i>ยังไม่แนบหลักฐาน</button>
                                                             <% } %>
                                                             <% if(order.oapp_image !== "N/A") { %>
-                                                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fas fa-eye mr-1"></i>หลักฐานชำระเงิน</button>
+                                                                <button type="button" class="btn btn-primary btn-sm btn-block" onclick="location.href='/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/<%= order.order_id %>';"><i class="fas fa-upload mr-1"></i>แนบหลักฐานใหม่</button>
                                                             <% } else { %>
                                                                 <button type="button" class="btn btn-primary btn-sm btn-block" onclick="location.href='/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/<%= order.order_id %>';"><i class="fas fa-upload mr-1"></i>แนบหลักฐาน</button>
                                                             <% } %>
                                                         </td>
                                                     </tr>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="<%= order.order_id %>" data-backdrop="static" data-keyboard="false" aria-labelledby="<%= order.order_id %>Label" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h5 class="modal-title" id="<%= order.order_id %>Label"><b>หลักฐานชำระเงิน</b></h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <img src="/assets/images/Attach/<%= order.oapp_image %>" style="width: 100%;" alt="หลักฐานชำระเงิน">
+                                                                </div>
+                                                                <div class="modal-footer"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <% }) %>
                                                 <% } %>
                                             </tbody>                                            

@@ -9,29 +9,22 @@ exports.getAttachPaymentOrderPage = (req, res) => {
     // SQL Queries
     const dataQuery = `
         SELECT 
-            Orders.order_id, 
-            Orders.cashier_id, 
-            Orders.customer_id,
-            Payment_Options.pay_id,
-            Payment_Options.pay_cat_name,
-            Payment_Options.pay_bank_name,
-            Payment_Options.pay_bank_account_name,
-            Payment_Options.pay_bank_number,
-            Orders.total_unit, 
-            Orders.total_amount, 
-            Orders.member_discount, 
-            Orders.net_total,
-            Orders.get_money,
-            Orders.change_money,
-            Orders.order_time_transaction,
-            Orders.order_time_payment,
-            Orders.oapp_image
+            order_id, 
+            cashier_id, 
+            customer_id,
+            total_unit, 
+            total_amount, 
+            member_discount, 
+            net_total,
+            get_money,
+            change_money,
+            order_time_transaction,
+            order_time_payment,
+            oapp_image
         FROM 
             Orders
-        INNER JOIN 
-            Payment_Options ON Orders.pay_id = Payment_Options.pay_id
         WHERE
-            Orders.order_id = ?
+            order_id = ?
     `;
 
     db.query(dataQuery, [order_id], (err, result) => {
@@ -46,5 +39,58 @@ exports.getAttachPaymentOrderPage = (req, res) => {
                 order_attach: result[0]
             });
         }
+    });
+};
+
+const path = require('path');
+const fs = require('fs');
+
+exports.postAttachPaymentOrder = (req, res) => {
+    const order_id = req.params.order_id;
+
+    // ตรวจสอบว่ามีไฟล์ถูกอัปโหลดมาหรือไม่
+    if (!req.files || Object.keys(req.files).length === 0) {
+        req.flash('error', 'กรุณาเลือกรูปภาพ');
+        return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+    }
+
+    // ดึงข้อมูลไฟล์จาก req.files
+    const file = req.files.oapp_image;
+    const fileExtension = path.extname(file.name).toLowerCase();
+    const allowedExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
+
+    // ตรวจสอบนามสกุลไฟล์
+    if (!allowedExtensions.includes(fileExtension)) {
+        req.flash('error', 'นามสกุลไฟล์ต้องเป็น .png, .jpg, .jpeg, หรือ .gif');
+        return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+    }
+
+    // ตั้งชื่อไฟล์ให้ตรงกับ order_id
+    const fileName = `${order_id}${fileExtension}`;
+    const uploadPath = path.join(__dirname, '../../../Public/assets/images/attach', fileName);
+
+    // ย้ายไฟล์ไปยังโฟลเดอร์ที่กำหนด
+    file.mv(uploadPath, (err) => {
+        if (err) {
+            req.flash('error', 'เกิดข้อผิดพลาดในการอัปโหลดไฟล์');
+            return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+        }
+
+        // อัปเดตฐานข้อมูล
+        const updateQuery = `
+            UPDATE Orders
+            SET oapp_image = ?
+            WHERE order_id = ?
+        `;
+
+        db.query(updateQuery, [fileName, order_id], (err, result) => {
+            if (err) {
+                req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตฐานข้อมูล');
+                return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+            }
+
+            req.flash('success', 'อัปโหลดไฟล์และอัปเดตข้อมูลสำเร็จ');
+            res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment`);
+        });
     });
 };
