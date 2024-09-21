@@ -27,20 +27,6 @@ app.use(session({
     } 
 }));
 
-// เพิ่มประสิทธิภาพ และความปลอดภัยให้ระบบ
-// Middleware สำหรับประสิทธิภาพ
-const compression = require('compression'); // เพื่อลดขนาดของการส่งข้อมูล
-app.use(compression());
-// Middleware สำหรับความปลอดภัย
-const cors = require('cors'); // ป้องกัน Cross-Origin Resource Sharing (CORS) issues
-app.use(cors({
-    origin: '*', // หรือ '*' เพื่ออนุญาตทุกโดเมน
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-}));
-const xss = require('xss-clean'); // ป้องกันการโจมตี XSS โดยการทำความสะอาดข้อมูลที่ส่งเข้ามา
-app.use(xss());
-
 app.use(flash('ADMIN-DEV-POSMS')); // ใช้ connect-flash สำหรับจัดการ flash messages
 app.use(cookieParser('ADMIN-DEV-POSMS')); // ใช้ cookie-parser สำหรับจัดการคุกกี้ด้วยคีย์ลับ
 app.set('port', process.env.port || port); // กำหนดหมายเลขพอร์ตให้แอปพลิเคชัน
@@ -244,9 +230,9 @@ app.get('/Role/Cashier/Page/Electronic_Reciept/Order/:order_id', authenticateUse
 
 // Attach Proof of Payment
 const { getAttachProofofPaymentPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
-// const { getAttachProofofPaymentOrderPage } = require('./Routes/Role/Cashier/Attach_Proof_of_Payment');
+const { getAttachPaymentOrderPage } = require('./Routes/Role/Cashier/Attach_Payment_Order');
 app.get('/Role/Cashier/Page/Attach_Proof_of_Payment', authenticateUser(db), checkRole002, getAttachProofofPaymentPage);
-// app.get('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/:order_id', authenticateUser(db), checkRole002, getAttachProofofPaymentOrderPage);
+app.get('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/:order_id', authenticateUser(db), checkRole002, getAttachPaymentOrderPage);
 
 // ==================================================
 // Role Customer

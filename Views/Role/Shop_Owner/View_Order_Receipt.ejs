@@ -245,6 +245,28 @@
                                             </div>
                                         </div>    
                                         <hr>
+                                        <div class="btn btn-custom-two btn-lg btn-block mb-3" data-toggle="collapse" data-target="#AttachOrder" aria-expanded="false" aria-controls="AttachOrder"><i class="fas fa-chevron-circle-down mr-2"></i>หลักฐานชำระเงิน</div>
+                                        <div class="collapse" id="AttachOrder">
+                                            <% if (OrderReceipt[0].oapp_image === "N/A") { %>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="text-center text-danger mb-1"><b><i class="fas fa-times-circle mr-1"></i>ยังไม่แนบหลักฐานชำระเงิน</b></div>
+                                                        <div style="display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; height: 450px; width: 100%; border: 2px dashed #dc3545; border-radius: 0.5rem;">
+                                                            <img src="/assets/images/logo/Logo_Point_of_Sale_Management_System.png" style="max-width: 40%; max-height: 40%;" alt="หลักฐานชำระเงิน">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <% } else { %>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div style="display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; height: 450px; width: 100%; border: 2px dashed #cccccc; border-radius: 0.5rem;">
+                                                            <img src="/assets/images/Attach/<%= OrderReceipt[0].oapp_image %>" style="max-width: 100%; max-height: 100%;" alt="หลักฐานชำระเงิน">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                        <hr>
                                     </div>
 
                                     <div class="row d-print-none">

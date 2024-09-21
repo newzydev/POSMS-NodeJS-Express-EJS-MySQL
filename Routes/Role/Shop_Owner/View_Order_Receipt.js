@@ -22,7 +22,8 @@ exports.getViewOrderRecieptPage = (req, res) => {
             Orders.get_money,
             Orders.change_money,
             Orders.order_time_transaction,
-            Orders.order_time_payment
+            Orders.order_time_payment,
+            Orders.oapp_image
         FROM 
             Orders
         INNER JOIN 
