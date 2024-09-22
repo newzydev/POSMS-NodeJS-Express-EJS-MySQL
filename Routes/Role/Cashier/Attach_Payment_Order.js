@@ -51,7 +51,7 @@ exports.postAttachPaymentOrder = (req, res) => {
     // ตรวจสอบว่ามีไฟล์ถูกอัปโหลดมาหรือไม่
     if (!req.files || Object.keys(req.files).length === 0) {
         req.flash('error', 'กรุณาเลือกรูปภาพ');
-        return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+        return res.redirect('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/' + order_id);
     }
 
     // ดึงข้อมูลไฟล์จาก req.files
@@ -62,7 +62,7 @@ exports.postAttachPaymentOrder = (req, res) => {
     // ตรวจสอบนามสกุลไฟล์
     if (!allowedExtensions.includes(fileExtension)) {
         req.flash('error', 'นามสกุลไฟล์ต้องเป็น .png, .jpg, .jpeg, หรือ .gif');
-        return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+        return res.redirect('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/' + order_id);
     }
 
     // ตั้งชื่อไฟล์ให้ตรงกับ order_id
@@ -73,7 +73,7 @@ exports.postAttachPaymentOrder = (req, res) => {
     file.mv(uploadPath, (err) => {
         if (err) {
             req.flash('error', 'เกิดข้อผิดพลาดในการอัปโหลดไฟล์');
-            return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+            return res.redirect('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/' + order_id);
         }
 
         // อัปเดตฐานข้อมูล
@@ -86,11 +86,11 @@ exports.postAttachPaymentOrder = (req, res) => {
         db.query(updateQuery, [fileName, order_id], (err, result) => {
             if (err) {
                 req.flash('error', 'เกิดข้อผิดพลาดในการอัปเดตฐานข้อมูล');
-                return res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/${order_id}`);
+                return res.redirect('/Role/Cashier/Page/Attach_Proof_of_Payment/Attach/' + order_id);
             }
 
             req.flash('success', 'อัปโหลดไฟล์และอัปเดตข้อมูลสำเร็จ');
-            res.redirect(`/Role/Cashier/Page/Attach_Proof_of_Payment`);
+            res.redirect('/Role/Cashier/Page/Attach_Proof_of_Payment');
         });
     });
 };
