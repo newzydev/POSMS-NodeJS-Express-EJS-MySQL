@@ -1,8 +1,8 @@
 <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
+    <div style="font-size: 13px;" class="float-right d-none d-sm-block">
         <b>Version</b> <%= settings.system_version %>
     </div>
-    <i class="far fa-copyright"></i>
-    <b><span id="copyright-year-1"></span> - <a class="text-primary" style="cursor: pointer;" onclick="location.href='/';"><% if (settings.text_footer) { %><%= settings.text_footer %><% } else { %>N/A<% } %></b>
-    </a>
+    <div style="font-size: 13px;">
+        <b>COPYRIGHT <i class="far fa-copyright"></i> <a class="text-primary" style="cursor: pointer;" onclick="location.href='/';"><% if (settings.text_footer) { %><%= settings.text_footer %><% } else { %>N/A<% } %></a> POWERED BY <a class="text-primary" style="cursor: pointer;" onclick="location.href='/';">NEWZYDEV</a></b>
+    </div>
 </footer>
