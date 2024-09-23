@@ -245,9 +245,9 @@
                                         </div>
                                         <hr>
                                         <input type="hidden" name="total_unit" value="<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>">
-                                        <input type="hidden" name="total_amount" value="<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
-                                        <input type="hidden" name="member_discount" value="<%= memberDis.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
-                                        <input type="hidden" name="net_total" value="<%= netTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>">
+                                        <input type="hidden" name="total_amount" value="<%= totalAmount %>">
+                                        <input type="hidden" name="member_discount" value="<%= memberDis %>">
+                                        <input type="hidden" name="net_total" value="<%= netTotal %>">
                                         <!-- Insert to table Orders End -->
                                         
                                         <!-- Insert to table Order_Product_Lists -->

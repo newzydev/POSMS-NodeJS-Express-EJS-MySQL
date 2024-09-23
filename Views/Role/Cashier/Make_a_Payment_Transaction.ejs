@@ -246,7 +246,7 @@
 
                                         <hr>
                                         <% if (OrderPayment[0].pay_cat_name === "OPT1") { %>
-                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" autocomplete="off">
+                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total %>" autocomplete="off">
                                             <div class="row">
                                                 <div class="col-sm-12 text-center">
                                                     <b><i class="fas fa-check-circle mr-1"></i>ระบบจะให้ท่านป้อนจำนวนเงินที่ได้รับจากลูกค้า</b>
@@ -268,8 +268,8 @@
                                                 </div>
                                             </div>
                                         <% } else if (OrderPayment[0].pay_cat_name === "OPT2") { %>
-                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" autocomplete="off">
-                                            <input type="hidden" name="get_money" id="get_money" value="<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" autocomplete="off">
+                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total %>" autocomplete="off">
+                                            <input type="hidden" name="get_money" id="get_money" value="<%= OrderPayment[0].net_total %>" autocomplete="off">
                                             <div class="row">
                                                 <div class="col-sm-12 text-center">
                                                     <b><i class="fas fa-check-circle mr-1"></i>ระบบจะให้ลูกค้าโอนเงินผ่านบัญชีธนาคาร</b>
@@ -288,8 +288,8 @@
                                                 </div>
                                             </div>
                                         <% } else { %>
-                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" autocomplete="off">
-                                            <input type="hidden" name="get_money" id="get_money" value="<%= OrderPayment[0].net_total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>" autocomplete="off">
+                                            <input type="hidden" name="net_money_mush" id="net_money_mush" value="<%= OrderPayment[0].net_total %>" autocomplete="off">
+                                            <input type="hidden" name="get_money" id="get_money" value="<%= OrderPayment[0].net_total %>" autocomplete="off">
                                             <div class="row">
                                                 <div class="col-sm-12 text-center">
                                                     <b><i class="fas fa-check-circle mr-1"></i>ระบบได้สร้าง QR Prompt Pay อัติโนมัติ</b>
