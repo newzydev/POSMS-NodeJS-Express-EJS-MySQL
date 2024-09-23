@@ -4,7 +4,7 @@ const System_Settings = (req, res, next) => {
 
     db.query(query, (err, results) => {
         if (err) {
-            return next(err); // Pass the error to the next middleware
+            return res.status(500).send('Internal Server Error');
         }
 
         // ตั้งค่าเป็น res.locals เพื่อให้เรียกใช้ได้กับทุกหน้าและทุกใฟล์
