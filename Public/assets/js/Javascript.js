@@ -44,7 +44,7 @@ $(document).ready(function () {
     const formattedTime = now.toLocaleTimeString('th-TH', options_time);
 
     $("[id^=date-info]").each(function () {
-        $(this).text(formattedDate + ' เวลา ' + formattedTime + ' น.');
+        $(this).text(formattedDate + ' ' + formattedTime);
     });
 });
 
