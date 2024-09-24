@@ -158,7 +158,7 @@
                                                         <tr>
                                                             <th class="text-middle text-center"><%= index + 1 %></th>
                                                             <td class="text-middle"><%= OrderProductList.product_name %></td>
-                                                            <td class="text-middle text-center"><%= OrderProductList.cart_product_qty %></td>
+                                                            <td class="text-middle text-center">x<%= OrderProductList.cart_product_qty %></td>
                                                             <td class="text-middle text-right">฿<%= OrderProductList.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                         </tr>
                                                     <% }) %>

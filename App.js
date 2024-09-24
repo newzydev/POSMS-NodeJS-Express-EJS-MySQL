@@ -10,8 +10,7 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const SystemSettingsMiddleware = require('./Middlewares/setting'); // นำเข้า middleware สำหรับดึงข้อมูลการตั้งค่าของระบบ
 const osMiddleware = require('./Middlewares/os'); // นำเข้า middleware สำหรับดึงข้อมูลเกี่ยวกับระบบปฏิบัติการ
 const app = express(); // สร้างแอปพลิเคชัน Express
-
-const sys_version = "1.0.0";
+const sys_version = "1.0.0"; // Version ของระบบ POSMS
 const port = 5000; // กำหนดหมายเลขพอร์ตที่แอปพลิเคชันจะฟังการเชื่อมต่อ
 const db = connectDB(); // เชื่อมต่อกับฐานข้อมูลและเก็บไว้ในตัวแปร db
 global.db = db; // กำหนดตัวแปร db ให้เป็น global เพื่อให้สามารถเข้าถึงได้จากทุกที่ในแอปพลิเคชัน
