@@ -81,9 +81,6 @@ exports.postAddEmployee = (req, res) => {
 
                 // ส่งอีเมล
                 if (member_email) {
-                    // Generate a timestamp-based ID: YYYYMMDDHHMMSS
-                    const now = new Date();
-                    const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
                     
                     const transporter = nodemailer.createTransport({
                         service: 'gmail',
@@ -93,14 +90,17 @@ exports.postAddEmployee = (req, res) => {
                     const mailOptions = {
                         from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                         to: member_email,
-                        subject: '[POSMS] แจ้งเตือนเจ้าของร้านได้สมัครสมาชิกให้กับคุณ #' + Mail_Id,
+                        subject: 'เจ้าของร้านได้สมัครสมาชิกให้กับคุณ ' + member_firstname + ' ' + member_lastname + ' (' + member_time_register + ')',
                         html: `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
-                                <h1 style="color: #ffffff; text-align: center;">
+                                <div style="text-align: center;">
+                                    <img src="https://github.com/newzydev/Point-Of-Sale-Management-System-NodeJS-Express-EJS/blob/main/Public/assets/images/logo/logo_icon_w.png?raw=true" alt="Logo" style="max-width: 50px;">
+                                </div>
+                                <h2 style="color: #ffffff; text-align: center;">
                                     สวัสดีคุณ ${member_firstname} ${member_lastname}
-                                </h1>
+                                </h2>
                                 <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                                    <div style="font-size: 16px; color: #333333;"><strong>เจ้าของร้านได้สมัครสมาชิกให้กับคุณ</strong></div>
+                                    <div style="font-size: 16px; color: #333333;"><strong>เจ้าของร้านได้สมัครสมาชิกให้กับคุณ ในการลงชื่อเข้าใช้ครั้งแรกจำเป็นจะต้องยืนยันที่อยู่อีเมล์</strong></div>
                                     <hr style="border: 1px solid #e0e0e0;">
                                     <div style="font-size: 16px; color: #333333;"><strong>ชื่อผู้ใช้ของคุณ</strong> ${member_username}</div>
                                     <div style="font-size: 16px; color: #333333;"><strong>รหัสผ่านของคุณ</strong> ${member_password}</div>

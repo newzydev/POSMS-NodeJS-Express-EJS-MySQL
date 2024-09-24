@@ -41,10 +41,7 @@ exports.postForgotAccount = (req, res) => {
 
         // ส่งอีเมล
         if (user.member_email) {
-            // Generate a timestamp-based ID: YYYYMMDDHHMMSS
-            const now = new Date();
-            const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
-
+            
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
@@ -53,12 +50,15 @@ exports.postForgotAccount = (req, res) => {
             const mailOptions = {
                 from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                 to: user.member_email,
-                subject: '[POSMS] แจ้งเตือนการกู้คืนบัญชีผู้ใช้ #'+ Mail_Id,
+                subject: 'รหัส OTP : ' + code_6_digit + ' สำหรับกู้คืนบัญชีผู้ใช้',
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
-                        <h1 style="color: #ffffff; text-align: center;">
+                        <div style="text-align: center;">
+                            <img src="https://github.com/newzydev/Point-Of-Sale-Management-System-NodeJS-Express-EJS/blob/main/Public/assets/images/logo/logo_icon_w.png?raw=true" alt="Logo" style="max-width: 50px;">
+                        </div>
+                        <h2 style="color: #ffffff; text-align: center;">
                             สวัสดีคุณ คุณ ${user.member_firstname} ${user.member_lastname}
-                        </h1>
+                        </h2>
                         <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
                             <div style="font-size: 16px; color: #333333;"><strong>คุณได้กำลังกู้คืนบัญชีผู้ใช้</strong></div>
                             <hr style="border: 1px solid #e0e0e0;">

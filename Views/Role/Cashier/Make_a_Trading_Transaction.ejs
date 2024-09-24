@@ -124,7 +124,7 @@
                                                         </td>
                                                         <td class="text-middle">
                                                             <input type="hidden" name="cart_id" value="<%= cart.cart_id %>">
-                                                            <input type="text" class="form-control form-control-md text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
+                                                            <input type="tel" class="form-control form-control-md text-center quantity-input" style="width: 70px;" data-cart-id="<%= cart.cart_id %>" value="<%= cart.cart_product_qty %>" min="1" max="10" title="กำหนดจำนวนสินค้า" required>
                                                         </td>
                                                         <td class="text-middle text-right">฿<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                         <td class="text-middle text-center">
