@@ -153,13 +153,13 @@ exports.postUpdateSettingsForm5 = (req, res) => {
 };
 
 exports.postUpdateSettingsForm6 = (req, res) => {
-    const { text_footer, system_version } = req.body;
+    const { text_footer } = req.body;
 
     const query = `
         UPDATE Systen_Settings
-        SET text_footer = ?, system_version = ?`;
+        SET text_footer = ? = ?`;
 
-    db.query(query, [text_footer, system_version], (err) => {
+    db.query(query, [text_footer], (err) => {
         if (err) {
             req.flash('settings_form_6_error', 'เกิดข้อผิดพลาดในการแก้ไขส่วนท้ายของเว็บไซต์');
             return res.status(500).json({ success: false, message: 'ไม่สามารถแก้ไขส่วนท้ายของเว็บไซต์ได้' });

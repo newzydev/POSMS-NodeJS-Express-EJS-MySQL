@@ -1124,27 +1124,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="system_version" class="col-sm-2 col-form-label required">เวอร์ชันระบบ :</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control form-control-lg mb-2" name="system_version" id="system_version" placeholder="เวอร์ชันระบบ" value="<%= settings.system_version %>" required autocomplete="off">
-                                                <div class="valid-feedback">
-                                                    กรอกเวอร์ชันระบบถูกต้อง
-                                                </div>
-                                                <div class="invalid-feedback">
-                                                    กรุณากรอกเวอร์ชันระบบให้ถูกต้อง
-                                                </div>
-                                            </div>
-                                        </div>
                                     </form>
                                     <script>
                                         document.addEventListener('DOMContentLoaded', () => {
                                             const Text_Footer_Input = document.getElementById('text_footer');
-                                            const System_Version_Input = document.getElementById('system_version');
                                     
                                             function updateSettings() {
                                                 const Text_Footer = Text_Footer_Input.value;
-                                                const System_Version = System_Version_Input.value;
                                     
                                                 fetch('/Role/Shop_Owner/Page/System_Settings/Update_Settings_Form_6', {
                                                     method: 'POST',
@@ -1154,7 +1140,6 @@
                                                     },
                                                     body: JSON.stringify({
                                                         text_footer: Text_Footer,
-                                                        system_version: System_Version,
                                                     })
                                                 })
                                                 .then(response => response.json())
@@ -1178,11 +1163,9 @@
 
                                             // ป้องกันการกดปุ่ม Enter
                                             Text_Footer_Input.addEventListener('keydown', preventEnterKey);
-                                            System_Version_Input.addEventListener('keydown', preventEnterKey);
 
                                             // ใช้ change event เพื่อ update
                                             Text_Footer_Input.addEventListener('change', updateSettings);
-                                            System_Version_Input.addEventListener('change', updateSettings);
                                         });
                                     </script>                                                                   
                                 </div>
@@ -1303,23 +1286,6 @@
                                 <div class="card-header">ข้อมูลเซิร์ฟเวอร์</div>
                                 <div class="card-body">
 
-                                    <div class="form-group row">
-                                        <label for="client_information" class="col-sm-2 col-form-label">ข้อมูลผู้ใช้ :</label>
-                                        <div class="col-sm-10">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <b>ไอพีของเครื่องผู้ใช้งาน :</b>
-                                                        </div>
-                                                        <div class="col">
-                                                            <%= clientIp %>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                     <div class="form-group row">
                                         <label for="server_information" class="col-sm-2 col-form-label">ข้อมูลเซิร์ฟเวอร์ :</label>
                                         <div class="col-sm-10">
