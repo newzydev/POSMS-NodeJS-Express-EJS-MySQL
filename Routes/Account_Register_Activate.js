@@ -87,7 +87,7 @@ exports.postRegisterActivate = (req, res) => {
                 const mailOptions = {
                     from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                     to: member_email,
-                    subject: 'ยืนยันที่อยู่อีเมล์ ' + member_email + '(' + mail_time_transaction + ')',
+                    subject: 'ยืนยันที่อยู่อีเมล์ ' + member_email + ' (' + mail_time_transaction + ')',
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                             <div style="text-align: center;">
