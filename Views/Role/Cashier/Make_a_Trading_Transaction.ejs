@@ -128,7 +128,7 @@
                                                         </td>
                                                         <td class="text-middle text-right">฿<%= cart.product_price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
                                                         <td class="text-middle text-center">
-                                                            <div class="btn btn-custom-two btn-md" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
+                                                            <div class="btn btn-custom-two btn-md" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/All/<%= cart.cart_id %>';" title="ลบสินค้าชิ้นนี้ออกจากตะกร้า"><i class="fas fa-trash-alt"></i></div>
                                                         </td>
                                                     </tr>
                                                     <% }) %>
@@ -136,11 +136,21 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td class="text-center">ยอดรวม</td>
-                                                    <td colspan="2"></td>
-                                                    <td class="text-center">x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %></td>
-                                                    <td class="text-right">฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
-                                                    <td colspan="1"></td>
+                                                    <td class="text-middle text-center">ยอดรวม</td>
+                                                    <td class="text-middle text-center" colspan="2"></td>
+                                                    <td class="text-middle text-center">
+                                                        x<%= carts.reduce((acc, cart) => acc + cart.cart_product_qty, 0) %>
+                                                    </td>
+                                                    <td class="text-middle text-right">
+                                                        ฿<%= totalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                                                    </td>
+                                                    <% if (carts.length !== 0) { %>
+                                                        <td class="text-middle text-center" colspan="1">
+                                                            <div class="btn btn-custom-two btn-md" onclick="location.href='/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/All/<%= user.member_id %>';" title="ลบสินค้าทั้งหมดออกจากตะกร้า">ลบทั้งหมด</div>
+                                                        </td>
+                                                    <% } else { %>
+                                                        <td class="text-middle text-center" colspan="1"></td>
+                                                    <% } %>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -231,7 +241,7 @@
                                                     <option value="" selected disabled>เลือกประเภทการชำระเงิน</option>
                                                     <% paymentOptions.forEach((paymentOption) => { %>
                                                         <% if (paymentOption.pay_status === "1") { %>
-                                                            <option value="<%= paymentOption.pay_id %>">(<%= paymentOption.pay_cat_name %>) <%= paymentOption.pay_bank_name %></option>
+                                                            <option value="<%= paymentOption.pay_id %>"><%= paymentOption.pay_bank_name %> - <%= paymentOption.pay_bank_account_name %></option>
                                                         <% } %>
                                                     <% }) %>
                                                 </select>

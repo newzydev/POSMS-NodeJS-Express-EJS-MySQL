@@ -218,11 +218,12 @@ app.get('/Role/Cashier/Page/Manage_Product_Categories/Delete/:cat_id', authentic
 app.get('/Role/Cashier/Page/Manage_Product_Categories/Print/Report', authenticateUser(db), checkRole002, getProductCategoriesPrintReportPage);
 
 // Make a Trading Transaction Page
-const { getMakeaTradingTransactionPage, postAddProductCart, updateProductQuantity, getDeleteProductCartPage, postAddOrder } = require('./Routes/Role/Cashier/Make_a_Trading_Transaction');
+const { getMakeaTradingTransactionPage, postAddProductCart, updateProductQuantity, getDeleteProductCartPage, getDeleteMemberProductCartPage, postAddOrder } = require('./Routes/Role/Cashier/Make_a_Trading_Transaction');
 app.get('/Role/Cashier/Page/Make_a_Trading_Transaction', authenticateUser(db), checkRole002, getMakeaTradingTransactionPage);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Product_Cart', authenticateUser(db), checkRole002, postAddProductCart);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Update_Product_Quantity', authenticateUser(db), checkRole002, updateProductQuantity);
 app.get('/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/:cart_id', authenticateUser(db), checkRole002, getDeleteProductCartPage);
+app.get('/Role/Cashier/Page/Make_a_Trading_Transaction/Delete/All/:member_id', authenticateUser(db), checkRole002, getDeleteMemberProductCartPage);
 app.post('/Role/Cashier/Page/Make_a_Trading_Transaction/Add_Order', authenticateUser(db), checkRole002, postAddOrder);
 
 // Make a Payment Transaction Page

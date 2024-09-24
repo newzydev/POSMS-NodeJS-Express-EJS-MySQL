@@ -18,6 +18,7 @@ exports.getMakeaTradingTransactionPage = (req, res) => {
             pay_id,
             pay_cat_name,
             pay_bank_name,
+            pay_bank_account_name,
             pay_status
         FROM 
             Payment_Options
@@ -210,6 +211,21 @@ exports.getDeleteProductCartPage = (req, res) => {
     });
 };
 
+exports.getDeleteMemberProductCartPage = (req, res) => {
+    const cashier_id = req.params.member_id;
+    const query = 'DELETE FROM Cart_Orders WHERE cashier_id = ?';
+
+    db.query(query, [cashier_id], (err, result) => {
+        if (err) {
+            console.error('ข้อผิดพลาดในการลบสินค้าจากตะกร้า:', err);
+            req.flash('error', 'ไม่สามารถลบสินค้าทั้งหมดจากตะกร้าได้');
+        } else {
+            req.flash('success', 'ลบสินค้าทั้งหมดจากตะกร้าสำเร็จ');
+        }
+        res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+    });
+};
+
 exports.postAddOrder = (req, res) => {
     const {
         cashier_id,
@@ -241,6 +257,13 @@ exports.postAddOrder = (req, res) => {
     let finalMemberDiscount = member_discount;
     let finalNetTotal = net_total;
     
+    // เช็ค customer_id ว่าต้องมี "MB" นำหน้าและตัวเลข 10 ตัว
+    const customerIdPattern = /^MB\d{10}$/;
+    if (!customerIdPattern.test(finalCustomerId) && finalCustomerId !== "N/A") {
+        req.flash('error', 'ป้อนรหัสลูกค้าให้ถูกต้อง (ต้องมี MB นำหน้าและตัวเลข 10 ตัว)');
+        return res.redirect('/Role/Cashier/Page/Make_a_Trading_Transaction');
+    }
+
     if (finalCustomerId === "N/A") {
         finalMemberDiscount = 0.00;
         finalNetTotal = total_amount - finalMemberDiscount;
