@@ -87,7 +87,7 @@ exports.postRegister = (req, res) => {
                     const mailOptions = {
                         from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
                         to: member_email,
-                        subject: 'รหัส OTP : ' + member_email_activate + 'ขอบคุณที่สมัครสมาชิกกับเรา (' + member_time_register + ')',
+                        subject: 'รหัส OTP : ' + member_email_activate + ' ขอบคุณที่สมัครสมาชิกกับเรา (' + member_time_register + ')',
                         html: `
                             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
                                 <div style="text-align: center;">
