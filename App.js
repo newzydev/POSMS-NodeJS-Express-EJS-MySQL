@@ -154,8 +154,10 @@ app.get('/Role/Shop_Owner/Page/Manage_Payment_Methods/Delete/:pay_id', authentic
 // Sale Reports Page
 const { getSaleReportsPage } = require('./Routes/Role/Shop_Owner/Sale_Reports');
 const { getViewOrderRecieptPage } = require('./Routes/Role/Shop_Owner/View_Order_Receipt');
+const { getSaleReportsPrintReportPage } = require('./Routes/Role/Shop_Owner/Print_Sale_Reports');
 app.get('/Role/Shop_Owner/Page/Sale_Reports', authenticateUser(db), checkRole001, getSaleReportsPage);
 app.get('/Role/Shop_Owner/Page/Sale_Reports/Order/:order_id', authenticateUser(db), checkRole001, getViewOrderRecieptPage);
+app.get('/Role/Shop_Owner/Page/Sale_Reports/Print/Report', authenticateUser(db), checkRole001, getSaleReportsPrintReportPage);
 
 // System Settings Page
 const { getSystemSettingPage, postUpdateSettingsForm1, postUpdateSettingsForm2, postUpdateSettingsForm3, postUpdateSettingsForm4, postUpdateSettingsForm5, postUpdateSettingsForm6, postUpdateSettingsForm7 } = require('./Routes/Role/Shop_Owner/System_Settings');
