@@ -10,11 +10,13 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const SystemSettingsMiddleware = require('./Middlewares/setting'); // นำเข้า middleware สำหรับดึงข้อมูลการตั้งค่าของระบบ
 const osMiddleware = require('./Middlewares/os'); // นำเข้า middleware สำหรับดึงข้อมูลเกี่ยวกับระบบปฏิบัติการ
 const app = express(); // สร้างแอปพลิเคชัน Express
-const sys_version = "1.0.0"; // Version ของระบบ POSMS
+const sys_name = "POSMS TEAM"; // Version ของระบบ POSMS
+const sys_version = "1.0.0"; // System Version ของระบบ POSMS
 const port = 5000; // กำหนดหมายเลขพอร์ตที่แอปพลิเคชันจะฟังการเชื่อมต่อ
 const db = connectDB(); // เชื่อมต่อกับฐานข้อมูลและเก็บไว้ในตัวแปร db
 global.db = db; // กำหนดตัวแปร db ให้เป็น global เพื่อให้สามารถเข้าถึงได้จากทุกที่ในแอปพลิเคชัน
 
+app.locals.sys_name = sys_name;
 app.locals.sys_version = sys_version;
 app.use(SystemSettingsMiddleware); // ใช้ middleware ที่ดึงข้อมูลการตั้งค่าของระบบในทุก request
 app.use(osMiddleware); // ใช้ middleware ที่ดึงข้อมูลเกี่ยวกับระบบปฏิบัติการในทุก request
@@ -275,7 +277,7 @@ app.get('/Role/Customer/Page/Order_And_Receipt/Order/:order_id', authenticateUse
 // ==================================================
 // 403 Forbidden - ไม่มีสิทธิเข้าถึงระบบส่วนนี้
 // app.use((req, res) => {
-//     res.status(404).render('Error_Page/403', { title: 'Forbidden Access Denied' });
+//     res.status(403).render('Error_Page/403', { title: 'FORBIDDEN ACCESS DENIED' });
 // });
 // 404 Not Found - ไม่พบหน้าที่ร้องขอ
 app.use((req, res) => {
@@ -283,7 +285,6 @@ app.use((req, res) => {
 });
 // 500 Internal Server Error - มีข้อผิดพลาดบางอย่างภายใน server โดยไม่ทราบสาเหตุ
 // app.use((req, res) => {
-//     const settings = res.locals.settings;
 //     res.status(500).render('Error_Page/500', { title: 'INTERNAL SERVER ERROR' });
 // });
 // 502 Bad Gateway - server เป็น Gateway หรือ Proxy ได้รับ response ผิดพลาดจาก server อื่น
@@ -296,7 +297,6 @@ app.use((req, res) => {
 });
 // 504 Gateway Timeout - server ไม่ได้รับตอบสนองจาก server อื่น จนหมดเวลากันก่อน
 app.use((req, res) => {
-    const settings = res.locals.settings;
     res.status(504).render('Error_Page/504', { title: 'GATEWAY TIMEOUT' });
 });
 
