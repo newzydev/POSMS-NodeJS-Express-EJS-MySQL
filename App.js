@@ -275,33 +275,29 @@ app.get('/Role/Customer/Page/Order_And_Receipt/Order/:order_id', authenticateUse
 // ==================================================
 // 403 Forbidden - ไม่มีสิทธิเข้าถึงระบบส่วนนี้
 // app.use((req, res) => {
-//     const settings = res.locals.settings;
-//     res.status(404).render('Error_Page/403', { title: 'Forbidden Access Denied - ' + settings.text_footer });
+//     res.status(404).render('Error_Page/403', { title: 'Forbidden Access Denied' });
 // });
 // 404 Not Found - ไม่พบหน้าที่ร้องขอ
 app.use((req, res) => {
-    const settings = res.locals.settings;
-    res.status(404).render('Error_Page/404', { title: 'NOT FOUND - ' + settings.text_footer });
+    res.status(404).render('Error_Page/404', { title: 'NOT FOUND' });
 });
 // 500 Internal Server Error - มีข้อผิดพลาดบางอย่างภายใน server โดยไม่ทราบสาเหตุ
 // app.use((req, res) => {
 //     const settings = res.locals.settings;
-//     res.status(500).render('Error_Page/500', { title: 'INTERNAL SERVER ERROR - ' + settings.text_footer });
+//     res.status(500).render('Error_Page/500', { title: 'INTERNAL SERVER ERROR' });
 // });
 // 502 Bad Gateway - server เป็น Gateway หรือ Proxy ได้รับ response ผิดพลาดจาก server อื่น
 app.use((req, res) => {
-    const settings = res.locals.settings;
-    res.status(502).render('Error_Page/502', { title: 'BAD GATEWAY - ' + settings.text_footer });
+    res.status(502).render('Error_Page/502', { title: 'BAD GATEWAY' });
 });
 // 503 Service Unavailable - ใช้งานเกินพิกัด(ล่ม) หรือกำลังปรับปรุง server
 app.use((req, res) => {
-    const settings = res.locals.settings;
-    res.status(503).render('Error_Page/503', { title: 'SERVICE UNAAILABLE - ' + settings.text_footer });
+    res.status(503).render('Error_Page/503', { title: 'SERVICE UNAAILABLE' });
 });
 // 504 Gateway Timeout - server ไม่ได้รับตอบสนองจาก server อื่น จนหมดเวลากันก่อน
 app.use((req, res) => {
     const settings = res.locals.settings;
-    res.status(504).render('Error_Page/504', { title: 'GATEWAY TIMEOUT - ' + settings.text_footer });
+    res.status(504).render('Error_Page/504', { title: 'GATEWAY TIMEOUT' });
 });
 
 // Start the Server - เริ่มเซิร์ฟเวอร์
