@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../../Include/Head.ejs') %>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+        
+        @media print {
+            body, html {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                background: none;
+            }
+    
+            .content-wrapper {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                background: none;
+            }
+    
+            .card {
+                background: none;
+            }
+    
+            .card-body {
+                page-break-inside: avoid;
+                background: none;
+            }
+    
+            .row {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+    
+            .col-sm-3 {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+    
+            .content-wrapper::after {
+                content: "";
+                display: block;
+                clear: both;
+                height: 0;
+                page-break-after: auto;
+            }
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <!-- Preloader -->
+        <%- include('../../Include/Preloader.ejs') %>
+        <!-- Preloader End -->
+
+        <!-- Navbar -->
+        <div class="d-print-none">
+            <%- include('../../Include/Navbar.ejs') %>
+        </div>
+        <!-- Navbar End -->
+
+        <!-- Main Sidebar -->
+        <div class="d-print-none">
+            <%- include('../../Include/Role/Shop_Owner/Shop_Owner_Sidebar.ejs') %>
+        </div>
+        <!-- Main Sidebar End -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header d-print-none">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>สั่งพิมพ์รายงานพนักงานทั้งหมด</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Dashbord';">หน้าหลัก</a></li>
+                                <li class="breadcrumb-item"><a class="text-primary" style="cursor: pointer;" onclick="location.href='/Role/Shop_Owner/Page/Manage_Employee_Users';">ปรับปรุงบัญชีพนักงาน</a></li>
+                                <li class="breadcrumb-item active">สั่งพิมพ์รายงานพนักงานทั้งหมด</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Content Header End (Page header) -->
+        
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+        
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <% if (error) { %>
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        <span><i class="fas fa-exclamation-triangle mr-2"></i><%= error %>
+                                    </div>
+                                    <% } %>
+                                    <% if (success) { %>
+                                    <div class="alert alert-success text-center" role="alert">
+                                        <span><i class="fas fa-check-circle mr-2"></i><%= success %>
+                                    </div>
+                                    <% } %>
+                                    
+                                    <div class="row d-print-none">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                                            <div class="btn btn-info btn-lg btn-block" onclick="location.href='/Role/Shop_Owner/Page/Manage_Customer_Users';"><i class="fas fa-chevron-circle-left mr-2"></i>ย้อนกลับ</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card d-print-none d-none d-md-block">
+                                        <div class="card-body">
+                                            <div>* ระบบจะทำการสั่งพิมพ์ อัติโนมัติ ใน 3 วินาที หากยังไม่เริ่มสามารถกด <b onclick="window.print();" style="cursor: pointer;"><u>สั่งพิมพ์ทันที</u></b></div>
+                                        </div>
+                                    </div>
+                                    <div class="d-print-none d-block d-md-none">
+                                        <div class="alert alert-warning text-center" role="alert">
+                                            <div><i class="fas fa-exclamation-triangle mr-2"></i>ระบบสั่งพิมพ์ไม่รองรับในอุปกรณ์ <b>โทรศัพท์มือถือ</b> และ <b>แท็บเล็ต</b> ขออภัยในความไม่สะดวก</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="mb-0 table table-hover text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th class="text-center" scope="col">รหัสพนักงาน</th>
+                                                    <th scope="col">ชื่อ - นามสกุล</th>
+                                                    <th scope="col">ที่อยู่อีเมล์</th>
+                                                    <th scope="col">โทรศัพท์มือถือ</th>
+                                                    <th scope="col">ระดับผู้ใช้</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="body-anti">
+                                                <% if (customer_reports.length === 0) { %>
+                                                    <tr>
+                                                        <td colspan="9" class="text-center">
+                                                            ไม่มีข้อมูลในฐานข้อมูล
+                                                        </td>
+                                                    </tr>
+                                                <% } else { %>
+                                                    <% customer_reports.forEach((customer_report, index) => { %>
+                                                    <tr>
+                                                        <th class="text-middle"><%= index + 1 %></th>
+                                                        <td class="text-middle text-center"><%= customer_report.member_id %></td>
+                                                        <td class="text-middle"><%= customer_report.member_firstname %> <%= customer_report.member_lastname %></td>
+                                                        <td class="text-middle"><%= customer_report.member_email.substring(0, 2) %>*****<%= customer_report.member_email.substring(customer_report.member_email.indexOf('@')) %></td>
+                                                        <td class="text-middle"><%= customer_report.member_tel.substring(0, 2) %>*-***-<%= customer_report.member_tel.substring(6) %></td>
+                                                        <td class="text-middle"><%= customer_report.role_name %></td>
+                                                    </tr>
+                                                    <% }) %>
+                                                <% } %>
+                                            </tbody>                                            
+                                        </table>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <!-- Main content End -->
+        </div>        
+        <!-- Content Wrapper. Contains page content End -->
+
+        <!-- Footer -->
+        <div class="d-print-none">
+            <%- include('../../Include/Footer.ejs') %>
+        </div>
+        <!-- Footer End -->
+
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Javascript -->
+    <%- include('../../Include/Javascript.ejs') %>
+    <!-- Trigger Print on Page Load -->
+    <script>
+        window.addEventListener('load', function() {
+            var isDesktop = !/Mobi|Android/i.test(navigator.userAgent); // ตรวจสอบว่าเป็นคอมพิวเตอร์หรือไม่
+            if (isDesktop) {
+                setTimeout(function() {
+                    window.print();
+                }, 3000); // 3 วินาที
+            }
+        });
+    </script>   
+    <!-- Javascript End -->
+</body>
+</html>

@@ -116,6 +116,7 @@ const { getAddEmployeePage, postAddEmployee } = require('./Routes/Role/Shop_Owne
 const { getViewEmployeePage } = require('./Routes/Role/Shop_Owner/View_Employee');
 const { getEditEmployeePage, postEditEmployee } = require('./Routes/Role/Shop_Owner/Edit_Employee');
 const { getDeleteEmployeePage } = require('./Routes/Role/Shop_Owner/Delete_Employee');
+const { getPrintEmployeeReportPage } = require('./Routes/Role/Shop_Owner/Print_Employee_Report');
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users', authenticateUser(db), checkRole001, getManageEmployeePage);
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee', authenticateUser(db), checkRole001, getAddEmployeePage);
 app.post('/Role/Shop_Owner/Page/Manage_Employee_Users/Add_Employee', authenticateUser(db), checkRole001, postAddEmployee);
@@ -123,6 +124,7 @@ app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/View/:member_id', authentic
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/Edit/:member_id', authenticateUser(db), checkRole001, getEditEmployeePage);
 app.post('/Role/Shop_Owner/Page/Manage_Employee_Users/Edit/:member_id', authenticateUser(db), checkRole001, postEditEmployee);
 app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/Delete/:member_id', authenticateUser(db), checkRole001, getDeleteEmployeePage);
+app.get('/Role/Shop_Owner/Page/Manage_Employee_Users/Print/Report', authenticateUser(db), checkRole001, getPrintEmployeeReportPage);
 
 // Manage Customer Page
 const { getManageCustomerPage } = require('./Routes/Role/Shop_Owner/Manage_Customer_Users');
@@ -130,6 +132,7 @@ const { getAddCustomerPage, postAddCustomer } = require('./Routes/Role/Shop_Owne
 const { getViewCustomerPage } = require('./Routes/Role/Shop_Owner/View_Customer');
 const { getEditCustomerPage, postEditCustomer } = require('./Routes/Role/Shop_Owner/Edit_Customer');
 const { getDeleteCustomerPage } = require('./Routes/Role/Shop_Owner/Delete_Customer');
+const { getPrintCustomerReportPage } = require('./Routes/Role/Shop_Owner/Print_Customer_Report');
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users', authenticateUser(db), checkRole001, getManageCustomerPage);
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer', authenticateUser(db), checkRole001, getAddCustomerPage);
 app.post('/Role/Shop_Owner/Page/Manage_Customer_Users/Add_Customer', authenticateUser(db), checkRole001, postAddCustomer);
@@ -137,6 +140,7 @@ app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/View/:member_id', authentic
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/Edit/:member_id', authenticateUser(db), checkRole001, getEditCustomerPage);
 app.post('/Role/Shop_Owner/Page/Manage_Customer_Users/Edit/:member_id', authenticateUser(db), checkRole001, postEditCustomer);
 app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/Delete/:member_id', authenticateUser(db), checkRole001, getDeleteCustomerPage);
+app.get('/Role/Shop_Owner/Page/Manage_Customer_Users/Print/Report', authenticateUser(db), checkRole001, getPrintCustomerReportPage);
 
 // Manage Payment Methods Page
 const { getManagePaymentMethodsPage } = require('./Routes/Role/Shop_Owner/Manage_Payment_Methods');

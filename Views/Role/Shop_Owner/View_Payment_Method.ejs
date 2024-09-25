@@ -120,8 +120,11 @@
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
                                             <div class="row">
-                                                <div class="col-md-12 mb-3">
-                                                    <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods';" class="btn btn-custom-one btn-lg btn-block">ย้อนกลับ</div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="btn btn-custom-one btn-lg btn-block" onclick="copyDataInfo('<%= pay_method.pay_id %>, <%= pay_method.pay_bank_name %>, <%= pay_method.pay_bank_number %>');">คัดลอกข้อมูล</div>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <div onclick="location.href='/Role/Shop_Owner/Page/Manage_Payment_Methods';" class="btn btn-custom-two btn-lg btn-block">ย้อนกลับ</div>
                                                 </div>
                                             </div>
                                         </div>
