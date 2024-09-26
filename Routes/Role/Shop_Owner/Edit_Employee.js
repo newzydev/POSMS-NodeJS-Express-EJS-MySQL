@@ -9,6 +9,7 @@ exports.getEditEmployeePage = (req, res) => {
     const query = `
         SELECT
             member_id,
+            role_id,
             member_firstname,
             member_lastname
         FROM Users

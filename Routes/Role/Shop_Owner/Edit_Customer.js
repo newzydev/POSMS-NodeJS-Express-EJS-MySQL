@@ -6,7 +6,15 @@ exports.getEditCustomerPage = (req, res) => {
     const success = req.flash('success');
     
     const member_id = req.params.member_id;
-    const query = 'SELECT * FROM Users WHERE member_id = ?';
+    const query = `
+        SELECT
+            member_id,
+            role_id,
+            member_firstname,
+            member_lastname
+        FROM Users
+        WHERE member_id = ?
+    `;
     
     db.query(query, [member_id], (err, result) => {
         if (err) {
