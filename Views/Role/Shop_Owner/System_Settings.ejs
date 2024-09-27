@@ -748,7 +748,7 @@
                                             <label for="map_iframe_api_preview" class="col-sm-2 col-form-label">Preview Iframe จาก Google Map :</label>
                                             <div class="col-sm-10">
                                                 <div class="df-iframe-container">
-                                                    <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450"></iframe>
+                                                    <iframe src="<%= settings.map_iframe_api %>" width="100%" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                                     <div class="df-iframe-head">
                                                         <% if (settings.store_name) { %>
                                                             <b><i class="fas fa-store-alt mr-1"></i><%= settings.store_name %></b>
