@@ -1,39 +1,49 @@
 const mysql = require('mysql');
 
-// Function to handle reconnection and database initialization
+const pool = mysql.createPool({
+    connectionLimit: 10, // Adjust this limit as per your need
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'point_of_sale_management_system',
+    connectTimeout: 10000,
+    acquireTimeout: 10000,
+    timeout: 60000,
+});
+
 const connectDB = () => {
-    const db = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'point_of_sale_management_system',
-        connectTimeout: 10000,
-        acquireTimeout: 10000,
-        timeout: 60000,
-    });
-
-    db.connect((err) => {
+    pool.getConnection((err, connection) => {
         if (err) {
-            console.error('Error connecting to database:', err);
-            setTimeout(connectDB, 2000); // Attempt reconnection after 2 seconds
-        } else {
-            console.log('Database: Connected successfully.');
+            if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+                console.error('Database connection was closed.');
+            }
+            if (err.code === 'ER_CON_COUNT_ERROR') {
+                console.error('Database has too many connections.');
+            }
+            if (err.code === 'ECONNREFUSED') {
+                console.error('Database connection was refused.');
+            }
+            if (err.code === 'ETIMEDOUT') {
+                console.error('Connection timeout.');
+            }
+            setTimeout(connectDB, 2000); // Reattempt connection
         }
+
+        if (connection) connection.release();
+
+        return;
     });
 
-    db.on('error', (err) => {
+    pool.on('error', (err) => {
         console.error('Database error:', err);
 
         if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
-            console.log('Database: Reconnecting to database...');
-            connectDB(); // Reconnect on connection loss
+            console.log('Database: Reconnecting...');
+            connectDB();
         } else {
-            throw err; // Throw the error for other types
+            throw err;
         }
     });
-
-    return db; // Return the initialized db connection
 };
 
-// Export the connectDB function
 module.exports = connectDB;
