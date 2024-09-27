@@ -182,7 +182,7 @@
                                                 <label class="col-sm-2 col-form-label">หลักฐานชำระเงิน</label>
                                                 <div class="col-sm-10">
                                                     <div style="display: flex; justify-content: center; align-items: center; background-color: #f0f0f0; height: 450px; width: 100%; border: 2px dashed #ccc; border-radius: 0.5rem;">
-                                                        <img src="/assets/images/attach/<%= order_attach.oapp_image %>" style="max-width: 100%; max-height: 100%;">
+                                                        <img src="/assets/images/attach/<%= order_attach.oapp_image %>" style="max-width: 100%; max-height: 100%;" loading="lazy">
                                                     </div>
                                                 </div>
                                             </div>
@@ -223,18 +223,29 @@
                                         <script>
                                             function previewImage(event) {
                                                 var input = event.target;
+                                                var file = input.files[0];  // ดึงไฟล์ที่เลือก
                                                 var reader = new FileReader();
-                                            
+                                                
+                                                // ตรวจสอบชนิดไฟล์ที่เลือก
+                                                var validImageTypes = ["image/png", "image/jpeg", "image/gif"];
+                                                if (!validImageTypes.includes(file.type)) {
+                                                    alert("กรุณาเลือกไฟล์รูปภาพที่มีนามสกุล .png, .jpg, .jpeg, หรือ .gif เท่านั้น");
+                                                    document.getElementById('imagePreviewSection').style.display = 'none';  // ซ่อนส่วนแสดงรูปภาพ
+                                                    input.value = '';  // รีเซ็ตการเลือกไฟล์
+                                                    document.getElementById('fileName').innerText = 'ยังไม่ได้เลือกรูปภาพ';  // แสดงข้อความรีเซ็ต
+                                                    return;  // ออกจากฟังก์ชันทันที
+                                                }
+                                        
                                                 // ถ้ามีการเลือกไฟล์ ให้แสดงส่วนแสดงรูปภาพ
                                                 if (input.files && input.files[0]) {
                                                     document.getElementById('imagePreviewSection').style.display = 'block';  // แสดงส่วนแสดงรูปภาพ
-                                            
+                                        
                                                     reader.onload = function(){
                                                         var imgElement = document.getElementById('imagePreview');
                                                         imgElement.src = reader.result;
                                                         imgElement.style.display = 'block';  // แสดงรูปภาพเมื่อโหลดเสร็จแล้ว
                                                     };
-                                            
+                                        
                                                     reader.readAsDataURL(input.files[0]);  // อ่านไฟล์รูปภาพ
                                                 }
                                             }
