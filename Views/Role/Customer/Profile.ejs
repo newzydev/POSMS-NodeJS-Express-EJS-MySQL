@@ -97,7 +97,8 @@
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab"><i class="fas fa-user-cog"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link active" href="#account" data-toggle="tab"><i class="fas fa-user"></i></a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab"><i class="fas fa-user-cog"></i></a></li>
                                         <li class="nav-item"><a class="nav-link" href="#change_email" data-toggle="tab"><i class="fas fa-mail-bulk"></i></a></li>
                                         <li class="nav-item"><a class="nav-link" href="#change_username" data-toggle="tab"><i class="fas fa-user-lock"></i></a></li>
                                         <li class="nav-item"><a class="nav-link" href="#change_password" data-toggle="tab"><i class="fas fa-key"></i></a></li>
@@ -118,8 +119,82 @@
 
                                     <div class="tab-content">
 
+                                        <!-- View Account -->
+                                        <div class="active tab-pane" id="account">
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label align-self-center">ชื่อจริง</label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <%= user.member_firstname %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label align-self-center">นามสกุล</label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <%= user.member_lastname %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label align-self-center">ที่อยู่อีเมล์</label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <%= user.member_email %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label align-self-center">หมายเลขโทรศัพท์</label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <div class="list-group-item">
+                                                            <%= user.member_tel.substring(0, 3) %>-<%= user.member_tel.substring(3, 6) %>-<%= user.member_tel.substring(6, 10) %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label align-self-center">สถานะบัญชี</label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <% if (user.member_email_activate === "ACTIVATE") { %>
+                                                            <div class="list-group-item text-success border border-success">
+                                                                <i class="fas fa-check-circle"></i>
+                                                                ยืนยันบัญชีที่อยู่อีเมล์แล้ว
+                                                            </div>
+                                                        <% } else { %>
+                                                            <div class="list-group-item text-danger border border-danger">
+                                                                <i class="fas fa-times-circle"></i>
+                                                                รอยืนยันบัญชีที่อยู่อีเมล์
+                                                            </div>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label"></label>
+                                                <div class="col-sm-10">
+                                                    <div class="list-group">
+                                                        <div class="list-group-item border border-primary text-primary">
+                                                            <i class="fas fa-info-circle"></i>
+                                                            เฉพาะคุณเท่านั้นที่สามารถเห็นข้อมูลส่วนบุคคลนี้
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- View Account -->
+
                                         <!-- Account Settings Form -->
-                                        <div class="active tab-pane" id="settings">
+                                        <div class="tab-pane" id="settings">
                                             <form class="needs-validation" novalidate method="POST" action="/Role/Customer/Page/Profile/ChangeProfile">
                                                 <input type="hidden" name="member_id" value="<%= user.member_id %>">
                                                 <div class="form-group row">
@@ -155,16 +230,6 @@
                                                         </div>
                                                         <div class="invalid-feedback">
                                                             กรุณากรอกหมายเลขโทรศัพท์ให้ถูกต้อง
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="member_email_activate" class="col-sm-2 col-form-label">สถานะบัญชี</label>
-                                                    <div class="col-sm-10">
-                                                        <div class="list-group">
-                                                            <div class="list-group-item">
-                                                                <% if (user.member_email_activate === "ACTIVATE") { %>ยืนยันที่อยู่อีเมล์แล้ว<% } else { %>รอยืนยันที่อยู่อีเมล์<% } %>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
