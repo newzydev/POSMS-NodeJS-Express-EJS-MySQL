@@ -84,7 +84,7 @@ exports.postUpdateSettingsForm2 = (req, res) => {
         day_open_4 = ?, time_open_4 = ?, time_close_4 = ?,
         day_open_5 = ?, time_open_5 = ?, time_close_5 = ?,
         day_open_6 = ?, time_open_6 = ?, time_close_6 = ?,
-        day_open_7 = ?, time_open_7 = ?, time_close_7 = ?,
+        day_open_7 = ?, time_open_7 = ?, time_close_7 = ?
     `;
 
     db.query(query, [day_open_1, time_open_1, time_close_1, day_open_2, time_open_2, time_close_2, day_open_3, time_open_3, time_close_3, day_open_4, time_open_4, time_close_4, day_open_5, time_open_5, time_close_5, day_open_6, time_open_6, time_close_6, day_open_7, time_open_7, time_close_7], (err) => {
@@ -157,7 +157,7 @@ exports.postUpdateSettingsForm6 = (req, res) => {
 
     const query = `
         UPDATE Systen_Settings
-        SET text_footer = ? = ?`;
+        SET text_footer = ?`;
 
     db.query(query, [text_footer], (err) => {
         if (err) {
