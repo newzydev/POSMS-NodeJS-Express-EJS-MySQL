@@ -189,7 +189,7 @@ function showToast(message4) {
     var toast = new bootstrap.Toast(toastElement);
     toast.show();
 }
-// ----------------------------------
+
 
 var clickmessage = "ระบบไม่อนุญาตให้บันทึกภาพค่ะ :)";
 
