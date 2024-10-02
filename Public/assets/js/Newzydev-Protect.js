@@ -191,7 +191,7 @@ function showToast(message4) {
 }
 // ----------------------------------
 
-var clickmessage = "ระบบไม่อนุญาตให้บันทึกภาพสิค่ะ";
+var clickmessage = "ระบบไม่อนุญาตให้บันทึกภาพค่ะ :)";
 
 function disableclick(e) {
     if (document.all) {
@@ -225,7 +225,7 @@ else if (document.layers) associateimages();
 
 // ----------------------------------
 
-var message = "ระบบไม่อนุญาตให้คลิกขวาค่ะ";
+var message = "ระบบไม่อนุญาตให้คลิกขวาค่ะ :)";
 
 function disableRightClick(e) {
     // ตรวจสอบว่าเป็นการคลิกขวาหรือไม่
@@ -250,26 +250,26 @@ document.addEventListener('mousedown', function (e) {
 // ทริกเกอร์คีย์
 document.onkeydown = function () {
     // ห้ามกด Ctrl + U
-    var message1 = "ระบบไม่อนุญาตให้กดปุ่ม Ctrl + U ค่ะ";
+    var message1 = "ระบบไม่อนุญาตให้กดปุ่ม Ctrl + U ค่ะ :)";
     if (event.ctrlKey && window.event.keyCode == 85) {
         showToast(message1);
         return false;
     }
     // ห้ามกด F12
-    var message2 = "ระบบไม่อนุญาตให้กดปุ่ม F12 ค่ะ";
+    var message2 = "ระบบไม่อนุญาตให้กดปุ่ม F12 ค่ะ :)";
     if (window.event && window.event.keyCode == 123) {
         showToast(message2);
         event.keyCode = 0;
         event.returnValue = false;
     }
     // ห้ามกด Ctrl + S
-    var message3 = "ระบบไม่อนุญาตให้กดปุ่ม Ctrl + S ค่ะ";
+    var message3 = "ระบบไม่อนุญาตให้กดปุ่ม Ctrl + S ค่ะ :)";
     if (event.ctrlKey && window.event.keyCode == 83) {
         showToast(message3);
         return false;
     }
     // ห้ามกด F5
-    var message4 = "ระบบไม่อนุญาตให้กดปุ่ม F5 ค่ะ";
+    var message4 = "ระบบไม่อนุญาตให้กดปุ่ม F5 ค่ะ :)";
     if (window.event && window.event.keyCode == 116) {
         showToast(message4);
         event.keyCode = 0;
