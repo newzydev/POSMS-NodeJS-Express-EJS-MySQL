@@ -91,23 +91,18 @@
 
     // จัดการการคลิกปุ่มล้างแคช
     document.getElementById('clear_cache_button').addEventListener('click', () => {
-        if ('caches' in window) {
-            caches.keys().then((cacheNames) => {
-                return Promise.all(
-                    cacheNames.map((cacheName) => {
-                        return caches.delete(cacheName);
-                    })
-                );
-            }).then(() => {
-                if (navigator.serviceWorker.controller) {
-                    navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
-                }
-                location.reload(); // รีโหลดหน้าเว็บ
-            }).catch((error) => {
-                console.error('Error clearing caches:', error);
-            });
-        } else {
-            console.log('Caches API is not supported');
+        // ลบข้อมูลใน LocalStorage
+        localStorage.clear();
+        
+        // ลบข้อมูลใน SessionStorage
+        sessionStorage.clear();
+
+        // ตรวจสอบว่ามี Service Worker หรือไม่
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
         }
+
+        // รีโหลดหน้าเว็บ
+        location.reload();
     });
 </script>
