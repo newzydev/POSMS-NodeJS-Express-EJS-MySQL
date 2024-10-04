@@ -8,7 +8,7 @@
 <!-- manifest -->
 <link rel="manifest" href="/manifest.json">
 <script>
-    let deferredPrompt;
+    let deferredPrompt = null; // ประกาศค่าเป็น null เพียงครั้งเดียว
 
     // ลงทะเบียน Service Worker เมื่อโหลดหน้าเว็บ
     if ('serviceWorker' in navigator) {
@@ -46,10 +46,13 @@
     }
 
     // เรียกใช้ฟังก์ชัน promptInstallPWA เมื่อผู้ใช้คลิกปุ่ม
-    document.getElementById('install_posms_app_button').addEventListener('click', (e) => {
-        e.preventDefault();
-        promptInstallPWA(); // เรียกใช้การติดตั้ง PWA เมื่อคลิกปุ่ม
-    });
+    const installButton = document.getElementById('install_posms_app_button');
+    if (installButton) {
+        installButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            promptInstallPWA(); // เรียกใช้การติดตั้ง PWA เมื่อคลิกปุ่ม
+        });
+    }
 
     // แจ้งเตือนเมื่อแอปติดตั้งเสร็จสิ้น
     window.addEventListener('appinstalled', () => {
@@ -57,21 +60,24 @@
     });
 
     // จัดการการคลิกปุ่มล้างแคช
-    document.getElementById('clear_cache_button').addEventListener('click', () => {
-        // ลบข้อมูลใน LocalStorage
-        localStorage.clear();
-        
-        // ลบข้อมูลใน SessionStorage
-        sessionStorage.clear();
+    const clearCacheButton = document.getElementById('clear_cache_button');
+    if (clearCacheButton) {
+        clearCacheButton.addEventListener('click', () => {
+            // ลบข้อมูลใน LocalStorage
+            localStorage.clear();
+            
+            // ลบข้อมูลใน SessionStorage
+            sessionStorage.clear();
 
-        // ตรวจสอบว่ามี Service Worker หรือไม่
-        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-            navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
-        }
+            // ตรวจสอบว่ามี Service Worker หรือไม่
+            if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({ action: 'skipWaiting' });
+            }
 
-        // รีโหลดหน้าเว็บ
-        location.reload();
-    });
+            // รีโหลดหน้าเว็บ
+            location.reload();
+        });
+    }
 </script>
 <!-- Title -->
 <title><%= title %></title>
