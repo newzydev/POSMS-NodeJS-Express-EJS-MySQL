@@ -2,7 +2,7 @@
     "name": "POSMS APP",
     "short_name": "POSMS APP",
     "description": "A POSMS DEVELOP BY NEWZYDEV",
-    "start_url": "/",
+    "start_url": "./",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
@@ -20,5 +20,5 @@
     ],
     "prefer_related_applications": true,
     "lang": "th",
-    "scope": "/"
+    "scope": "./"
 }
