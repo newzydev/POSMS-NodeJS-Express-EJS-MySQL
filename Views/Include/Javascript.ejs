@@ -106,14 +106,3 @@
         location.reload();
     });
 </script>
-<script>
-    fetch('https://698e-2405-9800-b560-1d54-d0bd-714b-1664-9cec.ngrok-free.app', {
-      method: 'GET',
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
-      }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
-</script>

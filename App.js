@@ -10,6 +10,16 @@ const { authenticateUser, checkRole001, checkRole002, checkRole003 } = require('
 const SystemSettingsMiddleware = require('./Middlewares/setting'); // นำเข้า middleware สำหรับดึงข้อมูลการตั้งค่าของระบบ
 const osMiddleware = require('./Middlewares/os'); // นำเข้า middleware สำหรับดึงข้อมูลเกี่ยวกับระบบปฏิบัติการ
 const app = express(); // สร้างแอปพลิเคชัน Express
+// Middleware เพื่อเพิ่ม header ngrok-skip-browser-warning
+app.use((req, res, next) => {
+    res.setHeader('ngrok-skip-browser-warning', 'true');  // ส่ง header ใน response
+    next();
+});
+// Middleware เพื่อเพิ่ม custom User-Agent
+app.use((req, res, next) => {
+    res.setHeader('User-Agent', 'CustomUserAgent');  // ส่ง custom User-Agent ใน response
+    next();
+});
 const sys_name = "POSMS TEAM"; // Version ของระบบ POSMS
 const sys_version = "1.1.3"; // System Version ของระบบ POSMS
 const port = 5000; // กำหนดหมายเลขพอร์ตที่แอปพลิเคชันจะฟังการเชื่อมต่อ
@@ -60,18 +70,6 @@ app.get('/qrcode-gen', (req, res) => {
         res.setHeader('Content-Type', 'image/png'); // กำหนด header ให้ส่งไฟล์ประเภท PNG
         res.send(buffer); // ส่ง buffer ที่เป็น QR Code ให้กับ client
     });
-});
-
-// Middleware เพื่อเพิ่ม header ngrok-skip-browser-warning
-app.use((req, res, next) => {
-    res.setHeader('ngrok-skip-browser-warning', 'true');  // ส่ง header ใน response
-    next();
-});
-
-// Middleware เพื่อเพิ่ม custom User-Agent
-app.use((req, res, next) => {
-    res.setHeader('User-Agent', 'CustomUserAgent');  // ส่ง custom User-Agent ใน response
-    next();
 });
 
 // Route Imports
