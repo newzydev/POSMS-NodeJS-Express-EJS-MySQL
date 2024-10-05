@@ -62,6 +62,12 @@ app.get('/qrcode-gen', (req, res) => {
     });
 });
 
+// Middleware to add the ngrok-skip-browser-warning header
+app.use((req, res, next) => {
+    res.setHeader('ngrok-skip-browser-warning', 'true');
+    next();
+});
+
 // Route Imports
 // Login Page
 const { getLoginPage, postLogin } = require('./Routes/Login');
