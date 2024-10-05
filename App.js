@@ -62,9 +62,15 @@ app.get('/qrcode-gen', (req, res) => {
     });
 });
 
-// Middleware to add the ngrok-skip-browser-warning header
+// Middleware เพื่อเพิ่ม header สำหรับทุก request
 app.use((req, res, next) => {
-    res.setHeader('ngrok-skip-browser-warning', 'true');
+    req.headers['ngrok-skip-browser-warning'] = 'true';
+    next();
+});
+
+// Middleware เพื่อเพิ่ม custom User-Agent
+app.use((req, res, next) => {
+    req.headers['User-Agent'] = 'CustomUserAgent';
     next();
 });
 
