@@ -106,3 +106,22 @@
         location.reload();
     });
 </script>
+<script>
+    let hiddenTime; // ตัวแปรเก็บเวลาที่ผู้ใช้ไปจากแท็บ
+    const reloadThreshold = 60 * 1000; // กำหนดเวลา 1 นาที
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.visibilityState === 'hidden') {
+            // ถ้าแท็บถูกซ่อนไว้ ให้บันทึกเวลา
+            hiddenTime = Date.now();
+        } else if (document.visibilityState === 'visible') {
+            // เมื่อแท็บกลับมาเป็นมองเห็น
+            const currentTime = Date.now();
+            const timeAway = currentTime - hiddenTime;
+
+            if (timeAway >= reloadThreshold) {
+                location.reload(); // รีโหลดหน้าเว็บถ้าเวลาออกจากแท็บเกิน 1 นาที
+            }
+        }
+    });
+</script>
