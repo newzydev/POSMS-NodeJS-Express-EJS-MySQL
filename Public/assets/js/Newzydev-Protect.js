@@ -313,7 +313,7 @@ document.onkeydown = function () {
 function validateInput(input) {
     var message5 = "ระบบปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection ค่ะ :)";
     // ปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection
-    const regex = /[\'\"\\;]/g;
+    const regex = /['"\\;]/g;
 
     if (regex.test(input)) {
         showToast(message5);

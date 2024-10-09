@@ -125,16 +125,3 @@
         }
     });
 </script>
-<script>
-    // ฟังก์ชันสำหรับตรวจสอบข้อมูลที่ input
-    function validateInput(input) {
-        // ปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection
-        const regex = /[\'\"\\;]/g;
-
-        if (regex.test(input)) {
-            alert("ระบบปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection ค่ะ :)");
-            return false;
-        }
-        return true;
-    }
-</script>
