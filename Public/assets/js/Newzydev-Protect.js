@@ -190,6 +190,38 @@ function showToast(message4) {
     toast.show();
 }
 
+function showToast(message5) {
+    // สร้างโครงสร้าง HTML ของ Toasts โดยใช้ JavaScript
+    var toastHTML = `
+        <div class="toast" id="myToast" style="width: 100%; background-color: #ffffff; color: #333333; position: fixed; bottom: 20px; right: 20px; z-index: 999999;" data-delay="8000">
+            <div class="toast-header">
+                <strong class="mr-auto">การแจ้งเตือน</strong>
+                <small>ตอนนี้</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <div>${message5}</div>
+            </div>
+        </div>
+    `;
+
+    // ตรวจสอบว่ามี Toast อยู่แล้วหรือไม่ ถ้ามีให้ลบทิ้งก่อน เพื่อไม่ให้ซ้อนกัน
+    var existingToast = document.getElementById('myToast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+    // แทรก Toast เข้าสู่ body ของเอกสาร
+    document.body.insertAdjacentHTML('beforeend', toastHTML);
+
+    // ใช้ Bootstrap Toast API เพื่อแสดง Toast
+    var toastElement = document.getElementById('myToast');
+    var toast = new bootstrap.Toast(toastElement);
+    toast.show();
+}
+
 
 var clickmessage = "ระบบไม่อนุญาตให้บันทึกภาพค่ะ :)";
 
@@ -276,3 +308,16 @@ document.onkeydown = function () {
         event.returnValue = false;
     }
 };
+
+// ฟังก์ชันสำหรับตรวจสอบข้อมูลที่ input
+function validateInput(input) {
+    var message5 = "ระบบปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection ค่ะ :)";
+    // ปฏิเสธเครื่องหมายพิเศษที่อาจจะใช้ในการทำ SQL Injection
+    const regex = /[\'\"\\;]/g;
+
+    if (regex.test(input)) {
+        showToast(message5);
+        return false;
+    }
+    return true;
+}
