@@ -1,7 +1,7 @@
 // Service Worker: ติดตั้ง (install) Service Worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('v5').then((cache) => {
+        caches.open('v6').then((cache) => {
             return cache.addAll([
                 '/',
                 '/manifest.json',
@@ -33,7 +33,7 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((keyList) => {
             return Promise.all(
                 keyList.map((key) => {
-                    if (key !== 'v5') {
+                    if (key !== 'v6') {
                         return caches.delete(key); // ลบแคชเก่าที่ไม่ใช่ 'v2'
                     }
                 })
@@ -58,7 +58,7 @@ self.addEventListener('fetch', (event) => {
         event.respondWith(
             caches.match(event.request).then((response) => {
                 return response || fetch(event.request).then((fetchResponse) => {
-                    return caches.open('v5').then((cache) => {
+                    return caches.open('v6').then((cache) => {
                         cache.put(event.request, fetchResponse.clone()); // เก็บไฟล์ที่ดึงมาล่าสุดลงแคช
                         return fetchResponse;
                     });
