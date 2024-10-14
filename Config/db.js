@@ -10,6 +10,7 @@ const connectDB = () => {
         connectTimeout: 10000,
         acquireTimeout: 10000,
         timeout: 60000,
+        keepAlive: true
     });
 
     db.connect((err) => {
