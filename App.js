@@ -20,8 +20,8 @@ app.use((req, res, next) => {
     res.setHeader('User-Agent', 'CustomUserAgent');  // ส่ง custom User-Agent ใน response
     next();
 });
-const sys_name = "POSMS TEAM"; // Version ของระบบ POSMS
-const sys_version = "1.1.7"; // System Version ของระบบ POSMS
+const sys_name = "MY-POSMS"; // Version ของระบบ POSMS
+const sys_version = "1.1.8"; // System Version ของระบบ POSMS
 const port = 5000; // กำหนดหมายเลขพอร์ตที่แอปพลิเคชันจะฟังการเชื่อมต่อ
 const db = connectDB(); // เชื่อมต่อกับฐานข้อมูลและเก็บไว้ในตัวแปร db
 global.db = db; // กำหนดตัวแปร db ให้เป็น global เพื่อให้สามารถเข้าถึงได้จากทุกที่ในแอปพลิเคชัน
