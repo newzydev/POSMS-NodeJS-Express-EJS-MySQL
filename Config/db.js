@@ -1,8 +1,11 @@
 const mysql = require('mysql');
 
-// Function to handle reconnection and database initialization
-const connectDB = () => {
-    const db = mysql.createConnection({
+let pool;
+
+// Function to initialize the database connection pool
+const initDB = () => {
+    pool = mysql.createPool({
+        connectionLimit: 10, // Set limit of concurrent connections
         host: 'localhost',
         user: 'root',
         password: 'root',
@@ -10,31 +13,56 @@ const connectDB = () => {
         connectTimeout: 10000,
         acquireTimeout: 10000,
         timeout: 60000,
-        keepAlive: true
+        waitForConnections: true, // Wait for new connection if the pool is full
+        queueLimit: 0, // No queue limit
+        debug: false, // Disable debug mode
+        multipleStatements: true, // Allow multiple SQL statements in one query
+        keepAliveInitialDelay: 30000, // Delay for keep-alive
+        keepAlive: true,
     });
 
-    db.connect((err) => {
-        if (err) {
-            console.error('Error connecting to database:', err);
-            setTimeout(connectDB, 2000); // Attempt reconnection after 2 seconds
-        } else {
-            console.log('Database: Connected successfully.');
-        }
+    // Handle connection errors gracefully
+    pool.on('connection', (connection) => {
+        console.log('Database: Connected successfully.');
+        connection.on('error', (err) => {
+            console.error('Database connection error:', err);
+            if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
+                console.log('Database: Connection lost, attempting to reconnect...');
+                reconnectDB(); // Handle reconnection
+            } else {
+                throw err; // Handle other errors
+            }
+        });
     });
 
-    db.on('error', (err) => {
-        console.error('Database error:', err);
-
-        if (err.code === 'PROTOCOL_CONNECTION_LOST' || err.code === 'ECONNRESET' || err.code === 'ETIMEDOUT') {
-            console.log('Database: Reconnecting to database...');
-            connectDB(); // Reconnect on connection loss
-        } else {
-            throw err; // Throw the error for other types
-        }
+    pool.on('acquire', (connection) => {
+        console.log('Connection %d acquired', connection.threadId);
     });
 
-    return db; // Return the initialized db connection
+    pool.on('enqueue', () => {
+        console.log('Waiting for available connection slot');
+    });
+
+    pool.on('release', (connection) => {
+        console.log('Connection %d released', connection.threadId);
+    });
 };
 
-// Export the connectDB function
-module.exports = connectDB;
+// Function to handle reconnection
+const reconnectDB = () => {
+    console.log('Reconnecting to database...');
+    pool.end((err) => {
+        if (err) {
+            console.error('Error during reconnection:', err);
+        } else {
+            console.log('Reconnection complete, reinitializing database connection...');
+            initDB(); // Reinitialize the database connection
+        }
+    });
+};
+
+// Initialize the database connection pool
+initDB();
+
+// Export the pool for querying
+module.exports = pool;
