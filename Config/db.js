@@ -4,10 +4,20 @@ const mysql = require('mysql');
 // Function ในการสร้าง return การเชื่อมต่อฐานข้อมูล
 const connectDB = () => {
     const db = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'point_of_sale_management_system'
+        connectionLimit: 100, // กำหนดจำนวนการเชื่อมต่อสูงสุดที่ทำได้ในเวลาเดียวกัน
+        host: 'localhost', // ตั้งค่าโฮสต์ฐานข้อมูลเป็น localhost
+        user: 'root', // ตั้งค่าผู้ใช้ฐานข้อมูลเป็น root
+        password: 'root', // ตั้งค่ารหัสผ่านของผู้ใช้ฐานข้อมูล
+        database: 'point_of_sale_management_system', // ชื่อฐานข้อมูลที่ต้องการเชื่อมต่อ
+        connectTimeout: 10000, // ระยะเวลารอในการเชื่อมต่อ (10 วินาที)
+        acquireTimeout: 10000, // ระยะเวลารอให้เชื่อมต่อสำเร็จ (10 วินาที)
+        timeout: 60000, // ระยะเวลารอการเชื่อมต่อครั้งเดียว (60 วินาที)
+        waitForConnections: true, // รอหากไม่มีการเชื่อมต่อที่พร้อมใช้งาน
+        queueLimit: 0, // ไม่จำกัดจำนวนการเชื่อมต่อที่รอในคิว
+        debug: false, // ปิดการทำงาน debug mode
+        multipleStatements: true, // อนุญาตให้ใช้หลายคำสั่ง SQL ในการเชื่อมต่อเดียว
+        keepAliveInitialDelay: 30000, // ตั้งค่าระยะเวลารอในการส่งสัญญาณ keep-alive ครั้งแรก (30 วินาที)
+        keepAlive: true // เปิดการใช้งานสัญญาณ keep-alive เพื่อรักษาการเชื่อมต่อ
     });
 
     // เชื่อมต่อ database
