@@ -59,60 +59,64 @@ exports.postLogin = (req, res) => {
 
         const max_age_cookie = 5 * 60 * 1000; // 5 นาที
 
-        res.cookie('LOGIN_AC_TOKEN', code_6_digit, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
-
-        // ส่งอีเมล
-        if (user.member_email) {
+        if (user.member_email_activate === "ACTIVATE") {
+            res.cookie('LOGIN_AC_TOKEN', code_6_digit, { maxAge: max_age_cookie, httpOnly: true, path: '/', signed: true });
+    
+            // ส่งอีเมล
+            if (user.member_email) {
+                
+                const transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
+                });
             
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: { user: `${settings.mail_auto_sent}`, pass: `${settings.mail_app_password}` }
-            });
-        
-            const mailOptions = {
-                from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
-                to: user.member_email,
-                subject: 'รหัส OTP : ' + code_6_digit + ' สำหรับยืนยันตัวตนลงชื่อเข้าใช้',
-                html: `
-                    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
-                        <div style="text-align: center;">
-                            <img src="https://github.com/newzydev/Point-Of-Sale-Management-System-NodeJS-Express-EJS/blob/main/Public/assets/images/logo/logo_icon_w.png?raw=true" alt="Logo" style="max-width: 50px;">
+                const mailOptions = {
+                    from: `${settings.mail_name} <${settings.mail_auto_sent}>`,
+                    to: user.member_email,
+                    subject: 'รหัส OTP : ' + code_6_digit + ' สำหรับยืนยันตัวตนลงชื่อเข้าใช้',
+                    html: `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 0.5rem; padding: 20px; background-image: linear-gradient(90deg, #0F1975, #0B21ED);">
+                            <div style="text-align: center;">
+                                <img src="https://github.com/newzydev/Point-Of-Sale-Management-System-NodeJS-Express-EJS/blob/main/Public/assets/images/logo/logo_icon_w.png?raw=true" alt="Logo" style="max-width: 50px;">
+                            </div>
+                            <h2 style="color: #ffffff; text-align: center;">
+                                สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
+                            </h2>
+                            <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+                                <div style="font-size: 16px; color: #333333;"><strong>รหัสยืนยันตัวตน จะมีอายุ 5 นาที หลัจากนั้นจะต้องลงชื่อเข้าใช้ระบบใหม่</strong></div>
+                                <hr style="border: 1px solid #e0e0e0;">
+                                <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน</strong></div>
+                                <h1 style="color: #333333; margin: 0"><strong>${code_6_digit}</strong></h1>
+                                <div style="font-size: 16px; color: #333333;"><strong>ใช้สำหรับยืนยันตัวตน</strong></div>
+                            </div>
+                            <p style="font-size: 14px; color: #ffffff; text-align: center;">
+                                * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
+                                ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
+                            </p>
                         </div>
-                        <h2 style="color: #ffffff; text-align: center;">
-                            สวัสดีคุณ ${user.member_firstname} ${user.member_lastname}
-                        </h2>
-                        <div style="background-color: #ffffff; padding: 15px; border-radius: 0.5rem; margin: 20px 0; border: 1px solid #e0e0e0; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); text-align: center;">
-                            <div style="font-size: 16px; color: #333333;"><strong>รหัสยืนยันตัวตน จะมีอายุ 5 นาที หลัจากนั้นจะต้องลงชื่อเข้าใช้ระบบใหม่</strong></div>
-                            <hr style="border: 1px solid #e0e0e0;">
-                            <div style="font-size: 16px; color: #333333;"><strong>รหัส OTP ยืนยัน</strong></div>
-                            <h1 style="color: #333333; margin: 0"><strong>${code_6_digit}</strong></h1>
-                            <div style="font-size: 16px; color: #333333;"><strong>ใช้สำหรับยืนยันตัวตน</strong></div>
-                        </div>
-                        <p style="font-size: 14px; color: #ffffff; text-align: center;">
-                            * เฉพาะคุณเท่านั้นที่สามารถเห็นอีเมล์ฉบับนี้<br>
-                            ** อีเมล์ฉบับนี้ถูกส่งด้วยระบบอัตโนมัติ กรุณาอย่าตอบกลับอีเมล์ฉบับนี้
+                        <p style="font-size: 12px; color: #333333; text-align: center;">
+                            COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
+                            DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
                         </p>
-                    </div>
-                    <p style="font-size: 12px; color: #333333; text-align: center;">
-                        COPYRIGHT © ${settings.mail_name} All RIGHT RESERVED<br>
-                        DEVOLOP BY <a href="https://github.com/newzydev">NEWZYDEV</a> POWERED BY <a href="https://mail.google.com/">GOOGLE MAIL</a>
-                    </p>
-                `,
-                priority: 'high'
-            };
-        
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            });
+                    `,
+                    priority: 'high'
+                };
+            
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                });
+            } else {
+                console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+            }
+    
+            res.redirect('/Login_Verify/' + user.member_id);
         } else {
-            console.log('ไม่พบที่อยู่อีเมล์ของผู้รับ');
+            res.redirect('/Account_Register_Activate/' + user.member_id);
         }
-
-        res.redirect('/Login_Verify/' + user.member_id);
 
     });
 };

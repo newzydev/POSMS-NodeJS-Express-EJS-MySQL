@@ -81,8 +81,6 @@ exports.postForgotAccountVerify = (req, res) => {
         
         // ส่งอีเมลยืนยันการกู้คืนบัญชี
         if (member_email) {
-            const now = new Date();
-            const Mail_Id = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
             
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
