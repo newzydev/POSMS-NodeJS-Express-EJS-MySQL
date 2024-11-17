@@ -19,7 +19,7 @@
   <a href="https://www.instagram.com/ss.newzy/" target="_blank">
     <img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
   </a>
-  <a href="https://www.twitch.tv/newzydev" target="_blank">
-    <img src="https://img.shields.io/badge/Twitch-9146FF?style=for-the-badge&logo=twitch&logoColor=white" alt="Twitch">
+  <a href="https://lin.ee/lunhi3e">
+    <img src="https://img.shields.io/badge/LINE%20Official-00C300?style=for-the-badge&logo=line&logoColor=white" alt="LINE Official">
   </a>
 </p>
